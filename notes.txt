@@ -1,0 +1,32 @@
+From Groovy2 Cookbook
+
+Put into groovysh
+class Author {	
+String name  
+String lastName
+}
+
+class Book {
+String title
+Author author
+Long year
+Long pages
+Long getAmazonSalesPosition() {
+new Random().nextInt(1) + 1
+}
+void attachReview(String review) { }
+}
+
+bmc = Book.metaClass
+bmc.properties.each { println "${it.name} ${it.value} " }
+
+http://www.javaworld.com/article/2074616/core-java/javaone-2012--a-walk-through-of-groovy-s-ast-transformations.html
+http://java.dzone.com/articles/groovy-goodness-use-builder
+http://groovy.codehaus.org/Local+AST+Transformations
+http://www.cholick.com/entry/show/276
+https://github.com/mcholick/gradle_ast_example
+http://www.gradle.org/docs/current/userguide/build_lifecycle.html
+http://www.gradle.org/docs/current/userguide/multi_project_builds.html
+http://java.dzone.com/articles/groovy-ast-transformations
+
+
