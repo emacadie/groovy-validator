@@ -8,7 +8,7 @@ import groovy.transform.ToString
 
 @ImmutableAnnotation
 @ToString
-class TrulyImmutable001 {
+final class TrulyImmutable001 {
 
     @StringAnnotation( minLength = 5, maxLength = 200 )
     String firstString

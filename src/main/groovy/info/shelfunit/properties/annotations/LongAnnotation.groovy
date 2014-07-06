@@ -15,7 +15,7 @@ import java.lang.annotation.RetentionPolicy
     @LongAnnotation( minValue = 10L )
     def secondLong
 </pre>
-<p>If the field is defined as "long" and it is given a value that is outside your constraints, then it will be set to 0. If the field is defined as "def" and it is given a value that is outside your constraints, then it will be set to null.</p>
+<p>If the field is defined as "long" and it is given a value in the first call to setX that is outside your constraints, then it will be set to 0. If the field is defined as "def" and it is given a value that is outside your constraints, then it will be set to null. If the field already has a valid value and it is sent an invalid one in a call to setX, the new, invalid value will be ignored.</p>
 
 <p>An application, class or library that uses this annotation must also import {@link info.shelfunit.properties.annotations.AnnotationProcessor}.</p>
 <p></p>
@@ -28,9 +28,9 @@ public @interface LongAnnotation {
     */
   public long minValue() default 0L
     /**
-  The highest value you want this field to hold. The default is 9,223,372,036,854,775,807, which is the same as Long.MAX_VALUE
+  The highest value you want this field to hold. The default is 9,223,372,036,854,775,807, which is the same as Long.MAX_VALUE.
   */
-  public long maxValue() default 9223372036854775807L //  
+  public long maxValue() default 9223372036854775807L
 }
 
 

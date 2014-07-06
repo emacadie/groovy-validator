@@ -11,6 +11,7 @@ class TrulyImmutable001Test extends Specification {
     def cleanup() {}     // run after every feature method
     def setupSpec() {
         ImmutableAnnotationProcessor.process( TrulyImmutable001.class ) 
+        ImmutableAnnotationProcessor.processGetProp( TrulyImmutable001.class )
     }   // run before the first feature method
     def cleanupSpec() {} // run after the last feature method
     

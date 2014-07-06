@@ -15,6 +15,9 @@ import org.codehaus.groovy.runtime.NullObject
 
 <p>This is pretty simple and a bit limited, but that is the intent. I want to add some easy validation to Groovy Beans. As far as I know, nobody has really done this for Groovy. There is project on Sourceforge called <a href="http://oval.sourceforge.net/">OVal</a>. That does a LOT of stuff, far beyond this project. It has <a href="http://oval.sourceforge.net/dependencies.html">22 dependencies</a>, 3 of them for logging alone. There is also <a href="http://hibernate.org/validator/">Hibernate Validator</a>. It implements some JSR, but when I read the documentation, it said I had to add two or three other JSRs. If that is what you need, go for it. Those are Java projects. This is for Groovy beans. The goal is to keep this as clean and simple as possible.</p>
 
+<p>
+I have not been able to get my regular annotation processor to work with immutable objects, so I have made another processor. You still have to make the class final. Do not make the fields final, since this annotation processor uses setters in the constructor. It ignores setters outside of the constructor. The constructor must be a Map constructor.
+</p>
 */
 class ImmutableAnnotationProcessor {
     
@@ -88,7 +91,6 @@ class ImmutableAnnotationProcessor {
                     def metaMethod = theClass.metaClass.getMetaMethod( "${'set' + entry.key.capitalize()}",  entry.value )
                     if ( ( entry.value.length() >= stringAnnotation.minLength() ) &&
                         ( entry.value.length() <= stringAnnotation.maxLength() ) ) {
-                            def qq = entry.value + entry.value
                             theClass.metaClass.getMetaProperty( entry.key ).setProperty( instance, entry.value )
                             println "calling invoke for the String method"
                     } else {
@@ -132,7 +134,38 @@ class ImmutableAnnotationProcessor {
             println " In set property for ${theClass.getName()} for property ${name} with arg ${arg},  and delegate is a ${delegate.class.name}"
             println "totally skipping it"
         }
+        
+        
     } // end process - line 44
+    
+    static processGetProp( Class theClass ) {
+        theClass.metaClass.getProperty = { String name ->
+            def field = theClass.getDeclaredField( name )
+            def intAnnotation    = field?.getAnnotation( IntAnnotation.class )
+            def stringAnnotation = field?.getAnnotation( StringAnnotation.class )
+            def doubleAnnotation = field?.getAnnotation( DoubleAnnotation.class )
+            def floatAnnotation  = field?.getAnnotation( FloatAnnotation.class )
+            def longAnnotation   = field?.getAnnotation( LongAnnotation.class )
+            
+            def metaProperty = theClass.metaClass.getMetaProperty( name )
+            def result = metaProperty.getProperty( delegate )
+            println "Here is metaProperty.getName: ${metaProperty.getName()}"
+            println "Here is result for prop ${name} in the getProperty block: ${result}"
+            if ( intAnnotation ) {
+                new Integer( result )
+            } else if ( stringAnnotation ) {
+                new String( result )
+            } else if ( doubleAnnotation ) {
+                return new Double( result )
+            } else if ( floatAnnotation ) {
+                return new Float( result )
+            } else if ( longAnnotation ) {
+                return new Long( result ) 
+            } else {
+                return result
+            }
+        }
+    }
     
 } // end class AnnotationProcessor - line 128, 295
 
