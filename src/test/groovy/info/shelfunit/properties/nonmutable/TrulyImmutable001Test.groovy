@@ -20,6 +20,7 @@ class TrulyImmutable001Test extends Specification {
     
     // for some reason the first time you call a class it does not actually process the annotations
     // comment out the lines for the "junk" object and compare
+    /*
     def "test the no arg constructor"() {
         println "\n\n--- Starting test ${name.methodName}"
         // println "About to make junk"
@@ -41,8 +42,9 @@ class TrulyImmutable001Test extends Specification {
         bTest1.secondInt == 200
         
     } // end "test the no arg constructor"
+    */
     
-    
+    /*
     def "test bTest2"() {
         println "\n\n--- Starting test ${name.methodName}"
         def bTest2 = new TrulyImmutable001( firstString: "Hello2", secondString: "Goodbye, this is more than 20 characters", firstInt: 22, secondInt: 20 )
@@ -50,7 +52,8 @@ class TrulyImmutable001Test extends Specification {
         expect:
         bTest2.firstString == "Hello2"
     } // end "test bTest2"
-    
+    */
+    /*
     def "test the no arg constructor again"() {
         println "\n\n--- Starting test ${name.methodName}"
         /*
@@ -62,7 +65,7 @@ class TrulyImmutable001Test extends Specification {
         methods.each {
             println "MetaMethod: ${it.toString()}"
         }
-        */
+        * /
         
         def bTest1 = new TrulyImmutable001( firstString: "Hello3", secondString: "Goodbye", secondInt: 401, firstInt: 21  )
         println "In test ${name.methodName}, bTest1: ${bTest1.toString()}"
@@ -74,7 +77,7 @@ class TrulyImmutable001Test extends Specification {
         bTest1.secondInt == null
         
     } // end "test the no arg constructor again"
-
+    */
 } // FirstImmutableSample 
 
 

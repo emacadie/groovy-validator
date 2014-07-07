@@ -59,5 +59,7 @@ or the with statement:
 These are from http://beta.groovy-lang.org/docs/groovy-2.3.0/html/gapi/index.html?groovy/transform/builder/package-summary.html
 Also look at
 http://mrhaki.blogspot.com/2014/05/groovy-goodness-use-builder-ast.html
+http://blog.jdriven.com/2014/05/groovy-goodness-builder-definition-extra-type-checks/
+https://gist.github.com/dmahapatro/5e35e59cad2736a6723f
 
 
