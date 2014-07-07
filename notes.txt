@@ -28,5 +28,36 @@ https://github.com/mcholick/gradle_ast_example
 http://www.gradle.org/docs/current/userguide/build_lifecycle.html
 http://www.gradle.org/docs/current/userguide/multi_project_builds.html
 http://java.dzone.com/articles/groovy-ast-transformations
+https://github.com/groovy/groovy-core/blob/master/src/main/org/codehaus/groovy/transform/ImmutableASTTransformation.java
+
+I think the fields have annotations, not properties
+http://beta.groovy-lang.org/docs/latest/html/gapi/org/codehaus/groovy/ast/FieldNode.html
+https://github.com/groovy/groovy-core/blob/master/src/test/org/codehaus/groovy/ast/builder/AstBuilderFromStringTest.groovy
+
+
+From console:
+    public info.shelfunit.properties.sample.immutable.ImmutableObject002(java.util.Map args, boolean validation) {
+        this (info.shelfunit.properties.sample.immutable.ImmutableObject002.createValidatingConstructor(args, validation))
+    }
+    
+    public java.lang.Object createValidatingConstructor(java.util.Map args, boolean validation) {
+a
+
+Try testing with this stuff:
+Note that Groovy provides other built-in mechanisms for easy creation of objects, e.g. the named-args constructor:
+
+ new Person(firstName: "Robert", lastName: "Lewandowski", age: 21)
+ 
+
+or the with statement:
+
+ new Person().with {
+     firstName = "Robert"
+     lastName = "Lewandowski"
+     age = 21
+ }
+These are from http://beta.groovy-lang.org/docs/groovy-2.3.0/html/gapi/index.html?groovy/transform/builder/package-summary.html
+Also look at
+http://mrhaki.blogspot.com/2014/05/groovy-goodness-use-builder-ast.html
 
 

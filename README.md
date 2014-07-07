@@ -21,4 +21,6 @@ This works with the setters. I cannot get it to work with map-based constructors
 gradle -Dtest.single=FirstImmutableSampleTest test -info   
 gradle -Dtest.single=SecondImmutableSampleTest test -info  
 gradle -Dtest.single=BookTest test -info    
+gradle -Dtest.single=ImmutableObject001Test test -info    
+gradle -Dtest.single=ImmutableObject002Test test -info    
 
