@@ -24,8 +24,10 @@ class WithTest001 extends Specification {
             firstName = "Robert"
             lastName = "Lewandowski"
             age = 21
+            it
         }
-        println "Here is message: ${message.toString()}"
+        println "person is a ${person.class.name}"
+        println "Here is person: ${person.toString()}"
         expect:
         person.firstName == "Robert"
         person.lastName == "Lewandowski"
@@ -39,12 +41,14 @@ class WithTest001 extends Specification {
             firstName = "Robert"
             lastName = "LewandowskiLewandowski"
             age = 212
+            it // got to have "it" here to return object
         }
-        println "Here is message: ${message.toString()}"
+        println "person is a ${person.class.name}"
+        println "Here is person: ${person.toString()}"
         expect:
         person.firstName == "Robert"
         person.lastName == null
-        person.age == 0
+        person.age == null
     } // first Test
  
     

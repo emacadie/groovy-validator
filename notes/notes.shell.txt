@@ -1,0 +1,40 @@
+gradle distZip
+cd build/distributions/
+unzip groovy-validator.zip 
+cd groovy-validator/
+bin/groovy-validator_shell.sh
+
+import info.shelfunit.properties.annotations.*
+
+package info.shelfunit.properties.sample.other
+
+import groovy.transform.ToString
+import groovy.transform.Immutable
+
+@ToString( includeNames = true )
+@Immutable
+class CreditCard {
+    String cardNumber
+    int creditLimit
+}
+
+cc1 = new CreditCard( cardNumber: "4000-1111-2222-3333", creditLimit: 1000 )
+cc1.toString()
+
+
+import groovy.transform.ToString
+import info.shelfunit.properties.annotations.IntAnnotation
+import info.shelfunit.properties.annotations.StringAnnotation
+
+@ToString( includeNames = true )
+class Person {
+    @StringAnnotation( minLength = 5, maxLength = 20 )
+    String firstName
+    @StringAnnotation( minLength = 5, maxLength = 20 )
+    String lastName
+    @IntAnnotation( minValue = 0, maxLength = 100 )
+    def age
+}
+info.shelfunit.properties.annotations.AnnotationProcessor.process( Person ) 
+
+
