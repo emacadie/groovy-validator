@@ -37,9 +37,9 @@ class AnnotationProcessor {
     @param theClass The class to be transformed and validated
     */
     static process( Class theClass ) {
-        println "Just got called for class ${theClass.getName()}"
+        // println "Just got called for class ${theClass.getName()}"
         theClass.metaClass.setProperty = { String name, arg ->
-            println " In set property for ${theClass.getName()} for property ${name} with arg ${arg}"
+            // println " In set property for ${theClass.getName()} for property ${name} with arg ${arg}"
             def field = theClass.getDeclaredField( name )
             def intAnnotation    = field?.getAnnotation( IntAnnotation.class )
             def stringAnnotation = field?.getAnnotation( StringAnnotation.class )
@@ -48,7 +48,7 @@ class AnnotationProcessor {
             def longAnnotation   = field?.getAnnotation( LongAnnotation.class )
             
             if ( intAnnotation ) {
-                println "Here is arg for int: ${arg}"
+                // println "Here is arg for int: ${arg}"
                 if ( ( arg instanceof Integer ) && 
                     ( arg >= intAnnotation.minValue() ) &&
                     ( arg <= intAnnotation.maxValue() ) &&
@@ -57,7 +57,7 @@ class AnnotationProcessor {
                     theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg )
                 }
             } else if ( stringAnnotation ) {
-                println "Here is arg for string: ${arg}, and delegate is a ${delegate.class.name}"
+                // println "Here is arg for string: ${arg}, and delegate is a ${delegate.class.name}"
                 if ( ( arg.length() >= stringAnnotation.minLength() ) &&
                     ( arg.length() <= stringAnnotation.maxLength() ) ) {
                     theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg.toString() )

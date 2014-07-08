@@ -7,8 +7,9 @@ import info.shelfunit.properties.annotations.IntAnnotation
 import info.shelfunit.properties.annotations.LongAnnotation
 import info.shelfunit.properties.annotations.StringAnnotation
 import groovy.transform.Immutable
+import groovy.transform.ToString
 
-
+@ToString( includeNames = true )
 @Immutable
 @AstImmutableConstructor
 class ImmutableObject002 {

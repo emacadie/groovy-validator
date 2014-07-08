@@ -4,6 +4,8 @@ unzip groovy-validator.zip
 cd groovy-validator/
 bin/groovy-validator_shell.sh
 
+To use the AstImmutableConstructor annotation in shell or console, comment out line in the multi-line string for the package
+
 import info.shelfunit.properties.annotations.*
 
 package info.shelfunit.properties.sample.other
@@ -20,7 +22,8 @@ class CreditCard {
 
 cc1 = new CreditCard( cardNumber: "4000-1111-2222-3333", creditLimit: 1000 )
 cc1.toString()
-
+cc1.creditLimit = 5000
+cc1.toString()
 
 import groovy.transform.ToString
 import info.shelfunit.properties.annotations.IntAnnotation
@@ -28,13 +31,41 @@ import info.shelfunit.properties.annotations.StringAnnotation
 
 @ToString( includeNames = true )
 class Person {
-    @StringAnnotation( minLength = 5, maxLength = 20 )
-    String firstName
-    @StringAnnotation( minLength = 5, maxLength = 20 )
-    String lastName
-    @IntAnnotation( minValue = 0, maxLength = 100 )
-    def age
+    @StringAnnotation( minLength = 5, maxLength = 20 ) String firstName
+    @StringAnnotation( minLength = 5, maxLength = 20 ) String lastName
+    @IntAnnotation( minValue = 0, maxValue = 100 ) def age
 }
+
 info.shelfunit.properties.annotations.AnnotationProcessor.process( Person ) 
 
+person = new Person( firstName: 'John', lastName: 'Doe', age: 21 )
+person.toString()
+
+person2 = new Person( firstName: 'John', lastName: 'qwertyuiopasdfghjklzxcvbnm', age: 2331 )
+person2.toString()
+
+----------------------------------------------------
+import info.shelfunit.properties.annotations.AstImmutableConstructor
+import info.shelfunit.properties.annotations.DoubleAnnotation
+import info.shelfunit.properties.annotations.FloatAnnotation
+import info.shelfunit.properties.annotations.IntAnnotation
+import info.shelfunit.properties.annotations.LongAnnotation
+import info.shelfunit.properties.annotations.StringAnnotation
+import groovy.transform.Immutable
+
+
+@Immutable
+@AstImmutableConstructor
+class ImmutableObject002 {
+    @StringAnnotation( minLength = 5, maxLength = 10 ) String firstString
+    @StringAnnotation( maxLength = 15 ) String secondString
+    @DoubleAnnotation( minValue = 10d, maxValue = 100d ) double firstDouble
+    @FloatAnnotation( minValue = 10f, maxValue = 100f ) float firstFloat
+    @IntAnnotation( minValue = 10, maxValue = 100 ) int firstInt
+    @LongAnnotation( maxValue = 100L ) long firstLong
+}
+bTest1 = new ImmutableObject002( firstString: "Hello1", firstInt: 200 )
+println " bTest1: ${bTest1.toString()}"
+bTest2 = new ImmutableObject002( [ firstString: "Hello1", firstInt: 200 ], true )
+println " bTest2: ${bTest2.toString()}"
 

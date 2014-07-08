@@ -18,7 +18,7 @@ class ImmutableObject002Test extends Specification {
     TestName name = new TestName()
     
     def "test the no arg constructor"() {
-        println "--- Starting test ${name.methodName}"
+        println "\n--- Starting test ${name.methodName}"
         given:
         def throwaway = new ImmutableObject002( firstString: "Not Junk", firstInt: 21 )
         // throwaway.firstString = "Not Junk"
@@ -33,7 +33,7 @@ class ImmutableObject002Test extends Specification {
     } // end "test the no arg constructor"
     
     def "test try to change something"() {
-        println "--- Starting test ${name.methodName}"
+        println "\n--- Starting test ${name.methodName}"
         
         def throwaway = new ImmutableObject002( firstString: "Not Junk", firstInt: 21 )
         // throwaway.firstString = "Not Junk"
@@ -54,7 +54,7 @@ class ImmutableObject002Test extends Specification {
     
     
     def "test below the ranges without boolean"() {
-        println "--- Starting test ${name.methodName}"
+        println "\n--- Starting test ${name.methodName}"
         
         def bTest1 = new ImmutableObject002( firstString: "HH", secondString: "No min length", firstDouble: 5d, firstFloat: 5f, firstInt: 5, firstLong: 5L )
         println "In test ${name.methodName}, bTest1: ${bTest1.toString()}"
@@ -66,7 +66,7 @@ class ImmutableObject002Test extends Specification {
     } // end "test below the ranges without boolean"
     
     def "test below the ranges with boolean"() {
-        println "--- Starting test ${name.methodName}"
+        println "\n--- Starting test ${name.methodName}"
         boolean valid = true
         
         def bTest1 = new ImmutableObject002( [ firstString: "HH", secondString: "No min length", firstDouble: 5d, firstFloat: 5f, firstInt: 5, firstLong: 5L ], true )
@@ -83,7 +83,7 @@ class ImmutableObject002Test extends Specification {
     } // end "test below the ranges with boolean"
     
     def "test within the ranges with boolean"() {
-        println "--- Starting test ${name.methodName}"
+        println "\n--- Starting test ${name.methodName}"
         boolean valid = true
         
         def bTest1 = new ImmutableObject002( [ firstString: "Hello You", secondString: "No min length", firstDouble: 50d, firstFloat: 50f, firstInt: 50, firstLong: 50L ], true )
@@ -99,8 +99,25 @@ class ImmutableObject002Test extends Specification {
         
     } // end "test within the ranges with boolean"
     
+    def "test some fields within the ranges with boolean"() {
+        println "\n--- Starting test ${name.methodName}"
+        boolean valid = true
+        
+        def bTest1 = new ImmutableObject002( [ firstString: "Hello You",firstFloat: 50f, firstInt: 50, firstLong: 50L ], true )
+        println "In test ${name.methodName}, bTest1: ${bTest1.toString()}"
+        
+        expect:
+        bTest1.firstString == "Hello You"
+        bTest1.secondString == null
+        bTest1.firstInt == 50
+        bTest1.firstDouble == 0
+        bTest1.firstFloat == 50f
+        bTest1.firstLong == 50L
+        
+    } // end "test some fields within the ranges with boolean"
+    
     def "test beyond the ranges with boolean"() {
-        println "--- Starting test ${name.methodName}"
+        println "\n--- Starting test ${name.methodName}"
         boolean valid = true
         
         def bTest1 = new ImmutableObject002( [ firstString: "e" * 11, secondString: "N" * 16, firstDouble: 101d, firstFloat: 101f, firstInt: 101, firstLong: 101L ], true )

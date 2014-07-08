@@ -16,7 +16,9 @@ http://oval.sourceforge.net/
 
 This is intended to be pretty small    
 
-This works with the setters. I cannot get it to work with map-based constructors.
+This works with the setters. I cannot get it to work with map-based constructors.  
+
+groovysh does not like the annotations, so I must use the Groovy console (which I don't really like)
 
 gradle -Dtest.single=FirstImmutableSampleTest test -info   
 gradle -Dtest.single=SecondImmutableSampleTest test -info  

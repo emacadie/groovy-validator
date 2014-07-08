@@ -66,9 +66,11 @@ class AstImmutableConstructorTransform implements ASTTransformation {
         
         def minimum
         def maximum
+        def packageString = annotatedClass.getPackageName()? "package  ${annotatedClass.getPackageName()}" : " "
         def theString = 
         """
-        package  ${annotatedClass.getPackageName()}
+        // package  ${annotatedClass.getPackageName()}
+        ${packageString}
         class ${annotatedClass.getNameWithoutPackage()} {
             public ${annotatedClass.getNameWithoutPackage()} ( java.util.LinkedHashMap argMap, boolean validation ) {
                 
@@ -138,18 +140,23 @@ class AstImmutableConstructorTransform implements ASTTransformation {
             def annotationNode = fieldNode.getAnnotations()[ 0 ]
             switch ( fieldTypeName ) {
                 case 'java.lang.String':
-                    println "Looking at ${fieldNode.getName()}"
+                    // println "Looking at ${fieldNode.getName()}"
                     sb1 << "val = argMap[ '${fieldNode.getName()}' ]"
-                    println "Here is annotationNode.getMember( 'minLength' ): ${annotationNode.getMember( 'minLength' )}"
+                    // println "About to look at min"
+                    // println "Here is annotationNode.getMember( 'minLength' ): ${annotationNode.getMember( 'minLength' )}"
                     minimum = annotationNode.getMember( 'minLength' ) ? annotationNode.getMember( 'minLength' ).getValue() : 0
+                    // println "Got min: ${minimum}"
                     maximum = annotationNode.getMember( 'maxLength' ) ? annotationNode.getMember( 'maxLength' ).getValue() :  Integer.MAX_VALUE
+                    // println "Got max: ${maximum}"
                     sb1 << """
-                    if ( ${minimum} <= val.length() && val.length() <= ${maximum} ) {
+                    if ( ${minimum} <= val?.length() && val?.length() <= ${maximum} ) {
                         newMap[ '${fieldNode.getName()}' ] = val
                     } 
                     """
+                    // println "Done with string"
                 break
                 case [ 'double', 'java.lang.Double' ]:
+                    // println "Looking at ${fieldNode.getName()}"
                     sb1 << "val = argMap[ '${fieldNode.getName()}' ]"
                     minimum = annotationNode.getMember( 'minValue' ) ? annotationNode.getMember( 'minValue' ).getValue() : 0
                     maximum = annotationNode.getMember( 'maxValue' ) ? annotationNode.getMember( 'maxValue' ).getValue() :  Double.MAX_VALUE
@@ -160,6 +167,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                     """
                 break
                 case [ 'float', 'java.lang.Float' ]:
+                    // println "Looking at ${fieldNode.getName()}"
                     sb1 << "val = argMap[ '${fieldNode.getName()}' ]"
                     minimum = annotationNode.getMember( 'minValue' ) ? annotationNode.getMember( 'minValue' ).getValue() : 0
                     maximum = annotationNode.getMember( 'maxValue' ) ? annotationNode.getMember( 'maxValue' ).getValue() :  Float.MAX_VALUE
@@ -170,6 +178,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                     """
                 break
                 case [ 'int', 'java.lang.Integer' ]:
+                    // println "Looking at ${fieldNode.getName()}"
                     sb1 << "val = argMap[ '${fieldNode.getName()}' ]"
                     minimum = annotationNode.getMember( 'minValue' ) ? annotationNode.getMember( 'minValue' ).getValue() : 0
                     maximum = annotationNode.getMember( 'maxValue' ) ? annotationNode.getMember( 'maxValue' ).getValue() :  Integer.MAX_VALUE
@@ -180,6 +189,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                     """
                 break
                 case [ 'long', 'java.lang.Long' ]:
+                    // println "Looking at ${fieldNode.getName()}"
                     sb1 << "val = argMap[ '${fieldNode.getName()}' ]"
                     minimum = annotationNode.getMember( 'minValue' ) ? annotationNode.getMember( 'minValue' ).getValue() : 0
                     maximum = annotationNode.getMember( 'maxValue' ) ? annotationNode.getMember( 'maxValue' ).getValue() :  Long.MAX_VALUE
@@ -188,6 +198,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                         newMap[ '${fieldNode.getName()}' ] = val
                     } 
                     """
+                    // println "Done with at ${fieldNode.getName()}"
                 break
                 default:
                     sb1 << "newMap[ '${fieldNode.getName()}' ] = argMap[ '${fieldNode.getName()}' ]\n"
