@@ -24,4 +24,5 @@ gradle -Dtest.single=BookTest test -info
 gradle -Dtest.single=ImmutableObject001Test test -info    
 gradle -Dtest.single=ImmutableObject002Test test -info    
 gradle -Dtest.single=BuilderTest001 test -info    
+gradle -Dtest.single=WithTest001 test -info    
 

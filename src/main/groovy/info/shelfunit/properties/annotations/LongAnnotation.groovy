@@ -24,7 +24,7 @@ import java.lang.annotation.RetentionPolicy
 @Target( ElementType.FIELD )
 public @interface LongAnnotation {
         /**
-    The lowest value you want this field to hold. The default is 0.
+    The lowest value you want this field to hold. The default is 0. It could go as low as Long.MIN_VALUE.
     */
   public long minValue() default 0L
     /**

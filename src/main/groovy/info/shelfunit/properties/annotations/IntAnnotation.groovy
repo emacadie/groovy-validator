@@ -25,7 +25,7 @@ import java.lang.annotation.RetentionPolicy
 @Target( ElementType.FIELD )
 public @interface IntAnnotation {
     /**
-    The lowest value you want this field to hold. The default is 0.
+    The lowest value you want this field to hold. The default is 0. It could go as low as Integer.MIN_VALUE.
     */
   public int minValue() default 0
   /**

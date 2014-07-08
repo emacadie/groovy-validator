@@ -26,7 +26,7 @@ import java.lang.annotation.RetentionPolicy
 
 public @interface FloatAnnotation {
     /**
-    The lowest value you want this field to hold. The default is 0.0f.
+    The lowest value you want this field to hold. The default is 0.0f. It could go as low as Float.MIN_VALUE.
     */
   public float minValue() default 0.0f
   /**

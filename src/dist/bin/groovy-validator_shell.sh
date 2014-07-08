@@ -2,14 +2,14 @@
 
 ##############################################################################
 ##
-##  annotations start up script for UN*X
+##  groovy-validator start up script for UN*X
 ##
 ##############################################################################
 
-# Add default JVM options here. You can also use JAVA_OPTS and ANNOTATIONS_OPTS to pass JVM options to this script.
+# Add default JVM options here. You can also use JAVA_OPTS and GROOVY_VALIDATOR_OPTS to pass JVM options to this script.
 DEFAULT_JVM_OPTS=""
 
-APP_NAME="annotations"
+APP_NAME="groovy-validator"
 APP_BASE_NAME=`basename "$0"`
 
 # Use the maximum available, or set MAX_FD != -1 to use that value.
@@ -65,7 +65,7 @@ cd "`dirname \"$PRG\"`/.." >&-
 APP_HOME="`pwd -P`"
 cd "$SAVED" >&-
 
-CLASSPATH=$APP_HOME/lib/annotations.jar:$APP_HOME/lib/slf4j-api-1.7.7.jar:$APP_HOME/lib/log4j-1.2.17.jar:$APP_HOME/lib/groovy-all-2.1.0.jar:$APP_HOME/lib/validation-api-1.1.0.Final.jar
+CLASSPATH=$APP_HOME/lib/groovy-validator.jar:$APP_HOME/lib/slf4j-api-1.7.7.jar:$APP_HOME/lib/log4j-1.2.17.jar
 
 # Determine the Java command to use to start the JVM.
 if [ -n "$JAVA_HOME" ] ; then
@@ -154,11 +154,11 @@ if $cygwin ; then
     esac
 fi
 
-# Split up the JVM_OPTS And ANNOTATIONS_OPTS values into an array, following the shell quoting and substitution rules
+# Split up the JVM_OPTS And GROOVY_VALIDATOR_OPTS values into an array, following the shell quoting and substitution rules
 function splitJvmOpts() {
     JVM_OPTS=("$@")
 }
-eval splitJvmOpts $DEFAULT_JVM_OPTS $JAVA_OPTS $ANNOTATIONS_OPTS
+eval splitJvmOpts $DEFAULT_JVM_OPTS $JAVA_OPTS $GROOVY_VALIDATOR_OPTS
 
+exec groovysh "${JVM_OPTS[@]}" -classpath "$CLASSPATH"
 
-exec "$JAVACMD" "${JVM_OPTS[@]}" -classpath "$CLASSPATH" info.shelfunit.properties.sample.SampleRunner "$@"

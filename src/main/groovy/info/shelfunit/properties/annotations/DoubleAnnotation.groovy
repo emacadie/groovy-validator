@@ -25,7 +25,7 @@ import java.lang.annotation.RetentionPolicy
 
 public @interface DoubleAnnotation {
     /**
-    The lowest value you want this field to hold. The default is 0.0d.
+    The lowest value you want this field to hold. The default is 0.0d. It could go as low as Double.MIN_VALUE.
     */
   public double minValue() default 0.0d
     /**

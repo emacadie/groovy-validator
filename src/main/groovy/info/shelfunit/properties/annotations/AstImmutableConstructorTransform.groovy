@@ -121,9 +121,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
             println "Some exception occured"
             e.printStackTrace()
         }
-        // processFields( fields2 )
-        // MethodNode newMethod = makeMethod(annotatedClass)
-        // annotatedClass.addMethod(newMethod)
+        
     } // end method visit
     
     /** This method uses string interpolation to create a new HashMap constructor. Go through the fields. If it has a validation annotation, examine it. If it meets the validation requirements, pass it to a new 
@@ -192,7 +190,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                     """
                 break
                 default:
-                    sb1 << "newMap[ ${fieldNode.getName()} ] = argMap[ ${fieldNode.getName()} ]\n"
+                    sb1 << "newMap[ '${fieldNode.getName()}' ] = argMap[ '${fieldNode.getName()}' ]\n"
             }
             /*
             println "--- name of field: ${fieldNode.getName()}"
