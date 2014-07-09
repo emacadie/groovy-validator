@@ -54,7 +54,10 @@ class AnnotationProcessor {
                     ( arg <= intAnnotation.maxValue() ) &&
                     ( arg >= Integer.MIN_VALUE ) &&
                     ( arg <= Integer.MAX_VALUE ) ) {
+                        try {
+                            println "Modifying ${name}"
                     theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg )
+                        } catch ( Exception e ) { println "Perhaps you tried to modify a final field?" }
                 }
             } else if ( stringAnnotation ) {
                 // println "Here is arg for string: ${arg}, and delegate is a ${delegate.class.name}"

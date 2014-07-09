@@ -140,7 +140,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
             def annotationNode = fieldNode.getAnnotations()[ 0 ]
             switch ( fieldTypeName ) {
                 case 'java.lang.String':
-                    // println "Looking at ${fieldNode.getName()}"
+                    println "Looking at ${fieldNode.getName()}"
                     sb1 << "val = argMap[ '${fieldNode.getName()}' ]"
                     // println "About to look at min"
                     // println "Here is annotationNode.getMember( 'minLength' ): ${annotationNode.getMember( 'minLength' )}"
