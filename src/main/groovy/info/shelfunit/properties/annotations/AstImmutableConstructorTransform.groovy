@@ -8,10 +8,10 @@ import org.codehaus.groovy.ast.ConstructorNode
 import org.codehaus.groovy.ast.FieldNode
 
 import org.codehaus.groovy.ast.builder.AstBuilder
-// import org.codehaus.groovy.control.*
 import org.codehaus.groovy.control.CompilePhase
 import org.codehaus.groovy.control.SourceUnit
-import org.codehaus.groovy.transform.*
+import org.codehaus.groovy.transform.ASTTransformation
+import org.codehaus.groovy.transform.GroovyASTTransformation 
 
 @GroovyASTTransformation( phase = CompilePhase.INSTRUCTION_SELECTION )
 class AstImmutableConstructorTransform implements ASTTransformation {
@@ -20,45 +20,45 @@ class AstImmutableConstructorTransform implements ASTTransformation {
     'double', 'float', 'int', 'long' ]
     
     void visit( ASTNode[] astNodes, SourceUnit sourceUnit ) {
-        println "In AstImmutableConstructorTransform.visit"
-        println "Size of astNodes: ${astNodes.size()}"
-        println "what is astNodes[ 0 ]?: ${astNodes[ 0 ].class.name}"
-        println "what is astNodes[ 1 ]?: ${astNodes[ 1 ].class.name}"
+        // println "In AstImmutableConstructorTransform.visit"
+        // println "Size of astNodes: ${astNodes.size()}"
+        // println "what is astNodes[ 0 ]?: ${astNodes[ 0 ].class.name}"
+        // println "what is astNodes[ 1 ]?: ${astNodes[ 1 ].class.name}"
         
         if ( !astNodes ) return
         if ( !astNodes[ 0 ] ) return
         if ( !astNodes[ 1 ] ) return
 
         ClassNode annotatedClass = astNodes[ 1 ] // ( ClassNode ) astNodes[ 1 ]
-        println "Working with annotatedClass ${annotatedClass.getName()}"
+        // println "Working with annotatedClass ${annotatedClass.getName()}"
         def constructors001 = annotatedClass.getDeclaredConstructors()
         constructors001.each { theCon ->
-            println "the constructor: name: ${theCon.getName()} text: ${theCon.getText()}"
+            // println "the constructor: name: ${theCon.getName()} text: ${theCon.getText()}"
         }
         
         def fields = annotatedClass.getFields()
-        // fields.each { fieldNode ->
         def fields2 = annotatedClass.getFields().findAll{ 
-            ( ( knownTypes.contains( it.getType().getName() ) ) && ( !it.getName().contains( '$hash$code' ) ) ) 
+            ( ( knownTypes.contains( it.getType().getName() ) ) && 
+            ( !it.getName().contains( '$hash$code' ) ) ) 
         } 
         fields2.each { fieldNode ->
-            println "--- name of field: ${fieldNode.getName()}"
-            println "It is a ${fieldNode.getType().getName()}" // getType() returns a ClassNode
+            // println "--- name of field: ${fieldNode.getName()}"
+            // println "It is a ${fieldNode.getType().getName()}" // getType() returns a ClassNode
             /*
             if ( ( knownTypes.contains( fieldNode.getType().getName() ) ) && ( !fieldNode.getName().contains( '$hash$code' ) ) ) {
                 println " Can I get an amen from somebody??"
             }
             */
             def annotations = fieldNode.getAnnotations()
-            println "size of annotations for ${fieldNode.getName()}: ${annotations.size()}"
+            // println "size of annotations for ${fieldNode.getName()}: ${annotations.size()}"
             annotations.each { annotationNode ->
-                println "annotationNode is a ${annotationNode.class.name} of type ${annotationNode.getClassNode().getName()}"
+                // println "annotationNode is a ${annotationNode.class.name} of type ${annotationNode.getClassNode().getName()}"
                 def members = annotationNode.getMembers()
                 members.each { k, v ->
-                    println "In members, here is key: ${k}, here is value: ${v.toString()}, here is the value of the value: ${v.getValue()} and it is a ${v.getValue().class.name}"
+                    // println "In members, here is key: ${k}, here is value: ${v.toString()}, here is the value of the value: ${v.getValue()} and it is a ${v.getValue().class.name}"
                 }
                 if ( annotationNode.getClassNode().getName() == "info.shelfunit.properties.annotations.StringAnnotation" ) {
-                    println "It's a StringAnnotation"
+                    // println "It's a StringAnnotation"
                     // println "Here is minLength: ${annotationNode.getMember( 'minLength' )}, here is the value: ${annotationNode.getMember(  'minLength' ).getValue()}"
                 }
             } // annotations.each
@@ -69,7 +69,6 @@ class AstImmutableConstructorTransform implements ASTTransformation {
         def packageString = annotatedClass.getPackageName()? "package  ${annotatedClass.getPackageName()}" : " "
         def theString = 
         """
-        // package  ${annotatedClass.getPackageName()}
         ${packageString}
         class ${annotatedClass.getNameWithoutPackage()} {
             public ${annotatedClass.getNameWithoutPackage()} ( java.util.LinkedHashMap argMap, boolean validation ) {
@@ -96,29 +95,29 @@ class AstImmutableConstructorTransform implements ASTTransformation {
         // println "Here is theString: ${theString}"
         try {
             def ast = new AstBuilder().buildFromString( CompilePhase.INSTRUCTION_SELECTION, false, theString )
-            println "Size of ast: ${ast.size()}"
+            // println "Size of ast: ${ast.size()}"
             ast.each { astNode ->
-                println "astNode is a ${astNode.class.name}"
+                // println "astNode is a ${astNode.class.name}"
             }
             // look at block statement
-            println "ast[ 0 ].getText(): ${ast[ 0 ].getText()}"
-            println "class node name: ${ast[ 1 ].getName()}"
+            // println "ast[ 0 ].getText(): ${ast[ 0 ].getText()}"
+            // println "class node name: ${ast[ 1 ].getName()}"
             // look at the class Node
             def someClassNode = ast[ 1 ]
             def constructors = someClassNode.getDeclaredConstructors()
             constructors.each { theCon ->
-                println "the constructor: name: ${theCon.getName()} text: ${theCon.getText()}"
+                // println "the constructor: name: ${theCon.getName()} text: ${theCon.getText()}"
                 annotatedClass.addConstructor( theCon )
             }
-            println "Methods of the class"
+            // println "Methods of the class"
             def methods = ast[ 1 ].methods
             methods.each { theMethod ->
-                println "Method name: ${theMethod.name}"
+                // println "Method name: ${theMethod.name}"
             }
             annotatedClass.addMethod( methods.find { it.name == 'createValidatingConstructor' } )
             def ourMethod = methods.find { it.name == 'createValidatingConstructor' }
             ourMethod.getParameters().each { param ->
-                println "our first param is a ${param.getType().getName()}"
+                // println "our first param is a ${param.getType().getName()}"
             }
         } catch ( Exception e ) {
             println "Some exception occured"
@@ -141,7 +140,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
             def annotationNode = fieldNode.getAnnotations()[ 0 ]
             switch ( fieldTypeName ) {
                 case 'java.lang.String':
-                    println "Looking at ${fieldNode.getName()}"
+                    // println "Looking at ${fieldNode.getName()}"
                     sb1 << "val = argMap[ '${fieldNode.getName()}' ]"
                     // println "About to look at min"
                     // println "Here is annotationNode.getMember( 'minLength' ): ${annotationNode.getMember( 'minLength' )}"
@@ -221,7 +220,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
             def annotationNode = fieldNode.getAnnotations()[ 0 ]
             switch ( fieldTypeName ) {
                 case 'java.lang.String':
-                    println "Looking at ${fieldNode.getName()}"
+                    // println "Looking at ${fieldNode.getName()}"
                     sb1 << "val = argMap[ '${fieldNode.getName()}' ]"
                     minimum = annotationNode.getMember( 'minLength' ) ? annotationNode.getMember( 'minLength' ).getValue() : 0
                     maximum = annotationNode.getMember( 'maxLength' ) ? annotationNode.getMember( 'maxLength' ).getValue() :  Integer.MAX_VALUE
@@ -281,6 +280,4 @@ class AstImmutableConstructorTransform implements ASTTransformation {
     } // end createConstructor
     
 } // end class 
-
-
 
