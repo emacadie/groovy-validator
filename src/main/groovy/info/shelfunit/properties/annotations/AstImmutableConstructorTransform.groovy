@@ -74,8 +74,8 @@ class AstImmutableConstructorTransform implements ASTTransformation {
         class ${annotatedClass.getNameWithoutPackage()} {
             public ${annotatedClass.getNameWithoutPackage()} ( java.util.LinkedHashMap argMap, boolean validation ) {
                 
-                // this( createValidatingConstructor( argMap, validation ) )
-                ${createConstructor( fields2 )}
+                this( createValidatingConstructor( argMap, validation ) )
+                // createConstructor( fields2 ) could go here
             } // end constructor
             
             // was java.util.HashMap argMap, Boolean validation
@@ -91,6 +91,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
             }
         } // end class 
             """.toString()
+        
         // println "theString is a ${theString.class.name}"
         // println "Here is theString: ${theString}"
         try {
@@ -203,24 +204,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                 default:
                     sb1 << "newMap[ '${fieldNode.getName()}' ] = argMap[ '${fieldNode.getName()}' ]\n"
             }
-            /*
-            println "--- name of field: ${fieldNode.getName()}"
-            println "It is a ${fieldNode.getType().getName()}" // getType() returns a ClassNode
-
-            def annotations = fieldNode.getAnnotations()
-            println "size of annotations for ${fieldNode.getName()}: ${annotations.size()}"
-            annotations.each { annotationNode ->
-                println "annotationNode is a ${annotationNode.class.name} of type ${annotationNode.getClassNode().getName()}"
-                def members = annotationNode.getMembers()
-                members.each { k, v ->
-                    println "In members, here is key: ${k}, here is value: ${v.toString()}, here is the value of the value: ${v.getValue()} and it is a ${v.getValue().class.name}"
-                }
-                if ( annotationNode.getClassNode().getName() == "info.shelfunit.properties.annotations.StringAnnotation" ) {
-                    println "It's a StringAnnotation"
-                    println "Here is minLength: ${annotationNode.getMember("minLength")}"
-                }
-            } // annotations.each
-            */
+            
         } // fields2.each
         // println "here is sb1: ${sb1}"
         return sb1
