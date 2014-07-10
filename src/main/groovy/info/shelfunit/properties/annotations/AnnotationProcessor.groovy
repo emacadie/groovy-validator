@@ -34,6 +34,8 @@ class AnnotationProcessor {
     </pre>
     <p>That is fine, but there is one corner case: If you use a map-based constructor the first time you instantiate the class, then the annotations will not be run on that object. However, they will be run for subsequent objects.</p>
     
+    <p>There is no need to run the process method if you are annotating an immutable object with {@link info.shelfunit.properties.annotations.AstImmutableConstructor}.</p>
+    
     @param theClass The class to be transformed and validated
     */
     static process( Class theClass ) {
