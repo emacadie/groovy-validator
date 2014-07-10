@@ -26,7 +26,7 @@ class AnnotationProcessor {
     <pre>
     AnnotationProcessor.process( Book ) 
     </pre>
-    <p>You could make it a static method in the class itself, like this:</p>
+    <p>You could call it in a static method in the class itself, like this:</p>
     <pre>
     static { 
         AnnotationProcessor.process( Book.class ) 
