@@ -7,7 +7,7 @@ import groovy.transform.TupleConstructor
 
 @TupleConstructor
 @ToString( includeNames = true )
-// @AstImmutableConstructor
+@AstImmutableConstructor
 class Car {
     @IntAnnotation( minValue = 0 )
     int miles

@@ -74,8 +74,8 @@ class AstImmutableConstructorTransform implements ASTTransformation {
         class ${annotatedClass.getNameWithoutPackage()} {
             public ${annotatedClass.getNameWithoutPackage()} ( java.util.LinkedHashMap argMap, boolean validation ) {
                 
-                this( createValidatingConstructor( argMap, validation ) )
-                
+                // this( createValidatingConstructor( argMap, validation ) )
+                ${createConstructor( fields2 )}
             } // end constructor
             
             // was java.util.HashMap argMap, Boolean validation
@@ -151,7 +151,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                     sb1 << """
                     if ( ${minimum} <= val?.length() && val?.length() <= ${maximum} ) {
                         newMap[ '${fieldNode.getName()}' ] = val
-                    } 
+                    }
                     """
                     // println "Done with string"
                 break
@@ -163,7 +163,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                     sb1 << """
                     if ( ( ${minimum} <= val ) && ( val <= ${maximum} ) ) {
                         newMap[ '${fieldNode.getName()}' ] = val
-                    } 
+                    }
                     """
                 break
                 case [ 'float', 'java.lang.Float' ]:
@@ -226,6 +226,75 @@ class AstImmutableConstructorTransform implements ASTTransformation {
         return sb1
     } // end processFields
     
+    def createConstructor( fields2 ) {
+        def sb1= new StringBuffer()
+        def minimum
+        def maximum
+        def fieldTypeName
+        sb1 << "def val\n"
+        fields2.each { fieldNode ->
+            fieldTypeName = fieldNode.getType().getName()
+            def annotationNode = fieldNode.getAnnotations()[ 0 ]
+            switch ( fieldTypeName ) {
+                case 'java.lang.String':
+                    println "Looking at ${fieldNode.getName()}"
+                    sb1 << "val = argMap[ '${fieldNode.getName()}' ]"
+                    minimum = annotationNode.getMember( 'minLength' ) ? annotationNode.getMember( 'minLength' ).getValue() : 0
+                    maximum = annotationNode.getMember( 'maxLength' ) ? annotationNode.getMember( 'maxLength' ).getValue() :  Integer.MAX_VALUE
+                    sb1 << """
+                    if ( ${minimum} <= val?.length() && val?.length() <= ${maximum} ) {
+                        this.${fieldNode.getName()} = val
+                    } else { this.${fieldNode.getName()} = null }
+                    """
+                break
+                case [ 'double', 'java.lang.Double' ]:
+                    sb1 << "val = argMap[ '${fieldNode.getName()}' ]"
+                    minimum = annotationNode.getMember( 'minValue' ) ? annotationNode.getMember( 'minValue' ).getValue() : 0
+                    maximum = annotationNode.getMember( 'maxValue' ) ? annotationNode.getMember( 'maxValue' ).getValue() :  Double.MAX_VALUE
+                    sb1 << """
+                    if ( ( ${minimum} <= val ) && ( val <= ${maximum} ) ) {
+                        this.${fieldNode.getName()} = val
+                    } else { this.${fieldNode.getName()} = 0 }
+                    """
+                break
+                case [ 'float', 'java.lang.Float' ]:
+                    sb1 << "val = argMap[ '${fieldNode.getName()}' ]"
+                    minimum = annotationNode.getMember( 'minValue' ) ? annotationNode.getMember( 'minValue' ).getValue() : 0
+                    maximum = annotationNode.getMember( 'maxValue' ) ? annotationNode.getMember( 'maxValue' ).getValue() :  Float.MAX_VALUE
+                    sb1 << """
+                    if ( ( ${minimum} <= val ) && ( val <= ${maximum} ) ) {
+                        this.${fieldNode.getName()} = val
+                    } else { this.${fieldNode.getName()} = 0 } 
+                    """
+                break
+                case [ 'int', 'java.lang.Integer' ]:
+                    sb1 << "val = argMap[ '${fieldNode.getName()}' ]"
+                    minimum = annotationNode.getMember( 'minValue' ) ? annotationNode.getMember( 'minValue' ).getValue() : 0
+                    maximum = annotationNode.getMember( 'maxValue' ) ? annotationNode.getMember( 'maxValue' ).getValue() :  Integer.MAX_VALUE
+                    sb1 << """
+                    if ( ( ${minimum} <= val ) && ( val <= ${maximum} ) ) {
+                        this.${fieldNode.getName()} = val
+                    } else { this.${fieldNode.getName()} = 0 }
+                    """
+                break
+                case [ 'long', 'java.lang.Long' ]:
+                    sb1 << "val = argMap[ '${fieldNode.getName()}' ]"
+                    minimum = annotationNode.getMember( 'minValue' ) ? annotationNode.getMember( 'minValue' ).getValue() : 0
+                    maximum = annotationNode.getMember( 'maxValue' ) ? annotationNode.getMember( 'maxValue' ).getValue() :  Long.MAX_VALUE
+                    sb1 << """
+                    if ( ( ${minimum} <= val ) && ( val <= ${maximum} ) ) {
+                        this.${fieldNode.getName()} = val
+                    } else { this.${fieldNode.getName()} = 0 } 
+                    """
+                break
+                default:
+                    sb1 << "this.${fieldNode.getName()} = val"
+            }
+
+        } // fields2.each
+        // println "here is sb1: ${sb1}"
+        return sb1
+    } // end createConstructor
     
 } // end class 
 

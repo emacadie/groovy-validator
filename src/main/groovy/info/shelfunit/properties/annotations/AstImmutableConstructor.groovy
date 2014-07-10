@@ -45,7 +45,7 @@ class ImmutableObject002 {
 </pre>
 
 <p>
-You could set this with a Map like any other immutable object in Groovy, or with the fields:
+You could set this with a Map like any other immutable object in Groovy, or with the fields, but it will not trigger validation:
 </p>
 
 <pre>

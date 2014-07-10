@@ -1,13 +1,14 @@
 package info.shelfunit.properties.nonmutable
 
-import info.shelfunit.properties.annotations.ImmutableAnnotation
-
+import info.shelfunit.properties.annotations.AstImmutableConstructor
 import info.shelfunit.properties.annotations.IntAnnotation
 import info.shelfunit.properties.annotations.StringAnnotation
+import groovy.transform.Immutable
 import groovy.transform.ToString
 
-@ImmutableAnnotation
-@ToString
+@AstImmutableConstructor
+@Immutable
+@ToString( includeNames = true )
 final class TrulyImmutable001 {
 
     @StringAnnotation( minLength = 5, maxLength = 200 )
@@ -17,7 +18,7 @@ final class TrulyImmutable001 {
     @IntAnnotation( minValue = 30, maxValue = 400 )
     int firstInt
     @IntAnnotation( minValue = 30, maxValue = 400 )
-    def secondInt
+    int secondInt
    
 } // FirstImmutableSample 
 

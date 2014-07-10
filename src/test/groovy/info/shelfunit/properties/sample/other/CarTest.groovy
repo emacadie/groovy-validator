@@ -11,7 +11,7 @@ class CarTest extends Specification {
     def setup() {}       // run before every feature method
     def cleanup() {}     // run after every feature method
     def setupSpec() {
-        AnnotationProcessor.process( Car ) 
+        // AnnotationProcessor.process( Car ) 
     }   // run before the first feature method
     def cleanupSpec() {} // run after the last feature method
     
@@ -20,7 +20,7 @@ class CarTest extends Specification {
     /*
     def "first Test"() {
         println "--- Starting test ${name.methodName}"
-        def car = new Car( year = 2008 )
+        def car = new Car( year: 2008 )
         boolean exceptionThrown = false
         println "Here is car: ${car.toString()}, exceptionThrown: ${exceptionThrown}"
         
@@ -31,7 +31,7 @@ class CarTest extends Specification {
         }
         
         expect:
-        // exceptionThrown == true
+        exceptionThrown == true
         car.year == 2008
         car.miles == 0
         

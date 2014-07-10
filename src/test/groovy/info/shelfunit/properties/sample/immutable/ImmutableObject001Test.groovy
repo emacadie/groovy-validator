@@ -104,7 +104,7 @@ new UVW(firstString: "hello", firstInt: 222)
 '''
 
         when:
-        def instance = new GroovyShell().evaluate(classString)
+        def instance = new GroovyShell().evaluate( classString )
         Method added = instance.class.declaredMethods.find { it.name == 'added' }
 
         then:
