@@ -9,11 +9,11 @@ import spock.lang.Specification
 import org.junit.Rule
 import org.junit.rules.TestName
 
-class BookTest002 extends Specification { 
+class BookSequelTest extends Specification { 
     def setup() {}          // run before every feature method
     def cleanup() {}        // run after every feature method
     def setupSpec() {
-        AnnotationProcessor.process( Book )
+        AnnotationProcessor.process( BookSequel )
     }     // run before the first feature method
     def cleanupSpec() {}   // run after the last feature method
     
@@ -23,7 +23,7 @@ class BookTest002 extends Specification {
     def "test the no arg constructor"() {
         
         println "--- Starting test ${name.methodName}"
-        def bTest1 = new Book( pages: 100, title: "Some Book", year: 1990 )
+        def bTest1 = new BookSequel( pages: 100, title: "Some Book", year: 1990 )
         println "bTest1: ${bTest1.toString()}"
         when:
         bTest1.title = "abcdefg"
@@ -44,7 +44,7 @@ class BookTest002 extends Specification {
     
     def "test the map constructor"() {
         println "--- Starting test ${name.methodName}"
-        def bTest1 = new Book( pages: 100, title: "S", year: 1990 )
+        def bTest1 = new BookSequel( pages: 100, title: "S", year: 1990 )
         println "bTest1: ${bTest1.toString()}"
         
        
@@ -61,6 +61,7 @@ class BookTest002 extends Specification {
         then:
         bTest1.title == "abcdefg"
         bTest1.pages == 100
+        bTest1.year == 1990
         
         println "bTest1: ${bTest1.toString()}"
     }
