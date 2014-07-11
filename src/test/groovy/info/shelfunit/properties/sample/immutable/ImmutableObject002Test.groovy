@@ -103,7 +103,7 @@ class ImmutableObject002Test extends Specification {
         println "\n--- Starting test ${name.methodName}"
         boolean valid = true
         
-        def bTest1 = new ImmutableObject002( [ firstString: "Hello You",firstFloat: 50f, firstInt: 50, firstLong: 50L ], true )
+        def bTest1 = new ImmutableObject002( [ firstString: "Hello You", firstFloat: 50f, firstInt: 50, firstLong: 50L ], true )
         println "In test ${name.methodName}, bTest1: ${bTest1.toString()}"
         
         expect:
