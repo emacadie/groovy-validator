@@ -11,7 +11,7 @@ import java.lang.annotation.Target
 <p>This is an annotation that can be used to validate fields in immutable objects. It is intended to be used with the <a href="http://beta.groovy-lang.org/docs/groovy-2.3.0/html/gapi/index.html?groovy/transform/Immutable.html">Immutable</a> annotation at the class level, although I think it will also work with mutable POGOs as well. The fields can be annotated with the following annotations: {@link info.shelfunit.properties.annotations.DoubleAnnotation}, {@link info.shelfunit.properties.annotations.FloatAnnotation}, {@link info.shelfunit.properties.annotations.IntAnnotation}, {@link info.shelfunit.properties.annotations.LongAnnotation} and {@link info.shelfunit.properties.annotations.StringAnnotation}. You do not need to run the {@link info.shelfunit.properties.annotations.AnnotationProcessor} for this to work.</p>
 
 <p>
-There is a bit of a bug: It will set String, double, float, int and long fields within the default constraints in the annotations listed in the previous paragraph even if the fields are not annotated. They are pretty broad, but the default for the numbers is for the minimum equal to 0. So if you have no annotation for an int, and you try to give it a value below 0, it will be set to 0.
+There is a bit of a bug: It will set String, double, float, int and long fields within the default constraints in the annotations listed in the previous paragraph even if the fields are not annotated. They are pretty broad, but the default for the numbers is to set the minimum equal to 0. So if you have no annotation for an int, and you try to give it a value below 0, it will be set to 0.
 </p>
 
 <p>

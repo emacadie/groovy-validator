@@ -41,14 +41,12 @@ class AstImmutableConstructorTransform implements ASTTransformation {
             ( ( knownTypes.contains( it.getType().getName() ) ) && 
             ( !it.getName().contains( '$hash$code' ) ) ) 
         } 
+        // this next block was used to get information about the nodes
+        /*
         fields2.each { fieldNode ->
             // println "--- name of field: ${fieldNode.getName()}"
             // println "It is a ${fieldNode.getType().getName()}" // getType() returns a ClassNode
-            /*
-            if ( ( knownTypes.contains( fieldNode.getType().getName() ) ) && ( !fieldNode.getName().contains( '$hash$code' ) ) ) {
-                println " Can I get an amen from somebody??"
-            }
-            */
+
             def annotations = fieldNode.getAnnotations()
             // println "size of annotations for ${fieldNode.getName()}: ${annotations.size()}"
             annotations.each { annotationNode ->
@@ -63,6 +61,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                 }
             } // annotations.each
         } // fields2.each
+        */
         
         def minimum
         def maximum
