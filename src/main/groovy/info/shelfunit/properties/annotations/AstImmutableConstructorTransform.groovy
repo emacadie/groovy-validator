@@ -207,7 +207,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
         // println "here is sb1: ${sb1}"
         return sb1
     } // end processFields
-    
+    /*
     def createConstructor( fields2 ) {
         def sb1= new StringBuffer()
         def minimum
@@ -277,6 +277,6 @@ class AstImmutableConstructorTransform implements ASTTransformation {
         // println "here is sb1: ${sb1}"
         return sb1
     } // end createConstructor
-    
+    */
 } // end class 
 
