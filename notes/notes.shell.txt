@@ -53,7 +53,6 @@ import info.shelfunit.properties.annotations.LongAnnotation
 import info.shelfunit.properties.annotations.StringAnnotation
 import groovy.transform.Immutable
 
-
 @Immutable
 @AstImmutableConstructor
 class ImmutableObject002 {
@@ -68,4 +67,7 @@ bTest1 = new ImmutableObject002( firstString: "Hello1", firstInt: 200 )
 println " bTest1: ${bTest1.toString()}"
 bTest2 = new ImmutableObject002( [ firstString: "Hello1", firstInt: 200 ], true )
 println " bTest2: ${bTest2.toString()}"
+
+
+http://beta.groovy-lang.org/docs/groovy-2.3.0/html/gapi/index.html?groovy/transform/ToString.html
 
