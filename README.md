@@ -29,4 +29,5 @@ gradle -Dtest.single=BuilderTest001 test -info
 gradle -Dtest.single=WithTest001 test -info    
 gradle -Dtest.single=CarTest test -info    
 gradle -Dtest.single=BookSequelTest test -info    
+gradle -Dtest.single=TrulyImmutable001Test test -info   
 

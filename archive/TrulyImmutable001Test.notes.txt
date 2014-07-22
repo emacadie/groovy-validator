@@ -1,0 +1,90 @@
+Starting Build
+Settings evaluated using settings file '/home/ericm/github/groovy-validator/settings.gradle'.
+Projects loaded. Root project using build file '/home/ericm/github/groovy-validator/build.gradle'.
+Included projects: [root project 'groovy-validator']
+Evaluating root project 'groovy-validator' using build file '/home/ericm/github/groovy-validator/build.gradle'.
+-- Groovy version: 1.8.6
+-- Groovy version: 1.8.6
+All projects evaluated.
+Selected primary task 'test'
+Tasks to be executed: [task ':compileJava', task ':compileGroovy', task ':processResources', task ':classes', task ':compileTestJava', task ':compileTestGroovy', task ':processTestResources', task ':testClasses', task ':test']
+:compileJava (Thread[main,5,main]) started.
+:compileJava
+Skipping task ':compileJava' as it has no source files.
+:compileJava UP-TO-DATE
+:compileJava (Thread[main,5,main]) completed. Took 0.019 secs.
+:compileGroovy (Thread[main,5,main]) started.
+:compileGroovy
+Skipping task ':compileGroovy' as it is up-to-date (took 1.864 secs).
+:compileGroovy UP-TO-DATE
+:compileGroovy (Thread[main,5,main]) completed. Took 1.976 secs.
+:processResources (Thread[main,5,main]) started.
+:processResources
+Skipping task ':processResources' as it has no source files.
+:processResources UP-TO-DATE
+:processResources (Thread[main,5,main]) completed. Took 0.003 secs.
+:classes (Thread[main,5,main]) started.
+:classes
+Skipping task ':classes' as it has no actions.
+:classes UP-TO-DATE
+:classes (Thread[main,5,main]) completed. Took 0.002 secs.
+:compileTestJava (Thread[main,5,main]) started.
+:compileTestJava
+Skipping task ':compileTestJava' as it has no source files.
+:compileTestJava UP-TO-DATE
+:compileTestJava (Thread[main,5,main]) completed. Took 0.002 secs.
+:compileTestGroovy (Thread[main,5,main]) started.
+:compileTestGroovy
+Skipping task ':compileTestGroovy' as it is up-to-date (took 0.318 secs).
+:compileTestGroovy UP-TO-DATE
+:compileTestGroovy (Thread[main,5,main]) completed. Took 0.338 secs.
+:processTestResources (Thread[main,5,main]) started.
+:processTestResources
+Skipping task ':processTestResources' as it has no source files.
+:processTestResources UP-TO-DATE
+:processTestResources (Thread[main,5,main]) completed. Took 0.004 secs.
+:testClasses (Thread[main,5,main]) started.
+:testClasses
+Skipping task ':testClasses' as it has no actions.
+:testClasses UP-TO-DATE
+:testClasses (Thread[main,5,main]) completed. Took 0.004 secs.
+:test (Thread[main,5,main]) started.
+:test
+Executing task ':test' (up-to-date check took 0.029 secs) due to:
+  Task.upToDateWhen is false.
+Running single tests with pattern: [**/TrulyImmutable001Test*.class]
+Starting process 'Gradle Worker 1'. Working directory: /home/ericm/github/groovy-validator Command: /usr/local/java/jdk1.7.0/bin/java -Djava.security.manager=jarjar.org.gradle.process.internal.child.BootstrapSecurityManager -Dfile.encoding=UTF-8 -ea -cp /home/ericm/.gradle/caches/1.9/workerMain/gradle-worker.jar jarjar.org.gradle.process.internal.launcher.GradleWorkerMain
+An attempt to initialize for well behaving parent process finished.
+Successfully started process 'Gradle Worker 1'
+Gradle Worker 1 executing tests.
+
+info.shelfunit.properties.nonmutable.TrulyImmutable001Test > first test STANDARD_OUT
+
+
+    --- Starting test first test
+    About to make throwaway
+    Just made throwaway, about to make bTest1
+    In test first test, bTest1: info.shelfunit.properties.nonmutable.TrulyImmutable001(firstString:Hello1, secondString:Goodbye, firstInt:0, secondInt:200)
+
+info.shelfunit.properties.nonmutable.TrulyImmutable001Test > test bTest2 STANDARD_OUT
+
+
+    --- Starting test test bTest2
+    In test test bTest2, bTest2: info.shelfunit.properties.nonmutable.TrulyImmutable001(firstString:Hello2, secondString:null, firstInt:0, secondInt:0)
+Gradle Worker 1 finished executing tests.
+
+info.shelfunit.properties.nonmutable.TrulyImmutable001Test > third test STANDARD_OUT
+
+
+    --- Starting test third test
+    In test third test, bTest1: info.shelfunit.properties.nonmutable.TrulyImmutable001(firstString:Hello3, secondString:Goodbye, firstInt:0, secondInt:0)
+    Still in test third test, bTest1: info.shelfunit.properties.nonmutable.TrulyImmutable001(firstString:Hello3, secondString:Goodbye, firstInt:0, secondInt:0)
+Finished generating test XML results (0.025 secs)
+Generating HTML test report...
+Finished generating test html results (0.055 secs)
+:test (Thread[main,5,main]) completed. Took 5.173 secs.
+
+BUILD SUCCESSFUL
+
+Total time: 19.849 secs
+Stopped 0 Gradle compiler daemon(s).

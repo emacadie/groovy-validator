@@ -57,7 +57,7 @@ class ImmutableObject002Test extends Specification {
         println "\n--- Starting test ${name.methodName}"
         
         def bTest1 = new ImmutableObject002( firstString: "HH", secondString: "No min length", firstDouble: 5d, firstFloat: 5f, firstInt: 5, firstLong: 5L )
-        println "In test ${name.methodName}, bTest1: ${bTest1.toString()}"
+        println "In test ${name.methodName} bTest1: ${bTest1.toString()}"
         
         expect:
         bTest1.firstString == "HH"

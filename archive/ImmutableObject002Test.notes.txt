@@ -1,0 +1,502 @@
+Starting Build
+Settings evaluated using settings file '/home/ericm/github/groovy-validator/settings.gradle'.
+Projects loaded. Root project using build file '/home/ericm/github/groovy-validator/build.gradle'.
+Included projects: [root project 'groovy-validator']
+Evaluating root project 'groovy-validator' using build file '/home/ericm/github/groovy-validator/build.gradle'.
+-- Groovy version: 1.8.6
+-- Groovy version: 1.8.6
+All projects evaluated.
+Selected primary task 'test'
+Tasks to be executed: [task ':compileJava', task ':compileGroovy', task ':processResources', task ':classes', task ':compileTestJava', task ':compileTestGroovy', task ':processTestResources', task ':testClasses', task ':test']
+:compileJava (Thread[main,5,main]) started.
+:compileJava
+Skipping task ':compileJava' as it has no source files.
+:compileJava UP-TO-DATE
+:compileJava (Thread[main,5,main]) completed. Took 0.017 secs.
+:compileGroovy (Thread[main,5,main]) started.
+:compileGroovy
+Executing task ':compileGroovy' (up-to-date check took 1.314 secs) due to:
+  Input file /home/ericm/github/groovy-validator/src/main/groovy/info/shelfunit/properties/annotations/AstImmutableConstructorTransform.groovy has changed.
+Starting process 'Gradle Worker 1'. Working directory: /home/ericm/github/groovy-validator Command: /usr/local/java/jdk1.7.0/bin/java -Dfile.encoding=UTF-8 -cp /home/ericm/.gvm/gradle/1.9/lib/gradle-base-services-1.9.jar:/home/ericm/.gvm/gradle/1.9/lib/gradle-core-1.9.jar:/home/ericm/.gvm/gradle/1.9/lib/gradle-cli-1.9.jar:/home/ericm/.gvm/gradle/1.9/lib/gradle-native-1.9.jar:/home/ericm/.gvm/gradle/1.9/lib/gradle-messaging-1.9.jar:/home/ericm/.gvm/gradle/1.9/lib/slf4j-api-1.7.2.jar:/home/ericm/.gvm/gradle/1.9/lib/logback-classic-1.0.9.jar:/home/ericm/.gvm/gradle/1.9/lib/logback-core-1.0.9.jar:/home/ericm/.gvm/gradle/1.9/lib/jul-to-slf4j-1.7.2.jar:/home/ericm/.gvm/gradle/1.9/lib/guava-jdk5-14.0.1.jar org.gradle.process.internal.launcher.GradleWorkerMain
+An attempt to initialize for well behaving parent process finished.
+Successfully started process 'Gradle Worker 1'
+Started Gradle compiler daemon (1.335 secs) with fork options DaemonForkOptions{minHeapSize=null, maxHeapSize=null, jvmArgs=[], classpath=[/home/ericm/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-all/2.3.3/2ca73750564253964c70b396b6b5fda54a743f04/groovy-all-2.3.3.jar, /home/ericm/.gvm/gradle/1.9/lib/ant-1.9.2.jar, /home/ericm/.gvm/gradle/1.9/lib/ant-launcher-1.9.2.jar]}.
+Executing org.gradle.api.internal.tasks.compile.ApiGroovyCompiler@390ac73b in compiler daemon.
+Successfully executed org.gradle.api.internal.tasks.compile.ApiGroovyCompiler@390ac73b in compiler daemon.
+:compileGroovy (Thread[main,5,main]) completed. Took 5.146 secs.
+:processResources (Thread[main,5,main]) started.
+:processResources
+Skipping task ':processResources' as it has no source files.
+:processResources UP-TO-DATE
+:processResources (Thread[main,5,main]) completed. Took 0.003 secs.
+:classes (Thread[main,5,main]) started.
+:classes
+Skipping task ':classes' as it has no actions.
+:classes (Thread[main,5,main]) completed. Took 0.003 secs.
+:compileTestJava (Thread[main,5,main]) started.
+:compileTestJava
+Skipping task ':compileTestJava' as it has no source files.
+:compileTestJava UP-TO-DATE
+:compileTestJava (Thread[main,5,main]) completed. Took 0.003 secs.
+:compileTestGroovy (Thread[main,5,main]) started.
+:compileTestGroovy
+Executing task ':compileTestGroovy' (up-to-date check took 0.285 secs) due to:
+  Input file /home/ericm/github/groovy-validator/build/classes/main/info/shelfunit/properties/annotations/AstImmutableConstructorTransform.class has changed.
+  Input file /home/ericm/github/groovy-validator/build/classes/main/info/shelfunit/properties/annotations/AstImmutableConstructorTransform$_processFields_closure10.class has changed.
+  Input file /home/ericm/github/groovy-validator/build/classes/main/info/shelfunit/properties/annotations/AnnotationProcessor.class has changed.
+Executing org.gradle.api.internal.tasks.compile.ApiGroovyCompiler@5d060948 in compiler daemon.
+In AstImmutableConstructorTransform.visit
+Size of astNodes: 2
+what is astNodes[ 0 ]?: org.codehaus.groovy.ast.AnnotationNode
+what is astNodes[ 1 ]?: org.codehaus.groovy.ast.ClassNode
+Working with annotatedClass info.shelfunit.properties.sample.immutable.ImmutableObject001
+the constructor: name: <init> text: public void <init>(java.util.HashMap args)  { ... }
+the constructor: name: <init> text: public void <init>()  { ... }
+the constructor: name: <init> text: public void <init>(java.lang.String firstString, int firstInt)  { ... }
+--- name of field: firstString
+It is a java.lang.String
+size of annotations for firstString: 1
+annotationNode is a org.codehaus.groovy.ast.AnnotationNode of type info.shelfunit.properties.annotations.StringAnnotation
+In members, here is key: maxLength, here is value: ConstantExpression[10], here is the value of the value: 10 and it is a java.lang.Integer
+In members, here is key: minLength, here is value: ConstantExpression[5], here is the value of the value: 5 and it is a java.lang.Integer
+--- name of field: firstInt
+It is a int
+size of annotations for firstInt: 1
+annotationNode is a org.codehaus.groovy.ast.AnnotationNode of type info.shelfunit.properties.annotations.IntAnnotation
+In members, here is key: minValue, here is value: ConstantExpression[10], here is the value of the value: 10 and it is a java.lang.Integer
+In members, here is key: maxValue, here is value: ConstantExpression[100], here is the value of the value: 100 and it is a java.lang.Integer
+here is sb1: def val
+val = argMap[ 'firstString' ]
+                    if ( 5 <= val?.length() && val?.length() <= 10 ) {
+                        newMap[ 'firstString' ] = val
+                    }
+                    val = argMap[ 'firstInt' ]
+                    if ( ( 10 <= val ) && ( val <= 100 ) ) {
+                        newMap[ 'firstInt' ] = val
+                    } 
+                    
+Here is theString: 
+        package  info.shelfunit.properties.sample.immutable
+        class ImmutableObject001 {
+            public ImmutableObject001 ( java.util.LinkedHashMap argMap, boolean validation ) {
+                
+                this( createValidatingConstructor( argMap, validation ) )
+            } // end constructor
+            
+            // was java.util.HashMap argMap, Boolean validation
+            def static createValidatingConstructor( java.util.HashMap argMap, boolean validation ) {
+            
+                if ( !validation ) {
+                    return argMap
+                } else {
+                    java.util.HashMap newMap = [:]
+                    def val
+val = argMap[ 'firstString' ]
+                    if ( 5 <= val?.length() && val?.length() <= 10 ) {
+                        newMap[ 'firstString' ] = val
+                    }
+                    val = argMap[ 'firstInt' ]
+                    if ( ( 10 <= val ) && ( val <= 100 ) ) {
+                        newMap[ 'firstInt' ] = val
+                    } 
+                    
+                    return newMap
+                }
+            }
+        } // end class 
+            
+
+Just called AstBuilder().buildFromString, Size of ast: 2
+astNode is a org.codehaus.groovy.ast.stmt.BlockStatement
+astNode is a org.codehaus.groovy.ast.ClassNode
+ast[ 0 ].getText(): {  }
+class node name: info.shelfunit.properties.sample.immutable.ImmutableObject001
+the constructor: name: <init> text: public void <init>(java.util.LinkedHashMap argMap, boolean validation)  { ... }
+Methods of the class
+Method name: createValidatingConstructor
+Method name: this$dist$invoke$1
+Method name: this$dist$set$1
+Method name: this$dist$get$1
+our first param is a java.util.HashMap
+our first param is a boolean
+Done with method visit
+--------------------------------
+
+In AstImmutableConstructorTransform.visit
+Size of astNodes: 2
+what is astNodes[ 0 ]?: org.codehaus.groovy.ast.AnnotationNode
+what is astNodes[ 1 ]?: org.codehaus.groovy.ast.ClassNode
+Working with annotatedClass info.shelfunit.properties.sample.immutable.ImmutableObject002
+the constructor: name: <init> text: public void <init>(java.util.HashMap args)  { ... }
+the constructor: name: <init> text: public void <init>()  { ... }
+the constructor: name: <init> text: public void <init>(java.lang.String firstString, java.lang.String secondString, double firstDouble, float firstFloat, int firstInt, long firstLong)  { ... }
+--- name of field: firstString
+It is a java.lang.String
+size of annotations for firstString: 1
+annotationNode is a org.codehaus.groovy.ast.AnnotationNode of type info.shelfunit.properties.annotations.StringAnnotation
+In members, here is key: maxLength, here is value: ConstantExpression[10], here is the value of the value: 10 and it is a java.lang.Integer
+In members, here is key: minLength, here is value: ConstantExpression[5], here is the value of the value: 5 and it is a java.lang.Integer
+--- name of field: secondString
+It is a java.lang.String
+size of annotations for secondString: 1
+annotationNode is a org.codehaus.groovy.ast.AnnotationNode of type info.shelfunit.properties.annotations.StringAnnotation
+In members, here is key: maxLength, here is value: ConstantExpression[15], here is the value of the value: 15 and it is a java.lang.Integer
+--- name of field: firstDouble
+It is a double
+size of annotations for firstDouble: 1
+annotationNode is a org.codehaus.groovy.ast.AnnotationNode of type info.shelfunit.properties.annotations.DoubleAnnotation
+In members, here is key: minValue, here is value: ConstantExpression[10.0], here is the value of the value: 10.0 and it is a java.lang.Double
+In members, here is key: maxValue, here is value: ConstantExpression[100.0], here is the value of the value: 100.0 and it is a java.lang.Double
+--- name of field: firstFloat
+It is a float
+size of annotations for firstFloat: 1
+annotationNode is a org.codehaus.groovy.ast.AnnotationNode of type info.shelfunit.properties.annotations.FloatAnnotation
+In members, here is key: minValue, here is value: ConstantExpression[10.0], here is the value of the value: 10.0 and it is a java.lang.Float
+In members, here is key: maxValue, here is value: ConstantExpression[100.0], here is the value of the value: 100.0 and it is a java.lang.Float
+--- name of field: firstInt
+It is a int
+size of annotations for firstInt: 1
+annotationNode is a org.codehaus.groovy.ast.AnnotationNode of type info.shelfunit.properties.annotations.IntAnnotation
+In members, here is key: minValue, here is value: ConstantExpression[10], here is the value of the value: 10 and it is a java.lang.Integer
+In members, here is key: maxValue, here is value: ConstantExpression[100], here is the value of the value: 100 and it is a java.lang.Integer
+--- name of field: firstLong
+It is a long
+size of annotations for firstLong: 1
+annotationNode is a org.codehaus.groovy.ast.AnnotationNode of type info.shelfunit.properties.annotations.LongAnnotation
+In members, here is key: maxValue, here is value: ConstantExpression[100], here is the value of the value: 100 and it is a java.lang.Long
+here is sb1: def val
+val = argMap[ 'firstString' ]
+                    if ( 5 <= val?.length() && val?.length() <= 10 ) {
+                        newMap[ 'firstString' ] = val
+                    }
+                    val = argMap[ 'secondString' ]
+                    if ( 0 <= val?.length() && val?.length() <= 15 ) {
+                        newMap[ 'secondString' ] = val
+                    }
+                    val = argMap[ 'firstDouble' ]
+                    if ( ( 10.0 <= val ) && ( val <= 100.0 ) ) {
+                        newMap[ 'firstDouble' ] = val
+                    }
+                    val = argMap[ 'firstFloat' ]
+                    if ( ( 10.0 <= val ) && ( val <= 100.0 ) ) {
+                        newMap[ 'firstFloat' ] = val
+                    } 
+                    val = argMap[ 'firstInt' ]
+                    if ( ( 10 <= val ) && ( val <= 100 ) ) {
+                        newMap[ 'firstInt' ] = val
+                    } 
+                    val = argMap[ 'firstLong' ]
+                    if ( ( 0 <= val ) && ( val <= 100 ) ) {
+                        newMap[ 'firstLong' ] = val
+                    } 
+                    
+Here is theString: 
+        package  info.shelfunit.properties.sample.immutable
+        class ImmutableObject002 {
+            public ImmutableObject002 ( java.util.LinkedHashMap argMap, boolean validation ) {
+                
+                this( createValidatingConstructor( argMap, validation ) )
+            } // end constructor
+            
+            // was java.util.HashMap argMap, Boolean validation
+            def static createValidatingConstructor( java.util.HashMap argMap, boolean validation ) {
+            
+                if ( !validation ) {
+                    return argMap
+                } else {
+                    java.util.HashMap newMap = [:]
+                    def val
+val = argMap[ 'firstString' ]
+                    if ( 5 <= val?.length() && val?.length() <= 10 ) {
+                        newMap[ 'firstString' ] = val
+                    }
+                    val = argMap[ 'secondString' ]
+                    if ( 0 <= val?.length() && val?.length() <= 15 ) {
+                        newMap[ 'secondString' ] = val
+                    }
+                    val = argMap[ 'firstDouble' ]
+                    if ( ( 10.0 <= val ) && ( val <= 100.0 ) ) {
+                        newMap[ 'firstDouble' ] = val
+                    }
+                    val = argMap[ 'firstFloat' ]
+                    if ( ( 10.0 <= val ) && ( val <= 100.0 ) ) {
+                        newMap[ 'firstFloat' ] = val
+                    } 
+                    val = argMap[ 'firstInt' ]
+                    if ( ( 10 <= val ) && ( val <= 100 ) ) {
+                        newMap[ 'firstInt' ] = val
+                    } 
+                    val = argMap[ 'firstLong' ]
+                    if ( ( 0 <= val ) && ( val <= 100 ) ) {
+                        newMap[ 'firstLong' ] = val
+                    } 
+                    
+                    return newMap
+                }
+            }
+        } // end class 
+            
+
+Just called AstBuilder().buildFromString, Size of ast: 2
+astNode is a org.codehaus.groovy.ast.stmt.BlockStatement
+astNode is a org.codehaus.groovy.ast.ClassNode
+ast[ 0 ].getText(): {  }
+class node name: info.shelfunit.properties.sample.immutable.ImmutableObject002
+the constructor: name: <init> text: public void <init>(java.util.LinkedHashMap argMap, boolean validation)  { ... }
+Methods of the class
+Method name: createValidatingConstructor
+Method name: this$dist$invoke$1
+Method name: this$dist$set$1
+Method name: this$dist$get$1
+our first param is a java.util.HashMap
+our first param is a boolean
+Done with method visit
+--------------------------------
+
+In AstImmutableConstructorTransform.visit
+Size of astNodes: 2
+what is astNodes[ 0 ]?: org.codehaus.groovy.ast.AnnotationNode
+what is astNodes[ 1 ]?: org.codehaus.groovy.ast.ClassNode
+Working with annotatedClass info.shelfunit.properties.sample.other.Car
+the constructor: name: <init> text: public void <init>(int miles = 0, int year = 0)  { ... }
+--- name of field: miles
+It is a int
+size of annotations for miles: 1
+annotationNode is a org.codehaus.groovy.ast.AnnotationNode of type info.shelfunit.properties.annotations.IntAnnotation
+In members, here is key: minValue, here is value: ConstantExpression[0], here is the value of the value: 0 and it is a java.lang.Integer
+--- name of field: year
+It is a int
+size of annotations for year: 1
+annotationNode is a org.codehaus.groovy.ast.AnnotationNode of type info.shelfunit.properties.annotations.IntAnnotation
+In members, here is key: minValue, here is value: ConstantExpression[1990], here is the value of the value: 1990 and it is a java.lang.Integer
+here is sb1: def val
+val = argMap[ 'miles' ]
+                    if ( ( 0 <= val ) && ( val <= 2147483647 ) ) {
+                        newMap[ 'miles' ] = val
+                    } 
+                    val = argMap[ 'year' ]
+                    if ( ( 1990 <= val ) && ( val <= 2147483647 ) ) {
+                        newMap[ 'year' ] = val
+                    } 
+                    
+Here is theString: 
+        package  info.shelfunit.properties.sample.other
+        class Car {
+            public Car ( java.util.LinkedHashMap argMap, boolean validation ) {
+                
+                this( createValidatingConstructor( argMap, validation ) )
+            } // end constructor
+            
+            // was java.util.HashMap argMap, Boolean validation
+            def static createValidatingConstructor( java.util.HashMap argMap, boolean validation ) {
+            
+                if ( !validation ) {
+                    return argMap
+                } else {
+                    java.util.HashMap newMap = [:]
+                    def val
+val = argMap[ 'miles' ]
+                    if ( ( 0 <= val ) && ( val <= 2147483647 ) ) {
+                        newMap[ 'miles' ] = val
+                    } 
+                    val = argMap[ 'year' ]
+                    if ( ( 1990 <= val ) && ( val <= 2147483647 ) ) {
+                        newMap[ 'year' ] = val
+                    } 
+                    
+                    return newMap
+                }
+            }
+        } // end class 
+            
+
+Just called AstBuilder().buildFromString, Size of ast: 2
+astNode is a org.codehaus.groovy.ast.stmt.BlockStatement
+astNode is a org.codehaus.groovy.ast.ClassNode
+ast[ 0 ].getText(): {  }
+class node name: info.shelfunit.properties.sample.other.Car
+the constructor: name: <init> text: public void <init>(java.util.LinkedHashMap argMap, boolean validation)  { ... }
+Methods of the class
+Method name: createValidatingConstructor
+Method name: this$dist$invoke$1
+Method name: this$dist$set$1
+Method name: this$dist$get$1
+our first param is a java.util.HashMap
+our first param is a boolean
+Done with method visit
+--------------------------------
+
+In AstImmutableConstructorTransform.visit
+Size of astNodes: 2
+what is astNodes[ 0 ]?: org.codehaus.groovy.ast.AnnotationNode
+what is astNodes[ 1 ]?: org.codehaus.groovy.ast.ClassNode
+Working with annotatedClass info.shelfunit.properties.nonmutable.TrulyImmutable001
+the constructor: name: <init> text: public void <init>(java.util.HashMap args)  { ... }
+the constructor: name: <init> text: public void <init>()  { ... }
+the constructor: name: <init> text: public void <init>(java.lang.String firstString, java.lang.String secondString, int firstInt, int secondInt)  { ... }
+--- name of field: firstString
+It is a java.lang.String
+size of annotations for firstString: 1
+annotationNode is a org.codehaus.groovy.ast.AnnotationNode of type info.shelfunit.properties.annotations.StringAnnotation
+In members, here is key: maxLength, here is value: ConstantExpression[200], here is the value of the value: 200 and it is a java.lang.Integer
+In members, here is key: minLength, here is value: ConstantExpression[5], here is the value of the value: 5 and it is a java.lang.Integer
+--- name of field: secondString
+It is a java.lang.String
+size of annotations for secondString: 1
+annotationNode is a org.codehaus.groovy.ast.AnnotationNode of type info.shelfunit.properties.annotations.StringAnnotation
+In members, here is key: maxLength, here is value: ConstantExpression[20], here is the value of the value: 20 and it is a java.lang.Integer
+In members, here is key: minLength, here is value: ConstantExpression[5], here is the value of the value: 5 and it is a java.lang.Integer
+--- name of field: firstInt
+It is a int
+size of annotations for firstInt: 1
+annotationNode is a org.codehaus.groovy.ast.AnnotationNode of type info.shelfunit.properties.annotations.IntAnnotation
+In members, here is key: minValue, here is value: ConstantExpression[30], here is the value of the value: 30 and it is a java.lang.Integer
+In members, here is key: maxValue, here is value: ConstantExpression[400], here is the value of the value: 400 and it is a java.lang.Integer
+--- name of field: secondInt
+It is a int
+size of annotations for secondInt: 1
+annotationNode is a org.codehaus.groovy.ast.AnnotationNode of type info.shelfunit.properties.annotations.IntAnnotation
+In members, here is key: minValue, here is value: ConstantExpression[30], here is the value of the value: 30 and it is a java.lang.Integer
+In members, here is key: maxValue, here is value: ConstantExpression[400], here is the value of the value: 400 and it is a java.lang.Integer
+here is sb1: def val
+val = argMap[ 'firstString' ]
+                    if ( 5 <= val?.length() && val?.length() <= 200 ) {
+                        newMap[ 'firstString' ] = val
+                    }
+                    val = argMap[ 'secondString' ]
+                    if ( 5 <= val?.length() && val?.length() <= 20 ) {
+                        newMap[ 'secondString' ] = val
+                    }
+                    val = argMap[ 'firstInt' ]
+                    if ( ( 30 <= val ) && ( val <= 400 ) ) {
+                        newMap[ 'firstInt' ] = val
+                    } 
+                    val = argMap[ 'secondInt' ]
+                    if ( ( 30 <= val ) && ( val <= 400 ) ) {
+                        newMap[ 'secondInt' ] = val
+                    } 
+                    
+Here is theString: 
+        package  info.shelfunit.properties.nonmutable
+        class TrulyImmutable001 {
+            public TrulyImmutable001 ( java.util.LinkedHashMap argMap, boolean validation ) {
+                
+                this( createValidatingConstructor( argMap, validation ) )
+            } // end constructor
+            
+            // was java.util.HashMap argMap, Boolean validation
+            def static createValidatingConstructor( java.util.HashMap argMap, boolean validation ) {
+            
+                if ( !validation ) {
+                    return argMap
+                } else {
+                    java.util.HashMap newMap = [:]
+                    def val
+val = argMap[ 'firstString' ]
+                    if ( 5 <= val?.length() && val?.length() <= 200 ) {
+                        newMap[ 'firstString' ] = val
+                    }
+                    val = argMap[ 'secondString' ]
+                    if ( 5 <= val?.length() && val?.length() <= 20 ) {
+                        newMap[ 'secondString' ] = val
+                    }
+                    val = argMap[ 'firstInt' ]
+                    if ( ( 30 <= val ) && ( val <= 400 ) ) {
+                        newMap[ 'firstInt' ] = val
+                    } 
+                    val = argMap[ 'secondInt' ]
+                    if ( ( 30 <= val ) && ( val <= 400 ) ) {
+                        newMap[ 'secondInt' ] = val
+                    } 
+                    
+                    return newMap
+                }
+            }
+        } // end class 
+            
+
+Just called AstBuilder().buildFromString, Size of ast: 2
+astNode is a org.codehaus.groovy.ast.stmt.BlockStatement
+astNode is a org.codehaus.groovy.ast.ClassNode
+ast[ 0 ].getText(): {  }
+class node name: info.shelfunit.properties.nonmutable.TrulyImmutable001
+the constructor: name: <init> text: public void <init>(java.util.LinkedHashMap argMap, boolean validation)  { ... }
+Methods of the class
+Method name: createValidatingConstructor
+Method name: this$dist$invoke$1
+Method name: this$dist$set$1
+Method name: this$dist$get$1
+our first param is a java.util.HashMap
+our first param is a boolean
+Done with method visit
+--------------------------------
+
+Successfully executed org.gradle.api.internal.tasks.compile.ApiGroovyCompiler@5d060948 in compiler daemon.
+:compileTestGroovy (Thread[main,5,main]) completed. Took 5.565 secs.
+:processTestResources (Thread[main,5,main]) started.
+:processTestResources
+Skipping task ':processTestResources' as it has no source files.
+:processTestResources UP-TO-DATE
+:processTestResources (Thread[main,5,main]) completed. Took 0.003 secs.
+:testClasses (Thread[main,5,main]) started.
+:testClasses
+Skipping task ':testClasses' as it has no actions.
+:testClasses (Thread[main,5,main]) completed. Took 0.001 secs.
+:test (Thread[main,5,main]) started.
+:test
+Executing task ':test' (up-to-date check took 0.04 secs) due to:
+  Task.upToDateWhen is false.
+Running single tests with pattern: [**/ImmutableObject002Test*.class]
+Starting process 'Gradle Worker 2'. Working directory: /home/ericm/github/groovy-validator Command: /usr/local/java/jdk1.7.0/bin/java -Djava.security.manager=jarjar.org.gradle.process.internal.child.BootstrapSecurityManager -Dfile.encoding=UTF-8 -ea -cp /home/ericm/.gradle/caches/1.9/workerMain/gradle-worker.jar jarjar.org.gradle.process.internal.launcher.GradleWorkerMain
+Successfully started process 'Gradle Worker 2'
+Gradle Worker 2 executing tests.
+
+info.shelfunit.properties.sample.immutable.ImmutableObject002Test > test the no arg constructor STANDARD_OUT
+
+    --- Starting test test the no arg constructor
+    In test test the no arg constructor, throwaway: info.shelfunit.properties.sample.immutable.ImmutableObject002(firstString:Not Junk, secondString:null, firstDouble:0.0, firstFloat:0.0, firstInt:21, firstLong:0)
+    Just made throwaway, about to make bTest1
+    In test test the no arg constructor, bTest1: info.shelfunit.properties.sample.immutable.ImmutableObject002(firstString:Hello1, secondString:null, firstDouble:0.0, firstFloat:0.0, firstInt:200, firstLong:0)
+
+info.shelfunit.properties.sample.immutable.ImmutableObject002Test > test try to change something STANDARD_OUT
+
+    --- Starting test test try to change something
+    In test test try to change something, throwaway: info.shelfunit.properties.sample.immutable.ImmutableObject002(firstString:Not Junk, secondString:null, firstDouble:0.0, firstFloat:0.0, firstInt:21, firstLong:0)
+    Just made throwaway, about to make bTest1
+    In test test try to change something, bTest1: info.shelfunit.properties.sample.immutable.ImmutableObject002(firstString:Hello1, secondString:null, firstDouble:0.0, firstFloat:0.0, firstInt:200, firstLong:0)
+    Got exception: groovy.lang.ReadOnlyPropertyException
+
+info.shelfunit.properties.sample.immutable.ImmutableObject002Test > test below the ranges without boolean STANDARD_OUT
+
+    --- Starting test test below the ranges without boolean
+    In test test below the ranges without boolean bTest1: info.shelfunit.properties.sample.immutable.ImmutableObject002(firstString:HH, secondString:No min length, firstDouble:5.0, firstFloat:5.0, firstInt:5, firstLong:5)
+Gradle Worker 2 finished executing tests.
+
+info.shelfunit.properties.sample.immutable.ImmutableObject002Test > test below the ranges with boolean STANDARD_OUT
+
+    --- Starting test test below the ranges with boolean
+    In test test below the ranges with boolean, bTest1: info.shelfunit.properties.sample.immutable.ImmutableObject002(firstString:null, secondString:No min length, firstDouble:0.0, firstFloat:0.0, firstInt:0, firstLong:5)
+
+info.shelfunit.properties.sample.immutable.ImmutableObject002Test > test within the ranges with boolean STANDARD_OUT
+
+    --- Starting test test within the ranges with boolean
+    In test test within the ranges with boolean, bTest1: info.shelfunit.properties.sample.immutable.ImmutableObject002(firstString:Hello You, secondString:No min length, firstDouble:50.0, firstFloat:50.0, firstInt:50, firstLong:50)
+
+info.shelfunit.properties.sample.immutable.ImmutableObject002Test > test some fields within the ranges with boolean STANDARD_OUT
+
+    --- Starting test test some fields within the ranges with boolean
+    In test test some fields within the ranges with boolean, bTest1: info.shelfunit.properties.sample.immutable.ImmutableObject002(firstString:Hello You, secondString:null, firstDouble:0.0, firstFloat:50.0, firstInt:50, firstLong:50)
+
+info.shelfunit.properties.sample.immutable.ImmutableObject002Test > test beyond the ranges with boolean STANDARD_OUT
+
+    --- Starting test test beyond the ranges with boolean
+    In test test beyond the ranges with boolean, bTest1: info.shelfunit.properties.sample.immutable.ImmutableObject002(firstString:null, secondString:null, firstDouble:0.0, firstFloat:0.0, firstInt:0, firstLong:0)
+Finished generating test XML results (0.046 secs)
+Generating HTML test report...
+Finished generating test html results (0.071 secs)
+:test (Thread[main,5,main]) completed. Took 6.035 secs.
+
+BUILD SUCCESSFUL
+
+Total time: 27.144 secs
+Stopped 1 Gradle compiler daemon(s).
