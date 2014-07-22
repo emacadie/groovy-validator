@@ -20,7 +20,7 @@ class ImmutableObject001Test extends Specification {
    
     // for some reason the first time you call a class it does not actually process the annotations
     // comment out the lines for the "junk" object and compare
-    def "test the no arg constructor"() {
+    def "test without validation"() {
         println "--- Starting test ${name.methodName}"
         // println "About to make junk"
         // def junk = new FirstImmutableSample()
@@ -34,7 +34,7 @@ class ImmutableObject001Test extends Specification {
         bTest1.firstString == "Hello1"
         bTest1.firstInt == 200
         
-    } // end "test the no arg constructor"
+    } // end "test without validation"
     
     
     /*

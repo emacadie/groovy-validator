@@ -148,7 +148,6 @@ class AstImmutableConstructorTransform implements ASTTransformation {
             }
             
         } // fields2.each
-        println "here is sb1: ${sb1}"
         return sb1
     } // end processFields
 

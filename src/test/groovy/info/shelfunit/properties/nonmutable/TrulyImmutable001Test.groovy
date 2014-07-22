@@ -17,7 +17,7 @@ class TrulyImmutable001Test extends Specification {
     // for some reason the first time you call a class it does not actually process the annotations
     // comment out the lines for the "junk" object and compare
    
-    def "first test"() {
+    def "two immutable objects with validation, trying to change the first"() {
         println "\n\n--- Starting test ${name.methodName}"
         // println "About to make junk"
         // def junk = new TrulyImmutable001()
@@ -53,21 +53,15 @@ class TrulyImmutable001Test extends Specification {
         println "In test ${name.methodName}, bTest2: ${bTest2.toString()}"
         expect:
         bTest2.firstString == "Hello2"
+        bTest2.secondString == null
+        bTest2.firstInt == 0
+        bTest2.secondInt == 0
     } // end "test bTest2"
     
    
     def "third test"() {
         println "\n\n--- Starting test ${name.methodName}"
-        /*
-        def constructors = TrulyImmutable001.class.getConstructors()
-        constructors.each { 
-            println "Constructor: ${it.toString()}"
-        }
-        def methods = TrulyImmutable001.metaClass.getMetaMethods()
-        methods.each {
-            println "MetaMethod: ${it.toString()}"
-        }
-        */
+
         boolean exceptionThrown = false
         def bTest1 = new TrulyImmutable001( [ firstString: "Hello3", secondString: "Goodbye", secondInt: 401, firstInt: 21 ], true )
         println "In test ${name.methodName}, bTest1: ${bTest1.toString()}"
@@ -80,10 +74,12 @@ class TrulyImmutable001Test extends Specification {
         println "Still in test ${name.methodName}, bTest1: ${bTest1.toString()}"
         expect:
         bTest1.firstString == "Hello3"
+        bTest1.secondString == "Goodbye"
+        bTest1.firstInt == 0
         bTest1.secondInt == 0
         exceptionThrown == true
     } // end "test the no arg constructor again"
    
-} // FirstImmutableSample 
+} // TrulyImmutable001Test 
 
 

@@ -17,7 +17,7 @@ class ImmutableObject002Test extends Specification {
     @Rule 
     TestName name = new TestName()
     
-    def "test the no arg constructor"() {
+    def "test without validation"() {
         println "\n--- Starting test ${name.methodName}"
         given:
         def throwaway = new ImmutableObject002( firstString: "Not Junk", firstInt: 21 )
@@ -30,7 +30,7 @@ class ImmutableObject002Test extends Specification {
         bTest1.firstString == "Hello1"
         bTest1.firstInt == 200
         
-    } // end "test the no arg constructor"
+    } // end "test without validation"
     
     def "test try to change something"() {
         println "\n--- Starting test ${name.methodName}"
