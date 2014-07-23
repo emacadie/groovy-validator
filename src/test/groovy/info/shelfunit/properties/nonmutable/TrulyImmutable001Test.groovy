@@ -58,7 +58,6 @@ class TrulyImmutable001Test extends Specification {
         bTest2.secondInt == 0
     } // end "test bTest2"
     
-   
     def "third test"() {
         println "\n\n--- Starting test ${name.methodName}"
 

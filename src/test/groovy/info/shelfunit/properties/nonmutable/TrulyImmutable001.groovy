@@ -9,7 +9,7 @@ import groovy.transform.ToString
 @AstImmutableConstructor
 @Immutable
 @ToString( includeNames = true )
-final class TrulyImmutable001 {
+class TrulyImmutable001 {
 
     @StringAnnotation( minLength = 5, maxLength = 200 )
     String firstString
@@ -20,6 +20,6 @@ final class TrulyImmutable001 {
     @IntAnnotation( minValue = 30, maxValue = 400 )
     int secondInt
    
-} // FirstImmutableSample 
+} // TrulyImmutable001
 
 
