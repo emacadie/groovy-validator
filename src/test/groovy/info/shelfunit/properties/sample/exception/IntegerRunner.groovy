@@ -6,7 +6,7 @@ import info.shelfunit.properties.annotations.IntAnnotation
 class IntegerRunner {
     
     static { 
-        AnnotationProcessor.process( IntegerRunner.class ) 
+        AnnotationProcessor.process( IntegerRunner, true ) 
     }
     
     @IntAnnotation( minValue = 0, maxValue = 1000 )

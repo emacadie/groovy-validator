@@ -1,6 +1,7 @@
 package info.shelfunit.properties.sample.exception
 
 import spock.lang.Specification
+import info.shelfunit.properties.annotations.GroovyValidatorException
 
 class IntegerRunnerTest extends Specification { 
     def setup() {}          // run before every feature method
@@ -8,69 +9,92 @@ class IntegerRunnerTest extends Specification {
     def setupSpec() {}     // run before the first feature method
     def cleanupSpec() {}   // run after the last feature method
     
-    /*
     def "test the no arg constructor"() {
         def dr = new IntegerRunner()
         when:
-        dr.firstNum  = 50
-        dr.secondNum = 50
-        dr.thirdNum  = 50
+        dr.numAsDef = 50
+        dr.numAsInt = 500
         then:
-        dr.firstNum  == 50
-        dr.secondNum == 50
-        dr.thirdNum  == 50
+        // 
+        dr.numAsDef == 50
+        dr.numAsInt == 500
+       
+        when:
+        dr.numAsDef = -2
+        dr.numAsInt = -2
+        then:
+        thrown( GroovyValidatorException )
+        dr.numAsDef == 50
+        dr.numAsInt == 500
         
         when:
-        dr.firstNum  = -2
-        dr.secondNum = -2
-        dr.thirdNum  = 9
+        dr.numAsInt = -2
+        dr.numAsDef = -2
         then:
-        dr.firstNum  == 50
-        dr.secondNum == 50
-        dr.thirdNum  == 50
+        thrown( GroovyValidatorException )
+        dr.numAsDef == 50
+        dr.numAsInt == 500
         
         when:
-        dr.firstNum  = 1001
-        dr.secondNum = 1001
-        dr.thirdNum  = 1001
+        dr.numAsDef = 1001
+        dr.numAsInt = 1001
         then:
-        dr.firstNum  == 50
-        dr.secondNum == 50
-        dr.thirdNum  == 1001
+        thrown( GroovyValidatorException )
+        dr.numAsDef == 50
+        dr.numAsInt == 500
+        
+        when:
+        dr.numAsInt = 1001
+        dr.numAsDef = 1001
+        then:
+        thrown( GroovyValidatorException )
+        dr.numAsDef == 50
+        dr.numAsInt == 500
 
     } // end "test the no arg constructor"
-    */
-    /*
+    
     def "test just outside the ranges"() {
         def dr = new IntegerRunner()
         when:
-        dr.firstNum  = 50
-        dr.secondNum = 50
-        dr.thirdNum  = 50
+        dr.numAsDef = 50
+        dr.numAsInt = 500
         then:
-        dr.firstNum  == 50
-        dr.secondNum == 50
-        dr.thirdNum  == 50
+        dr.numAsDef == 50
+        dr.numAsInt == 500
         
         when:
-        dr.firstNum  = -0.1
-        dr.secondNum = -0.1
-        dr.thirdNum  = 9.99
+        dr.numAsDef = -0.1
+        dr.numAsInt = -0.1
         then:
-        dr.firstNum  == 50
-        dr.secondNum == 50
-        dr.thirdNum  == 50
+        thrown( GroovyValidatorException )
+        dr.numAsDef == 50
+        dr.numAsInt == 500
         
         when:
-        dr.firstNum  = 1000.1
-        dr.secondNum = 1000.1
-        dr.thirdNum  = 1001d
+        dr.numAsInt = -0.1
+        dr.numAsDef = -0.1
         then:
-        dr.firstNum  == 50
-        dr.secondNum == 50
-        dr.thirdNum  == 1001
+        thrown( GroovyValidatorException )
+        dr.numAsDef == 50
+        dr.numAsInt == 500
+        
+        when:
+        dr.numAsDef = 1000.1
+        dr.numAsInt = 1000.1
+        then:
+        thrown( GroovyValidatorException )
+        dr.numAsDef == 50
+        dr.numAsInt == 500
+        
+        when:
+        dr.numAsInt = 1000.1
+        dr.numAsDef = 1000.1
+        then:
+        thrown( GroovyValidatorException )
+        dr.numAsDef == 50
+        dr.numAsInt == 500
 
     } // end "test just outside the ranges"
-    */
+    
 }
 
