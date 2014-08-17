@@ -20,14 +20,6 @@ This works with the setters. I cannot get it to work with map-based constructors
 
 groovysh does not like the annotations, so I must use the Groovy console (which I don't really like)
 
-gradle -Dtest.single=FirstImmutableSampleTest test -info   
-gradle -Dtest.single=SecondImmutableSampleTest test -info  
-gradle -Dtest.single=BookTest test -info    
-gradle -Dtest.single=ImmutableObject001Test test -info    
-gradle -Dtest.single=ImmutableObject002Test test -info    
-gradle -Dtest.single=BuilderTest001 test -info    
-gradle -Dtest.single=WithTest001 test -info    
-gradle -Dtest.single=CarTest test -info    
-gradle -Dtest.single=BookSequelTest test -info    
-gradle -Dtest.single=TrulyImmutable001Test test -info   
+
+
 

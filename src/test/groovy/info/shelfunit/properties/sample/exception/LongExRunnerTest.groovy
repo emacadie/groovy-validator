@@ -3,14 +3,14 @@ package info.shelfunit.properties.sample.exception
 import info.shelfunit.properties.annotations.GroovyValidatorException
 import spock.lang.Specification
 
-class LongRunnerTest extends Specification { 
+class LongExRunnerTest extends Specification { 
     def setup() {}          // run before every feature method
     def cleanup() {}        // run after every feature method
     def setupSpec() {}     // run before the first feature method
     def cleanupSpec() {}   // run after the last feature method
     
     def "test the no arg constructor"() {
-        def lr = new LongRunner()
+        def lr = new LongExRunner()
         when:
         lr.firstNum  = 50L
         lr.secondNum = 50L
@@ -25,7 +25,9 @@ class LongRunnerTest extends Specification {
         lr.secondNum = -2L
         lr.thirdNum  = 9L
         then:
-        thrown( GroovyValidatorException )
+        final GroovyValidatorException exception = thrown()
+        exception.message == "-2 is a long outside the values 0 and 1000"
+        println "Here is the exception message: ${exception.message}" 
         lr.firstNum  == 50L
         lr.secondNum == 50L
         lr.thirdNum  == 50L

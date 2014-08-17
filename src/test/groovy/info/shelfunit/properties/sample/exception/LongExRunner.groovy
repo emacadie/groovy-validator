@@ -3,10 +3,10 @@ package info.shelfunit.properties.sample.exception
 import info.shelfunit.properties.annotations.AnnotationProcessor
 import info.shelfunit.properties.annotations.LongAnnotation
 
-class LongRunner {
+class LongExRunner {
     
     static { 
-        AnnotationProcessor.process( LongRunner, true ) 
+        AnnotationProcessor.process( LongExRunner, true ) 
     }
     
     @LongAnnotation( minValue = 0L, maxValue = 1000L )
