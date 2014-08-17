@@ -6,7 +6,7 @@ import info.shelfunit.properties.annotations.FloatAnnotation
 class FloatRunner {
     
     static { 
-        AnnotationProcessor.process( FloatRunner.class ) 
+        AnnotationProcessor.process( FloatRunner, true ) 
     }
     
     @FloatAnnotation( minValue = 0f, maxValue = 1000f )
