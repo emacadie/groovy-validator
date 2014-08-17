@@ -6,7 +6,7 @@ import info.shelfunit.properties.annotations.IntAnnotation
 class FirstSubject {
     
     static { 
-        AnnotationProcessor.process( FirstSubject.class ) 
+        AnnotationProcessor.process( FirstSubject  ) 
     }
     
     @IntAnnotation( minValue = 30, maxValue = 400 )

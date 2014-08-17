@@ -33,6 +33,7 @@ class LongRunnerTest extends Specification {
         lr.secondNum = 1001L
         lr.thirdNum  = 1001L
         then:
+        println "lr.firstNum: ${lr.firstNum}, lr.secondNum: ${lr.secondNum}, lr.thirdNum: ${lr.thirdNum}"
         lr.firstNum  == 50L
         lr.secondNum == 50L
         lr.thirdNum  == 1001L

@@ -1,5 +1,6 @@
 package info.shelfunit.properties.sample.exception
 
+import info.shelfunit.properties.annotations.GroovyValidatorException
 import spock.lang.Specification
 
 class LongRunnerTest extends Specification { 
@@ -24,15 +25,19 @@ class LongRunnerTest extends Specification {
         lr.secondNum = -2L
         lr.thirdNum  = 9L
         then:
+        thrown( GroovyValidatorException )
         lr.firstNum  == 50L
         lr.secondNum == 50L
         lr.thirdNum  == 50L
         
         when:
+        lr.thirdNum  = 1001L
         lr.firstNum  = 1001L
         lr.secondNum = 1001L
-        lr.thirdNum  = 1001L
+
         then:
+        thrown( GroovyValidatorException )
+        println "lr.firstNum: ${lr.firstNum}, lr.secondNum: ${lr.secondNum}, lr.thirdNum: ${lr.thirdNum}"
         lr.firstNum  == 50L
         lr.secondNum == 50L
         lr.thirdNum  == 1001L

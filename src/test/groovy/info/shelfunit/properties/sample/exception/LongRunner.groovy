@@ -6,7 +6,7 @@ import info.shelfunit.properties.annotations.LongAnnotation
 class LongRunner {
     
     static { 
-        AnnotationProcessor.process( LongRunner.class ) 
+        AnnotationProcessor.process( LongRunner, true ) 
     }
     
     @LongAnnotation( minValue = 0L, maxValue = 1000L )
