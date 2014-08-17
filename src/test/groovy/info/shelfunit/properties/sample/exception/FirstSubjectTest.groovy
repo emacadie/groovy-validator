@@ -1,6 +1,7 @@
 package info.shelfunit.properties.sample.exception
 
 import spock.lang.Specification
+import info.shelfunit.properties.annotations.GroovyValidatorException
 
 class FirstSubjectTest extends Specification { 
     def setup() {}          // run before every feature method
@@ -14,13 +15,17 @@ class FirstSubjectTest extends Specification {
         fs001.firstNum = 100
         then:
         fs001.firstNum == 100
+        
         when:
         fs001.firstNum = 10
         then:
+        thrown( GroovyValidatorException )
         fs001.firstNum == 100
+        
         when:
         fs001.firstNum = 10000
         then:
+        thrown( GroovyValidatorException )
         fs001.firstNum == 100
     }
     
@@ -33,8 +38,10 @@ class FirstSubjectTest extends Specification {
         
         when:
         def fsWithMap2 = new FirstSubject(firstNum: 20)
-        println "fsWithMap2.firstNum: ${fsWithMap2.firstNum}"
+        // println "fsWithMap2.firstNum: ${fsWithMap2.firstNum}"
         then:
-        fsWithMap2.firstNum == null
+        thrown( GroovyValidatorException )
+        // fsWithMap2.firstNum == null
     }
 }
+
