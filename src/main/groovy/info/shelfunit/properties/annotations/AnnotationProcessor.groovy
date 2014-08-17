@@ -39,8 +39,9 @@ class AnnotationProcessor {
     <p>There is no need to run the process method if you are annotating an immutable object with {@link info.shelfunit.properties.annotations.AstImmutableConstructor}.</p>
     
     @param theClass The class to be transformed and validated
+    @param throwException Set this to true to throw a {@link info.shelfunit.properties.annotations.GroovyValidatorException} if a field does not validate. This is optional, and is set to false by default.
     */
-    static process( Class theClass ) {
+    static process( Class theClass, boolean throwException = false ) {
         // println "Just got called for class ${theClass.getName()}"
         theClass.metaClass.setProperty = { String name, arg ->
             // println " In set property for ${theClass.getName()} for property ${name} with arg ${arg}"
@@ -59,12 +60,20 @@ class AnnotationProcessor {
                     ( arg >= Integer.MIN_VALUE ) &&
                     ( arg <= Integer.MAX_VALUE ) ) {
                     theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg )
+                } else { 
+                    if ( throwException ) {
+                        throw new GroovyValidatorException( "${arg} is an integer outside the values ${intAnnotation.minValue()} and ${intAnnotation.maxValue()}" )
+                    }
                 }
             } else if ( stringAnnotation ) {
                 // println "Here is arg for string: ${arg}, and delegate is a ${delegate.class.name}"
                 if ( ( arg.length() >= stringAnnotation.minLength() ) &&
                     ( arg.length() <= stringAnnotation.maxLength() ) ) {
                     theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg.toString() )
+                } else { 
+                    if ( throwException ) {
+                        throw new GroovyValidatorException( "${arg} is a String with a length outside the values ${stringAnnotation.minLength()} and ${stringAnnotation.maxLength()}" )
+                    }
                 }
             } else if ( doubleAnnotation ) {
                 if ( ( arg instanceof Double ) && 
@@ -73,6 +82,10 @@ class AnnotationProcessor {
                     ( arg >= Double.MIN_VALUE ) &&
                     ( arg <= Double.MAX_VALUE ) ) {
                     theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg )
+                } else { 
+                    if ( throwException ) {
+                        throw new GroovyValidatorException( "${arg} is a double outside the values ${doubleAnnotation.minValue()} and ${doubleAnnotation.maxValue()}" )
+                    }
                 }
             } else if ( floatAnnotation ) {
                 if ( ( arg instanceof Float ) && 
@@ -81,6 +94,10 @@ class AnnotationProcessor {
                     ( arg >= Float.MIN_VALUE ) &&
                     ( arg <= Float.MAX_VALUE ) ) {
                     theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg )
+                } else { 
+                    if ( throwException ) {
+                        throw new GroovyValidatorException( "${arg} is a float outside the values ${floatAnnotation.minValue()} and ${floatAnnotation.maxValue()}" )
+                    }
                 }
             } else if ( longAnnotation ) {
                 if ( ( arg instanceof Long ) && ( arg >= longAnnotation.minValue() ) &&
@@ -88,6 +105,10 @@ class AnnotationProcessor {
                     ( arg >= Long.MIN_VALUE ) &&
                     ( arg <= Long.MAX_VALUE ) ) {
                     theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg )
+                } else { 
+                    if ( throwException ) {
+                        throw new GroovyValidatorException( "${arg} is a long outside the values ${longAnnotation.minValue()} and ${longAnnotation.maxValue()}" )
+                    }
                 }
             } else {
                 theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg ) // this works
