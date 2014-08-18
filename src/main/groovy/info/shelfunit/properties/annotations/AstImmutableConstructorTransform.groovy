@@ -6,12 +6,15 @@ import org.codehaus.groovy.ast.AnnotationNode
 import org.codehaus.groovy.ast.ClassNode 
 import org.codehaus.groovy.ast.ConstructorNode
 import org.codehaus.groovy.ast.FieldNode
+import org.codehaus.groovy.ast.ImportNode 
 
 import org.codehaus.groovy.ast.builder.AstBuilder
 import org.codehaus.groovy.control.CompilePhase
 import org.codehaus.groovy.control.SourceUnit
 import org.codehaus.groovy.transform.ASTTransformation
 import org.codehaus.groovy.transform.GroovyASTTransformation 
+
+import info.shelfunit.properties.annotations.GroovyValidatorException;
 
 @GroovyASTTransformation( phase = CompilePhase.INSTRUCTION_SELECTION )
 class AstImmutableConstructorTransform implements ASTTransformation {
@@ -40,14 +43,18 @@ class AstImmutableConstructorTransform implements ASTTransformation {
         def theString = 
         """
         ${packageString}
+        
+        // import info.shelfunit.properties.annotations.GroovyValidatorException
+        
         class ${annotatedClass.getNameWithoutPackage()} {
-            public ${annotatedClass.getNameWithoutPackage()} ( java.util.LinkedHashMap argMap, boolean validation ) {
+            
+            public ${annotatedClass.getNameWithoutPackage()} ( java.util.LinkedHashMap argMap, boolean validation, boolean throwException = false ) {
                 
-                this( createValidatingConstructor( argMap, validation ) )
+                this( createValidatingConstructor( argMap, validation, throwException ) )
             } // end constructor
             
             // was java.util.HashMap argMap, Boolean validation
-            def static createValidatingConstructor( java.util.HashMap argMap, boolean validation ) {
+            def static createValidatingConstructor( java.util.HashMap argMap, boolean validation, boolean throwException ) {
             
                 if ( !validation ) {
                     return argMap
@@ -100,8 +107,18 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                     sb1 << """
                     if ( ${minimum} <= val?.length() && val?.length() <= ${maximum} ) {
                         newMap[ '${fieldNode.getName()}' ] = val
+                    } else { 
+                        if ( throwException ) {
+                            throw new Exception( val + ' is a String with a length outside the values ${minimum} and ${maximum}' )
+                        }
                     }
                     """
+                    /**
+                     } else { 
+                        if ( throwException ) { info.shelfunit.properties.annotations.GroovyValidator
+                            throw new GroovyValidatorException( '${val.toString()} is is a String with a length outside the values ${minimum} and ${maximum}' )
+                        }
+                    */
                 break
                 case [ 'double', 'java.lang.Double' ]:
                     sb1 << "val = argMap[ '${fieldNode.getName()}' ]"
@@ -110,6 +127,10 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                     sb1 << """
                     if ( ( ${minimum} <= val ) && ( val <= ${maximum} ) ) {
                         newMap[ '${fieldNode.getName()}' ] = val
+                    } else { 
+                        if ( throwException ) {
+                            throw new Exception( val + ' is a double outside the values ${minimum} and ${maximum}' )
+                        }
                     }
                     """
                 break
@@ -120,7 +141,11 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                     sb1 << """
                     if ( ( ${minimum} <= val ) && ( val <= ${maximum} ) ) {
                         newMap[ '${fieldNode.getName()}' ] = val
-                    } 
+                    } else { 
+                        if ( throwException ) {
+                            throw new Exception( val + ' is a float outside the values ${minimum} and ${maximum}' )
+                        }
+                    }
                     """
                 break
                 case [ 'int', 'java.lang.Integer' ]:
@@ -130,7 +155,11 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                     sb1 << """
                     if ( ( ${minimum} <= val ) && ( val <= ${maximum} ) ) {
                         newMap[ '${fieldNode.getName()}' ] = val
-                    } 
+                    } else { 
+                        if ( throwException ) {
+                            throw new Exception( val + ' is an integer outside the values ${minimum} and ${maximum}' )
+                        }
+                    }
                     """
                 break
                 case [ 'long', 'java.lang.Long' ]:
@@ -140,7 +169,11 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                     sb1 << """
                     if ( ( ${minimum} <= val ) && ( val <= ${maximum} ) ) {
                         newMap[ '${fieldNode.getName()}' ] = val
-                    } 
+                    } else { 
+                        if ( throwException ) {
+                            throw new Exception( val + ' is a long outside the values ${minimum} and ${maximum}' )
+                        }
+                    }
                     """
                 break
                 default:
@@ -148,6 +181,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
             }
             
         } // fields2.each
+        // println "Here is sb1: ${sb1}"
         return sb1
     } // end processFields
 

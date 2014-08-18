@@ -1,4 +1,4 @@
-package info.shelfunit.properties.sample.immutable
+package info.shelfunit.properties.sample.immutable.exception
 
 import info.shelfunit.properties.annotations.AstImmutableConstructor
 import info.shelfunit.properties.annotations.DoubleAnnotation
@@ -13,7 +13,7 @@ import groovy.transform.ToString
 @ToString( includeNames = true )
 @Immutable
 @AstImmutableConstructor
-class ImmutableObject002 {
+class ImmutableExObject002 {
     @StringAnnotation( minLength = 5, maxLength = 10 )
     String firstString
     @StringAnnotation( maxLength = 15 )

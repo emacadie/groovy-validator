@@ -1,4 +1,4 @@
-package info.shelfunit.properties.sample.immutable
+package info.shelfunit.properties.sample.immutable.exception
 
 import java.lang.reflect.Method
 import spock.lang.Specification
@@ -7,7 +7,7 @@ import org.junit.rules.TestName
 
 import info.shelfunit.properties.annotations.GroovyValidatorException
 
-class ImmutableObject002Test extends Specification { 
+class ImmutableExObject002Test extends Specification { 
     
     def setup() {}       // run before every feature method
     def cleanup() {}     // run after every feature method
@@ -22,11 +22,11 @@ class ImmutableObject002Test extends Specification {
     def "test without validation"() {
         println "\n--- Starting test ${name.methodName}"
         given:
-        def throwaway = new ImmutableObject002( firstString: "Not Junk", firstInt: 21 )
+        def throwaway = new ImmutableExObject002( firstString: "Not Junk", firstInt: 21 )
         // throwaway.firstString = "Not Junk"
         println "In test ${name.methodName}, throwaway: ${throwaway.toString()}"
         println "Just made throwaway, about to make bTest1"
-        def bTest1 = new ImmutableObject002( firstString: "Hello1", firstInt: 200 )
+        def bTest1 = new ImmutableExObject002( firstString: "Hello1", firstInt: 200 )
         println "In test ${name.methodName}, bTest1: ${bTest1.toString()}"
         expect:
         bTest1.firstString == "Hello1"
@@ -37,11 +37,11 @@ class ImmutableObject002Test extends Specification {
     def "test try to change something"() {
         println "\n--- Starting test ${name.methodName}"
         
-        def throwaway = new ImmutableObject002( firstString: "Not Junk", firstInt: 21 )
+        def throwaway = new ImmutableExObject002( firstString: "Not Junk", firstInt: 21 )
         // throwaway.firstString = "Not Junk"
         println "In test ${name.methodName}, throwaway: ${throwaway.toString()}"
         println "Just made throwaway, about to make bTest1"
-        def bTest1 = new ImmutableObject002( firstString: "Hello1", firstInt: 200 )
+        def bTest1 = new ImmutableExObject002( firstString: "Hello1", firstInt: 200 )
         println "In test ${name.methodName}, bTest1: ${bTest1.toString()}"
         try {
             bTest1.firstString = "Hello again"
@@ -58,7 +58,7 @@ class ImmutableObject002Test extends Specification {
     def "test below the ranges without boolean"() {
         println "\n--- Starting test ${name.methodName}"
         
-        def bTest1 = new ImmutableObject002( firstString: "HH", secondString: "No min length", firstDouble: 5d, firstFloat: 5f, firstInt: 5, firstLong: 5L )
+        def bTest1 = new ImmutableExObject002( firstString: "HH", secondString: "No min length", firstDouble: 5d, firstFloat: 5f, firstInt: 5, firstLong: 5L )
         println "In test ${name.methodName} bTest1: ${bTest1.toString()}"
         
         expect:
@@ -71,7 +71,7 @@ class ImmutableObject002Test extends Specification {
         println "\n--- Starting test ${name.methodName}"
         boolean valid = true
         
-        def bTest1 = new ImmutableObject002( [ firstString: "HH", secondString: "No min length", firstDouble: 5d, firstFloat: 5f, firstInt: 5, firstLong: 5L ], true )
+        def bTest1 = new ImmutableExObject002( [ firstString: "HH", secondString: "No min length", firstDouble: 5d, firstFloat: 5f, firstInt: 5, firstLong: 5L ], true )
         println "In test ${name.methodName}, bTest1: ${bTest1.toString()}"
         
         expect:
@@ -88,7 +88,7 @@ class ImmutableObject002Test extends Specification {
         println "\n--- Starting test ${name.methodName}"
         boolean valid = true
         
-        def bTest1 = new ImmutableObject002( [ firstString: "Hello You", secondString: "No min length", firstDouble: 50d, firstFloat: 50f, firstInt: 50, firstLong: 50L ], true )
+        def bTest1 = new ImmutableExObject002( [ firstString: "Hello You", secondString: "No min length", firstDouble: 50d, firstFloat: 50f, firstInt: 50, firstLong: 50L ], true )
         println "In test ${name.methodName}, bTest1: ${bTest1.toString()}"
         
         expect:
@@ -105,7 +105,7 @@ class ImmutableObject002Test extends Specification {
         println "\n--- Starting test ${name.methodName}"
         boolean valid = true
         
-        def bTest1 = new ImmutableObject002( [ firstString: "Hello You", firstFloat: 50f, firstInt: 50, firstLong: 50L ], true )
+        def bTest1 = new ImmutableExObject002( [ firstString: "Hello You", firstFloat: 50f, firstInt: 50, firstLong: 50L ], true )
         println "In test ${name.methodName}, bTest1: ${bTest1.toString()}"
         
         expect:
@@ -122,7 +122,7 @@ class ImmutableObject002Test extends Specification {
         println "\n--- Starting test ${name.methodName}"
         boolean valid = true
         
-        def bTest1 = new ImmutableObject002( [ firstString: "e" * 11, secondString: "N" * 16, firstDouble: 101d, firstFloat: 101f, firstInt: 101, firstLong: 101L ], true )
+        def bTest1 = new ImmutableExObject002( [ firstString: "e" * 11, secondString: "N" * 16, firstDouble: 101d, firstFloat: 101f, firstInt: 101, firstLong: 101L ], true, true )
         println "In test ${name.methodName}, bTest1: ${bTest1.toString()}"
         
         expect:
@@ -135,5 +135,5 @@ class ImmutableObject002Test extends Specification {
         
     } // end "test beyond the ranges with boolean"
     
-} // end class ImmutableObject002Test
+} // end class ImmutableExObject002Test
 
