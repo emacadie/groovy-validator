@@ -3,10 +3,10 @@ package info.shelfunit.properties.sample.exception
 import info.shelfunit.properties.annotations.AnnotationProcessor
 import info.shelfunit.properties.annotations.DoubleAnnotation
 
-class DoubleRunner {
+class DoubleExRunner {
     
     static { 
-        AnnotationProcessor.process( DoubleRunner, true ) 
+        AnnotationProcessor.process( DoubleExRunner, true ) 
     }
     
     @DoubleAnnotation( minValue = 0d, maxValue = 1000d )

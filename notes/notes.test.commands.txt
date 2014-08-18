@@ -11,5 +11,7 @@ gradle -Dtest.single=TrulyImmutable001Test test -info
 
 Tests with exceptions:
 Package info.shelfunit.properties.sample.exception
+gradle -Dtest.single=FloatExRunnerTest test -info 
 gradle -Dtest.single=LongExRunnerTest test -info 
+
 

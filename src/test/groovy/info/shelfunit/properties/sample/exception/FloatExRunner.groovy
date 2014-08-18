@@ -3,10 +3,10 @@ package info.shelfunit.properties.sample.exception
 import info.shelfunit.properties.annotations.AnnotationProcessor
 import info.shelfunit.properties.annotations.FloatAnnotation
 
-class FloatRunner {
+class FloatExRunner {
     
     static { 
-        AnnotationProcessor.process( FloatRunner, true ) 
+        AnnotationProcessor.process( FloatExRunner, true ) 
     }
     
     @FloatAnnotation( minValue = 0f, maxValue = 1000f )

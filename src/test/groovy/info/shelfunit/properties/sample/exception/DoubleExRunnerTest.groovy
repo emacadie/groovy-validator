@@ -3,14 +3,14 @@ package info.shelfunit.properties.sample.exception
 import spock.lang.Specification
 import info.shelfunit.properties.annotations.GroovyValidatorException
 
-class DoubleRunnerTest extends Specification { 
+class DoubleExRunnerTest extends Specification { 
     def setup() {}          // run before every feature method
     def cleanup() {}        // run after every feature method
     def setupSpec() {}     // run before the first feature method
     def cleanupSpec() {}   // run after the last feature method
     
     def "test the no arg constructor"() {
-        def dr = new DoubleRunner()
+        def dr = new DoubleExRunner()
         when:
         dr.firstNum  = 50d
         dr.secondNum = 50d
@@ -44,7 +44,7 @@ class DoubleRunnerTest extends Specification {
     } // end "test the no arg constructor"
     
     def "test just outside the ranges"() {
-        def dr = new DoubleRunner()
+        def dr = new DoubleExRunner()
         when:
         dr.firstNum  = 50d
         dr.secondNum = 50d
