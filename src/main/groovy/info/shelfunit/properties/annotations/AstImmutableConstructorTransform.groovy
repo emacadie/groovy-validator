@@ -110,7 +110,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                         newMap[ '${fieldNode.getName()}' ] = val
                     } else { 
                         if ( throwException ) {
-                            exceptionStringList.add( val + ' is a String with a length outside the values ${minimum} and ${maximum} ' )
+                            exceptionStringList.add( '"' + val + '" is a String with a length outside the values ${minimum} and ${maximum} ' )
                            
                         }
                     }
@@ -186,7 +186,8 @@ class AstImmutableConstructorTransform implements ASTTransformation {
         } // fields2.each
         sb1 << """
         if ( throwException && ( exceptionStringList.size() > 0 ) ) {
-            throw new Exception( 'trouble' )
+            def exMessage = exceptionStringList.join( System.lineSeparator() )
+            throw new Exception( "Groovy validation exception: " + exMessage  )
         }
         """
         // println "Here is sb1: ${sb1}"
