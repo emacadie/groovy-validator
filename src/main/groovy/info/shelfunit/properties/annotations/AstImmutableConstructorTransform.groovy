@@ -145,7 +145,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                         newMap[ '${fieldNode.getName()}' ] = val
                     } else { 
                         if ( throwException ) {
-                            exceptionStringList.add( val + ' is a float outside the range ${minimum} and ${maximum}' )
+                            exceptionStringList.add( val + ' is a float outside the range ${minimum} and ${maximum} ' )
                         }
                     }
                     """
