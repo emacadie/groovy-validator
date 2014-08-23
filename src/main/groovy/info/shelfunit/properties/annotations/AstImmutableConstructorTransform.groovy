@@ -184,7 +184,11 @@ class AstImmutableConstructorTransform implements ASTTransformation {
             }
             
         } // fields2.each
-        
+        sb1 << """
+        if ( throwException && ( exceptionStringList.size() > 0 ) ) {
+            throw new Exception( 'trouble' )
+        }
+        """
         // println "Here is sb1: ${sb1}"
         return sb1
     } // end processFields
