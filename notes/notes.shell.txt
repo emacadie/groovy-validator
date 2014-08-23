@@ -63,6 +63,7 @@ class ImmutableObject002 {
     @IntAnnotation( minValue = 10, maxValue = 100 ) int firstInt
     @LongAnnotation( maxValue = 100L ) long firstLong
 }
+
 bTest1 = new ImmutableObject002( firstString: "Hello1", firstInt: 200 )
 println " bTest1: ${bTest1.toString()}"
 bTest2 = new ImmutableObject002( [ firstString: "Hello1", firstInt: 200 ], true )

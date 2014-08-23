@@ -96,6 +96,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
         def maximum
         def fieldTypeName
         sb1 << "def val\n"
+        sb1 << "def exceptionStringList = []\n"
         fields2.each { fieldNode ->
             fieldTypeName = fieldNode.getType().getName()
             def annotationNode = fieldNode.getAnnotations()[ 0 ]
@@ -109,6 +110,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                         newMap[ '${fieldNode.getName()}' ] = val
                     } else { 
                         if ( throwException ) {
+                            exceptionStringList.add( val + ' is a String with a length outside the values ${minimum} and ${maximum}' )
                             throw new Exception( val + ' is a String with a length outside the values ${minimum} and ${maximum}' )
                         }
                     }
