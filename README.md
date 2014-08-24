@@ -90,7 +90,7 @@ You can also use it with immutable objects annotated with the AstImmutableConstr
 
 ```groovy
 def thirdImObject = new ImmutableObject002( 
-[ firstString: "Hi Once Again", firstInt: 123456789, firstLong: 22L ], 
+[ firstString: "Hi Once Again", firstInt: 1234567, firstLong: 222L ], 
 true, true )
 ```
 
@@ -99,8 +99,8 @@ In that case, you get a message with a line for each field. So you might get a m
 ```
 Groovy validation exception: 
 "eeeeeeeeeee" is a String with a length outside the range of 5 to 10 characters 
-101 is an integer outside the range 10 and 100 
-101 is a long outside the range 0 and 100
+1234567 is an integer outside the range 10 and 100 
+222 is a long outside the range 0 and 100
 ```
 
 If "thowException" is true for a POGO, the field will either retains its pre-existing value (if it had one) or be set to null. If "throwException" is true for an immutable object, the object will not be created.
