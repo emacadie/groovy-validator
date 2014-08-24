@@ -5,7 +5,7 @@ import spock.lang.Specification
 import org.junit.Rule
 import org.junit.rules.TestName
 
-import info.shelfunit.properties.annotations.GroovyValidatorException
+// import info.shelfunit.properties.annotations.GroovyValidatorException
 
 class ImmutableExObject002Test extends Specification { 
     
@@ -102,16 +102,17 @@ class ImmutableExObject002Test extends Specification {
         
     } // end "test within the ranges with boolean"
     
-    /* I will leave this until I figure out how to handle booleans
+    // I will leave this until I figure out how to handle nulls
+    /* 
     def "test some fields within the ranges with boolean"() {
         println "\n--- Starting test ${name.methodName}"
         boolean valid = true
         
-        def bTest1 = new ImmutableExObject002( [ firstString: "Hello You", firstFloat: 50f, firstInt: 50, firstLong: 50L ], true, true )
+        def bTest1 = new ImmutableExObject002( [ firstString: "w/in range", firstFloat: 50f, firstInt: 50, firstLong: 50L ], true, true )
         println "In test ${name.methodName}, bTest1: ${bTest1.toString()}"
         
         expect:
-        bTest1.firstString == "Hello You"
+        bTest1.firstString == "w/in range"
         bTest1.secondString == null
         bTest1.firstInt == 50
         bTest1.firstDouble == 0

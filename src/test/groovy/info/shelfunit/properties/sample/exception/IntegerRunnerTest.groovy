@@ -1,7 +1,7 @@
 package info.shelfunit.properties.sample.exception
 
 import spock.lang.Specification
-import info.shelfunit.properties.annotations.GroovyValidatorException
+// import info.shelfunit.properties.annotations.GroovyValidatorException
 
 class IntegerRunnerTest extends Specification { 
     def setup() {}          // run before every feature method
@@ -23,7 +23,7 @@ class IntegerRunnerTest extends Specification {
         dr.numAsDef = -2
         dr.numAsInt = -2
         then:
-        thrown( GroovyValidatorException )
+        thrown( Exception )
         dr.numAsDef == 50
         dr.numAsInt == 500
         
@@ -31,7 +31,7 @@ class IntegerRunnerTest extends Specification {
         dr.numAsInt = -2
         dr.numAsDef = -2
         then:
-        thrown( GroovyValidatorException )
+        thrown( Exception )
         dr.numAsDef == 50
         dr.numAsInt == 500
         
@@ -39,7 +39,7 @@ class IntegerRunnerTest extends Specification {
         dr.numAsDef = 1001
         dr.numAsInt = 1001
         then:
-        thrown( GroovyValidatorException )
+        thrown( Exception )
         dr.numAsDef == 50
         dr.numAsInt == 500
         
@@ -47,7 +47,7 @@ class IntegerRunnerTest extends Specification {
         dr.numAsInt = 1001
         dr.numAsDef = 1001
         then:
-        thrown( GroovyValidatorException )
+        thrown( Exception )
         dr.numAsDef == 50
         dr.numAsInt == 500
 
@@ -66,7 +66,7 @@ class IntegerRunnerTest extends Specification {
         dr.numAsDef = -0.1
         dr.numAsInt = -0.1
         then:
-        thrown( GroovyValidatorException )
+        thrown( Exception )
         dr.numAsDef == 50
         dr.numAsInt == 500
         
@@ -74,7 +74,7 @@ class IntegerRunnerTest extends Specification {
         dr.numAsInt = -0.1
         dr.numAsDef = -0.1
         then:
-        thrown( GroovyValidatorException )
+        thrown( Exception )
         dr.numAsDef == 50
         dr.numAsInt == 500
         
@@ -82,7 +82,7 @@ class IntegerRunnerTest extends Specification {
         dr.numAsDef = 1000.1
         dr.numAsInt = 1000.1
         then:
-        thrown( GroovyValidatorException )
+        thrown( Exception )
         dr.numAsDef == 50
         dr.numAsInt == 500
         
@@ -90,7 +90,7 @@ class IntegerRunnerTest extends Specification {
         dr.numAsInt = 1000.1
         dr.numAsDef = 1000.1
         then:
-        thrown( GroovyValidatorException )
+        thrown( Exception )
         dr.numAsDef == 50
         dr.numAsInt == 500
 

@@ -1,6 +1,6 @@
 package info.shelfunit.properties.sample.exception
 
-import info.shelfunit.properties.annotations.GroovyValidatorException
+// import info.shelfunit.properties.annotations.GroovyValidatorException
 import spock.lang.Specification
 
 class FloatExRunnerTest extends Specification { 
@@ -28,14 +28,14 @@ class FloatExRunnerTest extends Specification {
         fr.firstNum  == 50f
         fr.secondNum == 50f
         fr.thirdNum  == 50f
-        thrown( GroovyValidatorException )
+        thrown( Exception )
         
         when:
         fr.firstNum  = 1001f
         fr.secondNum = 1001f
         fr.thirdNum  = 1001f
         then:
-        thrown( GroovyValidatorException )
+        thrown( Exception )
 
     } // end "test the no arg constructor"
     
@@ -55,7 +55,7 @@ class FloatExRunnerTest extends Specification {
         fr.secondNum = -0.1f
         fr.thirdNum  = 9.99f
         then:
-        thrown( GroovyValidatorException )
+        thrown( Exception )
         fr.firstNum  == 50f
         fr.secondNum == 50f
         fr.thirdNum  == 50f
@@ -65,7 +65,7 @@ class FloatExRunnerTest extends Specification {
         fr.secondNum = 1000.1f
         fr.thirdNum  = 1001f
         then:
-        thrown( GroovyValidatorException )
+        thrown( Exception )
 
     } // end "test just outside the ranges"
     
@@ -85,7 +85,7 @@ class FloatExRunnerTest extends Specification {
         fr.secondNum = 50
         fr.thirdNum  = 'hello'
         then:
-        thrown( GroovyValidatorException )
+        thrown( Exception )
         fr.firstNum  == 50.3f
         fr.secondNum == 50
         fr.thirdNum  == 50.0

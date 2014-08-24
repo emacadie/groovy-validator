@@ -6,7 +6,6 @@ import info.shelfunit.properties.annotations.FloatAnnotation
 import info.shelfunit.properties.annotations.IntAnnotation
 import info.shelfunit.properties.annotations.LongAnnotation
 import info.shelfunit.properties.annotations.StringAnnotation
-import info.shelfunit.properties.annotations.GroovyValidatorException
 import groovy.transform.Immutable
 import groovy.transform.ToString
 

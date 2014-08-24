@@ -1,7 +1,7 @@
 package info.shelfunit.properties.sample.exception
 
 import spock.lang.Specification
-import info.shelfunit.properties.annotations.GroovyValidatorException
+// import info.shelfunit.properties.annotations.GroovyValidatorException
 
 class DoubleExRunnerTest extends Specification { 
     def setup() {}          // run before every feature method
@@ -28,14 +28,14 @@ class DoubleExRunnerTest extends Specification {
         dr.firstNum  == 50d
         dr.secondNum == 50d
         dr.thirdNum  == 50d
-        thrown( GroovyValidatorException )
+        thrown( Exception )
         
         when:
         dr.firstNum  = 1001d
         dr.secondNum = 1001d
         dr.thirdNum  = 1001d
         then:
-        thrown( GroovyValidatorException )
+        thrown( Exception )
         dr.firstNum  == 50d
         dr.secondNum == 50d
         dr.thirdNum  == 50d
@@ -59,7 +59,7 @@ class DoubleExRunnerTest extends Specification {
         dr.secondNum = -0.1d
         dr.thirdNum  = 9.99d
         then:
-        thrown( GroovyValidatorException )
+        thrown( Exception )
         dr.firstNum  == 50d
         dr.secondNum == 50d
         dr.thirdNum  == 50d
@@ -72,8 +72,9 @@ class DoubleExRunnerTest extends Specification {
         dr.firstNum  == 50d
         dr.secondNum == 50d
         dr.thirdNum  == 50d
-        thrown( GroovyValidatorException )
+        thrown( Exception )
 
     } // end "test just outside the ranges"
 
 }
+

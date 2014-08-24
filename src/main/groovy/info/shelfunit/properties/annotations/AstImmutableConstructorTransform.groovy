@@ -14,7 +14,7 @@ import org.codehaus.groovy.control.SourceUnit
 import org.codehaus.groovy.transform.ASTTransformation
 import org.codehaus.groovy.transform.GroovyASTTransformation 
 
-import info.shelfunit.properties.annotations.GroovyValidatorException;
+// import info.shelfunit.properties.annotations.GroovyValidatorException;
 
 @GroovyASTTransformation( phase = CompilePhase.INSTRUCTION_SELECTION )
 class AstImmutableConstructorTransform implements ASTTransformation {
@@ -106,7 +106,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                     minimum = annotationNode.getMember( 'minLength' ) ? annotationNode.getMember( 'minLength' ).getValue() : 0
                     maximum = annotationNode.getMember( 'maxLength' ) ? annotationNode.getMember( 'maxLength' ).getValue() :  Integer.MAX_VALUE
                     sb1 << """
-                    if ( ${minimum} <= val?.length() && val?.length() <= ${maximum} ) {
+                    if ( ( ${minimum} <= val?.length() ) && ( val?.length() <= ${maximum} ) ) {
                         newMap[ '${fieldNode.getName()}' ] = val
                     } else { 
                         if ( throwException ) {
@@ -114,12 +114,6 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                         }
                     }
                     """
-                    /**
-                     } else { 
-                        if ( throwException ) { info.shelfunit.properties.annotations.GroovyValidator
-                            throw new GroovyValidatorException( '${val.toString()} is is a String with a length outside the values ${minimum} and ${maximum}' )
-                        }
-                    */
                 break
                 case [ 'double', 'java.lang.Double' ]:
                     sb1 << "val = argMap[ '${fieldNode.getName()}' ]"

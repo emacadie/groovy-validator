@@ -3,7 +3,7 @@ package info.shelfunit.properties.sample.exception
 import spock.lang.Specification
 
 import info.shelfunit.properties.annotations.AnnotationProcessor
-import info.shelfunit.properties.annotations.GroovyValidatorException
+// import info.shelfunit.properties.annotations.GroovyValidatorException
 
 import java.lang.reflect.Method
 import spock.lang.Specification
@@ -34,7 +34,7 @@ class BookSequelTest extends Specification {
         when:
         bTest1.title = "qw"
         then:
-        thrown( GroovyValidatorException )
+        thrown( Exception )
         bTest1.title == "abcdefg"
         
         when:
@@ -42,7 +42,7 @@ class BookSequelTest extends Specification {
         then:
         bTest1.title == "abcdefg"
         bTest1.pages == 100
-        thrown( GroovyValidatorException )
+        thrown( Exception )
     }
     
     // having problems getting this one to work - come back to it later
@@ -52,7 +52,7 @@ class BookSequelTest extends Specification {
         
         try {
         def bTest1 = new BookSequel( pages: 100, title: "S", year: 1990 )
-        } catch ( GroovyValidatorException ex ) {
+        } catch ( Exception ex ) {
         }
         // bTest1.title == null
         
@@ -65,7 +65,7 @@ class BookSequelTest extends Specification {
         when:
         bTest1.title = "qwertyuiopasdfghjklzxcvbnm"
         then:
-        thrown( GroovyValidatorException )
+        thrown( Exception )
         bTest1.title == null
         
         when:

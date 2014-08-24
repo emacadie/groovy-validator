@@ -36,10 +36,26 @@ class AnnotationProcessor {
     </pre>
     <p>That is fine, but there is one corner case: If you use a map-based constructor the first time you instantiate the class, then the annotations will not be run on that object. However, they will be run for subsequent objects.</p>
     
+    <p>You can also have it throw an Exception if the argument does not meet the constraints. If you are setting a value for the first time, it will be null or 0. If you are setting a variable to a different value, it will retain its previous value. You can enable that by calling process like this:</p>
+    
+    <pre>
+    AnnotationProcessor.process( Book, true ) 
+    </pre>
+    
+    <p>If the exception is thrown, you will get a message like this:</p>
+    
+    <pre>
+    "Hey" is a String with a length outside the range of 5 and 10"
+    </pre>
+    
+    <p>If you let the numeric maximums or minimums be the default values, you will get messages like this:</p>
+    
+    <pre>5 is a long outside the range 10 and 9223372036854775807</pre>
+    
     <p>There is no need to run the process method if you are annotating an immutable object with {@link info.shelfunit.properties.annotations.AstImmutableConstructor}.</p>
     
     @param theClass The class to be transformed and validated
-    @param throwException Set this to true to throw a {@link info.shelfunit.properties.annotations.GroovyValidatorException} if a field does not validate. This is optional, and is set to false by default.
+    @param throwException Set this to true to throw an Exception if a field does not validate. This is optional, and is set to false by default.
     */
     static process( Class theClass, boolean throwException = false ) {
         // println "Just got called for class ${theClass.getName()}"
@@ -62,7 +78,7 @@ class AnnotationProcessor {
                     theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg )
                 } else { 
                     if ( throwException ) {
-                        throw new GroovyValidatorException( "${arg} is an integer outside the values ${intAnnotation.minValue()} and ${intAnnotation.maxValue()}" )
+                        throw new Exception( "${arg} is an integer outside the range ${intAnnotation.minValue()} and ${intAnnotation.maxValue()}" )
                     }
                 }
             } else if ( stringAnnotation ) {
@@ -72,7 +88,7 @@ class AnnotationProcessor {
                     theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg.toString() )
                 } else { 
                     if ( throwException ) {
-                        throw new GroovyValidatorException( "${arg} is a String with a length outside the values ${stringAnnotation.minLength()} and ${stringAnnotation.maxLength()}" )
+                        throw new Exception( "\"${arg}\" is a String with a length outside the range of ${stringAnnotation.minLength()} and ${stringAnnotation.maxLength()}" )
                     }
                 }
             } else if ( doubleAnnotation ) {
@@ -84,7 +100,7 @@ class AnnotationProcessor {
                     theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg )
                 } else { 
                     if ( throwException ) {
-                        throw new GroovyValidatorException( "${arg} is a double outside the values ${doubleAnnotation.minValue()} and ${doubleAnnotation.maxValue()}" )
+                        throw new Exception( "${arg} is a double outside the range ${doubleAnnotation.minValue()} and ${doubleAnnotation.maxValue()}" )
                     }
                 }
             } else if ( floatAnnotation ) {
@@ -96,7 +112,7 @@ class AnnotationProcessor {
                     theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg )
                 } else { 
                     if ( throwException ) {
-                        throw new GroovyValidatorException( "${arg} is a float outside the values ${floatAnnotation.minValue()} and ${floatAnnotation.maxValue()}" )
+                        throw new Exception( "${arg} is a float outside the range ${floatAnnotation.minValue()} and ${floatAnnotation.maxValue()}" )
                     }
                 }
             } else if ( longAnnotation ) {
@@ -107,7 +123,7 @@ class AnnotationProcessor {
                     theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg )
                 } else { 
                     if ( throwException ) {
-                        throw new GroovyValidatorException( "${arg} is a long outside the values ${longAnnotation.minValue()} and ${longAnnotation.maxValue()}" )
+                        throw new Exception( "${arg} is a long outside the range ${longAnnotation.minValue()} and ${longAnnotation.maxValue()}" )
                     }
                 }
             } else {

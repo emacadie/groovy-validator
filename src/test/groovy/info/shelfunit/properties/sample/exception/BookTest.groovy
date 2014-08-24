@@ -1,7 +1,7 @@
 package info.shelfunit.properties.sample.exception
 
 import spock.lang.Specification
-import info.shelfunit.properties.annotations.GroovyValidatorException
+// import info.shelfunit.properties.annotations.GroovyValidatorException
 
 class BookTest extends Specification { 
     def setup() {}          // run before every feature method
@@ -21,13 +21,13 @@ class BookTest extends Specification {
         when:
         bTest1.title = "qw"
         then:
-        thrown( GroovyValidatorException )
+        thrown( Exception )
         bTest1.title == "abcdefg"
         
         when:
         bTest1.title = "qwertyuiopasdfghjklzxcvbnm"
         then:
-        thrown( GroovyValidatorException )
+        thrown( Exception )
         bTest1.title == "abcdefg"
         bTest1.pages == 100
     }
@@ -42,7 +42,7 @@ class BookTest extends Specification {
         when:
         bTest1.title = "qw"
         then:
-        thrown( GroovyValidatorException )
+        thrown( Exception )
         bTest1.title == "abcdefg"
         
         when:
@@ -50,7 +50,7 @@ class BookTest extends Specification {
         then:
         bTest1.title == "abcdefg"
         bTest1.pages == 100
-        thrown( GroovyValidatorException )
+        thrown( Exception )
     }
 
 }
