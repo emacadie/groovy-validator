@@ -4,7 +4,7 @@ I will attempt to make some annotations for properties in Groovy.
 
 Here is a POGO:  
 
-'''groovy
+```groovy
 package info.shelfunit.properties.sample
  
 class Book {
@@ -13,11 +13,11 @@ class Book {
     String title
     int year
 }
-'''
+```
 
 It's clean, and has no getters and setters. But what I do not like is there is no validation for your data. So I made some annotations that can do some validation for you.   
 
-'''groovy
+```groovy
 package info.shelfunit.properties.sample
  
 import info.shelfunit.properties.annotations.IntAnnotation
@@ -31,7 +31,7 @@ class Book {
     String title
     int year
 }
-'''
+```
 
 
 
