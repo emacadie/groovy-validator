@@ -39,6 +39,8 @@ You can process the annotations by calling the static process method on info.she
 AnnotationProcessor.process( Book )
 ```
 
+For POGOs, if a numeric field is declared as "def", it will become null if the argument does not meet the validation constraints. If it is declared as a primitive, it will be set to 0 if the argument does not meet the validation constraints.
+
 This project can also handle immutable objects. Instead of using AnnotationProcessor.process(), you annotate the class with  AstImmutableConstructor:
 
 ```groovy
@@ -67,9 +69,40 @@ class ImmutableObject002 {
 To process the annotations, put your properties in a Map, and add a boolean called "validation" and set it to true:
 
 ```groovy
-def validatingImObject = new ImmutableObject002( [ firstString: "Hi Again", firstInt: 11, firstLong: 22L ], true )
+def validatingImObject = new ImmutableObject002( 
+    [ firstString: "Hi Again", firstInt: 11, firstLong: 22L ], true )
 ```
 
+You can add another boolean called "throwException" to throw an exception if the arguments do not meet the validation constraints. It is optional and is set to false by default. If an exception is thrown, it will print out the value and the constraints.   
 
+You can use it for POGOs with the AnnotationProcessor class like this:
+
+```groovy
+AnnotationProcessor.process( Book, true )
+```
+
+You might get a message like this:
+```
+"Hey" is a String with a length outside the range of 5 and 10"
+```
+
+You can also use it with immutable objects annotated with the AstImmutableConstructor annotation. This would be a second boolean after the Map with your properties, since the first boolean controls validation:
+
+```groovy
+def thirdImObject = new ImmutableObject002( 
+[ firstString: "Hi Once Again", firstInt: 123456789, firstLong: 22L ], 
+true, true )
+```
+
+In that case, you get a message with a line for each field. So you might get a whopper message like this:
+
+```
+Groovy validation exception: 
+"eeeeeeeeeee" is a String with a length outside the range of 5 to 10 characters 
+101 is an integer outside the range 10 and 100 
+101 is a long outside the range 0 and 100
+```
+
+If "thowException" is true for a POGO, the field will either retains its pre-existing value (if it had one) or be set to null. If "throwException" is true for an immutable object, the object will not be created.
 
 
