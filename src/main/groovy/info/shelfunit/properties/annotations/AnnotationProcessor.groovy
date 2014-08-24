@@ -50,7 +50,9 @@ class AnnotationProcessor {
     
     <p>If you let the numeric maximums or minimums be the default values, you will get messages like this:</p>
     
-    <pre>5 is a long outside the range 10 and 9223372036854775807</pre>
+    <pre>
+    5 is a long outside the range 10 and 9223372036854775807
+    </pre>
     
     <p>There is no need to run the process method if you are annotating an immutable object with {@link info.shelfunit.properties.annotations.AstImmutableConstructor}.</p>
     

@@ -54,11 +54,36 @@ def firstImObject = new ImmutableObject002( firstString: "Hello", firstInt: 55, 
 </pre>
 
 <p>
-To get the annotation to actually process, you should send two parameters to the constructor: a Map for the fields, and a boolean for whether or not you want the fields to be validated. If the validation is set to false, the effect is the same as if you simply sent the fields as a Map.
+To get the annotation to actually process, you should send two parameters to the constructor: a Map for the fields, and a boolean for whether or not you want the fields to be validated. This boolean is called "validation" in the AST Transformer code. If validation is set to false, the effect is the same as if you simply sent the fields as a Map.
 </p>
 
 <pre>
 def secondImObject = new ImmutableObject002( [ firstString: "Hi Again", firstInt: 11, firstLong: 22L ], true )
+</pre>
+
+<p>You could also send a second boolean (called "throwException" in the AST Transformer) after the Map to throw an Exception if one of the fields does not validate. It is false by default.
+</p>
+
+<pre>
+def thirdImObject = new ImmutableObject002( [ firstString: "Hi Once Again", firstInt: 123456789, firstLong: 22L ], true, true )
+</pre>
+
+<p>If throwException is not set to true and a field does not validate, it will be set to "null" if it is a String and 0 for a number. If throwException is set to true and a field does not validate, an Exception is thrown and the object is not created.</p>
+
+<p>There is a corner case I have not been able to solve. I made an object with two String fields and a few numbers. If I did not provide a value for the second String, it would be null if throwException was set to false, but it would be set to "null" if throwException was set to true.</p>
+
+<p>If validation is set to false and throwException is set to true, then no exceptions are thrown.</p>
+
+<p>The message of the exception is a pseudo-list of messages, one for each that did not pass the validation. They are separated by newline characters. Here is an example:</p>
+
+<pre>
+Groovy validation exception: 
+"eeeeeeeeeee" is a String with a length outside the range of 5 to 10 characters 
+"NNNNNNNNNNNNNNNN" is a String with a length outside the range of 0 to 15 characters 
+101.0 is a double outside the range 10.0 and 100.0 
+101.0 is a float outside the range 10.0 and 100.0
+101 is an integer outside the range 10 and 100 
+101 is a long outside the range 0 and 100
 </pre>
 
 */

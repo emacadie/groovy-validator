@@ -64,4 +64,13 @@ http://mrhaki.blogspot.com/2014/05/groovy-goodness-use-builder-ast.html
 http://blog.jdriven.com/2014/05/groovy-goodness-builder-definition-extra-type-checks/
 https://gist.github.com/dmahapatro/5e35e59cad2736a6723f
 
+At one point, I got this:
+* What went wrong:
+Could not resolve all dependencies for configuration ':compile'.
+> Could not resolve org.slf4j:slf4j-api:1.7.+.
+  Required by:
+      :groovy-validator:unspecified
+   > Could not HEAD 'http://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.7.7/slf4j-api-1.7.7.pom'.
+      > The target server failed to respond
+
 
