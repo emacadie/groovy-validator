@@ -2,23 +2,40 @@ This project has a few annotations that validate fields in POGOs, sort of like G
 
 I will attempt to make some annotations for properties in Groovy.    
 
-gradle runGroovy -PmainClass=info.shelfunit.properties.sample.SampleRunner    
+Here is a POGO:  
 
-Java 7 API:  
-http://docs.oracle.com/javase/7/docs/api/  
-http://hibernate.org/validator/documentation/getting-started/  
+'''groovy
+package info.shelfunit.properties.sample
+ 
+class Book {
+     
+    int pages
+    String title
+    int year
+}
+'''
 
-http://www.journaldev.com/721/java-annotations-tutorial-with-custom-annotation-example-and-parsing-using-reflection   
-http://tutorials.jenkov.com/java-reflection/annotations.html    
+It's clean, and has no getters and setters. But what I do not like is there is no validation for your data. So I made some annotations that can do some validation for you.   
 
-It looks like OVal does something similar, but it is a lot bigger and does more stuff:   
-http://oval.sourceforge.net/    
+'''groovy
+package info.shelfunit.properties.sample
+ 
+import info.shelfunit.properties.annotations.IntAnnotation
+import info.shelfunit.properties.annotations.StringAnnotation
+ 
+class Book {
+     
+    @IntAnnotation( minValue = 30, maxValue = 400 )
+    def pages
+    @StringAnnotation( minLength = 5, maxLength = 20 )
+    String title
+    int year
+}
+'''
 
-This is intended to be pretty small    
 
-This works with the setters. I cannot get it to work with map-based constructors.  
 
-groovysh does not like the annotations, so I must use the Groovy console (which I don't really like)
+
 
 
 
