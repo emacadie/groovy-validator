@@ -94,7 +94,7 @@ def thirdImObject = new ImmutableObject002(
 true, true )
 ```
 
-In that case, you get a message with a line for each field. So you might get a whopper message like this:
+In that case, you get a message with a line for each field. So you might get a message like this:
 
 ```
 Groovy validation exception: 
