@@ -15,7 +15,9 @@ class Book {
 }
 ```
 
-It's clean, and has no getters and setters. But what I do not like is there is no validation for your data. So I made some annotations that can do some validation for you.   
+It's clean, and has no getters and setters. But what I do not like is there is no validation for your data. What if you want your String to be between 10 and 20 characters? What if you want your int field to be more than 100? 
+
+So I made some annotations that can do some validation for you.   
 
 ```groovy
 package info.shelfunit.properties.sample
@@ -104,6 +106,8 @@ Groovy validation exception:
 ```
 
 If "thowException" is true for a POGO, the field will either retains its pre-existing value (if it had one) or be set to null. If "throwException" is true for an immutable object, the object will not be created.
+
+Right now it only handles String, double, float, int and long. It checks the length of a String field, and whether the numbers are within a set range. I might add some regular expression checks to the StringAnnotation in the future.  
 
 To use this project: 
 Run 
