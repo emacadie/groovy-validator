@@ -35,10 +35,10 @@ class Book {
 }
 ```
 
-You can process the annotations by calling the static process method on info.shelfunit.properties.annotations.AnnotationProcessor:
+You can process the annotations by calling the static process method on info.shelfunit.properties.annotations.AnnotationProcessor, sending your POGO class as an argument:
 
 ```groovy
-AnnotationProcessor.process( Book )
+AnnotationProcessor.process( Book.class )
 ```
 
 For POGOs, if a numeric field is declared as "def", it will become null if the argument does not meet the validation constraints. If it is declared as a primitive, it will be set to 0 if the argument does not meet the validation constraints.
