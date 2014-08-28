@@ -65,7 +65,9 @@ cd "`dirname \"$PRG\"`/.." >&-
 APP_HOME="`pwd -P`"
 cd "$SAVED" >&-
 
-CLASSPATH=$APP_HOME/lib/groovy-validator.jar:$APP_HOME/lib/slf4j-api-1.7.7.jar:$APP_HOME/lib/log4j-1.2.17.jar
+# CLASSPATH=$APP_HOME/lib/groovy-validator.jar:$APP_HOME/lib/slf4j-api-1.7.7.jar:$APP_HOME/lib/log4j-1.2.17.jar
+CLASSPATH=$APP_HOME/groovy-validator.jar:$APP_HOME/lib/slf4j-api-1.7.7.jar:$APP_HOME/lib/log4j-1.2.17.jar
+
 
 # Determine the Java command to use to start the JVM.
 if [ -n "$JAVA_HOME" ] ; then
