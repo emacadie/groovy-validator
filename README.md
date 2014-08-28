@@ -105,4 +105,12 @@ Groovy validation exception:
 
 If "thowException" is true for a POGO, the field will either retains its pre-existing value (if it had one) or be set to null. If "throwException" is true for an immutable object, the object will not be created.
 
+To use this project: 
+Run 
+```
+gradle distZip
+```
+and use build/libs/groovy-validator.jar in your project.
+
+
 

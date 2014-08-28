@@ -1,7 +1,8 @@
 apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'groovy'
-apply plugin: 'application'
+// apply plugin: 'application'
+apply plugin: 'java-library-distribution'
 
 repositories {
   mavenCentral()
@@ -10,10 +11,8 @@ repositories {
 dependencies {
 
     testCompile 'junit:junit:4.10'
-    testCompile 'org.mockito:mockito-all:[1.8.5,)'
     // From Maven, it's GroupId:ArtifactId:Version 
     testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
-    testCompile 'xmlunit:xmlunit:1.5'
 
     // logging
     compile 'org.slf4j:slf4j-api:1.7.+'
@@ -44,7 +43,7 @@ test {
   // this will make it run the test every time you run 'gradle test'
   outputs.upToDateWhen { false }
 }
-
+/*
 task runJava( type: JavaExec ) {
      println( "-- Groovy version: " + groovy.lang.GroovySystem.getVersion() )
      dependsOn classes
@@ -59,6 +58,7 @@ task runJava( type: JavaExec ) {
      // We can pass arguments to the main() method of gradle.sample.SampleApp.
      args 'www.yahoo.com'
 }
+*/
 
 task runGroovy( type: JavaExec ) {
      println( "-- Groovy version: " + groovy.lang.GroovySystem.getVersion() )
@@ -89,6 +89,6 @@ groovydoc {
     exclude "info/shelfunit/properties/sample/*"
 }
 
-mainClassName = "info.shelfunit.properties.sample.SampleRunner"
+// mainClassName = "info.shelfunit.properties.sample.SampleRunner"
 
 
