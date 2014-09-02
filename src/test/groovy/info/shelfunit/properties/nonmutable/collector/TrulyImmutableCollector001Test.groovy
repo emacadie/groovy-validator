@@ -44,6 +44,7 @@ class TrulyImmutableCollector001Test extends Specification {
         bTest1.firstString == "Hello1"
         bTest1.secondInt == 200
         bTest1.firstInt == 0
+        bTest1.toString() == "info.shelfunit.properties.nonmutable.collector.TrulyImmutableCollector001(firstString:Hello1, secondString:Goodbye, firstInt:0, secondInt:200)"
         
     } // end "test the no arg constructor"
     
@@ -56,6 +57,7 @@ class TrulyImmutableCollector001Test extends Specification {
         bTest2.secondString == null
         bTest2.firstInt == 0
         bTest2.secondInt == 0
+        bTest2.toString() == "info.shelfunit.properties.nonmutable.collector.TrulyImmutableCollector001(firstString:Hello2, secondString:null, firstInt:0, secondInt:0)"
     } // end "test bTest2"
     
     def "third test"() {
@@ -76,6 +78,7 @@ class TrulyImmutableCollector001Test extends Specification {
         bTest1.secondString == "Goodbye"
         bTest1.firstInt == 0
         bTest1.secondInt == 0
+        bTest1.toString() == "info.shelfunit.properties.nonmutable.collector.TrulyImmutableCollector001(firstString:Hello3, secondString:Goodbye, firstInt:0, secondInt:0)"
         exceptionThrown == true
     } // end "test the no arg constructor again"
    
