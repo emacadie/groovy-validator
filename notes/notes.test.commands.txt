@@ -16,4 +16,6 @@ gradle -Dtest.single=LongExRunnerTest test -info
 gradle -Dtest.single=ImmutableExObject002Test test -info   
 gradle -Dtest.single=TrulyImmutableEx001Test test -info    
 
+gradle -Dtest.single=TrulyImmutableCollector001Test test -info   
+
 
