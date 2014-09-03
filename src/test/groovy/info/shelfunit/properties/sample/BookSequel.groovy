@@ -4,7 +4,6 @@ import info.shelfunit.properties.annotations.IntAnnotation
 import info.shelfunit.properties.annotations.StringAnnotation
 import groovy.transform.ToString
 
-
 @ToString( includeNames = true )
 class BookSequel {
     
