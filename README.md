@@ -43,21 +43,17 @@ AnnotationProcessor.process( Book.class )
 
 For POGOs, if a numeric field is declared as "def", it will become null if the argument does not meet the validation constraints. If it is declared as a primitive, it will be set to 0 if the argument does not meet the validation constraints.
 
-This project can also handle immutable objects. Instead of using AnnotationProcessor.process(), you annotate the class with  AstImmutableConstructor:
+This project can also handle immutable objects. Instead of using AnnotationProcessor.process(), you annotate the class with  ImmutableValidator:
 
 ```groovy
 package info.shelfunit.properties.sample.immutable
  
-import info.shelfunit.properties.annotations.AstImmutableConstructor
+import info.shelfunit.properties.annotations.ImmutableValidator
 import info.shelfunit.properties.annotations.IntAnnotation
 import info.shelfunit.properties.annotations.LongAnnotation
 import info.shelfunit.properties.annotations.StringAnnotation
-import groovy.transform.Immutable
-import groovy.transform.ToString
  
-@ToString( includeNames = true )
-@AstImmutableConstructor
-@Immutable
+@ImmutableValidator
 class ImmutableObject002 {
     @StringAnnotation( minLength = 5, maxLength = 10 )
     String firstString
