@@ -84,7 +84,7 @@ You might get a message like this:
 "Hey" is a String with a length outside the range of 5 and 10
 ```
 
-You can also use it with immutable objects annotated with the AstImmutableConstructor annotation. This would be a second boolean after the Map with your properties, since the first boolean controls validation:
+You can also use it with immutable objects annotated with the ImmutableValidator annotation. This would be a second boolean after the Map with your properties, since the first boolean controls validation:
 
 ```groovy
 def thirdImObject = new ImmutableObject002( 
