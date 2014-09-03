@@ -5,7 +5,7 @@ import spock.lang.Specification
 import org.junit.Rule
 import org.junit.rules.TestName
 
-class ImmutableObject001Test extends Specification { 
+class ImmutableObjectColl001Test extends Specification { 
     
     def setup() {}       // run before every feature method
     def cleanup() {}     // run after every feature method
@@ -16,14 +16,17 @@ class ImmutableObject001Test extends Specification {
     
     @Rule 
     TestName name = new TestName()
+    
    
     // for some reason the first time you call a class it does not actually process the annotations
     // comment out the lines for the "junk" object and compare
     def "test without validation"() {
         println "--- Starting test ${name.methodName}"
-        def throwaway = new ImmutableObject001( firstString: "Not Junk", firstInt: 21 )
+
+        def throwaway = new ImmutableObjectColl001( firstString: "Not Junk", firstInt: 21 )
+        // throwaway.firstString = "Not Junk"
         println "Just made throwaway, about to make bTest1"
-        def bTest1 = new ImmutableObject001( firstString: "Hello1", firstInt: 200 )
+        def bTest1 = new ImmutableObjectColl001( firstString: "Hello1", firstInt: 200 )
         println "In test ${name.methodName}, bTest1: ${bTest1.toString()}"
         expect:
         bTest1.firstString == "Hello1"
@@ -37,16 +40,14 @@ class ImmutableObject001Test extends Specification {
         String classString = '''
 package info.shelfunit.somepackage
 
-import info.shelfunit.properties.annotations.AstImmutableConstructor
+import info.shelfunit.properties.annotations.ImmutableValidator
 import info.shelfunit.properties.annotations.DoubleAnnotation
 import info.shelfunit.properties.annotations.FloatAnnotation
 import info.shelfunit.properties.annotations.IntAnnotation
 import info.shelfunit.properties.annotations.LongAnnotation
 import info.shelfunit.properties.annotations.StringAnnotation
-import groovy.transform.Immutable
 
-@Immutable
-@AstImmutableConstructor
+@ImmutableValidator
 class UVW {
     @StringAnnotation( minLength = 5, maxLength = 10 )
     String firstString
