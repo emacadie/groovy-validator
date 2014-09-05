@@ -66,7 +66,7 @@ class RegExSubjectSpec extends Specification {
         println "--- Starting test ${name.methodName}"
         def res = new RegExSubject()
         when:
-        res.password= "p4ssw0rd"
+        res.password = "p4ssw0rd"
         then:
         res.password == "p4ssw0rd"
         when:
@@ -93,6 +93,41 @@ class RegExSubjectSpec extends Specification {
         println "res: ${res.toString()}"
         
     } // end "test password regex"
+    
+    // until I can get comments to work in reg ex, this test is commented out
+    /*
+    def "test passwordWithComment regex"() {
+        println "--- Starting test ${name.methodName}"
+        def res = new RegExSubject()
+        when:
+        res.passwordWithComment = "p4ssw0rd"
+        then:
+        res.passwordWithComment == "p4ssw0rd"
+        when:
+        res.passwordWithComment = "p45sword"
+        then:
+        res.passwordWithComment == "p45sword" 
+        when:
+        res.passwordWithComment = "password"
+        then:
+        res.passwordWithComment == "p45sword"
+        when:
+        res.passwordWithComment = "p4ssword"
+        then:
+        res.passwordWithComment == "p45sword"
+        
+        when:
+        res.passwordWithComment = "p45s"
+        then:
+        res.passwordWithComment == "p45sword"
+        when:
+        res.passwordWithComment = "p45swordp45sword"
+        then:
+        res.passwordWithComment == "p45sword"
+        println "res: ${res.toString()}"
+        
+    } // end "test passwordWithComment regex"
+    */
     
 } // RegExSubjectSpec
 

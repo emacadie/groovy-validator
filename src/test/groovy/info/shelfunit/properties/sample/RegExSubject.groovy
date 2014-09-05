@@ -13,7 +13,7 @@ class RegExSubject {
     String yearWithDay
     @StringAnnotation( minLength = 6, maxLength = 10, regEx = "^(?=.*[0-9].*[0-9])[0-9a-zA-Z]{8,12}\$" )
     String password
-    @IntAnnotation( minValue = 1000, maxValue = 2000 )
-    int secondInt
+    // @StringAnnotation( minLength = 6, maxLength = 10, regEx = '^(?=.*[0-9].*[0-9])' + '[0-9a-zA-Z]{8,12}\$' )
+    // String passwordWithComment
 }
 
