@@ -87,7 +87,7 @@ class AnnotationProcessor {
                 }
             } else if ( stringAnnotation ) {
                 // println "Here is arg for string: ${arg}, and delegate is a ${delegate.class.name}"
-                def theMatch = Pattern.compile( stringAnnotation.regEx() )
+                def theMatch = Pattern.compile( stringAnnotation.regEx(), Pattern.COMMENTS )
                 if ( ( arg.length() >= stringAnnotation.minLength() ) &&
                     ( arg.length() <= stringAnnotation.maxLength() ) && 
                      ( theMatch.matcher( arg ).matches() ) ) {

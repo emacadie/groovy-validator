@@ -60,7 +60,39 @@ class RegExSubjectSpec extends Specification {
         res.groovyString == "I like Groovy"
         println "res: ${res.toString()}"
         
-    } // end "test date regex"
+    } // end "test groovy regex"
+    
+    def "test password regex"() {
+        println "--- Starting test ${name.methodName}"
+        def res = new RegExSubject()
+        when:
+        res.password= "p4ssw0rd"
+        then:
+        res.password == "p4ssw0rd"
+        when:
+        res.password = "p45sword"
+        then:
+        res.password == "p45sword" 
+        when:
+        res.password = "password"
+        then:
+        res.password == "p45sword"
+        when:
+        res.password = "p4ssword"
+        then:
+        res.password == "p45sword"
+        
+        when:
+        res.password = "p45s"
+        then:
+        res.password == "p45sword"
+        when:
+        res.password = "p45swordp45sword"
+        then:
+        res.password == "p45sword"
+        println "res: ${res.toString()}"
+        
+    } // end "test password regex"
     
 } // RegExSubjectSpec
 
