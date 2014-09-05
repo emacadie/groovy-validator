@@ -89,3 +89,23 @@ This works with the setters. I cannot get it to work with map-based constructors
 
 groovysh does not like the annotations, so I must use the Groovy console (which I don't really like)
 
+RegEx:
+    // example: 2014-02-01-08:00
+    def static yyyyMMddHHmm = ~/\d{4}?-\d{2}?-\d{2}?-\d{2}?:\d{2}?/
+    // example: 2014-02-01
+    def static yyyyMMdd = ~/\d{4}?-\d{2}?-\d{2}/
+Using RegEx:
+        def dateString
+        def dateFormats = [ 'yyyy-MM-dd-HH:mm', 'yyyy-MM-dd-HH' ]
+        if ( yyyyMMddHHmm.matcher( argString ).matches() ) {
+            dateString = Date.parse( 'yyyy-MM-dd-HH:mm', argString )
+        } else if ( yyyyMMdd.matcher( argString ).matches() ) {
+            dateString = Date.parse( 'yyyy-MM-dd', argString )
+        }
+        dateString.format('yyyy-MM-dd')
+a
+yyyyMMdd = Pattern.compile( "~/\\d{4}?-\\d{2}?-\\d{2}/")
+ yyyyMMdd.matcher( '2014-02-01' ).matches()
+yyyyMMdd = Pattern.compile( "\\d{4}?-\\d\\d-\\d\\d" )
+yyyyMMdd.matcher( "2014-02-01" ).matches()
+

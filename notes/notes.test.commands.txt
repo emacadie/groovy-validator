@@ -21,4 +21,6 @@ gradle -Dtest.single=TrulyImmutableCollectorEx001Test test -info
 gradle -Dtest.single=ImmutableObjectColl001Test test -info  
 gradle -Dtest.single=ImmutableObjectColl002Test test -info  
 
+gradle -Dtest.single=RegExSubjectSpec test -info 
+
 

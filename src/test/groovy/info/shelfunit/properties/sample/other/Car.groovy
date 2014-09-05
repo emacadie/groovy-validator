@@ -1,13 +1,13 @@
 package info.shelfunit.properties.sample.other
 
 import groovy.transform.ToString
+import groovy.transform.TupleConstructor 
 import info.shelfunit.properties.annotations.IntAnnotation
 import info.shelfunit.properties.annotations.AstImmutableConstructor
-import groovy.transform.TupleConstructor
 
-@TupleConstructor
 @ToString( includeNames = true )
 @AstImmutableConstructor
+@TupleConstructor
 class Car {
     @IntAnnotation( minValue = 0 )
     int miles

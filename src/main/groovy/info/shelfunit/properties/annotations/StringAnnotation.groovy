@@ -33,5 +33,7 @@ public @interface StringAnnotation {
     The maximum length of the String field. The maximum is 2,147,483,647, which is the same as Integer.MAX_VALUE.
     */
     public int maxLength() default 2147483647
+    
+    public String regEx() default ".*"
 }
 

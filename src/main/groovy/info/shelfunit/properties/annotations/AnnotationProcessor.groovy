@@ -4,6 +4,8 @@ import org.codehaus.groovy.ast.ClassHelper
 import org.codehaus.groovy.ast.ClassNode 
 
 import java.lang.annotation.Annotation
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 /**
 <p>This is a class that will process the annotations {@link info.shelfunit.properties.annotations.DoubleAnnotation}, {@link info.shelfunit.properties.annotations.FloatAnnotation}, {@link info.shelfunit.properties.annotations.IntAnnotation}, {@link info.shelfunit.properties.annotations.LongAnnotation} and {@link info.shelfunit.properties.annotations.StringAnnotation}</p>
@@ -85,8 +87,10 @@ class AnnotationProcessor {
                 }
             } else if ( stringAnnotation ) {
                 // println "Here is arg for string: ${arg}, and delegate is a ${delegate.class.name}"
+                def theMatch = Pattern.compile( stringAnnotation.regEx() )
                 if ( ( arg.length() >= stringAnnotation.minLength() ) &&
-                    ( arg.length() <= stringAnnotation.maxLength() ) ) {
+                    ( arg.length() <= stringAnnotation.maxLength() ) && 
+                     ( theMatch.matcher( arg ).matches() ) ) {
                     theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg.toString() )
                 } else { 
                     if ( throwException ) {
