@@ -94,9 +94,11 @@ class AstImmutableConstructorTransform implements ASTTransformation {
         def sb1= new StringBuffer()
         def minimum
         def maximum
+        def regExp
         def fieldTypeName
-        sb1 << "def val\n"
+        sb1 << "def val\ndef theMatch\n"
         sb1 << "def exceptionStringList = []\n"
+        try {
         fields2.each { fieldNode ->
             fieldTypeName = fieldNode.getType().getName()
             def annotationNode = fieldNode.getAnnotations()[ 0 ]
@@ -105,8 +107,17 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                     sb1 << "val = argMap[ '${fieldNode.getName()}' ]"
                     minimum = annotationNode.getMember( 'minLength' ) ? annotationNode.getMember( 'minLength' ).getValue() : 0
                     maximum = annotationNode.getMember( 'maxLength' ) ? annotationNode.getMember( 'maxLength' ).getValue() :  Integer.MAX_VALUE
+                    println "Here is annotationNode.getMember( 'regEx' ): ${annotationNode.getMember( 'regEx' )}"
+                    println "Here is annotationNode.getMember( 'regEx' ).class.name : ${annotationNode.getMember( 'regEx' )?.class?.name }"
+                    if ( annotationNode.getMember( 'regEx' )?.class?.name == 'org.codehaus.groovy.ast.expr.ConstantExpression' ) {
+                        println "Here is annotationNode.getMember( 'regEx' ).getText(): ${ annotationNode.getMember( 'regEx' ).getText() }"
+                    }
+                    regExp = annotationNode.getMember( 'regEx' ) ? "\"" + annotationNode.getMember( 'regEx' ).getText() + "\"" : "\".*\"" 
+                    // regExp = annotationNode.getMember( 'regEx' ) ? annotationNode.getMember( 'regEx' ).getText()  : "\".*\"" 
+                    println "Here is regExp now: ${regExp}"
                     sb1 << """
-                    if ( ( ${minimum} <= val?.length() ) && ( val?.length() <= ${maximum} ) ) {
+                    theMatch = java.util.regex.Pattern.compile( ${regExp}, java.util.regex.Pattern.COMMENTS )
+                    if ( ( ${minimum} <= val?.length() ) && ( val?.length() <= ${maximum} ) && ( theMatch.matcher( val ).matches() ) ) {
                         newMap[ '${fieldNode.getName()}' ] = val
                     } else { 
                         if ( throwException ) {
@@ -177,13 +188,16 @@ class AstImmutableConstructorTransform implements ASTTransformation {
             }
             
         } // fields2.each
+        } catch ( Exception e ) {
+            e.printStackTrace()
+        }
         sb1 << """
         if ( throwException && ( exceptionStringList.size() > 0 ) ) {
             def exMessage = exceptionStringList.join( System.lineSeparator() )
             throw new Exception( 'Groovy validation exception: ' + System.lineSeparator() + exMessage  )
         }
         """
-        // println "Here is sb1: ${sb1}"
+        println "Here is sb1: ${sb1}"
         return sb1
     } // end processFields
 
