@@ -14,6 +14,8 @@ import java.lang.annotation.RetentionPolicy
     String firstString
     @StringAnnotation( maxLength = 400 )
     def secondString
+    @StringAnnotation( minLength = 10, regEx = "^.*?[Gg]roovy.*\$" ) 
+    String groovyString
 </pre>
 <p>If the field is defined as "String" and it is given a value in the first call to setX that is outside your constraints, then it will be set to a String with length 0. If the field is defined as "def" and it is given a value that is outside your constraints, then it will be set to null. If the field already has a valid value and it is sent an invalid one in a call to setX, the new, invalid value will be ignored.</p>
 
@@ -33,7 +35,14 @@ public @interface StringAnnotation {
     The maximum length of the String field. The maximum is 2,147,483,647, which is the same as Integer.MAX_VALUE.
     */
     public int maxLength() default 2147483647
-    
+    /**
+    <p>A regular expression the String must match. By default, it is the catch-all ".*"</p>
+    <p>You can delineate a string with slashes, like this:</p>
+    <pre>/^.*?[Gg]roovy.*$/</pre>
+    <p>or as a Java string like this:</p>
+    <pre>"^.*?[Gg]roovy.*\$"</pre>
+    <p>See the javadoc for the <a href="http://docs.oracle.com/javase/7/docs/api/?java/util/regex/Pattern.html">Pattern</a> class for details.</p>
+    */
     public String regEx() default ".*"
 }
 
