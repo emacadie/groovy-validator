@@ -46,6 +46,7 @@ class BookTest extends Specification {
         then:
         bTest1.title == "abcdefg"
         bTest1.pages == 100
+        bTest1.toString() == "info.shelfunit.properties.sample.Book(pages:100, title:abcdefg, year:1979)"
     }
 
 }

@@ -22,6 +22,8 @@ class AstImmutableConstructorTransform implements ASTTransformation {
     def knownTypes = [ 'java.lang.Double', 'java.lang.Float', 'java.lang.Integer', 'java.lang.Long', 'java.lang.String', 
     'double', 'float', 'int', 'long' ]
     
+    def className
+    
     void visit( ASTNode[] astNodes, SourceUnit sourceUnit ) {
         
         if ( !astNodes ) return
@@ -36,7 +38,8 @@ class AstImmutableConstructorTransform implements ASTTransformation {
             ( ( knownTypes.contains( it.getType().getName() ) ) && 
             ( !it.getName().contains( '$hash$code' ) ) ) 
         } 
-        
+        className = annotatedClass.getNameWithoutPackage()
+        println "Here is className: ${className} and it is a ${className.class.name}"
         def minimum
         def maximum
         def packageString = annotatedClass.getPackageName()? "package  ${annotatedClass.getPackageName()}" : " "
@@ -91,6 +94,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
     constructor that will be passed on. Otherwise leave it out. If the field does not have a validation annotation, just pass it thought.
     */
     def processFields( fields2 ) {
+        println "In processFields, with className set to ${className} and it is a ${className.class.name}"
         def sb1= new StringBuffer()
         def minimum
         def maximum
@@ -102,6 +106,11 @@ class AstImmutableConstructorTransform implements ASTTransformation {
         fields2.each { fieldNode ->
             fieldTypeName = fieldNode.getType().getName()
             def annotationNode = fieldNode.getAnnotations()[ 0 ]
+            println "Here is annotationNode: ${annotationNode}"
+            if ( annotationNode == null ) {
+                println "ANNOTATION IS NULL"
+                sb1 << " newMap[ '${fieldNode.getName()}' ] = argMap[ '${fieldNode.getName()}' ]"
+            } else {
             switch ( fieldTypeName ) {
                 case 'java.lang.String':
                     sb1 << "val = argMap[ '${fieldNode.getName()}' ]"
@@ -112,8 +121,8 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                     if ( annotationNode.getMember( 'regEx' )?.class?.name == 'org.codehaus.groovy.ast.expr.ConstantExpression' ) {
                         println "Here is annotationNode.getMember( 'regEx' ).getText(): ${ annotationNode.getMember( 'regEx' ).getText() }"
                     }
-                    regExp = annotationNode.getMember( 'regEx' ) ? "\"" + annotationNode.getMember( 'regEx' ).getText() + "\"" : "\".*\"" 
-                    // regExp = annotationNode.getMember( 'regEx' ) ? annotationNode.getMember( 'regEx' ).getText()  : "\".*\"" 
+                    // regExp = annotationNode.getMember( 'regEx' ) ? "\"" + annotationNode.getMember( 'regEx' ).getText() + "\"" : "\".*\"" 
+                    regExp = annotationNode.getMember( 'regEx' ) ? annotationNode?.getMember( 'regEx' )?.getText()  : "\".*\"" 
                     println "Here is regExp now: ${regExp}"
                     sb1 << """
                     theMatch = java.util.regex.Pattern.compile( ${regExp}, java.util.regex.Pattern.COMMENTS )
@@ -186,6 +195,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                 default:
                     sb1 << "newMap[ '${fieldNode.getName()}' ] = argMap[ '${fieldNode.getName()}' ]\n"
             }
+            }
             
         } // fields2.each
         } catch ( Exception e ) {
@@ -197,7 +207,9 @@ class AstImmutableConstructorTransform implements ASTTransformation {
             throw new Exception( 'Groovy validation exception: ' + System.lineSeparator() + exMessage  )
         }
         """
+        if ( className.contains( "ImmutablePartial" ) ) {
         println "Here is sb1: ${sb1}"
+        }
         return sb1
     } // end processFields
 
