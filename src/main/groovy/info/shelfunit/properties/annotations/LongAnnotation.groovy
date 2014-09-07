@@ -16,7 +16,7 @@ import java.lang.annotation.Target
 </pre>
 <p>If the field is defined as "long" and it is given a value in the first call to setX that is outside your constraints, then it will be set to 0. If the field is defined as "def" and it is given a value that is outside your constraints, then it will be set to null. If the field already has a valid value and it is sent an invalid one in a call to setX, the new, invalid value will be ignored.</p>
 
-<p>An application, class or library that uses this annotation must also import {@link info.shelfunit.properties.annotations.AnnotationProcessor}.</p>
+<p>An application, class or library that uses this annotation must also import {@link info.shelfunit.properties.annotations.AnnotationProcessor} (for a POGO) or {@link info.shelfunit.properties.annotations.ImmutableValidator} (for an immutable object).</p>
 <p></p>
 */
 @Retention( RetentionPolicy.RUNTIME ) 

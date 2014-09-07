@@ -19,7 +19,7 @@ import java.lang.annotation.RetentionPolicy
 </pre>
 <p>If the field is defined as "String" and it is given a value in the first call to setX that is outside your constraints, then it will be set to a String with length 0. If the field is defined as "def" and it is given a value that is outside your constraints, then it will be set to null. If the field already has a valid value and it is sent an invalid one in a call to setX, the new, invalid value will be ignored.</p>
 
-<p>An application, class or library that uses this annotation must also import {@link info.shelfunit.properties.annotations.AnnotationProcessor}.</p>
+<p>An application, class or library that uses this annotation must also import {@link info.shelfunit.properties.annotations.AnnotationProcessor} (for a POGO) or {@link info.shelfunit.properties.annotations.ImmutableValidator} (for an immutable object).</p>
 <p></p>
 */
 
@@ -42,6 +42,8 @@ public @interface StringAnnotation {
     <p>or as a Java string like this:</p>
     <pre>"^.*?[Gg]roovy.*\$"</pre>
     <p>See the javadoc for the <a href="http://docs.oracle.com/javase/7/docs/api/?java/util/regex/Pattern.html">Pattern</a> class for details.</p>
+    <p>If you are going to use this annotation with {@link info.shelfunit.properties.annotations.ImmutableValidator}, you MUST use slashes. If you are going to use it with {@link info.shelfunit.properties.annotations.AnnotationProcessor}, you can use either way.</p>
+    <p>You cannot use comments to document the regular expression. It must be unbroken on one line.</p>
     */
     public String regEx() default ".*"
 }
