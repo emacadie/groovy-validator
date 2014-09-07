@@ -109,7 +109,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
             println "Here is annotationNode: ${annotationNode}"
             if ( annotationNode == null ) {
                 println "ANNOTATION IS NULL"
-                sb1 << " newMap[ '${fieldNode.getName()}' ] = argMap[ '${fieldNode.getName()}' ]"
+                sb1 << " newMap[ '${fieldNode.getName()}' ] = argMap[ '${fieldNode.getName()}' ]\n"
             } else {
             switch ( fieldTypeName ) {
                 case 'java.lang.String':
@@ -208,7 +208,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
             throw new Exception( 'Groovy validation exception: ' + System.lineSeparator() + exMessage  )
         }
         """
-        if ( className.contains( "ImmutableRegEx" ) ) {
+        if ( className.contains( "ImmutablePartial" ) ) {
         println "Here is sb1: ${sb1}"
         }
         return sb1
