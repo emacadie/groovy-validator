@@ -15,7 +15,7 @@ class ImmutableRegExSpec extends Specification {
     
     @Rule 
     TestName name = new TestName()
-    /*
+   
     def "test date regex"() {
         println "--- Starting test ${name.methodName}"
         
@@ -27,8 +27,7 @@ class ImmutableRegExSpec extends Specification {
         println "res: ${res.toString()}"
         
     } // end "test date regex"
-    */
-    /*
+    
     def "test groovy regex"() {
         println "--- Starting test ${name.methodName}"
        
@@ -39,8 +38,7 @@ class ImmutableRegExSpec extends Specification {
         println "res: ${res.toString()}"
         
     } // end "test groovy regex"
-    */
-    /*
+    
     def "test password regex"() {
         println "--- Starting test ${name.methodName}"
         
@@ -49,31 +47,11 @@ class ImmutableRegExSpec extends Specification {
         // res.password = "p4ssw0rd"
         then:
         res.password == "p4ssw0rd"
-        when:
-        res.password = "p45sword"
-        then:
-        res.password == "p45sword" 
-        when:
-        res.password = "password"
-        then:
-        res.password == "p45sword"
-        when:
-        res.password = "p4ssword"
-        then:
-        res.password == "p45sword"
-        
-        when:
-        res.password = "p45s"
-        then:
-        res.password == "p45sword"
-        when:
-        res.password = "p45swordp45sword"
-        then:
-        res.password == "p45sword"
+
         println "res: ${res.toString()}"
         
     } // end "test password regex"
-    */
+   
     
     // until I can get comments to work in reg ex, this test is commented out
     /*

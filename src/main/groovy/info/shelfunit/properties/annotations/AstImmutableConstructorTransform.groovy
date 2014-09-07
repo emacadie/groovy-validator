@@ -122,7 +122,8 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                         println "Here is annotationNode.getMember( 'regEx' ).getText(): ${ annotationNode.getMember( 'regEx' ).getText() }"
                     }
                     // regExp = annotationNode.getMember( 'regEx' ) ? "\"" + annotationNode.getMember( 'regEx' ).getText() + "\"" : "\".*\"" 
-                    regExp = annotationNode.getMember( 'regEx' ) ? annotationNode?.getMember( 'regEx' )?.getText()  : "\".*\"" 
+                    // regExp = annotationNode.getMember( 'regEx' ) ? annotationNode?.getMember( 'regEx' )?.getText()  : "\".*\"" 
+                    regExp = annotationNode.getMember( 'regEx' ) ? "/" + annotationNode?.getMember( 'regEx' )?.getText() + "/" : "\".*\"" 
                     println "Here is regExp now: ${regExp}"
                     sb1 << """
                     theMatch = java.util.regex.Pattern.compile( ${regExp}, java.util.regex.Pattern.COMMENTS )
@@ -207,7 +208,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
             throw new Exception( 'Groovy validation exception: ' + System.lineSeparator() + exMessage  )
         }
         """
-        if ( className.contains( "ImmutablePartial" ) ) {
+        if ( className.contains( "ImmutableRegEx" ) ) {
         println "Here is sb1: ${sb1}"
         }
         return sb1
