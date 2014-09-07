@@ -7,7 +7,7 @@ import info.shelfunit.properties.annotations.ImmutableValidator
 // import info.shelfunit.properties.annotations.LongAnnotation
 import info.shelfunit.properties.annotations.StringAnnotation
 
-@ImmutableValidator
+@ImmutableValidator(includePackage = false)
 class ImmutablePartial {
 
     @StringAnnotation( minLength = 10 ) 

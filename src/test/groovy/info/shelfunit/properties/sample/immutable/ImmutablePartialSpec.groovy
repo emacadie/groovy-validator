@@ -16,7 +16,7 @@ class ImmutablePartialSpec extends Specification {
     @Rule 
     TestName name = new TestName()
     
-    def "test date regex"() {
+    def "test both string fields"() {
         println "--- Starting test ${name.methodName}"
         
         when:
@@ -24,10 +24,16 @@ class ImmutablePartialSpec extends Specification {
         then:
         res.stringWithAnn == "this is the string with ann"
         res.stringWithoutAnn == "Hello"
-
+        res.toString() == "ImmutablePartial(stringWithAnn:this is the string with ann, stringWithoutAnn:Hello)"
         println "res: ${res.toString()}"
         
-    } // end "test date regex"
+        when:
+        def res2 = new ImmutablePartial( [ stringWithAnn: "this is the string with ann again" ], true )
+        then:
+        res2.stringWithAnn == "this is the string with ann again"
+        res2.toString() == "ImmutablePartial(stringWithAnn:this is the string with ann again, stringWithoutAnn:null)"
+        println "res2: ${res2.toString()}"
+    } // end "test both string fields"
     
 } // ImmutablePartialSpec
 
