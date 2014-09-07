@@ -121,8 +121,6 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                     if ( annotationNode.getMember( 'regEx' )?.class?.name == 'org.codehaus.groovy.ast.expr.ConstantExpression' ) {
                         println "Here is annotationNode.getMember( 'regEx' ).getText(): ${ annotationNode.getMember( 'regEx' ).getText() }"
                     }
-                    // regExp = annotationNode.getMember( 'regEx' ) ? "\"" + annotationNode.getMember( 'regEx' ).getText() + "\"" : "\".*\"" 
-                    // regExp = annotationNode.getMember( 'regEx' ) ? annotationNode?.getMember( 'regEx' )?.getText()  : "\".*\"" 
                     regExp = annotationNode.getMember( 'regEx' ) ? "/" + annotationNode?.getMember( 'regEx' )?.getText() + "/" : "\".*\"" 
                     println "Here is regExp now: ${regExp}"
                     sb1 << """
@@ -195,7 +193,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                 break
                 default:
                     sb1 << "newMap[ '${fieldNode.getName()}' ] = argMap[ '${fieldNode.getName()}' ]\n"
-            }
+            } // end switch( fieldTypeName )
             }
             
         } // fields2.each

@@ -39,7 +39,15 @@ class ImmutablePartialSpec extends Specification {
         then:
         res3.stringWithAnn == null
         res3.toString() == "ImmutablePartial(stringWithAnn:null, stringWithoutAnn:this is the string with ann again, intWithAnn:0, intWithoutAnn:0)"
-        println "res2: ${res2.toString()}"
+        println "res3: ${res3.toString()}"
+        
+        // now, make stringWithoutAnn shorter than minumum length
+        when:
+        def res4 = new ImmutablePartial( [ stringWithoutAnn: "Hello", stringWithoutAnn: "this is the string with ann again" ], true )
+        then:
+        res4.stringWithAnn == null
+        res4.toString() == "ImmutablePartial(stringWithAnn:null, stringWithoutAnn:this is the string with ann again, intWithAnn:0, intWithoutAnn:0)"
+        println "res4: ${res4.toString()}"
     } // end "test both string fields"
     
     def "test both int fields"() {
@@ -54,18 +62,26 @@ class ImmutablePartialSpec extends Specification {
         println "res: ${res.toString()}"
         
         when:
-        def res2 = new ImmutablePartial( [ stringWithAnn: "this is the string with ann again" ], true )
+        def res2 = new ImmutablePartial( [ intWithAnn: 55 ], true )
         then:
-        res2.stringWithAnn == "this is the string with ann again"
-        res2.toString() == "ImmutablePartial(stringWithAnn:this is the string with ann again, stringWithoutAnn:null, intWithAnn:0, intWithoutAnn:0)"
+        res2.stringWithAnn == null
+        res2.toString() == "ImmutablePartial(stringWithAnn:null, stringWithoutAnn:null, intWithAnn:55, intWithoutAnn:0)"
         println "res2: ${res2.toString()}"
         
         when:
-        def res3 = new ImmutablePartial( [ stringWithoutAnn: "this is the string with ann again" ], true )
+        def res3 = new ImmutablePartial( [ intWithoutAnn: 22 ], true )
         then:
         res3.stringWithAnn == null
-        res3.toString() == "ImmutablePartial(stringWithAnn:null, stringWithoutAnn:this is the string with ann again, intWithAnn:0, intWithoutAnn:0)"
-        println "res2: ${res2.toString()}"
+        res3.toString() == "ImmutablePartial(stringWithAnn:null, stringWithoutAnn:null, intWithAnn:0, intWithoutAnn:22)"
+        println "res3: ${res3.toString()}"
+        
+        // make intWithAnn larger than max value of 100
+        when:
+        def res4 = new ImmutablePartial( [  intWithoutAnn: 222, intWithoutAnn: 22 ], true )
+        then:
+        res4.stringWithAnn == null
+        res4.toString() == "ImmutablePartial(stringWithAnn:null, stringWithoutAnn:null, intWithAnn:0, intWithoutAnn:22)"
+        println "res4: ${res4.toString()}"
     } // end "test both int fields"
     
 } // ImmutablePartialSpec
