@@ -62,27 +62,21 @@ class AnnotationProcessor {
     @param throwException Set this to true to throw an Exception if a field does not validate. This is optional, and is set to false by default.
     */
     static process( Class theClass, boolean throwException = false ) {
-        // println "Just got called for class ${theClass.getName()}"
+        
         theClass.metaClass.setProperty = { String name, arg ->
-            // println " In set property for ${theClass.getName()} for property ${name} with arg ${arg}"
+            
             def field = theClass.getDeclaredField( name )
             def intAnnotation    = field?.getAnnotation( IntAnnotation.class )
             def stringAnnotation = field?.getAnnotation( StringAnnotation.class )
             def doubleAnnotation = field?.getAnnotation( DoubleAnnotation.class )
             def floatAnnotation  = field?.getAnnotation( FloatAnnotation.class )
             def longAnnotation   = field?.getAnnotation( LongAnnotation.class )
-            // def divisor = 1
             def divSet
-            // numlist.contains(1) ?: numlist.add(1)
+            
             if ( intAnnotation ) {
                 divSet = intAnnotation.divisor() as Set
-                println "here is divSet: ${divSet}"
                 divSet.remove( 0 )
                 if ( divSet.size() == 0 ) { divSet.add( 1 ) }
-                println "here is divSet: ${divSet} and it is a ${divSet.class.name}"
-                println "Here is arg for int: ${arg}"
-                println "Here is divSet.find{ arg % it == 0 }: ${ divSet.find{ arg % it == 0 } }"
-
                 if ( ( arg instanceof Integer ) && 
                     ( divSet.find{ arg % it == 0 }  != null   ) &&
                     ( arg >= intAnnotation.minValue() ) &&
@@ -108,19 +102,7 @@ class AnnotationProcessor {
                     }
                 }
             } else if ( doubleAnnotation ) {
-                /*
-                divSet = doubleAnnotation.divisor() as Set
-                println "here is divSet: ${divSet}"
-                divSet.remove( 0 )
-                if ( divSet.size() == 0 ) { divSet.add( 1 ) }
-                println "here is divSet: ${divSet} and it is a ${divSet.class.name}"
-                println "Here is arg for int: ${arg}"
-                def dMod 
-                if ( arg instanceof Double ) { dMod = divSet.find{ arg % it == 0 } } 
-                println "Here is divSet.find{ arg % it == 0 }: ${ dMod }"
-                */
                 if ( ( arg instanceof Double ) && 
-                    // ( divSet.find{ arg % it == 0 }  != null   ) &&
                     ( arg >= doubleAnnotation.minValue() ) &&
                     ( arg <= doubleAnnotation.maxValue() ) &&
                     ( arg >= Double.MIN_VALUE ) &&
@@ -132,20 +114,7 @@ class AnnotationProcessor {
                     }
                 }
             } else if ( floatAnnotation ) {
-                /*
-                divSet = floatAnnotation.divisor() as Set
-                println "-- here is divSet: ${divSet}"
-                divSet.remove( 0 )
-                if ( divSet.size() == 0 ) { divSet.add( 1.0f ) }
-                println "here is divSet: ${divSet} and it is a ${divSet.class.name}"
-                println "Here is arg for float: ${arg} and it is a ${arg.class.name}"
-                def floatMod 
-                if ( arg instanceof Float ) { floatMod = divSet.find{ arg % it == 0 } } 
-                println "Here is divSet.find{ arg mod it == 0 }: ${floatMod}" 
-                    divSet.each { println "${it} is a ${it.class.name}" }
-                    */
                 if ( ( arg instanceof Float ) && 
-                    // ( divSet.find{ arg % it == 0 }  != null ) &&
                     ( arg >= floatAnnotation.minValue() ) &&
                     ( arg <= floatAnnotation.maxValue() ) &&
                     ( arg >= Float.MIN_VALUE ) &&
@@ -158,8 +127,8 @@ class AnnotationProcessor {
                 }
             } else if ( longAnnotation ) {
                 divSet = longAnnotation.divisor() as Set
-                println "here is divSet: ${divSet}"
                 divSet.remove( 0 )
+                if ( divSet.size() == 0 ) { divSet.add( 1 ) }
                 if ( ( arg instanceof Long ) && 
                     ( divSet.find{ arg % it == 0 }  != null   ) &&
                     ( arg >= longAnnotation.minValue() ) &&
