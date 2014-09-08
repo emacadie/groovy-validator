@@ -71,7 +71,7 @@ class AnnotationProcessor {
             def doubleAnnotation = field?.getAnnotation( DoubleAnnotation.class )
             def floatAnnotation  = field?.getAnnotation( FloatAnnotation.class )
             def longAnnotation   = field?.getAnnotation( LongAnnotation.class )
-            def divisor = 1
+            // def divisor = 1
             def divSet
             // numlist.contains(1) ?: numlist.add(1)
             if ( intAnnotation ) {
@@ -82,13 +82,7 @@ class AnnotationProcessor {
                 println "here is divSet: ${divSet} and it is a ${divSet.class.name}"
                 println "Here is arg for int: ${arg}"
                 println "Here is divSet.find{ arg % it == 0 }: ${ divSet.find{ arg % it == 0 } }"
-                /*
-                if ( intAnnotation.divisor() == 0 ) { 
-                    divisor = 1
-                } else {
-                    divisor = intAnnotation.divisor()
-                }
-                */
+
                 if ( ( arg instanceof Integer ) && 
                     ( divSet.find{ arg % it == 0 }  != null   ) &&
                     ( arg >= intAnnotation.minValue() ) &&
@@ -114,7 +108,15 @@ class AnnotationProcessor {
                     }
                 }
             } else if ( doubleAnnotation ) {
+                divSet = doubleAnnotation.divisor() as Set
+                println "here is divSet: ${divSet}"
+                divSet.remove( 0 )
+                if ( divSet.size() == 0 ) { divSet.add( 1 ) }
+                println "here is divSet: ${divSet} and it is a ${divSet.class.name}"
+                println "Here is arg for int: ${arg}"
+                println "Here is divSet.find{ arg % it == 0 }: ${ divSet.find{ arg % it == 0 } }"
                 if ( ( arg instanceof Double ) && 
+                    ( divSet.find{ arg % it == 0 }  != null   ) &&
                     ( arg >= doubleAnnotation.minValue() ) &&
                     ( arg <= doubleAnnotation.maxValue() ) &&
                     ( arg >= Double.MIN_VALUE ) &&

@@ -39,7 +39,35 @@ class IntDivisorSpec extends Specification {
         
     } // end "test both int fields"
     
-
+    def "test with divisor array"() {
+        println "--- Starting test ${name.methodName}"
+        
+        def rid = new IntDivisor(  )
+        when:
+        rid.intWithDivArray = 12
+        then:
+        rid.intWithDivArray == 12
+        
+        when:
+        rid.intWithDivArray = 13
+        then:
+        rid.intWithDivArray == 12
+        
+        when:
+        rid.intWithDivArray = 9
+        then:
+        rid.intWithDivArray == 9
+        
+        when:
+        rid.intWithDivArray = 16
+        then:
+        rid.intWithDivArray == 16
+        
+        when:
+        rid.intWithDivArray = 55
+        then:
+        rid.intWithDivArray == 16
+    } // end test with divisor array
     
 } // IntDivisorSpec
 

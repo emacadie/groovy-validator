@@ -30,6 +30,11 @@ public @interface LongAnnotation {
   The highest value you want this field to hold. The default is 9,223,372,036,854,775,807, which is the same as Long.MAX_VALUE.
   */
   public long maxValue() default 9223372036854775807L
+    
+  /**
+  A number that your variable can be divided by. If you want a number to be even, then would select 2.
+  */
+  public long[] divisor() default [ 1L ]
 }
 
 

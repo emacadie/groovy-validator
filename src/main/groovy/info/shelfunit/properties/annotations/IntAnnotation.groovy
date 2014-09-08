@@ -36,7 +36,7 @@ public @interface IntAnnotation {
   /**
   A number that your variable can be divided by. If you want a number to be even, then would select 2.
   */
-  public int[] divisor() default [1]
+  public int[] divisor() default [ 1 ]
 }
 
 
