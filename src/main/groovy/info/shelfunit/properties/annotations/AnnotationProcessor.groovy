@@ -108,6 +108,7 @@ class AnnotationProcessor {
                     }
                 }
             } else if ( doubleAnnotation ) {
+                /*
                 divSet = doubleAnnotation.divisor() as Set
                 println "here is divSet: ${divSet}"
                 divSet.remove( 0 )
@@ -117,6 +118,7 @@ class AnnotationProcessor {
                 def dMod 
                 if ( arg instanceof Double ) { dMod = divSet.find{ arg % it == 0 } } 
                 println "Here is divSet.find{ arg % it == 0 }: ${ dMod }"
+                */
                 if ( ( arg instanceof Double ) && 
                     // ( divSet.find{ arg % it == 0 }  != null   ) &&
                     ( arg >= doubleAnnotation.minValue() ) &&
