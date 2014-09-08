@@ -128,7 +128,12 @@ class AnnotationProcessor {
                     }
                 }
             } else if ( floatAnnotation ) {
+                divSet = floatAnnotation.divisor() as Set
+                println "here is divSet: ${divSet}"
+                divSet.remove( 0 )
+                if ( divSet.size() == 0 ) { divSet.add( 1 ) }
                 if ( ( arg instanceof Float ) && 
+                    ( divSet.find{ arg % it == 0 }  != null   ) &&
                     ( arg >= floatAnnotation.minValue() ) &&
                     ( arg <= floatAnnotation.maxValue() ) &&
                     ( arg >= Float.MIN_VALUE ) &&
@@ -140,7 +145,12 @@ class AnnotationProcessor {
                     }
                 }
             } else if ( longAnnotation ) {
-                if ( ( arg instanceof Long ) && ( arg >= longAnnotation.minValue() ) &&
+                divSet = longAnnotation.divisor() as Set
+                println "here is divSet: ${divSet}"
+                divSet.remove( 0 )
+                if ( ( arg instanceof Long ) && 
+                    ( divSet.find{ arg % it == 0 }  != null   ) &&
+                    ( arg >= longAnnotation.minValue() ) &&
                     ( arg <= longAnnotation.maxValue() ) &&
                     ( arg >= Long.MIN_VALUE ) &&
                     ( arg <= Long.MAX_VALUE ) ) {
