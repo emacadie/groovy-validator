@@ -32,10 +32,11 @@ public @interface DoubleAnnotation {
   The highest value you want this field to hold. The default is 1.79x10^308, which is the same as Double.MAX_VALUE.
   */
   public double maxValue() default 1.7976931348623157E308d
-    /**
+    
+  /*
   A number that your variable can be divided by. If you want a number to be even, then would select 2.
   */
-  public double[] divisor() default [ 1.0d ]
+  // public double[] divisor() default [ 1.0d ]
 }
 
 

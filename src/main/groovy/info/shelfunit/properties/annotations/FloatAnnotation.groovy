@@ -33,10 +33,10 @@ public @interface FloatAnnotation {
   The highest value you want this field to hold. The default is 3.4x10^38, which is the same as Float.MAX_VALUE.
   */
   public float maxValue() default 3.4028235E38f 
-  /**
+  /*
   A number that your variable can be divided by. If you want a number to be even, then would select 2.
   */
-  public float[] divisor() default [ 1.0f ]
+  // public float[] divisor() default [ 1.0f  ]
 }
 
 

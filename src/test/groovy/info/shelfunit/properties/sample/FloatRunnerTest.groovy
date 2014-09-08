@@ -8,6 +8,7 @@ class FloatRunnerTest extends Specification {
     def setupSpec() {}     // run before the first feature method
     def cleanupSpec() {}   // run after the last feature method
     
+
     def "test the no arg constructor"() {
         def fr = new FloatRunner()
         when:
@@ -38,7 +39,7 @@ class FloatRunnerTest extends Specification {
         fr.thirdNum  == 1001f
 
     } // end "test the no arg constructor"
-    
+ 
     def "test just outside the ranges"() {
         def fr = new FloatRunner()
         when:
@@ -69,9 +70,11 @@ class FloatRunnerTest extends Specification {
         fr.thirdNum  == 1001f
 
     } // end "test just outside the ranges"
+ 
     
     def "test trying another number"() {
         def fr = new FloatRunner()
+        
         when:
         fr.firstNum  = 50f
         fr.secondNum = 50f
@@ -89,6 +92,7 @@ class FloatRunnerTest extends Specification {
         fr.firstNum  == 50.3f
         fr.secondNum == 50
         fr.thirdNum  == 50.0
+        println "fr.toString(): ${fr.toString()}"
 
     } // end "test just outside the ranges"
 

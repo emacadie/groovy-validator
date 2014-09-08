@@ -114,9 +114,11 @@ class AnnotationProcessor {
                 if ( divSet.size() == 0 ) { divSet.add( 1 ) }
                 println "here is divSet: ${divSet} and it is a ${divSet.class.name}"
                 println "Here is arg for int: ${arg}"
-                println "Here is divSet.find{ arg % it == 0 }: ${ divSet.find{ arg % it == 0 } }"
+                def dMod 
+                if ( arg instanceof Double ) { dMod = divSet.find{ arg % it == 0 } } 
+                println "Here is divSet.find{ arg % it == 0 }: ${ dMod }"
                 if ( ( arg instanceof Double ) && 
-                    ( divSet.find{ arg % it == 0 }  != null   ) &&
+                    // ( divSet.find{ arg % it == 0 }  != null   ) &&
                     ( arg >= doubleAnnotation.minValue() ) &&
                     ( arg <= doubleAnnotation.maxValue() ) &&
                     ( arg >= Double.MIN_VALUE ) &&
@@ -128,12 +130,20 @@ class AnnotationProcessor {
                     }
                 }
             } else if ( floatAnnotation ) {
+                /*
                 divSet = floatAnnotation.divisor() as Set
-                println "here is divSet: ${divSet}"
+                println "-- here is divSet: ${divSet}"
                 divSet.remove( 0 )
-                if ( divSet.size() == 0 ) { divSet.add( 1 ) }
+                if ( divSet.size() == 0 ) { divSet.add( 1.0f ) }
+                println "here is divSet: ${divSet} and it is a ${divSet.class.name}"
+                println "Here is arg for float: ${arg} and it is a ${arg.class.name}"
+                def floatMod 
+                if ( arg instanceof Float ) { floatMod = divSet.find{ arg % it == 0 } } 
+                println "Here is divSet.find{ arg mod it == 0 }: ${floatMod}" 
+                    divSet.each { println "${it} is a ${it.class.name}" }
+                    */
                 if ( ( arg instanceof Float ) && 
-                    ( divSet.find{ arg % it == 0 }  != null   ) &&
+                    // ( divSet.find{ arg % it == 0 }  != null ) &&
                     ( arg >= floatAnnotation.minValue() ) &&
                     ( arg <= floatAnnotation.maxValue() ) &&
                     ( arg >= Float.MIN_VALUE ) &&

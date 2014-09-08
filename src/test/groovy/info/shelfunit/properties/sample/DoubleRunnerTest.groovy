@@ -69,5 +69,18 @@ class DoubleRunnerTest extends Specification {
         dr.thirdNum  == 1001d
 
     } // end "test just outside the ranges"
+    
+    def "test some more"() {
+        def fr = new DoubleRunner()
+        when:
+        fr.firstNum  = 50.3d
+        fr.secondNum = 50d
+        fr.thirdNum  = 'hello'
+        then:
+        fr.firstNum  == 50.3d
+        fr.secondNum == 50d
+        fr.thirdNum  == null
+    }
 
 }
+
