@@ -39,7 +39,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
             ( !it.getName().contains( '$hash$code' ) ) ) 
         } 
         className = annotatedClass.getNameWithoutPackage()
-        println "Here is className: ${className} and it is a ${className.class.name}"
+        // println "Here is className: ${className} and it is a ${className.class.name}"
         def minimum
         def maximum
         def packageString = annotatedClass.getPackageName()? "package  ${annotatedClass.getPackageName()}" : " "
@@ -94,7 +94,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
     constructor that will be passed on. Otherwise leave it out. If the field does not have a validation annotation, just pass it thought.
     */
     def processFields( fields2 ) {
-        println "In processFields, with className set to ${className} and it is a ${className.class.name}"
+        // println "In processFields, with className set to ${className} and it is a ${className.class.name}"
         def sb1= new StringBuffer()
         def minimum
         def maximum
@@ -106,9 +106,9 @@ class AstImmutableConstructorTransform implements ASTTransformation {
         fields2.each { fieldNode ->
             fieldTypeName = fieldNode.getType().getName()
             def annotationNode = fieldNode.getAnnotations()[ 0 ]
-            println "Here is annotationNode: ${annotationNode}"
+            // println "Here is annotationNode: ${annotationNode}"
             if ( annotationNode == null ) {
-                println "ANNOTATION IS NULL"
+                // println "ANNOTATION IS NULL"
                 sb1 << " newMap[ '${fieldNode.getName()}' ] = argMap[ '${fieldNode.getName()}' ]\n"
             } else {
             switch ( fieldTypeName ) {
@@ -116,13 +116,13 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                     sb1 << "val = argMap[ '${fieldNode.getName()}' ]"
                     minimum = annotationNode.getMember( 'minLength' ) ? annotationNode.getMember( 'minLength' ).getValue() : 0
                     maximum = annotationNode.getMember( 'maxLength' ) ? annotationNode.getMember( 'maxLength' ).getValue() :  Integer.MAX_VALUE
-                    println "Here is annotationNode.getMember( 'regEx' ): ${annotationNode.getMember( 'regEx' )}"
-                    println "Here is annotationNode.getMember( 'regEx' ).class.name : ${annotationNode.getMember( 'regEx' )?.class?.name }"
+                    // println "Here is annotationNode.getMember( 'regEx' ): ${annotationNode.getMember( 'regEx' )}"
+                    // println "Here is annotationNode.getMember( 'regEx' ).class.name : ${annotationNode.getMember( 'regEx' )?.class?.name }"
                     if ( annotationNode.getMember( 'regEx' )?.class?.name == 'org.codehaus.groovy.ast.expr.ConstantExpression' ) {
-                        println "Here is annotationNode.getMember( 'regEx' ).getText(): ${ annotationNode.getMember( 'regEx' ).getText() }"
+                        // println "Here is annotationNode.getMember( 'regEx' ).getText(): ${ annotationNode.getMember( 'regEx' ).getText() }"
                     }
                     regExp = annotationNode.getMember( 'regEx' ) ? "/" + annotationNode?.getMember( 'regEx' )?.getText() + "/" : "\".*\"" 
-                    println "Here is regExp now: ${regExp}"
+                    // println "Here is regExp now: ${regExp}"
                     sb1 << """
                     theMatch = java.util.regex.Pattern.compile( ${regExp}, java.util.regex.Pattern.COMMENTS )
                     if ( ( ${minimum} <= val?.length() ) && ( val?.length() <= ${maximum} ) && ( theMatch.matcher( val ).matches() ) ) {
@@ -207,7 +207,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
         }
         """
         if ( className.contains( "ImmutablePartial" ) ) {
-        println "Here is sb1: ${sb1}"
+        // println "Here is sb1: ${sb1}"
         }
         return sb1
     } // end processFields

@@ -7,7 +7,7 @@ class IntDivisor {
     @IntAnnotation( minValue = 10, divisor = 5 )
     int intWithDiv
     
-    @IntAnnotation( divisor = 7)
+    @IntAnnotation( divisor = [ 7 ] )
     int intWithDiv002
     
 }

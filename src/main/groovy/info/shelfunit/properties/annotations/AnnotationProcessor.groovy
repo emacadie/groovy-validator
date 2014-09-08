@@ -76,9 +76,12 @@ class AnnotationProcessor {
             // numlist.contains(1) ?: numlist.add(1)
             if ( intAnnotation ) {
                 divSet = intAnnotation.divisor() as Set
+                println "here is divSet: ${divSet}"
                 divSet.remove( 0 )
                 if ( divSet.size() == 0 ) { divSet.add( 1 ) }
-                // println "Here is arg for int: ${arg}"
+                println "here is divSet: ${divSet} and it is a ${divSet.class.name}"
+                println "Here is arg for int: ${arg}"
+                println "Here is divSet.find{ arg % it == 0 }: ${ divSet.find{ arg % it == 0 } }"
                 /*
                 if ( intAnnotation.divisor() == 0 ) { 
                     divisor = 1
@@ -87,7 +90,7 @@ class AnnotationProcessor {
                 }
                 */
                 if ( ( arg instanceof Integer ) && 
-                    ( divSet.find{ arg % it == 0 }  != 0  ) &&
+                    ( divSet.find{ arg % it == 0 }  != null   ) &&
                     ( arg >= intAnnotation.minValue() ) &&
                     ( arg <= intAnnotation.maxValue() ) &&
                     ( arg >= Integer.MIN_VALUE ) &&

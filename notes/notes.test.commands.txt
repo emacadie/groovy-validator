@@ -26,3 +26,6 @@ gradle -Dtest.single=ImmutableRegExSpec test -info
 
 gradle -Dtest.single=ImmutablePartialSpec test -info  
 
+gradle -Dtest.single=IntDivisorSpec test -info
+
+
