@@ -32,6 +32,11 @@ public @interface IntAnnotation {
   The highest value you want this field to hold. The default is 2,147,483,647, which is the same as Integer.MAX_VALUE.
   */
   public int maxValue() default 2147483647
+  
+  /**
+  A number that your variable can be divided by. If you want a number to be even, then would select 2.
+  */
+  public int[] divisor() default [1]
 }
 
 

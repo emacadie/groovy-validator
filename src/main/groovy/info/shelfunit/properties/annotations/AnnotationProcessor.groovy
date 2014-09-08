@@ -71,10 +71,23 @@ class AnnotationProcessor {
             def doubleAnnotation = field?.getAnnotation( DoubleAnnotation.class )
             def floatAnnotation  = field?.getAnnotation( FloatAnnotation.class )
             def longAnnotation   = field?.getAnnotation( LongAnnotation.class )
-            
+            def divisor = 1
+            def divSet
+            // numlist.contains(1) ?: numlist.add(1)
             if ( intAnnotation ) {
+                divSet = intAnnotation.divisor() as Set
+                divSet.remove( 0 )
+                if ( divSet.size() == 0 ) { divSet.add( 1 ) }
                 // println "Here is arg for int: ${arg}"
+                /*
+                if ( intAnnotation.divisor() == 0 ) { 
+                    divisor = 1
+                } else {
+                    divisor = intAnnotation.divisor()
+                }
+                */
                 if ( ( arg instanceof Integer ) && 
+                    ( divSet.find{ arg % it == 0 }  != 0  ) &&
                     ( arg >= intAnnotation.minValue() ) &&
                     ( arg <= intAnnotation.maxValue() ) &&
                     ( arg >= Integer.MIN_VALUE ) &&
