@@ -78,7 +78,7 @@ class AnnotationProcessor {
                 divSet.remove( 0 )
                 if ( divSet.size() == 0 ) { divSet.add( 1 ) }
                 if ( ( arg instanceof Integer ) && 
-                    ( divSet.find{ arg % it == 0 }  != null   ) &&
+                    ( divSet.find{ arg % it == 0 }  != null ) &&
                     ( arg >= intAnnotation.minValue() ) &&
                     ( arg <= intAnnotation.maxValue() ) &&
                     ( arg >= Integer.MIN_VALUE ) &&
@@ -86,7 +86,7 @@ class AnnotationProcessor {
                     theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg )
                 } else { 
                     if ( throwException ) {
-                        throw new Exception( "${arg} is an integer outside the range ${intAnnotation.minValue()} and ${intAnnotation.maxValue()}" )
+                        throw new Exception( "${arg} is an integer outside the range ${intAnnotation.minValue()} to ${intAnnotation.maxValue()}" )
                     }
                 }
             } else if ( stringAnnotation ) {
@@ -98,7 +98,7 @@ class AnnotationProcessor {
                     theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg.toString() )
                 } else { 
                     if ( throwException ) {
-                        throw new Exception( "\"${arg}\" is a String with a length outside the range of ${stringAnnotation.minLength()} and ${stringAnnotation.maxLength()}" )
+                        throw new Exception( "\"${arg}\" is a String with a length outside the range of ${stringAnnotation.minLength()} to ${stringAnnotation.maxLength()}" )
                     }
                 }
             } else if ( doubleAnnotation ) {
@@ -110,7 +110,7 @@ class AnnotationProcessor {
                     theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg )
                 } else { 
                     if ( throwException ) {
-                        throw new Exception( "${arg} is a double outside the range ${doubleAnnotation.minValue()} and ${doubleAnnotation.maxValue()}" )
+                        throw new Exception( "${arg} is a double outside the range ${doubleAnnotation.minValue()} to ${doubleAnnotation.maxValue()}" )
                     }
                 }
             } else if ( floatAnnotation ) {
@@ -122,7 +122,7 @@ class AnnotationProcessor {
                     theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg )
                 } else { 
                     if ( throwException ) {
-                        throw new Exception( "${arg} is a float outside the range ${floatAnnotation.minValue()} and ${floatAnnotation.maxValue()}" )
+                        throw new Exception( "${arg} is a float outside the range ${floatAnnotation.minValue()} to ${floatAnnotation.maxValue()}" )
                     }
                 }
             } else if ( longAnnotation ) {
@@ -138,7 +138,7 @@ class AnnotationProcessor {
                     theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg )
                 } else { 
                     if ( throwException ) {
-                        throw new Exception( "${arg} is a long outside the range ${longAnnotation.minValue()} and ${longAnnotation.maxValue()}" )
+                        throw new Exception( "${arg} is a long outside the range ${longAnnotation.minValue()} to ${longAnnotation.maxValue()}" )
                     }
                 }
             } else {

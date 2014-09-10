@@ -145,7 +145,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                         newMap[ '${fieldNode.getName()}' ] = val
                     } else { 
                         if ( throwException ) {
-                            exceptionStringList.add( val + ' is a double outside the range ${minimum} and ${maximum} ' )
+                            exceptionStringList.add( val + ' is a double outside the range ${minimum} to ${maximum} ' )
                             
                         }
                     }
@@ -160,7 +160,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                         newMap[ '${fieldNode.getName()}' ] = val
                     } else { 
                         if ( throwException ) {
-                            exceptionStringList.add( val + ' is a float outside the range ${minimum} and ${maximum} ' )
+                            exceptionStringList.add( val + ' is a float outside the range ${minimum} to ${maximum} ' )
                         }
                     }
                     """
@@ -190,11 +190,11 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                     if ( holdSet.size() == 0 ) { holdSet.add( 1 ) }
                     println "Here is holdSet now: ${holdSet}"
                     sb1 << """
-                    if ( ( ${minimum} <= val ) && ( val <= ${maximum} ) ) {
+                    if ( (val == null ) || ( ( ${minimum} <= val ) && ( val <= ${maximum} ) && ( ${holdSet}.find{ val % it == 0 }  != null ) ) ) {
                         newMap[ '${fieldNode.getName()}' ] = val
                     } else { 
                         if ( throwException ) {
-                            exceptionStringList.add( val + ' is an integer outside the range ${minimum} and ${maximum} ' )
+                        exceptionStringList.add( val + ' is an integer outside the range ${minimum} to ${maximum} or it is not divisible by anything in the set ${holdSet} ' )
                         }
                     }
                     """
@@ -208,7 +208,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                         newMap[ '${fieldNode.getName()}' ] = val
                     } else { 
                         if ( throwException ) {
-                            exceptionStringList.add( val + ' is a long outside the range ${minimum} and ${maximum} ' )
+                            exceptionStringList.add( val + ' is a long outside the range ${minimum} to ${maximum} ' )
                         }
                     }
                     """

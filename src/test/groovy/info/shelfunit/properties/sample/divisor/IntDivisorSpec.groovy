@@ -24,7 +24,7 @@ class IntDivisorSpec extends Specification {
         when:
         rid.intWithDiv = 15
         rid.intWithDiv002 = 14
-        
+        println "rid.toString(): ${rid.toString()}"
         then:
         rid.intWithDiv == 15
         rid.intWithDiv002 == 14
@@ -32,7 +32,7 @@ class IntDivisorSpec extends Specification {
         when:
         rid.intWithDiv = 5
         rid.intWithDiv002 = 13
-        
+        println "rid.toString(): ${rid.toString()}"
         then:
         rid.intWithDiv == 15
         rid.intWithDiv002 == 14

@@ -1,7 +1,9 @@
 package info.shelfunit.properties.sample.divisor
 
 import info.shelfunit.properties.annotations.IntAnnotation
+import groovy.transform.ToString
 
+@ToString( includeNames = true )
 class IntDivisor {
     
     @IntAnnotation( minValue = 10, divisor = [ 5 ] )

@@ -35,8 +35,8 @@ class TrulyImmutableEx001Test extends Specification {
         then:
         def ex = thrown( Exception )
         ex.message == "Groovy validation exception: \n" +
-        "21 is an integer outside the range 30 and 400 \n" +
-        "20 is an integer outside the range 30 and 400 "
+        "21 is an integer outside the range 30 to 400 or it is not divisible by anything in the set [1] \n" +
+        "20 is an integer outside the range 30 to 400 or it is not divisible by anything in the set [1] "
         // throwaway.firstString == "Not Junk"
         // throwaway.firstInt == 0
         // throwaway.secondInt == 0
@@ -49,7 +49,7 @@ class TrulyImmutableEx001Test extends Specification {
         then:
         def ex2 = thrown( Exception )
         ex2.message == "Groovy validation exception: \n" +
-        "21 is an integer outside the range 30 and 400 "
+        "21 is an integer outside the range 30 to 400 or it is not divisible by anything in the set [1] "
         // bTest1.firstString == "Hello1"
         // bTest1.secondInt == 200
         // bTest1.firstInt == 0
@@ -65,8 +65,8 @@ class TrulyImmutableEx001Test extends Specification {
         def ex = thrown( Exception )
         ex.message == "Groovy validation exception: \n" +
             "\"Goodbye, this is more than 20 characters\" is a String with a length outside the range of 5 to 20 characters \n" +
-            "22 is an integer outside the range 30 and 400 \n" +
-            "20 is an integer outside the range 30 and 400 "
+            "22 is an integer outside the range 30 to 400 or it is not divisible by anything in the set [1] \n" +
+            "20 is an integer outside the range 30 to 400 or it is not divisible by anything in the set [1] "
         // bTest2.firstString == "Hello2"
         // bTest2.secondString == null
         // bTest2.firstInt == 0
@@ -92,8 +92,8 @@ class TrulyImmutableEx001Test extends Specification {
         then:
         def exThirdTest = thrown( Exception )
         exThirdTest.message == "Groovy validation exception: \n" +
-        "21 is an integer outside the range 30 and 400 \n" +
-        "401 is an integer outside the range 30 and 400 "
+        "21 is an integer outside the range 30 to 400 or it is not divisible by anything in the set [1] \n" +
+        "401 is an integer outside the range 30 to 400 or it is not divisible by anything in the set [1] "
         testString == "hello, this is a test"
         testString.length() == 21
         println "Here is testString.length(): ${testString.length()}"

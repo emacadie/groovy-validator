@@ -21,17 +21,22 @@ class ImmutableIntDivisorSpec extends Specification {
         println "--- Starting test ${name.methodName}"
         
         when:
-        def rid = new ImmutableIntDivisor( [ intWithDiv: 15, intWithDiv002: 14 ], true )
+        def rid = new ImmutableIntDivisor( [ intWithDiv: 15, intWithDiv002: 14 ], true, true )
         then:
         rid.intWithDiv == 15
         rid.intWithDiv002 == 14
+        println "rid.toString(): ${rid.toString()}"
         
         when:
-        def rid2 = new ImmutableIntDivisor( [ intWithDiv: 5, intWithDiv002: 13 ], true )
-        
+        def rid2 = new ImmutableIntDivisor( [ intWithDiv: 5, intWithDiv002: 13 ], true, true )
+        println "rid2.toString(): ${rid2.toString()}"
         then:
-        rid2.intWithDiv == 15
-        rid2.intWithDiv002 == 0
+        def ex = thrown( Exception )
+        ex.message == "Groovy validation exception: \n" +
+        "5 is an integer outside the range 10 to 2147483647 or it is not divisible by anything in the set [5] \n" +
+        "13 is an integer outside the range 0 to 2147483647 or it is not divisible by anything in the set [7] "
+        // rid2.intWithDiv == 15
+        // rid2.intWithDiv002 == 0
         
     } // end "test both int fields"
     

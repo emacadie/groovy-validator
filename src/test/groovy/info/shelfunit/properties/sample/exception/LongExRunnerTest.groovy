@@ -26,7 +26,7 @@ class LongExRunnerTest extends Specification {
         lr.thirdNum  = 9L
         then:
         final Exception exception = thrown()
-        exception.message == "-2 is a long outside the range 0 and 1000"
+        exception.message == "-2 is a long outside the range 0 to 1000"
         println "Here is the exception message: ${exception.message}" 
         lr.firstNum  == 50L
         lr.secondNum == 50L
@@ -39,7 +39,7 @@ class LongExRunnerTest extends Specification {
         then:
         final Exception exception2 = thrown()
         println "Here is the exception2 message: ${exception2.message}" 
-        exception2.message == "5 is a long outside the range 10 and 9223372036854775807"
+        exception2.message == "5 is a long outside the range 10 to 9223372036854775807"
         println "lr.firstNum: ${lr.firstNum}, lr.secondNum: ${lr.secondNum}, lr.thirdNum: ${lr.thirdNum}"
         lr.firstNum  == 50L
         lr.secondNum == 50L
@@ -52,7 +52,7 @@ class LongExRunnerTest extends Specification {
         then:
         final Exception exception3 = thrown()
         println "Here is the exception3 message: ${exception3.message}" 
-        exception3.message == "1001 is a long outside the range 0 and 1000"
+        exception3.message == "1001 is a long outside the range 0 to 1000"
         println "lr.firstNum: ${lr.firstNum}, lr.secondNum: ${lr.secondNum}, lr.thirdNum: ${lr.thirdNum}"
         lr.firstNum  == 50L
         lr.secondNum == 50L

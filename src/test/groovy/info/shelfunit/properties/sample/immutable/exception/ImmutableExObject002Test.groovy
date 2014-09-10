@@ -79,9 +79,9 @@ class ImmutableExObject002Test extends Specification {
         def ex1 = thrown( Exception )
         ex1.message == "Groovy validation exception: \n" +
         "\"HH\" is a String with a length outside the range of 5 to 10 characters \n" +
-        "5.0 is a double outside the range 10.0 and 100.0 \n" +
-        "5.0 is a float outside the range 10.0 and 100.0 \n" +
-        "5 is an integer outside the range 10 and 100 "
+        "5.0 is a double outside the range 10.0 to 100.0 \n" +
+        "5.0 is a float outside the range 10.0 to 100.0 \n" +
+        "5 is an integer outside the range 10 to 100 or it is not divisible by anything in the set [1] "
         
     } // end "test below the ranges with boolean"
     
@@ -135,10 +135,10 @@ class ImmutableExObject002Test extends Specification {
         ex2.message == "Groovy validation exception: \n" +
         "\"eeeeeeeeeee\" is a String with a length outside the range of 5 to 10 characters \n" +
         "\"NNNNNNNNNNNNNNNN\" is a String with a length outside the range of 0 to 15 characters \n" +
-        "101.0 is a double outside the range 10.0 and 100.0 \n" +
-        "101.0 is a float outside the range 10.0 and 100.0 \n" +
-        "101 is an integer outside the range 10 and 100 \n" +
-        "101 is a long outside the range 0 and 100 "
+        "101.0 is a double outside the range 10.0 to 100.0 \n" +
+        "101.0 is a float outside the range 10.0 to 100.0 \n" +
+        "101 is an integer outside the range 10 to 100 or it is not divisible by anything in the set [1] \n" +
+        "101 is a long outside the range 0 to 100 "
        
         // bTest1.firstDouble == 0d
         // bTest1.firstFloat == 0f
