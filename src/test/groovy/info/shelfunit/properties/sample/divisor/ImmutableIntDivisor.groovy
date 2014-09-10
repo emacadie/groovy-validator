@@ -1,10 +1,12 @@
 package info.shelfunit.properties.sample.divisor
 
 import info.shelfunit.properties.annotations.IntAnnotation
+import info.shelfunit.properties.annotations.ImmutableValidator 
 
-class IntDivisor {
+@ImmutableValidator
+class ImmutableIntDivisor {
     
-    @IntAnnotation( minValue = 10, divisor = [ 5 ] )
+    @IntAnnotation( minValue = 10 , divisor = [ 5 ] )
     int intWithDiv
     
     @IntAnnotation( divisor = [ 7 ] )

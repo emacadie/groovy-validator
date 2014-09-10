@@ -100,7 +100,9 @@ class AstImmutableConstructorTransform implements ASTTransformation {
         def maximum
         def regExp
         def fieldTypeName
-        sb1 << "def val\ndef theMatch\n"
+        def tempDivSet = [] as Set
+        def holdSet = [] as Set
+        sb1 << "def val \n def theMatch \n def divSet \n"
         sb1 << "def exceptionStringList = []\n"
         try {
         fields2.each { fieldNode ->
@@ -167,6 +169,26 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                     sb1 << "val = argMap[ '${fieldNode.getName()}' ]"
                     minimum = annotationNode.getMember( 'minValue' ) ? annotationNode.getMember( 'minValue' ).getValue() : 0
                     maximum = annotationNode.getMember( 'maxValue' ) ? annotationNode.getMember( 'maxValue' ).getValue() :  Integer.MAX_VALUE
+                    tempDivSet = annotationNode.getMember( 'divisor' ) ?  annotationNode.getMember( 'divisor' ) : [ 1 ] as Set
+                    holdSet.clear()
+                    println "----------------------------------------------------------------------------"
+                    println " Here is tempDivSet: ${tempDivSet} and it's a ${tempDivSet.class.name}"
+                    try {
+                        
+                        println "Here is annotationNode.getMember( 'divisor' ): ${annotationNode.getMember( 'divisor' )} and it's a ${annotationNode?.getMember( 'divisor' )?.class.name}, Here is tempDivSet: ${tempDivSet}"
+                        annotationNode.getMember( 'divisor' ).getExpressions().each { member ->
+                            println "Here it is: ${member} it is a: ${member.class.name} its value is: ${member.value} which itself is a ${member.value.class.name}"
+                            holdSet.add( new Integer( member.getValue() ) )
+                            // member.each { theMem -> println "-- here is the member: ${theMem} and it is a ${theMem.class.name}" }
+                        }
+                        print "\n"
+                    
+                    } catch ( Exception e ) { 
+                        // e.printStackTrace() 
+                    }
+                    holdSet.remove( 0 )
+                    if ( holdSet.size() == 0 ) { holdSet.add( 1 ) }
+                    println "Here is holdSet now: ${holdSet}"
                     sb1 << """
                     if ( ( ${minimum} <= val ) && ( val <= ${maximum} ) ) {
                         newMap[ '${fieldNode.getName()}' ] = val
@@ -194,7 +216,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                 default:
                     sb1 << "newMap[ '${fieldNode.getName()}' ] = argMap[ '${fieldNode.getName()}' ]\n"
             } // end switch( fieldTypeName )
-            }
+            } // if ( annotationNode == null ) / else
             
         } // fields2.each
         } catch ( Exception e ) {
@@ -206,8 +228,8 @@ class AstImmutableConstructorTransform implements ASTTransformation {
             throw new Exception( 'Groovy validation exception: ' + System.lineSeparator() + exMessage  )
         }
         """
-        if ( className.contains( "ImmutablePartial" ) ) {
-        // println "Here is sb1: ${sb1}"
+        if ( className.contains( "ImmutableIntDivisor" ) ) {
+        println "Here is sb1: ${sb1}"
         }
         return sb1
     } // end processFields
