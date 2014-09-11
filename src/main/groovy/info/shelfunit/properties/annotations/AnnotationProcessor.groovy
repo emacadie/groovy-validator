@@ -128,8 +128,8 @@ class AnnotationProcessor {
                 }
             } else if ( longAnnotation ) {
                 divSet = longAnnotation.divisor() as Set
-                divSet.remove( 0 )
-                if ( divSet.size() == 0 ) { divSet.add( 1 ) }
+                divSet.remove( 0L )
+                if ( divSet.size() == 0L ) { divSet.add( 1L ) }
                 if ( ( arg instanceof Long ) && 
                     ( divSet.find{ arg % it == 0 }  != null   ) &&
                     ( arg >= longAnnotation.minValue() ) &&

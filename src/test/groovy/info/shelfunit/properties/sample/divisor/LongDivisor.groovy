@@ -13,5 +13,8 @@ class LongDivisor {
     @LongAnnotation( maxValue = 40L, divisor = [ 3L, 4L ] )
     long longWithDivArray
     
+    @LongAnnotation( maxValue = 40L, divisor = [ 0L ] )
+    long longWithZeroDiv
+    
 }
 
