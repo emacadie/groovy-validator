@@ -229,7 +229,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
         }
         """
         if ( className.contains( "ImmutableIntDivisor" ) ) {
-        println "Here is sb1: ${sb1}"
+        // println "Here is sb1: ${sb1}"
         }
         return sb1
     } // end processFields

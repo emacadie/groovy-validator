@@ -97,8 +97,8 @@ In that case, you get a message with a line for each field. So you might get a m
 ```
 Groovy validation exception: 
 "eeeeeeeeeee" is a String with a length outside the range of 5 to 10 characters 
-1234567 is an integer outside the range 10 and 100 
-222 is a long outside the range 0 and 100
+1234567 is an integer outside the range 10 to 100 
+222 is a long outside the range 0 to 100
 ```
 
 If "thowException" is true for a POGO, the field will either retains its pre-existing value (if it had one) or be set to null. If "throwException" is true for an immutable object, the object will not be created.
