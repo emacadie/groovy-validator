@@ -90,19 +90,19 @@ class IntDivisorSpec extends Specification {
         rid.intWithZeroDiv == 35
         
         when:
+        rid.intWithZeroDiv == 55
         rid.intWithDivArray = 9
         then:
+        rid.intWithZeroDiv == 35
         rid.intWithDivArray == 9
         
+        def rid2 = new IntDivisor(  )
         when:
-        rid.intWithDivArray = 16
+        rid2.intWithZeroDiv == 55
+        rid2.intWithDivArray = 16
         then:
-        rid.intWithDivArray == 16
-        
-        when:
-        rid.intWithDivArray = 55
-        then:
-        rid.intWithDivArray == 16
+        rid2.intWithZeroDiv == 0
+        rid2.intWithDivArray == 16
         
     } // end test with zero divisor
     
