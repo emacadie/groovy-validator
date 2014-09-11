@@ -203,12 +203,34 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                     sb1 << "val = argMap[ '${fieldNode.getName()}' ]"
                     minimum = annotationNode.getMember( 'minValue' ) ? annotationNode.getMember( 'minValue' ).getValue() : 0
                     maximum = annotationNode.getMember( 'maxValue' ) ? annotationNode.getMember( 'maxValue' ).getValue() :  Long.MAX_VALUE
+                    
+                    tempDivSet = annotationNode.getMember( 'divisor' ) ?  annotationNode.getMember( 'divisor' ) : [ 1 ] as Set
+                    holdSet.clear()
+                    // println "----------------------------------------------------------------------------"
+                    // println " Here is tempDivSet: ${tempDivSet} and it's a ${tempDivSet.class.name}"
+                    try {
+                        
+                        // println "Here is annotationNode.getMember( 'divisor' ): ${annotationNode.getMember( 'divisor' )} and it's a ${annotationNode?.getMember( 'divisor' )?.class.name}, Here is tempDivSet: ${tempDivSet}"
+                        annotationNode.getMember( 'divisor' ).getExpressions().each { member ->
+                            // println "Here it is: ${member} it is a: ${member.class.name} its value is: ${member.value} which itself is a ${member.value.class.name}"
+                            holdSet.add( new Long( member.getValue() ) )
+                            // member.each { theMem -> println "-- here is the member: ${theMem} and it is a ${theMem.class.name}" }
+                        }
+                        print "\n"
+                    
+                    } catch ( Exception e ) { 
+                        // e.printStackTrace() 
+                    }
+                    holdSet.remove( 0 )
+                    if ( holdSet.size() == 0 ) { holdSet.add( 1 ) }
+                    println "Here is holdSet now: ${holdSet}"
+                    
                     sb1 << """
-                    if ( ( ${minimum} <= val ) && ( val <= ${maximum} ) ) {
+                    if ( (val == null ) || ( ( ${minimum} <= val ) && ( val <= ${maximum} ) && ( ${holdSet}.find{ val % it == 0 }  != null ) ) ) {
                         newMap[ '${fieldNode.getName()}' ] = val
                     } else { 
                         if ( throwException ) {
-                            exceptionStringList.add( val + ' is a long outside the range ${minimum} to ${maximum} ' )
+                            exceptionStringList.add( val + ' is a long outside the range ${minimum} to ${maximum} or it is not divisible by anything in the set ${holdSet} ' )
                         }
                     }
                     """

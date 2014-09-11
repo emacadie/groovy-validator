@@ -87,7 +87,8 @@ class AnnotationProcessor {
                     theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg )
                 } else { 
                     if ( throwException ) {
-                        throw new Exception( "${arg} is an integer outside the range ${intAnnotation.minValue()} to ${intAnnotation.maxValue()}" )
+                        throw new Exception( "Groovy validation exception: \n" +
+                        "${arg} is an integer outside the range ${intAnnotation.minValue()} to ${intAnnotation.maxValue()} or it is not divisible by anything in the set ${divSet} " )
                     }
                 }
             } else if ( stringAnnotation ) {
@@ -99,7 +100,8 @@ class AnnotationProcessor {
                     theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg.toString() )
                 } else { 
                     if ( throwException ) {
-                        throw new Exception( "\"${arg}\" is a String with a length outside the range of ${stringAnnotation.minLength()} to ${stringAnnotation.maxLength()}" )
+                        throw new Exception( "Groovy validation exception: \n" +
+                        "\"${arg}\" is a String with a length outside the range of ${stringAnnotation.minLength()} to ${stringAnnotation.maxLength()}" )
                     }
                 }
             } else if ( doubleAnnotation ) {
@@ -111,7 +113,8 @@ class AnnotationProcessor {
                     theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg )
                 } else { 
                     if ( throwException ) {
-                        throw new Exception( "${arg} is a double outside the range ${doubleAnnotation.minValue()} to ${doubleAnnotation.maxValue()}" )
+                        throw new Exception( "Groovy validation exception: \n" +
+                        "${arg} is a double outside the range ${doubleAnnotation.minValue()} to ${doubleAnnotation.maxValue()}" )
                     }
                 }
             } else if ( floatAnnotation ) {
@@ -123,7 +126,8 @@ class AnnotationProcessor {
                     theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg )
                 } else { 
                     if ( throwException ) {
-                        throw new Exception( "${arg} is a float outside the range ${floatAnnotation.minValue()} to ${floatAnnotation.maxValue()}" )
+                        throw new Exception( "Groovy validation exception: \n" +
+                        "${arg} is a float outside the range ${floatAnnotation.minValue()} to ${floatAnnotation.maxValue()}" )
                     }
                 }
             } else if ( longAnnotation ) {
@@ -139,7 +143,8 @@ class AnnotationProcessor {
                     theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg )
                 } else { 
                     if ( throwException ) {
-                        throw new Exception( "${arg} is a long outside the range ${longAnnotation.minValue()} to ${longAnnotation.maxValue()}" )
+                        throw new Exception( "Groovy validation exception: \n" +
+                        "${arg} is a long outside the range ${longAnnotation.minValue()} to ${longAnnotation.maxValue()} or it is not divisible by anything in the set ${divSet} " )
                     }
                 }
             } else {
