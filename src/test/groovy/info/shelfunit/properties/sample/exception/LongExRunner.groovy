@@ -13,7 +13,7 @@ class LongExRunner {
     def firstNum
     @LongAnnotation( maxValue = 1000L )
     def secondNum
-    @LongAnnotation( minValue = 10L )
+    @LongAnnotation( minValue = 2147483647L ) // was 10
     def thirdNum
 }
 

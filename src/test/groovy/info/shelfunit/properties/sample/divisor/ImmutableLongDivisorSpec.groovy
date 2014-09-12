@@ -21,19 +21,19 @@ class ImmutableLongDivisorSpec extends Specification {
         println "--- Starting test ${name.methodName}"
         
         when:
-        def rid = new ImmutableLongDivisor( [ longWithDiv: 15L, longWithDiv002: 14L ], true, true )
+        def rid = new ImmutableLongDivisor( [ longWithDiv: 2147483655L, longWithDiv002: 14L ], true, true )
         then:
-        rid.longWithDiv == 15L
+        rid.longWithDiv == 2147483655L
         rid.longWithDiv002 == 14L
         println "rid.toString(): ${rid.toString()}"
         
         when:
-        def rid2 = new ImmutableLongDivisor( [ longWithDiv: 5L, longWithDiv002: 13L ], true, true )
+        def rid2 = new ImmutableLongDivisor( [ longWithDiv: 2147483640L, longWithDiv002: 13L ], true, true )
         println "rid2.toString(): ${rid2.toString()}"
         then:
         def ex = thrown( Exception )
         ex.message == "Groovy validation exception: \n" +
-        "5 is a long outside the range 10 to 9223372036854775807 or it is not divisible by anything in the set [5] \n" +
+        "2147483640 is a long outside the range 2147483647 to 9223372036854775807 or it is not divisible by anything in the set [5] \n" +
         "13 is a long outside the range 0 to 9223372036854775807 or it is not divisible by anything in the set [7] "
         
     } // end "test both long fields"
@@ -46,7 +46,7 @@ class ImmutableLongDivisorSpec extends Specification {
         rid.longWithDivArray == 12L
         
         when:
-        rid.longWithDiv = 15L
+        rid.longWithDiv = 2147483947L
         then:
         def ex = thrown( Exception )
         ex.message == "Cannot set readonly property: longWithDiv for class: info.shelfunit.properties.sample.divisor.ImmutableLongDivisor"

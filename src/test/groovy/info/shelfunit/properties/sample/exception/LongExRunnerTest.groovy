@@ -14,11 +14,11 @@ class LongExRunnerTest extends Specification {
         when:
         lr.firstNum  = 50L
         lr.secondNum = 50L
-        lr.thirdNum  = 50L
+        lr.thirdNum  = 2147483688L
         then:
         lr.firstNum  == 50L
         lr.secondNum == 50L
-        lr.thirdNum  == 50L
+        lr.thirdNum  == 2147483688L
         
         when:
         lr.firstNum  = -2L
@@ -31,7 +31,7 @@ class LongExRunnerTest extends Specification {
         println "Here is the exception message: ${exception.message}" 
         lr.firstNum  == 50L
         lr.secondNum == 50L
-        lr.thirdNum  == 50L
+        lr.thirdNum  == 2147483688L
         
         when:
         lr.thirdNum  = 5L
@@ -41,14 +41,14 @@ class LongExRunnerTest extends Specification {
         final Exception exception2 = thrown()
         println "Here is the exception2 message: ${exception2.message}" 
         exception2.message == "Groovy validation exception: \n" +
-        "5 is a long outside the range 10 to 9223372036854775807 or it is not divisible by anything in the set [1] "
+        "5 is a long outside the range 2147483647 to 9223372036854775807 or it is not divisible by anything in the set [1] "
         println "lr.firstNum: ${lr.firstNum}, lr.secondNum: ${lr.secondNum}, lr.thirdNum: ${lr.thirdNum}"
         lr.firstNum  == 50L
         lr.secondNum == 50L
-        lr.thirdNum  == 50L
+        lr.thirdNum  == 2147483688L
         
         when:
-        lr.thirdNum  = 1001L
+        lr.thirdNum  = 2147483688L
         lr.firstNum  = 1001L
         lr.secondNum = 1001L
         then:
@@ -59,7 +59,7 @@ class LongExRunnerTest extends Specification {
         println "lr.firstNum: ${lr.firstNum}, lr.secondNum: ${lr.secondNum}, lr.thirdNum: ${lr.thirdNum}"
         lr.firstNum  == 50L
         lr.secondNum == 50L
-        lr.thirdNum  == 1001L
+        lr.thirdNum  == 2147483688L
 
     } // end "test the no arg constructor"
 
