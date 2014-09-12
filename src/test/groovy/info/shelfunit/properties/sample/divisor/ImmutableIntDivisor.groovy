@@ -15,5 +15,7 @@ class ImmutableIntDivisor {
     @IntAnnotation( maxValue = 40, divisor = [ 3, 4 ] )
     int intWithDivArray
     
+    @IntAnnotation( maxValue = 40, divisor = [ 0 ] )
+    int intWithZeroDiv
 }
 

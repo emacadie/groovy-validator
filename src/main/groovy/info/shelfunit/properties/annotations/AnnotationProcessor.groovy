@@ -77,7 +77,7 @@ class AnnotationProcessor {
                 divSet = intAnnotation.divisor() as Set
                 divSet.remove( 0 )
                 if ( divSet.size() == 0 ) { println "removing 0 from divSet"; divSet.add( 1 ) }
-                println "here is divSet: ${divSet} with arg ${arg}"
+                // println "here is divSet: ${divSet} with arg ${arg}"
                 if ( ( arg instanceof Integer ) && 
                     ( divSet.find{ arg % it == 0 }  != null ) &&
                     ( arg >= intAnnotation.minValue() ) &&
