@@ -15,6 +15,5 @@ class FloatExRunner {
     def secondNum
     @FloatAnnotation( minValue = 10f )
     def thirdNum
-    
 }
 

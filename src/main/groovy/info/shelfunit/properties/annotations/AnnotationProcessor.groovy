@@ -77,7 +77,6 @@ class AnnotationProcessor {
                 divSet = intAnnotation.divisor() as Set
                 divSet.remove( 0 )
                 if ( divSet.size() == 0 ) { println "removing 0 from divSet"; divSet.add( 1 ) }
-                // println "here is divSet: ${divSet} with arg ${arg}"
                 if ( ( arg instanceof Integer ) && 
                     ( divSet.find{ arg % it == 0 }  != null ) &&
                     ( arg >= intAnnotation.minValue() ) &&
@@ -92,7 +91,6 @@ class AnnotationProcessor {
                     }
                 }
             } else if ( stringAnnotation ) {
-                // println "Here is arg for string: ${arg}, and delegate is a ${delegate.class.name}"
                 def theMatch = Pattern.compile( stringAnnotation.regEx(), Pattern.COMMENTS )
                 if ( ( arg.length() >= stringAnnotation.minLength() ) &&
                     ( arg.length() <= stringAnnotation.maxLength() ) && 
@@ -105,6 +103,12 @@ class AnnotationProcessor {
                     }
                 }
             } else if ( doubleAnnotation ) {
+                println "doubleAnnotation is a ${doubleAnnotation.class.name}"
+                println "arg is a ${arg.class.name}"
+                
+                handleDoubleAndFloat( arg, new Double( 0 ), doubleAnnotation.minValue(), doubleAnnotation.maxValue(), name, theClass, delegate, throwException )
+                
+                /*
                 if ( ( arg instanceof Double ) && 
                     ( arg >= doubleAnnotation.minValue() ) &&
                     ( arg <= doubleAnnotation.maxValue() ) &&
@@ -117,7 +121,12 @@ class AnnotationProcessor {
                         "${arg} is a double outside the range ${doubleAnnotation.minValue()} to ${doubleAnnotation.maxValue()}" )
                     }
                 }
+                */
+                
             } else if ( floatAnnotation ) {
+                // println "floatAnnotation is a ${floatAnnotation.class.name}"
+                handleDoubleAndFloat( arg, new Float( 0 ), floatAnnotation.minValue(), floatAnnotation.maxValue(), name, theClass, delegate, throwException )
+                /*               
                 if ( ( arg instanceof Float ) && 
                     ( arg >= floatAnnotation.minValue() ) &&
                     ( arg <= floatAnnotation.maxValue() ) &&
@@ -130,6 +139,7 @@ class AnnotationProcessor {
                         "${arg} is a float outside the range ${floatAnnotation.minValue()} to ${floatAnnotation.maxValue()}" )
                     }
                 }
+                */
             } else if ( longAnnotation ) {
                 divSet = longAnnotation.divisor() as Set
                 divSet.remove( 0L )
@@ -152,7 +162,31 @@ class AnnotationProcessor {
             }
         }
         
-    } // end process - line 44
+    } // end process - line 44, 153
+    // numClass is Double or Float, arg is the value, name is name of prop
+    // groovy.lang.MissingMethodException: No signature of method: info.shelfunit.properties.sample.DoubleRunner.handleDoubleAndFloat() is applicable for argument types: (java.lang.Double, java.lang.Class, $Proxy15, java.lang.String, java.lang.Class, info.shelfunit.properties.sample.DoubleRunner, java.lang.Boolean) values: [50.0, class java.lang.Double, @info.shelfunit.properties.annotations.DoubleAnnotation(minValue=0.0, maxValue=1000.0), ...]
+	// at info.shelfunit.properties.annotations.AnnotationProcessor.process_closure1(AnnotationProcessor.groovy:106)
+	// at info.shelfunit.properties.sample.DoubleRunnerTest.test just outside the ranges(DoubleRunnerTest.groovy:45)
+
+    def static handleDoubleAndFloat( arg, numClass, annMinValue, annMaxValue, name, theClass, delegate, throwException ) {
+        println "numClass is a ${numClass.class.name}"
+        
+        if ( ( arg.class.name == numClass.class.name ) && 
+            ( arg >= annMinValue ) &&
+            ( arg <= annMaxValue ) &&
+            ( arg >= numClass.MIN_VALUE ) &&
+            ( arg <= numClass.MAX_VALUE ) ) {
+            
+            theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg )
+        } else { 
+            if ( throwException ) {
+                throw new Exception( "Groovy validation exception: \n" +
+                        "${arg} is a ${numClass.name} outside the range ${annMinValue} to ${annMaxValue}" )
+            }
+        }
+        
+        
+    } // handleDoubleAndFloat
     
-} // end class AnnotationProcessor - line 128
+} // end class AnnotationProcessor - line 128 - line 157
 

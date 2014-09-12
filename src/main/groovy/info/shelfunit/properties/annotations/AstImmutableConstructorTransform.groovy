@@ -210,7 +210,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                     // println " Here is tempDivSet: ${tempDivSet} and it's a ${tempDivSet.class.name}"
                     try {
                         
-                        println "Here is annotationNode.getMember( 'divisor' ): ${annotationNode.getMember( 'divisor' )} and it's a ${annotationNode?.getMember( 'divisor' )?.class.name}, Here is tempDivSet: ${tempDivSet}"
+                        // println "Here is annotationNode.getMember( 'divisor' ): ${annotationNode.getMember( 'divisor' )} and it's a ${annotationNode?.getMember( 'divisor' )?.class.name}, Here is tempDivSet: ${tempDivSet}"
                         annotationNode.getMember( 'divisor' ).getExpressions().each { member ->
                             // println "Here it is: ${member} it is a: ${member.class.name} its value is: ${member.value} which itself is a ${member.value.class.name}"
                             holdSet.add( new Long( member.getValue() ) )
@@ -223,7 +223,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                     }
                     holdSet.remove( 0L )
                     if ( holdSet.size() == 0 ) { holdSet.add( 1L ) }
-                    println "Here is holdSet now: ${holdSet}"
+                    // println "Here is holdSet now: ${holdSet}"
                     
                     sb1 << """
                     if ( (val == null ) || ( ( ${minimum} <= val ) && ( val <= ${maximum} ) && ( ${holdSet}.find{ val % it == 0 }  != null ) ) ) {
