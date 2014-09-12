@@ -32,4 +32,5 @@ gradle -Dtest.single=ImmutablePartialSpec test -info
 gradle -Dtest.single=IntDivisorSpec test -info  
 gradle -Dtest.single=LongDivisorSpec test -info   
 gradle -Dtest.single=ImmutableIntDivisorSpec test -info  
+gradle -Dtest.single=ImmutableLongDivisorSpec test -info  
 

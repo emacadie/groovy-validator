@@ -35,41 +35,65 @@ class ImmutableLongDivisorSpec extends Specification {
         ex.message == "Groovy validation exception: \n" +
         "5 is a long outside the range 10 to 9223372036854775807 or it is not divisible by anything in the set [5] \n" +
         "13 is a long outside the range 0 to 9223372036854775807 or it is not divisible by anything in the set [7] "
-        // rid2.longWithDiv == 15
-        // rid2.longWithDiv002 == 0
         
     } // end "test both long fields"
-    
-    /*
+
     def "test with divisor array"() {
         println "--- Starting test ${name.methodName}"
-        
-        def rid = new LongDivisor(  )
         when:
-        rid.longWithDivArray = 12
+        def rid = new ImmutableLongDivisor( [ longWithDivArray: 12L ], true, true )
         then:
-        rid.longWithDivArray == 12
+        rid.longWithDivArray == 12L
         
         when:
-        rid.longWithDivArray = 13
+        rid.longWithDiv = 15L
         then:
-        rid.longWithDivArray == 12
+        def ex = thrown( Exception )
+        ex.message == "Cannot set readonly property: longWithDiv for class: info.shelfunit.properties.sample.divisor.ImmutableLongDivisor"
         
         when:
-        rid.longWithDivArray = 9
+        def rid2 = new ImmutableLongDivisor( [ longWithDivArray: 13L ], true, true )
         then:
-        rid.longWithDivArray == 9
+        def ex2 = thrown( Exception )
+        ex2.message == "Groovy validation exception: \n" +
+        "13 is a long outside the range 0 to 40 or it is not divisible by anything in the set [3, 4] "
         
         when:
-        rid.longWithDivArray = 16
+        def rid3 = new ImmutableLongDivisor( [ longWithDivArray: 9L ], true, true )
         then:
-        rid.longWithDivArray == 16
+        rid3.longWithDivArray == 9L
+       
+        when:
+        def rid4 = new ImmutableLongDivisor( [ longWithDivArray: 16L ], true, true )
+        then:
+        rid4.longWithDivArray == 16L
         
         when:
-        rid.longWithDivArray = 55
+        def rid5 = new ImmutableLongDivisor( [ longWithDivArray: 55L ], true, true )
         then:
-        rid.longWithDivArray == 16
+        def ex5 = thrown( Exception )
+        ex5.message == "Groovy validation exception: \n" +
+        "55 is a long outside the range 0 to 40 or it is not divisible by anything in the set [3, 4] "
+        
     } // end test with divisor array
-    */
+    
+    def "test with zero divisor"() {
+        println "--- Starting test ${name.methodName}"
+        when:
+        def rid = new ImmutableLongDivisor( [ longWithDivArray: 12L, longWithZeroDiv: 35L ], true, true )
+        // println "rid: ${rid.toString()}"
+        then:
+        rid.longWithDivArray == 12L
+        rid.longWithZeroDiv == 35L
+        
+        when:
+        def rid2 = new ImmutableLongDivisor( [ longWithDivArray: 9L, longWithZeroDiv: 55L ], true, true )
+        then:
+        def ex = thrown( Exception )
+        ex.message == "Groovy validation exception: \n" +
+        "55 is a long outside the range 0 to 40 or it is not divisible by anything in the set [1] "
+
+    } // end test with zero divisor
+    
 } // ImmutableLongDivisorSpec
 
