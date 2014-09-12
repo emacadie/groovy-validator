@@ -94,7 +94,6 @@ class AstImmutableConstructorTransform implements ASTTransformation {
     constructor that will be passed on. Otherwise leave it out. If the field does not have a validation annotation, just pass it thought.
     */
     def processFields( fields2 ) {
-        // println "In processFields, with className set to ${className} and it is a ${className.class.name}"
         def sb1= new StringBuffer()
         def minimum
         def maximum
@@ -108,9 +107,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
         fields2.each { fieldNode ->
             fieldTypeName = fieldNode.getType().getName()
             def annotationNode = fieldNode.getAnnotations()[ 0 ]
-            // println "Here is annotationNode: ${annotationNode}"
             if ( annotationNode == null ) {
-                // println "ANNOTATION IS NULL"
                 sb1 << " newMap[ '${fieldNode.getName()}' ] = argMap[ '${fieldNode.getName()}' ]\n"
             } else {
             switch ( fieldTypeName ) {
@@ -118,13 +115,8 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                     sb1 << "val = argMap[ '${fieldNode.getName()}' ]"
                     minimum = annotationNode.getMember( 'minLength' ) ? annotationNode.getMember( 'minLength' ).getValue() : 0
                     maximum = annotationNode.getMember( 'maxLength' ) ? annotationNode.getMember( 'maxLength' ).getValue() :  Integer.MAX_VALUE
-                    // println "Here is annotationNode.getMember( 'regEx' ): ${annotationNode.getMember( 'regEx' )}"
-                    // println "Here is annotationNode.getMember( 'regEx' ).class.name : ${annotationNode.getMember( 'regEx' )?.class?.name }"
-                    if ( annotationNode.getMember( 'regEx' )?.class?.name == 'org.codehaus.groovy.ast.expr.ConstantExpression' ) {
-                        // println "Here is annotationNode.getMember( 'regEx' ).getText(): ${ annotationNode.getMember( 'regEx' ).getText() }"
-                    }
+                    
                     regExp = annotationNode.getMember( 'regEx' ) ? "/" + annotationNode?.getMember( 'regEx' )?.getText() + "/" : "\".*\"" 
-                    // println "Here is regExp now: ${regExp}"
                     sb1 << """
                     theMatch = java.util.regex.Pattern.compile( ${regExp}, java.util.regex.Pattern.COMMENTS )
                     if ( ( ${minimum} <= val?.length() ) && ( val?.length() <= ${maximum} ) && ( theMatch.matcher( val ).matches() ) ) {
@@ -146,7 +138,6 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                     } else { 
                         if ( throwException ) {
                             exceptionStringList.add( val + ' is a double outside the range ${minimum} to ${maximum} ' )
-                            
                         }
                     }
                     """
@@ -171,24 +162,13 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                     maximum = annotationNode.getMember( 'maxValue' ) ? annotationNode.getMember( 'maxValue' ).getValue() :  Integer.MAX_VALUE
                     tempDivSet = annotationNode.getMember( 'divisor' ) ?  annotationNode.getMember( 'divisor' ) : [ 1 ] as Set
                     holdSet.clear()
-                    // println "----------------------------------------------------------------------------"
-                    // println " Here is tempDivSet: ${tempDivSet} and it's a ${tempDivSet.class.name}"
                     try {
-                        
-                        // println "Here is annotationNode.getMember( 'divisor' ): ${annotationNode.getMember( 'divisor' )} and it's a ${annotationNode?.getMember( 'divisor' )?.class.name}, Here is tempDivSet: ${tempDivSet}"
                         annotationNode.getMember( 'divisor' ).getExpressions().each { member ->
-                            // println "Here it is: ${member} it is a: ${member.class.name} its value is: ${member.value} which itself is a ${member.value.class.name}"
                             holdSet.add( new Integer( member.getValue() ) )
-                            // member.each { theMem -> println "-- here is the member: ${theMem} and it is a ${theMem.class.name}" }
                         }
-                        // print "\n"
-                    
-                    } catch ( Exception e ) { 
-                        // e.printStackTrace() 
-                    }
+                    } catch ( Exception e ) { }
                     holdSet.remove( 0 )
                     if ( holdSet.size() == 0 ) { holdSet.add( 1 ) }
-                    // println "Here is holdSet now: ${holdSet}"
                     sb1 << """
                     if ( (val == null ) || ( ( ${minimum} <= val ) && ( val <= ${maximum} ) && ( ${holdSet}.find{ val % it == 0 }  != null ) ) ) {
                         newMap[ '${fieldNode.getName()}' ] = val
@@ -203,27 +183,16 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                     sb1 << "val = argMap[ '${fieldNode.getName()}' ]"
                     minimum = annotationNode.getMember( 'minValue' ) ? annotationNode.getMember( 'minValue' ).getValue() : 0
                     maximum = annotationNode.getMember( 'maxValue' ) ? annotationNode.getMember( 'maxValue' ).getValue() :  Long.MAX_VALUE
-                    
                     tempDivSet = annotationNode.getMember( 'divisor' ) ?  annotationNode.getMember( 'divisor' ) : [ 1 ] as Set
                     holdSet.clear()
-                    // println "----------------------------------------------------------------------------"
-                    // println " Here is tempDivSet: ${tempDivSet} and it's a ${tempDivSet.class.name}"
                     try {
-                        
-                        // println "Here is annotationNode.getMember( 'divisor' ): ${annotationNode.getMember( 'divisor' )} and it's a ${annotationNode?.getMember( 'divisor' )?.class.name}, Here is tempDivSet: ${tempDivSet}"
                         annotationNode.getMember( 'divisor' ).getExpressions().each { member ->
-                            // println "Here it is: ${member} it is a: ${member.class.name} its value is: ${member.value} which itself is a ${member.value.class.name}"
                             holdSet.add( new Long( member.getValue() ) )
-                            // member.each { theMem -> println "-- here is the member: ${theMem} and it is a ${theMem.class.name}" }
                         }
-                        // print "\n"
                     
-                    } catch ( Exception e ) { 
-                        // e.printStackTrace() 
-                    }
+                    } catch ( Exception e ) {   }
                     holdSet.remove( 0L )
                     if ( holdSet.size() == 0 ) { holdSet.add( 1L ) }
-                    // println "Here is holdSet now: ${holdSet}"
                     
                     sb1 << """
                     if ( (val == null ) || ( ( ${minimum} <= val ) && ( val <= ${maximum} ) && ( ${holdSet}.find{ val % it == 0 }  != null ) ) ) {
