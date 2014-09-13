@@ -28,8 +28,8 @@ class TrulyImmutableCollectorEx001Test extends Specification {
         then:
         def ex1 = thrown( Exception )
         ex1.message == "Groovy validation exception: \n" +
-        "21 is an integer outside the range 30 to 400 or it is not divisible by anything in the set [1] \n" +
-        "20 is an integer outside the range 30 to 400 or it is not divisible by anything in the set [1] "
+        "21 is a java.lang.Integer outside the range 30 to 400 or it is not divisible by anything in the set [1] \n" +
+        "20 is a java.lang.Integer outside the range 30 to 400 or it is not divisible by anything in the set [1] "
         exceptionThrown == false
         println "Just made throwaway, about to make bTest1"
         
@@ -39,7 +39,7 @@ class TrulyImmutableCollectorEx001Test extends Specification {
         then:
         def ex2 = thrown ( Exception )
         ex2.message == "Groovy validation exception: \n" +
-        "21 is an integer outside the range 30 to 400 or it is not divisible by anything in the set [1] "
+        "21 is a java.lang.Integer outside the range 30 to 400 or it is not divisible by anything in the set [1] "
         
     } // end "two immutable objects with validation, trying to change the first"
     
@@ -52,8 +52,8 @@ class TrulyImmutableCollectorEx001Test extends Specification {
         def exTest2 = thrown( Exception )
         exTest2.message == "Groovy validation exception: \n" +
         "\"Goodbye, this is more than 20 characters\" is a String with a length outside the range of 5 to 20 characters \n" +
-        "22 is an integer outside the range 30 to 400 or it is not divisible by anything in the set [1] \n" +
-        "20 is an integer outside the range 30 to 400 or it is not divisible by anything in the set [1] "
+        "22 is a java.lang.Integer outside the range 30 to 400 or it is not divisible by anything in the set [1] \n" +
+        "20 is a java.lang.Integer outside the range 30 to 400 or it is not divisible by anything in the set [1] "
     } // end "test bTest2"
     
     def "third test"() {
@@ -72,8 +72,8 @@ class TrulyImmutableCollectorEx001Test extends Specification {
         then:
         def exThirdTest = thrown( Exception )
         exThirdTest.message == "Groovy validation exception: \n" +
-        "21 is an integer outside the range 30 to 400 or it is not divisible by anything in the set [1] \n" +
-        "401 is an integer outside the range 30 to 400 or it is not divisible by anything in the set [1] "
+        "21 is a java.lang.Integer outside the range 30 to 400 or it is not divisible by anything in the set [1] \n" +
+        "401 is a java.lang.Integer outside the range 30 to 400 or it is not divisible by anything in the set [1] "
         exceptionThrown == false
     } // end "third test
    

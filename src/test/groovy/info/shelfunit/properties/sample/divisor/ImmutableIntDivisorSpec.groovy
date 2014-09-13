@@ -33,8 +33,8 @@ class ImmutableIntDivisorSpec extends Specification {
         then:
         def ex = thrown( Exception )
         ex.message == "Groovy validation exception: \n" +
-        "5 is an integer outside the range 10 to 2147483647 or it is not divisible by anything in the set [5] \n" +
-        "13 is an integer outside the range 0 to 2147483647 or it is not divisible by anything in the set [7] "
+        "5 is a java.lang.Integer outside the range 10 to 2147483647 or it is not divisible by anything in the set [5] \n" +
+        "13 is a java.lang.Integer outside the range 0 to 2147483647 or it is not divisible by anything in the set [7] "
         
     } // end "test both int fields"
     
@@ -57,7 +57,7 @@ class ImmutableIntDivisorSpec extends Specification {
         then:
         def ex2 = thrown( Exception )
         ex2.message == "Groovy validation exception: \n" +
-        "13 is an integer outside the range 0 to 40 or it is not divisible by anything in the set [3, 4] "
+        "13 is a java.lang.Integer outside the range 0 to 40 or it is not divisible by anything in the set [3, 4] "
         
         when:
         def rid3 = new ImmutableIntDivisor( [ intWithDivArray: 9 ], true, true )
@@ -74,7 +74,7 @@ class ImmutableIntDivisorSpec extends Specification {
         then:
         def ex5 = thrown( Exception )
         ex5.message == "Groovy validation exception: \n" +
-        "55 is an integer outside the range 0 to 40 or it is not divisible by anything in the set [3, 4] "
+        "55 is a java.lang.Integer outside the range 0 to 40 or it is not divisible by anything in the set [3, 4] "
         
     } // end test with divisor array
     
@@ -93,7 +93,7 @@ class ImmutableIntDivisorSpec extends Specification {
         then:
         def ex = thrown( Exception )
         ex.message == "Groovy validation exception: \n" +
-        "55 is an integer outside the range 0 to 40 or it is not divisible by anything in the set [1] "
+        "55 is a java.lang.Integer outside the range 0 to 40 or it is not divisible by anything in the set [1] "
 
     } // end test with zero divisor
    

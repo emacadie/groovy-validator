@@ -103,115 +103,93 @@ class AstImmutableConstructorTransform implements ASTTransformation {
         sb1 << "def val \n def theMatch \n def divSet \n"
         sb1 << "def exceptionStringList = []\n"
         try {
-        fields2.each { fieldNode ->
-            fieldTypeName = fieldNode.getType().getName()
-            def annotationNode = fieldNode.getAnnotations()[ 0 ]
-            if ( annotationNode == null ) {
-                sb1 << " newMap[ '${fieldNode.getName()}' ] = argMap[ '${fieldNode.getName()}' ]\n"
-            } else {
-            switch ( fieldTypeName ) {
-                case 'java.lang.String':
-                    sb1 << "val = argMap[ '${fieldNode.getName()}' ]"
-                    minimum = annotationNode.getMember( 'minLength' ) ? annotationNode.getMember( 'minLength' ).getValue() : 0
-                    maximum = annotationNode.getMember( 'maxLength' ) ? annotationNode.getMember( 'maxLength' ).getValue() :  Integer.MAX_VALUE
-                    
-                    regExp = annotationNode.getMember( 'regEx' ) ? "/" + annotationNode?.getMember( 'regEx' )?.getText() + "/" : "\".*\"" 
-                    sb1 << """
-                    theMatch = java.util.regex.Pattern.compile( ${regExp}, java.util.regex.Pattern.COMMENTS )
-                    if ( ( ${minimum} <= val?.length() ) && ( val?.length() <= ${maximum} ) && ( theMatch.matcher( val ).matches() ) ) {
-                        newMap[ '${fieldNode.getName()}' ] = val
-                    } else { 
-                        if ( throwException ) {
-                            exceptionStringList.add( '"' + val + '" is a String with a length outside the range of ${minimum} to ${maximum} characters ' )
-                        }
-                    }
-                    """
-                break
-                case [ 'double', 'java.lang.Double' ]:
-                    sb1 << handleDoubleAndFloat( fieldNode.getName(), annotationNode, Double.MAX_VALUE )
-                    /*
-                    sb1 << "val = argMap[ '${fieldNode.getName()}' ]"
-                    minimum = annotationNode.getMember( 'minValue' ) ? annotationNode.getMember( 'minValue' ).getValue() : 0
-                    maximum = annotationNode.getMember( 'maxValue' ) ? annotationNode.getMember( 'maxValue' ).getValue() :  Double.MAX_VALUE
-                    sb1 << """
-                    if ( ( ${minimum} <= val ) && ( val <= ${maximum} ) ) {
-                        newMap[ '${fieldNode.getName()}' ] = val
-                    } else { 
-                        if ( throwException ) {
-                            exceptionStringList.add( val + ' is a double outside the range ${minimum} to ${maximum} ' )
-                        }
-                    }
-                    """
-                    */
-                break
-                case [ 'float', 'java.lang.Float' ]:
-                    sb1 << "val = argMap[ '${fieldNode.getName()}' ]"
-                    minimum = annotationNode.getMember( 'minValue' ) ? annotationNode.getMember( 'minValue' ).getValue() : 0
-                    maximum = annotationNode.getMember( 'maxValue' ) ? annotationNode.getMember( 'maxValue' ).getValue() :  Float.MAX_VALUE
-                    sb1 << """
-                    if ( ( ${minimum} <= val ) && ( val <= ${maximum} ) ) {
-                        newMap[ '${fieldNode.getName()}' ] = val
-                    } else { 
-                        if ( throwException ) {
-                            exceptionStringList.add( val + ' is a float outside the range ${minimum} to ${maximum} ' )
-                        }
-                    }
-                    """
-                break
-                case [ 'int', 'java.lang.Integer' ]:
-                    sb1 << "val = argMap[ '${fieldNode.getName()}' ]"
-                    minimum = annotationNode.getMember( 'minValue' ) ? annotationNode.getMember( 'minValue' ).getValue() : 0
-                    maximum = annotationNode.getMember( 'maxValue' ) ? annotationNode.getMember( 'maxValue' ).getValue() :  Integer.MAX_VALUE
-                    tempDivSet = annotationNode.getMember( 'divisor' ) ?  annotationNode.getMember( 'divisor' ) : [ 1 ] as Set
-                    holdSet.clear()
-                    try {
-                        annotationNode.getMember( 'divisor' ).getExpressions().each { member ->
-                            holdSet.add( new Integer( member.getValue() ) )
-                        }
-                    } catch ( Exception e ) { }
-                    holdSet.remove( 0 )
-                    if ( holdSet.size() == 0 ) { holdSet.add( 1 ) }
-                    sb1 << """
-                    if ( (val == null ) || ( ( ${minimum} <= val ) && ( val <= ${maximum} ) && ( ${holdSet}.find{ val % it == 0 }  != null ) ) ) {
-                        newMap[ '${fieldNode.getName()}' ] = val
-                    } else { 
-                        if ( throwException ) {
-                        exceptionStringList.add( val + ' is an integer outside the range ${minimum} to ${maximum} or it is not divisible by anything in the set ${holdSet} ' )
-                        }
-                    }
-                    """
-                break
-                case [ 'long', 'java.lang.Long' ]:
-                    sb1 << "val = argMap[ '${fieldNode.getName()}' ]"
-                    minimum = annotationNode.getMember( 'minValue' ) ? annotationNode.getMember( 'minValue' ).getValue() : 0
-                    maximum = annotationNode.getMember( 'maxValue' ) ? annotationNode.getMember( 'maxValue' ).getValue() :  Long.MAX_VALUE
-                    tempDivSet = annotationNode.getMember( 'divisor' ) ?  annotationNode.getMember( 'divisor' ) : [ 1 ] as Set
-                    holdSet.clear()
-                    try {
-                        annotationNode.getMember( 'divisor' ).getExpressions().each { member ->
-                            holdSet.add( new Long( member.getValue() ) )
-                        }
-                    
-                    } catch ( Exception e ) {   }
-                    holdSet.remove( 0L )
-                    if ( holdSet.size() == 0 ) { holdSet.add( 1L ) }
-                    
-                    sb1 << """
-                    if ( (val == null ) || ( ( ${minimum} <= val ) && ( val <= ${maximum} ) && ( ${holdSet}.find{ val % it == 0 }  != null ) ) ) {
-                        newMap[ '${fieldNode.getName()}' ] = val
-                    } else { 
-                        if ( throwException ) {
-                            exceptionStringList.add( val + ' is a long outside the range ${minimum} to ${maximum} or it is not divisible by anything in the set ${holdSet} ' )
-                        }
-                    }
-                    """
-                break
-                default:
-                    sb1 << "newMap[ '${fieldNode.getName()}' ] = argMap[ '${fieldNode.getName()}' ]\n"
-            } // end switch( fieldTypeName )
-            } // if ( annotationNode == null ) / else
-            
-        } // fields2.each
+            fields2.each { fieldNode ->
+                fieldTypeName = fieldNode.getType().getName()
+                def annotationNode = fieldNode.getAnnotations()[ 0 ]
+                if ( annotationNode == null ) {
+                    sb1 << " newMap[ '${fieldNode.getName()}' ] = argMap[ '${fieldNode.getName()}' ]\n"
+                } else {
+                    switch ( fieldTypeName ) {
+                        case 'java.lang.String':
+                            sb1 << "val = argMap[ '${fieldNode.getName()}' ]"
+                            minimum = annotationNode.getMember( 'minLength' ) ? annotationNode.getMember( 'minLength' ).getValue() : 0
+                            maximum = annotationNode.getMember( 'maxLength' ) ? annotationNode.getMember( 'maxLength' ).getValue() :  Integer.MAX_VALUE
+                            
+                            regExp = annotationNode.getMember( 'regEx' ) ? "/" + annotationNode?.getMember( 'regEx' )?.getText() + "/" : "\".*\"" 
+                            sb1 << """
+                            theMatch = java.util.regex.Pattern.compile( ${regExp}, java.util.regex.Pattern.COMMENTS )
+                            if ( ( ${minimum} <= val?.length() ) && ( val?.length() <= ${maximum} ) && ( theMatch.matcher( val ).matches() ) ) {
+                                newMap[ '${fieldNode.getName()}' ] = val
+                            } else { 
+                                if ( throwException ) {
+                                    exceptionStringList.add( '"' + val + '" is a String with a length outside the range of ${minimum} to ${maximum} characters ' )
+                                }
+                            }
+                            """
+                        break
+                        case [ 'double', 'java.lang.Double' ]:
+                            sb1 << handleDoubleAndFloat( fieldNode.getName(), annotationNode, Double.MAX_VALUE, Double.class.name )
+                        break
+                        case [ 'float', 'java.lang.Float' ]:
+                            sb1 << handleDoubleAndFloat( fieldNode.getName(), annotationNode, Float.MAX_VALUE, Float.class.name )
+                        break
+                        case [ 'int', 'java.lang.Integer' ]:
+                            sb1 << handleIntAndLong( fieldNode.getName(), annotationNode, new Integer( 0 ) )
+                            /*
+                            sb1 << "val = argMap[ '${fieldNode.getName()}' ]"
+                            minimum = annotationNode.getMember( 'minValue' ) ? annotationNode.getMember( 'minValue' ).getValue() : 0
+                            maximum = annotationNode.getMember( 'maxValue' ) ? annotationNode.getMember( 'maxValue' ).getValue() :  Integer.MAX_VALUE
+                            tempDivSet = annotationNode.getMember( 'divisor' ) ?  annotationNode.getMember( 'divisor' ) : [ 1 ] as Set
+                            holdSet.clear()
+                            try {
+                                annotationNode.getMember( 'divisor' ).getExpressions().each { member ->
+                                    holdSet.add( new Integer( member.getValue() ) )
+                                }
+                            } catch ( Exception e ) { }
+                            holdSet.remove( 0 )
+                            if ( holdSet.size() == 0 ) { holdSet.add( 1 ) }
+                            sb1 << """
+                            if ( (val == null ) || ( ( ${minimum} <= val ) && ( val <= ${maximum} ) && ( ${holdSet}.find{ val % it == 0 }  != null ) ) ) {
+                                newMap[ '${fieldNode.getName()}' ] = val
+                            } else { 
+                                if ( throwException ) {
+                                exceptionStringList.add( val + ' is an integer outside the range ${minimum} to ${maximum} or it is not divisible by anything in the set ${holdSet} ' )
+                                }
+                            }
+                            """
+                            */
+                        break
+                        case [ 'long', 'java.lang.Long' ]:
+                            sb1 << "val = argMap[ '${fieldNode.getName()}' ]"
+                            minimum = annotationNode.getMember( 'minValue' ) ? annotationNode.getMember( 'minValue' ).getValue() : 0
+                            maximum = annotationNode.getMember( 'maxValue' ) ? annotationNode.getMember( 'maxValue' ).getValue() :  Long.MAX_VALUE
+                            tempDivSet = annotationNode.getMember( 'divisor' ) ?  annotationNode.getMember( 'divisor' ) : [ 1 ] as Set
+                            holdSet.clear()
+                            try {
+                                annotationNode.getMember( 'divisor' ).getExpressions().each { member ->
+                                    holdSet.add( new Long( member.getValue() ) )
+                                }
+                            
+                            } catch ( Exception e ) {   }
+                            holdSet.remove( 0L )
+                            if ( holdSet.size() == 0 ) { holdSet.add( 1L ) }
+                            
+                            sb1 << """
+                            if ( (val == null ) || ( ( ${minimum} <= val ) && ( val <= ${maximum} ) && ( ${holdSet}.find{ val % it == 0 }  != null ) ) ) {
+                                newMap[ '${fieldNode.getName()}' ] = val
+                            } else { 
+                                if ( throwException ) {
+                                    exceptionStringList.add( val + ' is a long outside the range ${minimum} to ${maximum} or it is not divisible by anything in the set ${holdSet} ' )
+                                }
+                            }
+                            """
+                        break
+                        default:
+                            sb1 << "newMap[ '${fieldNode.getName()}' ] = argMap[ '${fieldNode.getName()}' ]\n"
+                    } // end switch( fieldTypeName )
+                } // if ( annotationNode == null ) / else
+                
+            } // fields2.each
         } catch ( Exception e ) {
             e.printStackTrace()
         }
@@ -227,7 +205,35 @@ class AstImmutableConstructorTransform implements ASTTransformation {
         return sb1
     } // end processFields, 226
     
-    def handleDoubleAndFloat( nodeName, annotationNode, maxValue ) {
+    def handleIntAndLong( nodeName, annotationNode, zeroNum ) {
+        
+        def sb1 = new StringBuffer()
+        def holdSet = [] as Set
+        sb1 << "val = argMap[ '${nodeName}' ]"
+                            def minimum = annotationNode.getMember( 'minValue' ) ? annotationNode.getMember( 'minValue' ).getValue() : 0
+                            def maximum = annotationNode.getMember( 'maxValue' ) ? annotationNode.getMember( 'maxValue' ).getValue() :  zeroNum.MAX_VALUE
+                            // tempDivSet = annotationNode.getMember( 'divisor' ) ?  annotationNode.getMember( 'divisor' ) : [ 1 ] as Set
+                            // holdSet.clear()
+                            try {
+                                annotationNode.getMember( 'divisor' ).getExpressions().each { member ->
+                                    holdSet.add( new Integer( member.getValue() ) )
+                                }
+                            } catch ( Exception e ) { }
+                            holdSet.remove( 0 )
+                            if ( holdSet.size() == zeroNum ) { holdSet.add( ++zeroNum ) }
+                            sb1 << """
+                            if ( (val == null ) || ( ( ${minimum} <= val ) && ( val <= ${maximum} ) && ( ${holdSet}.find{ val % it == 0 }  != null ) ) ) {
+                                newMap[ '${nodeName}' ] = val
+                            } else { 
+                                if ( throwException ) {
+                                exceptionStringList.add( val + ' is a ${zeroNum.class.name} outside the range ${minimum} to ${maximum} or it is not divisible by anything in the set ${holdSet} ' )
+                                }
+                            }
+                            """
+        return sb1
+    } // handleIntAndLong
+    
+    def handleDoubleAndFloat( nodeName, annotationNode, maxValue, numClassName ) {
         def sb1 = new StringBuffer()
         sb1 << "val = argMap[ '${nodeName}' ]"
                     def minimum = annotationNode.getMember( 'minValue' ) ? annotationNode.getMember( 'minValue' ).getValue() : 0
@@ -237,7 +243,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                         newMap[ '${nodeName}' ] = val
                     } else { 
                         if ( throwException ) {
-                            exceptionStringList.add( val + ' is a double outside the range ${minimum} to ${maximum} ' )
+                        exceptionStringList.add( val + ' is a ${numClassName} outside the range ${minimum} to ${maximum} ' )
                         }
                     }
                     """
