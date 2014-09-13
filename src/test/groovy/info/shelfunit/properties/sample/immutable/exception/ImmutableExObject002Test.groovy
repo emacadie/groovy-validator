@@ -138,7 +138,7 @@ class ImmutableExObject002Test extends Specification {
         "101.0 is a java.lang.Double outside the range 10.0 to 100.0 \n" +
         "101.0 is a java.lang.Float outside the range 10.0 to 100.0 \n" +
         "101 is a java.lang.Integer outside the range 10 to 100 or it is not divisible by anything in the set [1] \n" +
-        "101 is a long outside the range 0 to 100 or it is not divisible by anything in the set [1] "
+        "101 is a java.lang.Long outside the range 0 to 100 or it is not divisible by anything in the set [1] "
        
         // bTest1.firstDouble == 0d
         // bTest1.firstFloat == 0f

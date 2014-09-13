@@ -98,8 +98,6 @@ class AstImmutableConstructorTransform implements ASTTransformation {
         def maximum
         def regExp
         def fieldTypeName
-        def tempDivSet = [] as Set
-        def holdSet = [] as Set
         sb1 << "def val \n def theMatch \n def divSet \n"
         sb1 << "def exceptionStringList = []\n"
         try {
@@ -135,54 +133,9 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                         break
                         case [ 'int', 'java.lang.Integer' ]:
                             sb1 << handleIntAndLong( fieldNode.getName(), annotationNode, new Integer( 0 ) )
-                            /*
-                            sb1 << "val = argMap[ '${fieldNode.getName()}' ]"
-                            minimum = annotationNode.getMember( 'minValue' ) ? annotationNode.getMember( 'minValue' ).getValue() : 0
-                            maximum = annotationNode.getMember( 'maxValue' ) ? annotationNode.getMember( 'maxValue' ).getValue() :  Integer.MAX_VALUE
-                            tempDivSet = annotationNode.getMember( 'divisor' ) ?  annotationNode.getMember( 'divisor' ) : [ 1 ] as Set
-                            holdSet.clear()
-                            try {
-                                annotationNode.getMember( 'divisor' ).getExpressions().each { member ->
-                                    holdSet.add( new Integer( member.getValue() ) )
-                                }
-                            } catch ( Exception e ) { }
-                            holdSet.remove( 0 )
-                            if ( holdSet.size() == 0 ) { holdSet.add( 1 ) }
-                            sb1 << """
-                            if ( (val == null ) || ( ( ${minimum} <= val ) && ( val <= ${maximum} ) && ( ${holdSet}.find{ val % it == 0 }  != null ) ) ) {
-                                newMap[ '${fieldNode.getName()}' ] = val
-                            } else { 
-                                if ( throwException ) {
-                                exceptionStringList.add( val + ' is an integer outside the range ${minimum} to ${maximum} or it is not divisible by anything in the set ${holdSet} ' )
-                                }
-                            }
-                            """
-                            */
                         break
                         case [ 'long', 'java.lang.Long' ]:
-                            sb1 << "val = argMap[ '${fieldNode.getName()}' ]"
-                            minimum = annotationNode.getMember( 'minValue' ) ? annotationNode.getMember( 'minValue' ).getValue() : 0
-                            maximum = annotationNode.getMember( 'maxValue' ) ? annotationNode.getMember( 'maxValue' ).getValue() :  Long.MAX_VALUE
-                            tempDivSet = annotationNode.getMember( 'divisor' ) ?  annotationNode.getMember( 'divisor' ) : [ 1 ] as Set
-                            holdSet.clear()
-                            try {
-                                annotationNode.getMember( 'divisor' ).getExpressions().each { member ->
-                                    holdSet.add( new Long( member.getValue() ) )
-                                }
-                            
-                            } catch ( Exception e ) {   }
-                            holdSet.remove( 0L )
-                            if ( holdSet.size() == 0 ) { holdSet.add( 1L ) }
-                            
-                            sb1 << """
-                            if ( (val == null ) || ( ( ${minimum} <= val ) && ( val <= ${maximum} ) && ( ${holdSet}.find{ val % it == 0 }  != null ) ) ) {
-                                newMap[ '${fieldNode.getName()}' ] = val
-                            } else { 
-                                if ( throwException ) {
-                                    exceptionStringList.add( val + ' is a long outside the range ${minimum} to ${maximum} or it is not divisible by anything in the set ${holdSet} ' )
-                                }
-                            }
-                            """
+                            sb1 << handleIntAndLong( fieldNode.getName(), annotationNode, new Long( 0 ) )
                         break
                         default:
                             sb1 << "newMap[ '${fieldNode.getName()}' ] = argMap[ '${fieldNode.getName()}' ]\n"
@@ -212,14 +165,13 @@ class AstImmutableConstructorTransform implements ASTTransformation {
         sb1 << "val = argMap[ '${nodeName}' ]"
                             def minimum = annotationNode.getMember( 'minValue' ) ? annotationNode.getMember( 'minValue' ).getValue() : 0
                             def maximum = annotationNode.getMember( 'maxValue' ) ? annotationNode.getMember( 'maxValue' ).getValue() :  zeroNum.MAX_VALUE
-                            // tempDivSet = annotationNode.getMember( 'divisor' ) ?  annotationNode.getMember( 'divisor' ) : [ 1 ] as Set
-                            // holdSet.clear()
                             try {
                                 annotationNode.getMember( 'divisor' ).getExpressions().each { member ->
-                                    holdSet.add( new Integer( member.getValue() ) )
+                                    if ( zeroNum.class.name == "java.lang.Integer" ) { holdSet.add( new Integer( member.getValue() ) ) }
+                                    else if ( zeroNum.class.name == "java.lang.Long" ) { holdSet.add( new Long( member.getValue() ) ) }
                                 }
                             } catch ( Exception e ) { }
-                            holdSet.remove( 0 )
+                            holdSet.remove( zeroNum )
                             if ( holdSet.size() == zeroNum ) { holdSet.add( ++zeroNum ) }
                             sb1 << """
                             if ( (val == null ) || ( ( ${minimum} <= val ) && ( val <= ${maximum} ) && ( ${holdSet}.find{ val % it == 0 }  != null ) ) ) {
@@ -252,5 +204,4 @@ class AstImmutableConstructorTransform implements ASTTransformation {
     } // handleDoubleAndFloat
 
 } // end class  - line 208, 228
-
 

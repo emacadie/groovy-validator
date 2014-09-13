@@ -33,8 +33,8 @@ class ImmutableLongDivisorSpec extends Specification {
         then:
         def ex = thrown( Exception )
         ex.message == "Groovy validation exception: \n" +
-        "2147483640 is a long outside the range 2147483647 to 9223372036854775807 or it is not divisible by anything in the set [5] \n" +
-        "13 is a long outside the range 0 to 9223372036854775807 or it is not divisible by anything in the set [7] "
+        "2147483640 is a java.lang.Long outside the range 2147483647 to 9223372036854775807 or it is not divisible by anything in the set [5] \n" +
+        "13 is a java.lang.Long outside the range 0 to 9223372036854775807 or it is not divisible by anything in the set [7] "
         
     } // end "test both long fields"
 
@@ -56,7 +56,7 @@ class ImmutableLongDivisorSpec extends Specification {
         then:
         def ex2 = thrown( Exception )
         ex2.message == "Groovy validation exception: \n" +
-        "13 is a long outside the range 0 to 40 or it is not divisible by anything in the set [3, 4] "
+        "13 is a java.lang.Long outside the range 0 to 40 or it is not divisible by anything in the set [3, 4] "
         
         when:
         def rid3 = new ImmutableLongDivisor( [ longWithDivArray: 9L ], true, true )
@@ -73,7 +73,7 @@ class ImmutableLongDivisorSpec extends Specification {
         then:
         def ex5 = thrown( Exception )
         ex5.message == "Groovy validation exception: \n" +
-        "55 is a long outside the range 0 to 40 or it is not divisible by anything in the set [3, 4] "
+        "55 is a java.lang.Long outside the range 0 to 40 or it is not divisible by anything in the set [3, 4] "
         
     } // end test with divisor array
     
@@ -91,7 +91,7 @@ class ImmutableLongDivisorSpec extends Specification {
         then:
         def ex = thrown( Exception )
         ex.message == "Groovy validation exception: \n" +
-        "55 is a long outside the range 0 to 40 or it is not divisible by anything in the set [1] "
+        "55 is a java.lang.Long outside the range 0 to 40 or it is not divisible by anything in the set [1] "
 
     } // end test with zero divisor
     
