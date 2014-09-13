@@ -15,6 +15,5 @@ class LongDivisor {
     
     @LongAnnotation( maxValue = 40L, divisor = [ 0L ] )
     long longWithZeroDiv
-    
 }
 
