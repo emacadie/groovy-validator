@@ -79,41 +79,8 @@ class AnnotationProcessor {
                 handleDoubleAndFloat( arg, new Float( 0 ), floatAnnotation.minValue(), floatAnnotation.maxValue(), name, theClass, delegate, throwException )
             } else if ( intAnnotation ) {
                 handleIntAndLong( arg, intAnnotation.divisor() as Set, new Integer( 0 ), intAnnotation.minValue(), intAnnotation.maxValue(), theClass, name, delegate, throwException )
-                /*
-                divSet = intAnnotation.divisor() as Set
-                divSet.remove( 0 )
-                if ( divSet.size() == 0 ) { divSet.add( 1 ) }
-                if ( ( arg instanceof Integer ) && 
-                    ( divSet.find{ arg % it == 0 }  != null ) &&
-                    ( arg >= intAnnotation.minValue() ) &&
-                    ( arg <= intAnnotation.maxValue() ) &&
-                    ( arg >= Integer.MIN_VALUE ) &&
-                    ( arg <= Integer.MAX_VALUE ) ) {
-                    theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg )
-                } else { 
-                    if ( throwException ) {
-                        throw new Exception( "Groovy validation exception: \n" +
-                        "${arg} is an integer outside the range ${intAnnotation.minValue()} to ${intAnnotation.maxValue()} or it is not divisible by anything in the set ${divSet} " )
-                    }
-                }
-                */
             } else if ( longAnnotation ) {
-                divSet = longAnnotation.divisor() as Set
-                divSet.remove( 0L )
-                if ( divSet.size() == 0L ) { divSet.add( 1L ) }
-                if ( ( arg instanceof Long ) && 
-                    ( divSet.find{ arg % it == 0 }  != null   ) &&
-                    ( arg >= longAnnotation.minValue() ) &&
-                    ( arg <= longAnnotation.maxValue() ) &&
-                    ( arg >= Long.MIN_VALUE ) &&
-                    ( arg <= Long.MAX_VALUE ) ) {
-                    theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg )
-                } else { 
-                    if ( throwException ) {
-                        throw new Exception( "Groovy validation exception: \n" +
-                        "${arg} is a long outside the range ${longAnnotation.minValue()} to ${longAnnotation.maxValue()} or it is not divisible by anything in the set ${divSet} " )
-                    }
-                }
+                handleIntAndLong( arg, longAnnotation.divisor() as Set, new Long( 0 ), longAnnotation.minValue(), longAnnotation.maxValue(), theClass, name, delegate, throwException )                
             } else if ( stringAnnotation ) {
                 def theMatch = Pattern.compile( stringAnnotation.regEx(), Pattern.COMMENTS )
                 if ( ( arg.length() >= stringAnnotation.minLength() ) &&
@@ -134,42 +101,24 @@ class AnnotationProcessor {
         
     } // end process - line 44, 153, 134
     
+    // theNumber must be 0
     def static handleIntAndLong( arg, divSet, theNumber, annMinValue, annMaxValue, theClass, name, delegate, throwException ) {
         
-                divSet.remove( 0 )
-                if ( divSet.size() == 0 ) { divSet.add( ++theNumber ) }
-                if ( ( arg.class.name == theNumber.class.name ) && 
-                    ( divSet.find{ arg % it == 0 }  != null ) &&
-                    ( arg >= annMinValue ) &&
-                    ( arg <= annMaxValue ) &&
-                    ( arg >= theNumber.MIN_VALUE ) &&
-                    ( arg <= theNumber.MAX_VALUE ) ) {
-                    theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg )
-                } else { 
-                    if ( throwException ) {
-                        throw new Exception( "Groovy validation exception: \n" +
-                        "${arg} is a ${theNumber.class.name} outside the range ${annMinValue} to ${annMaxValue} or it is not divisible by anything in the set ${divSet} " )
-                    }
-                }
-                /*
-                ///////////////////////
-                divSet = longAnnotation.divisor() as Set
-                divSet.remove( 0L )
-                if ( divSet.size() == 0L ) { divSet.add( 1L ) }
-                if ( ( arg instanceof Long ) && 
-                    ( divSet.find{ arg % it == 0 }  != null   ) &&
-                    ( arg >= longAnnotation.minValue() ) &&
-                    ( arg <= longAnnotation.maxValue() ) &&
-                    ( arg >= Long.MIN_VALUE ) &&
-                    ( arg <= Long.MAX_VALUE ) ) {
-                    theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg )
-                } else { 
-                    if ( throwException ) {
-                        throw new Exception( "Groovy validation exception: \n" +
-                        "${arg} is a long outside the range ${longAnnotation.minValue()} to ${longAnnotation.maxValue()} or it is not divisible by anything in the set ${divSet} " )
-                    }
-                }
-                */
+        divSet.remove( theNumber )
+        if ( divSet.size() == 0 ) { divSet.add( ++theNumber ) }
+        if ( ( arg.class.name == theNumber.class.name ) && 
+            ( divSet.find{ arg % it == 0 }  != null ) &&
+            ( arg >= annMinValue ) &&
+            ( arg <= annMaxValue ) &&
+            ( arg >= theNumber.MIN_VALUE ) &&
+            ( arg <= theNumber.MAX_VALUE ) ) {
+            theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg )
+        } else { 
+            if ( throwException ) {
+                throw new Exception( "Groovy validation exception: \n" +
+                "${arg} is a ${theNumber.class.name} outside the range ${annMinValue} to ${annMaxValue} or it is not divisible by anything in the set ${divSet} " )
+            }
+        }
     } // handleIntAndLong
 
     def static handleDoubleAndFloat( arg, numClass, annMinValue, annMaxValue, name, theClass, delegate, throwException ) {
