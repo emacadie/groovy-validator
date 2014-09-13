@@ -79,7 +79,6 @@ class AstImmutableConstructorTransform implements ASTTransformation {
             constructors.each { theCon ->
                 annotatedClass.addConstructor( theCon )
             }
-
             def methods = ast[ 1 ].methods
             annotatedClass.addMethod( methods.find { it.name == 'createValidatingConstructor' } )
 
@@ -129,6 +128,8 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                     """
                 break
                 case [ 'double', 'java.lang.Double' ]:
+                    sb1 << handleDoubleAndFloat( fieldNode.getName(), annotationNode, Double.MAX_VALUE )
+                    /*
                     sb1 << "val = argMap[ '${fieldNode.getName()}' ]"
                     minimum = annotationNode.getMember( 'minValue' ) ? annotationNode.getMember( 'minValue' ).getValue() : 0
                     maximum = annotationNode.getMember( 'maxValue' ) ? annotationNode.getMember( 'maxValue' ).getValue() :  Double.MAX_VALUE
@@ -141,6 +142,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                         }
                     }
                     """
+                    */
                 break
                 case [ 'float', 'java.lang.Float' ]:
                     sb1 << "val = argMap[ '${fieldNode.getName()}' ]"
@@ -223,8 +225,26 @@ class AstImmutableConstructorTransform implements ASTTransformation {
         // println "Here is sb1: ${sb1}"
         }
         return sb1
-    } // end processFields
+    } // end processFields, 226
+    
+    def handleDoubleAndFloat( nodeName, annotationNode, maxValue ) {
+        def sb1 = new StringBuffer()
+        sb1 << "val = argMap[ '${nodeName}' ]"
+                    def minimum = annotationNode.getMember( 'minValue' ) ? annotationNode.getMember( 'minValue' ).getValue() : 0
+                    def maximum = annotationNode.getMember( 'maxValue' ) ? annotationNode.getMember( 'maxValue' ).getValue() :  maxValue
+                    sb1 << """
+                    if ( ( ${minimum} <= val ) && ( val <= ${maximum} ) ) {
+                        newMap[ '${nodeName}' ] = val
+                    } else { 
+                        if ( throwException ) {
+                            exceptionStringList.add( val + ' is a double outside the range ${minimum} to ${maximum} ' )
+                        }
+                    }
+                    """
+        return sb1
 
-} // end class  - line 208
+    } // handleDoubleAndFloat
+
+} // end class  - line 208, 228
 
 
