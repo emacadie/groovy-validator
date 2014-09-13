@@ -114,13 +114,16 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                             maximum = annotationNode.getMember( 'maxLength' ) ? annotationNode.getMember( 'maxLength' ).getValue() :  Integer.MAX_VALUE
                             
                             regExp = annotationNode.getMember( 'regEx' ) ? "/" + annotationNode?.getMember( 'regEx' )?.getText() + "/" : "\".*\"" 
+                            // def patternString1 = java.util.regex.Pattern.compile( regExp ).toString().replace(  "\\", "\\\\" ) 
+                            def patternString1 = regExp.replace(  "\\", "\\\\" ) 
+
                             sb1 << """
                             theMatch = java.util.regex.Pattern.compile( ${regExp}, java.util.regex.Pattern.COMMENTS )
                             if ( ( ${minimum} <= val?.length() ) && ( val?.length() <= ${maximum} ) && ( theMatch.matcher( val ).matches() ) ) {
                                 newMap[ '${fieldNode.getName()}' ] = val
                             } else { 
                                 if ( throwException ) {
-                                    exceptionStringList.add( '"' + val + '" is a String with a length outside the range of ${minimum} to ${maximum} characters ' )
+                                    exceptionStringList.add( '"' + val + '" is a String with a length outside the range of ${minimum} to ${maximum} characters or does not match the regular expression ${patternString1} ' )
                                 }
                             }
                             """
@@ -152,8 +155,8 @@ class AstImmutableConstructorTransform implements ASTTransformation {
             throw new Exception( 'Groovy validation exception: ' + System.lineSeparator() + exMessage  )
         }
         """
-        if ( className.contains( "ImmutableIntDivisor" ) ) {
-        // println "Here is sb1: ${sb1}"
+        if ( className.contains( "ImmutableRegExSpec" ) ) {
+        println "Here is sb1: ${sb1}"
         }
         return sb1
     } // end processFields, 226
@@ -167,8 +170,8 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                             def maximum = annotationNode.getMember( 'maxValue' ) ? annotationNode.getMember( 'maxValue' ).getValue() :  zeroNum.MAX_VALUE
                             try {
                                 annotationNode.getMember( 'divisor' ).getExpressions().each { member ->
-                                    if ( zeroNum.class.name == "java.lang.Integer" ) { holdSet.add( new Integer( member.getValue() ) ) }
-                                    else if ( zeroNum.class.name == "java.lang.Long" ) { holdSet.add( new Long( member.getValue() ) ) }
+                                    if ( zeroNum instanceof java.lang.Integer ) { holdSet.add( new Integer( member.getValue() ) ) }
+                                    else if ( zeroNum instanceof java.lang.Long ) { holdSet.add( new Long( member.getValue() ) ) }
                                 }
                             } catch ( Exception e ) { }
                             holdSet.remove( zeroNum )

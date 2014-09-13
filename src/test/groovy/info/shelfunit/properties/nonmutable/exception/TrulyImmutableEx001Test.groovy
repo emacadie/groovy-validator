@@ -46,7 +46,7 @@ class TrulyImmutableEx001Test extends Specification {
         then:
         def ex = thrown( Exception )
         ex.message == "Groovy validation exception: \n" +
-            "\"Goodbye, this is more than 20 characters\" is a String with a length outside the range of 5 to 20 characters \n" +
+            "\"Goodbye, this is more than 20 characters\" is a String with a length outside the range of 5 to 20 characters or does not match the regular expression \".*\" \n" +
             "22 is a java.lang.Integer outside the range 30 to 400 or it is not divisible by anything in the set [1] \n" +
             "20 is a java.lang.Integer outside the range 30 to 400 or it is not divisible by anything in the set [1] "
     } // end "test bTest2"

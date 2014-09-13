@@ -90,7 +90,7 @@ class AnnotationProcessor {
                 } else { 
                     if ( throwException ) {
                         throw new Exception( "Groovy validation exception: \n" +
-                        "\"${arg}\" is a String with a length outside the range of ${stringAnnotation.minLength()} to ${stringAnnotation.maxLength()}" )
+                        "\"${arg}\" is a String with a length outside the range of ${stringAnnotation.minLength()} to ${stringAnnotation.maxLength()} characters or does not match the regular expresstion ${stringAnnotation.regEx()}" )
                     }
                 }
             
