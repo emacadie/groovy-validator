@@ -11,8 +11,10 @@ import java.lang.annotation.Target
 <pre>
     @LongAnnotation( minValue = 0L, maxValue = 1000L )
     long firstLong
-    @LongAnnotation( minValue = 10L )
+    @LongAnnotation( minValue = 2147483648L )
     def secondLong
+    @LongAnnotation( minValue = 10L, divisor = [ 3L, 5L ] )
+    long dasFizzbuzz
 </pre>
 <p>If the field is defined as "long" and it is given a value in the first call to setX that is outside your constraints, then it will be set to 0. If the field is defined as "def" and it is given a value that is outside your constraints, then it will be set to null. If the field already has a valid value and it is sent an invalid one in a call to setX, the new, invalid value will be ignored.</p>
 
@@ -32,9 +34,9 @@ public @interface LongAnnotation {
   public long maxValue() default 9223372036854775807L
     
   /**
-  A number that your variable can be divided by. If you want a number to be even, then would select 2.
+  A number that your variable can be divided by. If you want a number to be even, then would select [ 2L ]. If you wanted to do fizzbuzz, you would set it to [ 3L, 5L ]. The default is [1L]. This must be specified using the list notation. If you simply provide a number things will not work as expected. And, yes, you need the "L" at the end.
   */
-  public long[] divisor() default [ 1L ]
+  public long[] divisor() default [1L]
 }
 
 

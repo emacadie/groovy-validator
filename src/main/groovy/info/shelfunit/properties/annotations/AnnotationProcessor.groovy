@@ -83,7 +83,9 @@ class AnnotationProcessor {
                 handleIntAndLong( arg, longAnnotation.divisor() as Set, new Long( 0 ), longAnnotation.minValue(), longAnnotation.maxValue(), theClass, name, delegate, throwException )                
             } else if ( stringAnnotation ) {
                 def theMatch = Pattern.compile( stringAnnotation.regEx(), Pattern.COMMENTS )
-                if ( ( arg.length() >= stringAnnotation.minLength() ) &&
+                def minimum = stringAnnotation.minLength()
+                if ( minimum < 0 ) { minimum = 0 }
+                if ( ( arg.length() >= minimum ) &&
                     ( arg.length() <= stringAnnotation.maxLength() ) && 
                      ( theMatch.matcher( arg ).matches() ) ) {
                     theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg.toString() )

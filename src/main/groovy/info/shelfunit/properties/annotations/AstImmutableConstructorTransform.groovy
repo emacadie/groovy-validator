@@ -112,9 +112,8 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                             sb1 << "val = argMap[ '${fieldNode.getName()}' ]"
                             minimum = annotationNode.getMember( 'minLength' ) ? annotationNode.getMember( 'minLength' ).getValue() : 0
                             maximum = annotationNode.getMember( 'maxLength' ) ? annotationNode.getMember( 'maxLength' ).getValue() :  Integer.MAX_VALUE
-                            
+                            if ( minimum < 0 ) { minimum = 0 }
                             regExp = annotationNode.getMember( 'regEx' ) ? "/" + annotationNode?.getMember( 'regEx' )?.getText() + "/" : "\".*\"" 
-                            // def patternString1 = java.util.regex.Pattern.compile( regExp ).toString().replace(  "\\", "\\\\" ) 
                             def patternString1 = regExp.replace(  "\\", "\\\\" ) 
 
                             sb1 << """

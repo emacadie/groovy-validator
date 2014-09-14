@@ -81,7 +81,7 @@ AnnotationProcessor.process( Book, true )
 
 You might get a message like this:
 ```
-"Hey" is a String with a length outside the range of 5 and 10
+"Hey" is a String with a length outside the range of 5 and 10 or does not match the regular expression ".*"
 ```
 
 You can also use it with immutable objects annotated with the ImmutableValidator annotation. This would be a second boolean after the Map with your properties, since the first boolean controls validation:
@@ -96,9 +96,9 @@ In that case, you get a message with a line for each field. So you might get a m
 
 ```
 Groovy validation exception: 
-"eeeeeeeeeee" is a String with a length outside the range of 5 to 10 characters 
-1234567 is an integer outside the range 10 to 100 
-222 is a long outside the range 0 to 100
+"eeeeeeeeeee" is a String with a length outside the range of 5 to 10 characters or does not match the regular expression ".*" 
+1234567 is an integer outside the range 10 to 100 or it is not divisible by anything in the set [1] 
+222 is a long outside the range 0 to 100 or it is not divisible by anything in the set [5, 7] 
 ```
 
 If "thowException" is true for a POGO, the field will either retains its pre-existing value (if it had one) or be set to null. If "throwException" is true for an immutable object, the object will not be created.

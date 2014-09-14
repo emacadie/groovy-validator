@@ -14,6 +14,8 @@ import java.lang.annotation.RetentionPolicy
     int firstInt
     @IntAnnotation( maxValue = 400 )
     def secondInt
+    @IntAnnotation( minValue = 10, divisor = [ 3, 5 ] )
+    int dasFizzbuzz
 </pre>
 <p>If the field is defined as "int" and it is given a value in the first call to setX that is outside your constraints, then it will be set to 0. If the field is defined as "def" and it is given a value that is outside your constraints, then it will be set to null. If the field already has a valid value and it is sent an invalid one in a call to setX, the new, invalid value will be ignored.</p>
 
@@ -34,9 +36,9 @@ public @interface IntAnnotation {
   public int maxValue() default 2147483647
   
   /**
-  A number that your variable can be divided by. If you want a number to be even, then would select 2.
+  A number that your variable can be divided by. If you want a number to be even, then would select [ 2 ]. If you wanted to do fizzbuzz, you would set it to [ 3, 5 ]. The default is [1]. This must be specified using the list notation. If you simply provide a number things will not work as expected.
   */
-  public int[] divisor() default [ 1 ]
+  public int[] divisor() default [1]
 }
 
 
