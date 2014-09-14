@@ -6,16 +6,16 @@ import info.shelfunit.properties.annotations.ImmutableValidator
 @ImmutableValidator
 class ImmutableLongDivisor {
     
-    @LongAnnotation( minValue = 2147483647L , divisor = [ 5L ] ) // was 10L
+    @LongAnnotation( minValue = 2147483647L , divisorSet = [ 5L ] ) // was 10L
     long longWithDiv
     
-    @LongAnnotation( divisor = [ 7L ] )
+    @LongAnnotation( divisorSet = [ 7L ] )
     long longWithDiv002
     
-    @LongAnnotation( maxValue = 40L, divisor = [ 3L, 4L ] )
+    @LongAnnotation( maxValue = 40L, divisorSet = [ 3L, 4L ] )
     long longWithDivArray
     
-    @LongAnnotation( maxValue = 40L, divisor = [ 0L ] )
+    @LongAnnotation( maxValue = 40L, divisorSet = [ 0L ] )
     long longWithZeroDiv
     
 }

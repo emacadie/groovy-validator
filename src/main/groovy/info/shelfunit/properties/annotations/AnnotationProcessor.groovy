@@ -47,13 +47,13 @@ class AnnotationProcessor {
     <p>If the exception is thrown, you will get a message like this:</p>
     
     <pre>
-    "Hey" is a String with a length outside the range of 5 and 10"
+    "Hey" is a String with a length outside the range of 5 and 10 or does not match the regular expression /^(?=.*[0-9].*[0-9])[0-9a-zA-Z]{8,12}\$/"
     </pre>
     
     <p>If you let the numeric maximums or minimums be the default values, you will get messages like this:</p>
     
     <pre>
-    5 is a long outside the range 10 and 9223372036854775807
+    5 is a long outside the range 10 and 9223372036854775807 or it is not divisible by anything in the set [1] 
     </pre>
     
     <p>There is no need to run the process method if you are annotating an immutable object with {@link info.shelfunit.properties.annotations.AstImmutableConstructor}.</p>
@@ -78,9 +78,9 @@ class AnnotationProcessor {
             } else if ( floatAnnotation ) {
                 handleDoubleAndFloat( arg, new Float( 0 ), floatAnnotation.minValue(), floatAnnotation.maxValue(), name, theClass, delegate, throwException )
             } else if ( intAnnotation ) {
-                handleIntAndLong( arg, intAnnotation.divisor() as Set, new Integer( 0 ), intAnnotation.minValue(), intAnnotation.maxValue(), theClass, name, delegate, throwException )
+                handleIntAndLong( arg, intAnnotation.divisorSet() as Set, new Integer( 0 ), intAnnotation.minValue(), intAnnotation.maxValue(), theClass, name, delegate, throwException )
             } else if ( longAnnotation ) {
-                handleIntAndLong( arg, longAnnotation.divisor() as Set, new Long( 0 ), longAnnotation.minValue(), longAnnotation.maxValue(), theClass, name, delegate, throwException )                
+                handleIntAndLong( arg, longAnnotation.divisorSet() as Set, new Long( 0 ), longAnnotation.minValue(), longAnnotation.maxValue(), theClass, name, delegate, throwException )                
             } else if ( stringAnnotation ) {
                 def theMatch = Pattern.compile( stringAnnotation.regEx(), Pattern.COMMENTS )
                 def minimum = stringAnnotation.minLength()

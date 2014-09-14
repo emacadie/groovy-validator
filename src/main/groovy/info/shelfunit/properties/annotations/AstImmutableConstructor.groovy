@@ -39,7 +39,7 @@ class ImmutableObject002 {
 
     @StringAnnotation( minLength = 5, maxLength = 10, regex = /\d{4}?-\d\d-\d\d/ )
     String firstString
-    @IntAnnotation( minValue = 10, maxValue = 100, divisor = [ 2, 3 ] )
+    @IntAnnotation( minValue = 10, maxValue = 100, divisorSet = [ 2, 3 ] )
     int firstInt
     @LongAnnotation( maxValue = 100L )
     long firstLong
@@ -84,7 +84,7 @@ Groovy validation exception:
 "NNNNNNNNNNNNNNNN" is a String with a length outside the range of 0 to 15 characters or does not match the regular expression /^(?=.*[0-9].*[0-9])[0-9a-zA-Z]{8,12}\$/
 101.0 is a double outside the range 10.0 to 100.0 
 101.0 is a float outside the range 10.0 to 100.0
-101 is an integer outside the range 10 to 100  or it is not divisible by anything in the set [1] 
+101 is an integer outside the range 10 to 100 or it is not divisible by anything in the set [1] 
 101 is a long outside the range 0 to 100 or it is not divisible by anything in the set [5, 7] 
 </pre>
 

@@ -103,7 +103,7 @@ Groovy validation exception:
 
 If "thowException" is true for a POGO, the field will either retains its pre-existing value (if it had one) or be set to null. If "throwException" is true for an immutable object, the object will not be created.
 
-Right now it only handles String, double, float, int and long. It checks the length of a String field, and whether the numbers are within a set range. I might add some regular expression checks to the StringAnnotation in the future.  
+Right now it only handles String, double, float, int and long. For String, it checks the string is checked against a minimum ("minLength") and maximum ("maxLength") length, and against a regular expression ("regEx"). For integers and longs, the field is checked against minimum ("minValue") and maximum ("maxValue") values, and a set of divisors ("divisorSet"). For double and float, the field is checked against minimum ("minValue") and maximum ("maxValue") values. There are defaults for all of these.  
 
 To use this project: 
 Run 

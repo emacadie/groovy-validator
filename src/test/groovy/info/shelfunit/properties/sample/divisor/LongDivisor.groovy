@@ -4,16 +4,16 @@ import info.shelfunit.properties.annotations.LongAnnotation
 
 class LongDivisor {
     
-    @LongAnnotation( minValue = 10L, divisor = [ 5L ] )
+    @LongAnnotation( minValue = 10L, divisorSet = [ 5L ] )
     long longWithDiv
     
-    @LongAnnotation( divisor = [ 7L ] )
+    @LongAnnotation( divisorSet = [ 7L ] )
     long longWithDiv002
     
-    @LongAnnotation( maxValue = 40L, divisor = [ 3L, 4L ] )
+    @LongAnnotation( maxValue = 40L, divisorSet = [ 3L, 4L ] )
     long longWithDivArray
     
-    @LongAnnotation( maxValue = 40L, divisor = [ 0L ] )
+    @LongAnnotation( maxValue = 40L, divisorSet = [ 0L ] )
     long longWithZeroDiv
 }
 

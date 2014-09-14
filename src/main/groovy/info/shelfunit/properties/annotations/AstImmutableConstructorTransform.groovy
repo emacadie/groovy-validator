@@ -168,7 +168,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                             def minimum = annotationNode.getMember( 'minValue' ) ? annotationNode.getMember( 'minValue' ).getValue() : 0
                             def maximum = annotationNode.getMember( 'maxValue' ) ? annotationNode.getMember( 'maxValue' ).getValue() :  zeroNum.MAX_VALUE
                             try {
-                                annotationNode.getMember( 'divisor' ).getExpressions().each { member ->
+                                annotationNode.getMember( 'divisorSet' ).getExpressions().each { member ->
                                     if ( zeroNum instanceof java.lang.Integer ) { holdSet.add( new Integer( member.getValue() ) ) }
                                     else if ( zeroNum instanceof java.lang.Long ) { holdSet.add( new Long( member.getValue() ) ) }
                                 }

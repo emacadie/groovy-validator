@@ -13,12 +13,15 @@ import java.lang.annotation.Target
     long firstLong
     @LongAnnotation( minValue = 2147483648L )
     def secondLong
-    @LongAnnotation( minValue = 10L, divisor = [ 3L, 5L ] )
+    @LongAnnotation( minValue = 10L, divisorSet = [ 3L, 5L ] )
     long dasFizzbuzz
 </pre>
 <p>If the field is defined as "long" and it is given a value in the first call to setX that is outside your constraints, then it will be set to 0. If the field is defined as "def" and it is given a value that is outside your constraints, then it will be set to null. If the field already has a valid value and it is sent an invalid one in a call to setX, the new, invalid value will be ignored.</p>
 
 <p>An application, class or library that uses this annotation must also import {@link info.shelfunit.properties.annotations.AnnotationProcessor} (for a POGO) or {@link info.shelfunit.properties.annotations.ImmutableValidator} (for an immutable object).</p>
+
+<p>You must append the "L" at the end of the number. If you set "throwException" to true for {@link info.shelfunit.properties.annotations.AnnotationProcessor} or {@link info.shelfunit.properties.annotations.ImmutableValidator} and an exception is thrown, the "L" will not be printed as part of the number in the message.</p>
+
 <p></p>
 */
 @Retention( RetentionPolicy.RUNTIME ) 
@@ -36,7 +39,7 @@ public @interface LongAnnotation {
   /**
   A number that your variable can be divided by. If you want a number to be even, then would select [ 2L ]. If you wanted to do fizzbuzz, you would set it to [ 3L, 5L ]. The default is [1L]. This must be specified using the list notation. If you simply provide a number things will not work as expected. And, yes, you need the "L" at the end.
   */
-  public long[] divisor() default [1L]
+  public long[] divisorSet() default [1L]
 }
 
 
