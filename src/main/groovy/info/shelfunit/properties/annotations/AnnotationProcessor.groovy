@@ -97,14 +97,18 @@ class AnnotationProcessor {
                 }
             
             } else {
-                theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg ) // this works
+                // java.lang.reflect.Modifier.FINAL = 16 PUBLIC = 1
+                if ( theClass.metaClass.getMetaProperty( name ).getModifiers() != 17 ) {
+                    println "-----\tHere is theClass.metaClass.getMetaProperty( name ).getModifiers(): ${theClass.metaClass.getMetaProperty( name ).getModifiers()}" 
+                    theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg ) // this works
+                }
             }
         }
         
     } // end process - line 44, 153, 134
     
     // theNumber must be 0
-    def static handleIntAndLong( arg, divSet, theNumber, annMinValue, annMaxValue, theClass, name, delegate, throwException ) {
+    def private static handleIntAndLong( arg, divSet, theNumber, annMinValue, annMaxValue, theClass, name, delegate, throwException ) {
         
         divSet.remove( theNumber )
         if ( divSet.size() == 0 ) { divSet.add( ++theNumber ) }
@@ -123,7 +127,7 @@ class AnnotationProcessor {
         }
     } // handleIntAndLong
 
-    def static handleDoubleAndFloat( arg, numClass, annMinValue, annMaxValue, name, theClass, delegate, throwException ) {
+    def private static handleDoubleAndFloat( arg, numClass, annMinValue, annMaxValue, name, theClass, delegate, throwException ) {
 
         if ( ( arg.class.name == numClass.class.name ) && 
             ( arg >= annMinValue ) &&

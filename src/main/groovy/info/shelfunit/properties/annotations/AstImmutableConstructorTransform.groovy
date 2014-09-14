@@ -160,7 +160,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
         return sb1
     } // end processFields, 226
     
-    def handleIntAndLong( nodeName, annotationNode, zeroNum ) {
+    def private handleIntAndLong( nodeName, annotationNode, zeroNum ) {
         
         def sb1 = new StringBuffer()
         def holdSet = [] as Set
@@ -187,7 +187,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
         return sb1
     } // handleIntAndLong
     
-    def handleDoubleAndFloat( nodeName, annotationNode, maxValue, numClassName ) {
+    def private handleDoubleAndFloat( nodeName, annotationNode, maxValue, numClassName ) {
         def sb1 = new StringBuffer()
         sb1 << "val = argMap[ '${nodeName}' ]"
                     def minimum = annotationNode.getMember( 'minValue' ) ? annotationNode.getMember( 'minValue' ).getValue() : 0

@@ -105,6 +105,8 @@ If "thowException" is true for a POGO, the field will either retains its pre-exi
 
 Right now it only handles String, double, float, int and long. For String, it checks the string is checked against a minimum ("minLength") and maximum ("maxLength") length, and against a regular expression ("regEx"). For integers and longs, the field is checked against minimum ("minValue") and maximum ("maxValue") values, and a set of divisors ("divisorSet"). For double and float, the field is checked against minimum ("minValue") and maximum ("maxValue") values. There are defaults for all of these.  
 
+AnnotationProcessor can handle mutable fields in POGOs, and ImmutableValidator can handle fields in immutable objects. So far this project cannot handle final fields in POGOs. You can put a final field in a POGO, you just cannot use these annotations for that field. You also need to add a constructor for the final field.
+
 To use this project: 
 Run 
 ```

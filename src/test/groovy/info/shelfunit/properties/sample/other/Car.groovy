@@ -9,9 +9,11 @@ import info.shelfunit.properties.annotations.AstImmutableConstructor
 @AstImmutableConstructor
 @TupleConstructor
 class Car {
-    @IntAnnotation( minValue = 0 )
+    @IntAnnotation( minValue = 10 )
     int miles
-    @IntAnnotation( minValue = 1990 )
+    // @IntAnnotation( minValue = 1990 )
     final int year
+    
+    Car( theYear ) { year = theYear }
 }
 

@@ -17,6 +17,21 @@ class CarTest extends Specification {
     
     @Rule 
     TestName name = new TestName()
+    
+     def "first Test"() {
+        println "--- Starting test ${name.methodName}"
+        def car = new Car( 2008 )
+        car.miles = 5
+        boolean exceptionThrown = false
+        println "Here is car: ${car.toString()}, exceptionThrown: ${exceptionThrown}"
+        
+        expect:
+        
+        car.year == 2008
+        car.miles == 0
+        
+    } // first Test
+    
     /*
     def "first Test"() {
         println "--- Starting test ${name.methodName}"
