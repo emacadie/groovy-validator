@@ -29,7 +29,7 @@ class Book {
      
     @IntAnnotation( minValue = 30, maxValue = 400 )
     def pages
-    @StringAnnotation( minLength = 5, maxLength = 20 )
+    @StringAnnotation( minLength = 5, maxLength = 20, regEx = /^.*?[Gg]roovy.*$/  )
     String title
     int year
 }
@@ -59,7 +59,7 @@ class ImmutableObject002 {
     String firstString
     @IntAnnotation( minValue = 10, maxValue = 100 )
     int firstInt
-    @LongAnnotation( maxValue = 100L )
+    @LongAnnotation( maxValue = 100L, divisorSet = [ 3L, 4L ] )
     long firstLong
 }
 ```
