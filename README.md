@@ -59,7 +59,7 @@ class ImmutableObject002 {
     String firstString
     @IntAnnotation( minValue = 10, maxValue = 100 )
     int firstInt
-    @LongAnnotation( maxValue = 100L, divisorSet = [ 3L, 4L ] )
+    @LongAnnotation( maxValue = 100L, divisorSet = [ 5L, 7L ] )
     long firstLong
 }
 ```
