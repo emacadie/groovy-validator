@@ -1,0 +1,9 @@
+class Car {
+    final int firstInt
+    final int secondInt
+    final String firstString
+    final String secondString
+}
+
+
+

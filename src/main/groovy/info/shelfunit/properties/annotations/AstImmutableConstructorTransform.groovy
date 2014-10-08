@@ -1,20 +1,13 @@
 package info.shelfunit.properties.annotations
 
 import org.codehaus.groovy.ast.ASTNode
-import org.codehaus.groovy.ast.AnnotatedNode
-import org.codehaus.groovy.ast.AnnotationNode
 import org.codehaus.groovy.ast.ClassNode 
-import org.codehaus.groovy.ast.ConstructorNode
-import org.codehaus.groovy.ast.FieldNode
-import org.codehaus.groovy.ast.ImportNode 
 
 import org.codehaus.groovy.ast.builder.AstBuilder
 import org.codehaus.groovy.control.CompilePhase
 import org.codehaus.groovy.control.SourceUnit
 import org.codehaus.groovy.transform.ASTTransformation
 import org.codehaus.groovy.transform.GroovyASTTransformation 
-
-// import info.shelfunit.properties.annotations.GroovyValidatorException;
 
 @GroovyASTTransformation( phase = CompilePhase.INSTRUCTION_SELECTION )
 class AstImmutableConstructorTransform implements ASTTransformation {
@@ -26,9 +19,9 @@ class AstImmutableConstructorTransform implements ASTTransformation {
     
     void visit( ASTNode[] astNodes, SourceUnit sourceUnit ) {
         
-        if ( !astNodes ) return
-        if ( !astNodes[ 0 ] ) return
-        if ( !astNodes[ 1 ] ) return
+        if ( !astNodes ) { return }
+        if ( !astNodes[ 0 ] ) { return }
+        if ( !astNodes[ 1 ] ) { return }
 
         ClassNode annotatedClass = astNodes[ 1 ] // ( ClassNode ) astNodes[ 1 ]
 
@@ -46,8 +39,6 @@ class AstImmutableConstructorTransform implements ASTTransformation {
         def theString = 
         """
         ${packageString}
-        
-        // import info.shelfunit.properties.annotations.GroovyValidatorException
         
         class ${annotatedClass.getNameWithoutPackage()} {
             

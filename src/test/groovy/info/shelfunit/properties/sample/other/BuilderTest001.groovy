@@ -1,6 +1,5 @@
 package info.shelfunit.properties.sample.other
 
-import groovy.transform.builder.Builder
 import info.shelfunit.properties.annotations.AnnotationProcessor
 
 import java.lang.reflect.Method

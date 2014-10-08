@@ -1,10 +1,8 @@
 package info.shelfunit.properties.sample.divisor
 
-import java.lang.reflect.Method
 import spock.lang.Specification
 import org.junit.Rule
 import org.junit.rules.TestName
-import info.shelfunit.properties.annotations.AnnotationProcessor
 
 class ImmutableLongDivisorSpec extends Specification { 
     def setup() {}          // run before every feature method

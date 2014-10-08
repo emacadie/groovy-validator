@@ -1,8 +1,5 @@
 package info.shelfunit.properties.sample.exception
 
-import info.shelfunit.properties.annotations.AnnotationProcessor
-import info.shelfunit.properties.annotations.StringAnnotation
-
 class SecondSample {
     
     int pages

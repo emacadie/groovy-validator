@@ -1,6 +1,5 @@
 package info.shelfunit.properties.sample.exception
 
-// import info.shelfunit.properties.annotations.GroovyValidatorException
 import spock.lang.Specification
 
 class FloatExRunnerTest extends Specification { 

@@ -1,6 +1,5 @@
 package info.shelfunit.properties.sample.immutable
 
-import java.lang.reflect.Method
 import spock.lang.Specification
 import org.junit.Rule
 import org.junit.rules.TestName

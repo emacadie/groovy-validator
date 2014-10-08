@@ -1,10 +1,5 @@
 package info.shelfunit.properties.annotations
 
-import org.codehaus.groovy.ast.ClassHelper 
-import org.codehaus.groovy.ast.ClassNode 
-
-import java.lang.annotation.Annotation
-import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 /**
@@ -109,7 +104,7 @@ class AnnotationProcessor {
     
     // theNumber must be 0
     def private static handleIntAndLong( arg, divSet, theNumber, annMinValue, annMaxValue, theClass, name, delegate, throwException ) {
-        
+        println "in int and long with arg ${arg}"
         divSet.remove( theNumber )
         if ( divSet.size() == 0 ) { divSet.add( ++theNumber ) }
         if ( ( arg.class.name == theNumber.class.name ) && 

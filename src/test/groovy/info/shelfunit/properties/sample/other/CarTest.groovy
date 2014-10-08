@@ -2,7 +2,6 @@ package info.shelfunit.properties.sample.other
 
 import info.shelfunit.properties.annotations.AnnotationProcessor
 
-import java.lang.reflect.Method
 import spock.lang.Specification
 import org.junit.Rule
 import org.junit.rules.TestName
@@ -29,6 +28,18 @@ class CarTest extends Specification {
         
         car.year == 2008
         car.miles == 0
+        
+    } // first Test
+    
+    def "second Test"() {
+        println "--- Starting test ${name.methodName}"
+        def car = new Car( 1987 )
+        car.miles = 50
+        boolean exceptionThrown = false
+        println "Here is car: ${car.toString()}, exceptionThrown: ${exceptionThrown}"
+        
+        expect:
+        car.miles == 50
         
     } // first Test
     

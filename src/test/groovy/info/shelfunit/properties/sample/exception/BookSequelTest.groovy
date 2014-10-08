@@ -3,10 +3,7 @@ package info.shelfunit.properties.sample.exception
 import spock.lang.Specification
 
 import info.shelfunit.properties.annotations.AnnotationProcessor
-// import info.shelfunit.properties.annotations.GroovyValidatorException
 
-import java.lang.reflect.Method
-import spock.lang.Specification
 import org.junit.Rule
 import org.junit.rules.TestName
 

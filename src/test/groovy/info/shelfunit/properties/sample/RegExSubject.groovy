@@ -1,6 +1,5 @@
 package info.shelfunit.properties.sample
 
-import info.shelfunit.properties.annotations.IntAnnotation
 import info.shelfunit.properties.annotations.StringAnnotation
 import groovy.transform.ToString
 

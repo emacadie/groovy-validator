@@ -3,7 +3,6 @@ package info.shelfunit.properties.sample.other
 import groovy.transform.ToString
 import groovy.transform.builder.Builder
 import groovy.transform.builder.DefaultStrategy
-import info.shelfunit.properties.annotations.AnnotationProcessor
 import info.shelfunit.properties.annotations.StringAnnotation
 
 @ToString( includeNames = true )

@@ -1,7 +1,6 @@
 package info.shelfunit.properties.sample.exception
 
 import spock.lang.Specification
-// import info.shelfunit.properties.annotations.GroovyValidatorException
 
 class IntegerRunnerTest extends Specification { 
     def setup() {}          // run before every feature method

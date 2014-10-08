@@ -18,16 +18,12 @@ Here is an example class:
 <pre>
 package info.shelfunit.properties.sample.immutable
 
-import info.shelfunit.properties.annotations.AstImmutableConstructor
+import info.shelfunit.properties.annotations.ImmutableValidator
 import info.shelfunit.properties.annotations.IntAnnotation
 import info.shelfunit.properties.annotations.LongAnnotation
 import info.shelfunit.properties.annotations.StringAnnotation
-import groovy.transform.Immutable
-import groovy.transform.ToString
 
-{@code @ToString( includeNames = true )}
-{@code @AstImmutableConstructor}
-{@code @Immutable}
+{@code @ImmutableValidator}
 class ImmutableObject002 {
 
     @StringAnnotation( minLength = 5, maxLength = 10, regex = /\d{4}?-\d\d-\d\d/ )

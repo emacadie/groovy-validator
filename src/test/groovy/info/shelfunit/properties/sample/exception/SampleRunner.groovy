@@ -1,7 +1,5 @@
 package info.shelfunit.properties.sample.exception
 
-import java.lang.reflect.Field
-import java.lang.annotation.Annotation
 import info.shelfunit.properties.annotations.StringAnnotation
 import info.shelfunit.properties.annotations.AnnotationProcessor
 
