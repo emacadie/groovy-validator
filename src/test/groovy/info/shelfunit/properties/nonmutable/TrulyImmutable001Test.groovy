@@ -19,31 +19,30 @@ class TrulyImmutable001Test extends Specification {
    
     def "two immutable objects with validation, trying to change the first"() {
         println "\n\n--- Starting test ${name.methodName}"
-        // println "About to make junk"
-        // def junk = new TrulyImmutable001()
+
         println "About to make throwaway"
-        when:
-        def throwaway = new TrulyImmutable001( [ firstString: "Not Junk", secondString: "Goodbye Junk", firstInt: 21, secondInt: 20 ], true )
-        boolean exceptionThrown = false
-        try {
-            throwaway.firstString = "Throwaway"
-        } catch ( Exception e ) {
-            exceptionThrown = true
-        }
-        then:
-        throwaway.firstString == "Not Junk"
-        throwaway.firstInt == 0
-        throwaway.secondInt == 0
-        exceptionThrown == true
+        when: "We make an immutable object with the numbers under their ranges and try to change the string"
+            def throwaway = new TrulyImmutable001( [ firstString: "Not Junk", secondString: "Goodbye Junk", firstInt: 21, secondInt: 20 ], true )
+            boolean exceptionThrown = false
+            try {
+                throwaway.firstString = "Throwaway"
+            } catch ( Exception e ) {
+                exceptionThrown = true
+            }
+        then: "The string has not changed, and the numbers are 0"
+            throwaway.firstString == "Not Junk"
+            throwaway.firstInt == 0
+            throwaway.secondInt == 0
+            exceptionThrown == true
         println "Just made throwaway, about to make bTest1"
         
-        when:
-        def bTest1 = new TrulyImmutable001( [ firstString: "Hello1", secondString: "Goodbye", firstInt: 21, secondInt: 200 ], true )
-        println "In test ${name.methodName}, bTest1: ${bTest1.toString()}"
-        then:
-        bTest1.firstString == "Hello1"
-        bTest1.secondInt == 200
-        bTest1.firstInt == 0
+        when: "we make an immutable object with one number outside the range"
+            def bTest1 = new TrulyImmutable001( [ firstString: "Hello1", secondString: "Goodbye", firstInt: 21, secondInt: 200 ], true )
+            println "In test ${name.methodName}, bTest1: ${bTest1.toString()}"
+        then: "the firstInt should be 0"
+            bTest1.firstString == "Hello1"
+            bTest1.secondInt == 200
+            bTest1.firstInt == 0
         
     } // end "test the no arg constructor"
     
@@ -52,10 +51,10 @@ class TrulyImmutable001Test extends Specification {
         def bTest2 = new TrulyImmutable001( [ firstString: "Hello2", secondString: "Goodbye, this is more than 20 characters", firstInt: 22, secondInt: 20 ], true )
         println "In test ${name.methodName}, bTest2: ${bTest2.toString()}"
         expect:
-        bTest2.firstString == "Hello2"
-        bTest2.secondString == null
-        bTest2.firstInt == 0
-        bTest2.secondInt == 0
+            bTest2.firstString == "Hello2"
+            bTest2.secondString == null
+            bTest2.firstInt == 0
+            bTest2.secondInt == 0
     } // end "test bTest2"
     
     def "third test"() {
