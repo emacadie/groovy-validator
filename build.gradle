@@ -31,6 +31,20 @@ dependencies {
     // optional dependencies for using Spock
     testRuntime "cglib:cglib-nodep:2.2"     // enables mocking of classes (in addition to interfaces)
     testRuntime "org.objenesis:objenesis:1.2" // enables mocking of classes without default constructor (together with CGLIB)
+    tasks.withType( JavaCompile ) { JavaCompile compile ->
+        compile.options.debug = true
+        compile.options.compilerArgs = [
+            '-noverify',
+            '-Xlint:deprecation',
+            '-Xlint:unchecked'
+            // '-implicit:class',
+            // '-Awarns', '-Xmaxwarns', '10000',
+            // '-J-Xbootclasspath/p:$CHECKERS/binary/jsr308-all.jar',
+            // '-processor', 'checkers.nullness.NullnessChecker',
+            // '-Xbootclasspath/p:$CHECKERS/jdk/jdk.jar',
+            // '-version'
+        ]
+    }
 
 }
 
@@ -39,6 +53,7 @@ test {
   forkEvery = 50
   // this will make it run tests every time you run 'gradle test'
   outputs.upToDateWhen { false }
+  jvmArgs '-client', '-noverify'
 }
 
 task runGroovy( type: JavaExec ) {
@@ -55,7 +70,7 @@ task runGroovy( type: JavaExec ) {
      classpath sourceSets.main.runtimeClasspath
      // Extra options can be set.
      systemProperty 'sysProp', 'notUsed'
-     jvmArgs '-client'
+     jvmArgs '-client', '-noverify'
      // We can pass arguments to the main() method of gradle.sample.SampleApp.
      args 'www.yahoo.com'
 }
