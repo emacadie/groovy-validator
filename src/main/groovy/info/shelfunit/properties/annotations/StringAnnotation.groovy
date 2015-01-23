@@ -1,5 +1,7 @@
 package info.shelfunit.properties.annotations
 
+import org.codehaus.groovy.transform.GroovyASTTransformationClass
+
 import java.lang.annotation.Retention
 import java.lang.annotation.Target
 
@@ -25,7 +27,7 @@ import java.lang.annotation.RetentionPolicy
 
 @Retention( RetentionPolicy.RUNTIME ) 
 @Target( ElementType.FIELD )
-
+@GroovyASTTransformationClass( [ 'info.shelfunit.properties.annotations.StringAnnotationTransform' ] )
 public @interface StringAnnotation {
     /**
     The minimum length of the String field. The default is 0.

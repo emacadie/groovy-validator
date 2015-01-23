@@ -1,0 +1,3 @@
+http://beta.groovy-lang.org/api.html
+Test reports: file:///home/ericm/github/groovy-validator/build/reports/tests/index.html
+

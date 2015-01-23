@@ -10,7 +10,7 @@ class Box {
     final int secondInt
     final int firstInt
     
-    @StringAnnotation( minLength = 5 )
+    // @StringAnnotation( minLength = 5 )
     final String firstString
     final String secondString
 }
