@@ -1,3 +1,9 @@
 http://beta.groovy-lang.org/api.html
-Test reports: file:///home/ericm/github/groovy-validator/build/reports/tests/index.html
+Test reports: file:///home/ericm/github/groovy-validator/build/reports/tests/index.html 
+Groovydoc: file:///home/ericm/github/groovy-validator/build/docs/groovydoc/index.html
+
+gradle clean
+gradle -Dtest.single=BookSequelTest test -info
+gradle -Dtest.single=ImmutableRegExSpec test -info  
+
 

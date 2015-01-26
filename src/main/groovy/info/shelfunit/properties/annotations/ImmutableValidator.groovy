@@ -28,7 +28,7 @@ class ImmutableObject002 {
 
     @StringAnnotation( minLength = 5, maxLength = 10, regex = /\d{4}?-\d\d-\d\d/ )
     String firstString
-    @IntAnnotation( minValue = 10, maxValue = 100, divisor = [ 2, 3 ] )
+    @IntAnnotation( minValue = 10, maxValue = 100, divisorSet = [ 2, 3 ] )
     int firstInt
     @LongAnnotation( maxValue = 100L )
     long firstLong

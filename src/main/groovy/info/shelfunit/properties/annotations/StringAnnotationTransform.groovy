@@ -9,7 +9,8 @@ import org.codehaus.groovy.control.SourceUnit
 import org.codehaus.groovy.transform.ASTTransformation
 import org.codehaus.groovy.transform.GroovyASTTransformation 
 
-@GroovyASTTransformation( phase = CompilePhase.INSTRUCTION_SELECTION )
+// @GroovyASTTransformation( phase = CompilePhase.INSTRUCTION_SELECTION )
+@GroovyASTTransformation( phase = CompilePhase.CLASS_GENERATION )
 class StringAnnotationTransform implements ASTTransformation {
     
     def knownTypes = [ 'java.lang.Double', 'java.lang.Float', 'java.lang.Integer', 'java.lang.Long', 'java.lang.String', 
@@ -31,7 +32,34 @@ class StringAnnotationTransform implements ASTTransformation {
         // theNode [1] is a org.codehaus.groovy.ast.FieldNode
         println "annotation is for ${annotationNode.classNode.name}"
         println "field is for class ${fieldNode.getOwner().name} and field ${fieldNode.name}"
-        println "--------------------------------------\n\n"
+        def theClass = annotationNode.classNode
+        println "methods of annotation  ${theClass.name}:"
+        theClass.methods.each { methodNode ->
+            print " ${methodNode.name}, "
+        }
+        def annotatedClass = fieldNode.getOwner() // the class
+        println "\nmethods of class ${annotatedClass.name}" // look for createValidatingConstructor from AstImmutableConstructorTransform
+        def hasCreateValidatingConstructor = false
+        annotatedClass.methods.each { mNode ->
+            print " ${mNode.name}, "
+            if (mNode.name == "createValidatingConstructor" ) { hasCreateValidatingConstructor = true }
+        }
+        println ",  hasCreateValidatingConstructor: ${hasCreateValidatingConstructor}"
+        /*
+        annotatedClass.getAnnotations().each { theAnn ->
+            print "\nHere is annotation: ${theAnn.getText()}, toString: ${theAnn.toString()}, class: ${theAnn.class.name} "
+            theAnn.getMembers().each { k, v ->
+                print " here is member ${k}:${v}, "
+            }
+        }
+        println " "
+        */
+        
+        println "The text of the class: ${annotatedClass.getText()}"
+        println "Here is annotationNode.getMember('minLength') ${ annotationNode.getMember( 'minLength' ) ? annotationNode.getMember( 'minLength' ).getValue() : 0 }"
+        println "Here is annotationNode.getMember('maxLength') ${ annotationNode.getMember( 'maxLength' ) ? annotationNode.getMember( 'maxLength' ).getValue() :  Integer.MAX_VALUE }"
+        println "Here is annotationNode.getMember('regEx' ): ${annotationNode.getMember( 'regEx' ) ? "/" + annotationNode?.getMember( 'regEx' )?.getText() + "/" : "\".*\""}" 
+        println "\n--------------------------------------\n\n"
         /*
         ClassNode annotatedClass = astNodes[ 1 ] // ( ClassNode ) astNodes[ 1 ]
 

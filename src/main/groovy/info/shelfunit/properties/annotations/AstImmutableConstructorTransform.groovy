@@ -10,12 +10,17 @@ import org.codehaus.groovy.transform.ASTTransformation
 import org.codehaus.groovy.transform.GroovyASTTransformation 
 
 @GroovyASTTransformation( phase = CompilePhase.INSTRUCTION_SELECTION )
+// @GroovyASTTransformation( phase = CompilePhase.CANONICALIZATION )
 class AstImmutableConstructorTransform implements ASTTransformation {
     
     def knownTypes = [ 'java.lang.Double', 'java.lang.Float', 'java.lang.Integer', 'java.lang.Long', 'java.lang.String', 
     'double', 'float', 'int', 'long' ]
     
     def className
+    
+    String toString() {
+        "AstImmutableConstructorTransform"
+    }
     
     void visit( ASTNode[] astNodes, SourceUnit sourceUnit ) {
         
