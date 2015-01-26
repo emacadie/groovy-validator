@@ -3,7 +3,8 @@ Test reports: file:///home/ericm/github/groovy-validator/build/reports/tests/ind
 Groovydoc: file:///home/ericm/github/groovy-validator/build/docs/groovydoc/index.html
 
 gradle clean
-gradle -Dtest.single=BookSequelTest test -info
+gradle clean; gradle -Dtest.single=BookSequelTest test -info
 gradle -Dtest.single=ImmutableRegExSpec test -info  
+gradle clean; gradle -Dtest.single=ImmutableRegExSpec test -info 
 
 

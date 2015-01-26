@@ -12,7 +12,7 @@ import java.util.regex.Pattern
 <p>So far, this cannot handle fields that are marked as final. If you wish to use the field annotations on an object that is using Groovy's <a href="http://beta.groovy-lang.org/docs/groovy-2.3.0/html/gapi/index.html?groovy/transform/Immutable.html">Immutable</a> annotation, use the field annotations with the {@link info.shelfunit.properties.annotations.AstImmutableConstructor} annotation.</p>
 
 */
-class AnnotationProcessor {
+class StaticAnnotationProcessor {
     
     /**
     <p>This is the method that actually processes the annotations.</p>
