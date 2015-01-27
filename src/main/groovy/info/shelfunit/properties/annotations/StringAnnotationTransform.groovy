@@ -14,11 +14,6 @@ import org.codehaus.groovy.transform.GroovyASTTransformation
 @GroovyASTTransformation( phase = CompilePhase.INSTRUCTION_SELECTION )
 class StringAnnotationTransform implements ASTTransformation {
     
-    def knownTypes = [ 'java.lang.Double', 'java.lang.Float', 'java.lang.Integer', 'java.lang.Long', 'java.lang.String', 
-    'double', 'float', 'int', 'long' ]
-    
-    def className
-    
     /*
     void visit( ASTNode[] astNodes, SourceUnit sourceUnit ) {
         
@@ -161,6 +156,6 @@ class StringAnnotationTransform implements ASTTransformation {
         }
         
     } // end method visit
-
+    
 } // end class  - line 208, 228
 
