@@ -78,7 +78,7 @@ class StringAnnotationTransform implements ASTTransformation {
         
     } // end method visit
     */
-    
+    /*
     void visit( ASTNode[] astNodes, SourceUnit sourceUnit ) {
         
         if ( !astNodes ) { return }
@@ -161,6 +161,6 @@ class StringAnnotationTransform implements ASTTransformation {
         }
         
     } // end method visit
-
+    */
 } // end class  - line 208, 228
 

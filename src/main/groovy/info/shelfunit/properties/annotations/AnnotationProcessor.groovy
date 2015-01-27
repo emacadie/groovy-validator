@@ -78,7 +78,7 @@ class AnnotationProcessor {
                 handleIntAndLong( arg, longAnnotation.divisorSet() as Set, new Long( 0 ), longAnnotation.minValue(), longAnnotation.maxValue(), theClass, name, delegate, throwException )                
             
             } else if ( stringAnnotation ) {
-                
+            /*    
                 def theMatch = Pattern.compile( stringAnnotation.regEx(), Pattern.COMMENTS )
                 def minimum = stringAnnotation.minLength()
                 if ( minimum < 0 ) { minimum = 0 }
@@ -92,7 +92,7 @@ class AnnotationProcessor {
                         "\"${arg}\" is a String with a length outside the range of ${stringAnnotation.minLength()} to ${stringAnnotation.maxLength()} characters or does not match the regular expresstion ${stringAnnotation.regEx()}" )
                     }
                 }
-            
+            */
             } else {
                 // java.lang.reflect.Modifier.FINAL = 16 PUBLIC = 1
                 if ( theClass.metaClass.getMetaProperty( name ).getModifiers() != 17 ) {

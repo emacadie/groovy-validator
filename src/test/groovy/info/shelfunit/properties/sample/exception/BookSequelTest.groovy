@@ -22,6 +22,10 @@ class BookSequelTest extends Specification {
         
         println "--- Starting test ${name.methodName}"
         def bTest1 = new BookSequel( pages: 100, title: "Some Book", year: 1990 )
+        def methodList = BookSequel.getMethods()
+        methodList.each { theMethod ->
+            // println "BookSequel method: ${theMethod.getName()}"
+        }
         println "bTest1: ${bTest1.toString()}"
         when:
         bTest1.title = "abcdefg"
