@@ -1,7 +1,7 @@
 package info.shelfunit.properties.annotations
 
 import org.codehaus.groovy.ast.ASTNode
-import org.codehaus.groovy.ast.ClassNode 
+// import org.codehaus.groovy.ast.ClassNode 
 
 import org.codehaus.groovy.ast.builder.AstBuilder
 import org.codehaus.groovy.control.CompilePhase
@@ -89,9 +89,9 @@ class StringAnnotationTransform implements ASTTransformation {
         println "annotation is for ${annotationNode.classNode.name}"
         println "field is for class ${fieldNode.getOwner().name} and field ${fieldNode.name}, so setter would be set${fieldNode.name.capitalize()}"
         
-        def theClass = annotationNode.classNode
-        println "methods of annotation  ${theClass.name}:"
-        theClass.methods.each { methodNode ->
+        def theAnnotation = annotationNode.classNode
+        println "methods of annotation  ${theAnnotation.name}:"
+        theAnnotation.methods.each { methodNode ->
             print " ${methodNode.name}, "
         }
         def annotatedClass = fieldNode.getOwner() // the class
@@ -130,7 +130,7 @@ class StringAnnotationTransform implements ASTTransformation {
             methodString << "&& ( theMatch.matcher( arg ).matches() ) "
         }
         methodString << """) {
-            ${fieldNode.getName()} = arg
+            this.${fieldNode.getName()} = arg
         } else { 
             throw new Exception(
                  '"' + arg + '" is a String with a length outside the range of ${min} to ${max} characters """

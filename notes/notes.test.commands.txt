@@ -37,3 +37,53 @@ gradle -Dtest.single=ImmutableLongDivisorSpec test -info
 
 gradle -Dtest.single=BoxSpec test -info  
 
+For the proper annotations:
+sample/exception/BookSequel.groovy:12:    @StringAnnotation( minLength = 5, maxLength = 20 )
+sample/exception/Book.groovy:16:    @StringAnnotation( minLength = 5, maxLength = 20 )
+sample/immutable/ImmutableObject001Test.groovy:51:    @StringAnnotation( minLength = 5, maxLength = 10 )
+sample/immutable/ImmutableObject001Test.groovy:53:    @StringAnnotation( maxLength = 150 )
+sample/immutable/exception/ImmutableExObject001Test.groovy:89:    @StringAnnotation( minLength = 5, maxLength = 10 )
+sample/immutable/exception/ImmutableExObject001Test.groovy:91:    @StringAnnotation( maxLength = 150 )
+sample/immutable/exception/ImmutableExObjectColl001Test.groovy:50:    @StringAnnotation( minLength = 5, maxLength = 10 )
+sample/immutable/exception/ImmutableExObjectColl001Test.groovy:52:    @StringAnnotation( maxLength = 150 )
+sample/immutable/ImmutableObjectColl001Test.groovy:52:    @StringAnnotation( minLength = 5, maxLength = 10 )
+sample/immutable/ImmutableObjectColl001Test.groovy:54:    @StringAnnotation( maxLength = 150 )
+sample/BookSequel.groovy:12:    @StringAnnotation( minLength = 5, maxLength = 20 )
+sample/Book.groovy:16:    @StringAnnotation( minLength = 5, maxLength = 20 )
+
+In the console:
+package 
+
+
+
+import info.shelfunit.properties.annotations.IntAnnotation
+import info.shelfunit.properties.annotations.StringAnnotation
+import groovy.transform.ToString
+// import info.shelfunit.properties.sample.BookSequel
+
+@ToString( includeNames = true )
+class BookSequel {
+    
+    @IntAnnotation( minValue = 0 )
+    int pages
+    @StringAnnotation( minLength = 5, maxLength = 20 )
+    String title
+    @IntAnnotation( minValue = 1990 )
+    int year
+}
+
+def bTest1 = new BookSequel( pages: 100, title: "Some Book", year: 1990 )
+println "bTest1: ${bTest1.toString()}"
+bTest1.title = "abcdefg"
+println "bTest1: ${bTest1.toString()}"
+bTest1.title = "qw"
+println "bTest1: ${bTest1.toString()}"
+bTest1.title = "qwertyuiopasdfghjklzxcvbnm"
+println "bTest1: ${bTest1.toString()}"
+
+So it works if I do that.
+It seems to work if I don't have the sample in the test directory.
+What if I move stuff to /src/main?
+Can gradle exclude some files from compiliation?
+
+

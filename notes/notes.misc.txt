@@ -7,4 +7,5 @@ gradle clean; gradle -Dtest.single=BookSequelTest test -info
 gradle -Dtest.single=ImmutableRegExSpec test -info  
 gradle clean; gradle -Dtest.single=ImmutableRegExSpec test -info 
 
+TODO: Have AnnotationProcessor check for import info.shelfunit.properties.annotations.ImmutableValidator to disable it if that annotation is present
 
