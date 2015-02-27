@@ -1,6 +1,7 @@
 package info.shelfunit.properties.annotations
 
 import java.util.regex.Pattern
+import groovy.transform.Immutable
 
 /**
 <p>This is a class that will process the annotations {@link info.shelfunit.properties.annotations.DoubleAnnotation}, {@link info.shelfunit.properties.annotations.FloatAnnotation}, {@link info.shelfunit.properties.annotations.IntAnnotation}, {@link info.shelfunit.properties.annotations.LongAnnotation} and {@link info.shelfunit.properties.annotations.StringAnnotation}</p>
@@ -15,7 +16,7 @@ import java.util.regex.Pattern
 class AnnotationProcessor {
     
     /**
-    <p>This is the method that actually processes the annotations.</p>
+    <p>This is the method that actually processes the annotations for mutable objects.</p>
     <p>Suppose you made a class called "Book" that used some of the annotations this class processes. Somewhere in your code, you
     will need to do this:</p>
     <pre>
@@ -58,8 +59,17 @@ class AnnotationProcessor {
     */
     static process( Class theClass, boolean throwException = false ) {
         
+        def hasImmutableAnn = theClass.getAnnotation( Immutable.class )
+        
+        if ( !hasImmutableAnn ) {
+            processClass( theClass, throwException )
+        } // if ( !hasImmutableAnn )
+        
+    } // end process - line 44, 153, 134
+    
+    def private static processClass( Class theClass, boolean throwException ) {
         theClass.metaClass.setProperty = { String name, arg ->
-            
+                
             def field = theClass.getDeclaredField( name )
             def intAnnotation    = field?.getAnnotation( IntAnnotation.class )
             def stringAnnotation = field?.getAnnotation( StringAnnotation.class )
@@ -67,7 +77,7 @@ class AnnotationProcessor {
             def floatAnnotation  = field?.getAnnotation( FloatAnnotation.class )
             def longAnnotation   = field?.getAnnotation( LongAnnotation.class )
             def divSet
-            
+                
             if ( doubleAnnotation ) {
                 handleDoubleAndFloat( arg, new Double( 0 ), doubleAnnotation.minValue(), doubleAnnotation.maxValue(), name, theClass, delegate, throwException )
             } else if ( floatAnnotation ) {
@@ -98,11 +108,10 @@ class AnnotationProcessor {
                     theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg ) // this works
                 }
             }
-        }
-        
-    } // end process - line 44, 153, 134
+        } // end closure
+    } // end method processClass
     
-    // theNumber must be 0
+    // theNumber must be 0 - it is used to prevent division by 0
     def private static handleIntAndLong( arg, divSet, theNumber, annMinValue, annMaxValue, theClass, name, delegate, throwException ) {
         println "in int and long with arg ${arg}"
         divSet.remove( theNumber )
