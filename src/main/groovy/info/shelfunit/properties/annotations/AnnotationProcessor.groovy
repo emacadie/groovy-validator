@@ -79,13 +79,13 @@ class AnnotationProcessor {
             // java.lang.reflect.Modifier.FINAL = 16 PUBLIC = 1
             if ( field.getModifiers() != 17 ) {
                 if ( doubleAnnotation ) {
-                    handleDoubleAndFloat( arg, new Double( 0 ), doubleAnnotation.minValue(), doubleAnnotation.maxValue(), name, theClass, delegate, throwException )
+                    handleDoubleAndFloat( arg, new Double( 0 ), doubleAnnotation, name, theClass, delegate, throwException )
                 } else if ( floatAnnotation ) {
-                    handleDoubleAndFloat( arg, new Float( 0 ), floatAnnotation.minValue(), floatAnnotation.maxValue(), name, theClass, delegate, throwException )
+                    handleDoubleAndFloat( arg, new Float( 0 ), floatAnnotation, name, theClass, delegate, throwException )
                 } else if ( intAnnotation ) {
-                    handleIntAndLong( arg, intAnnotation.divisorSet() as Set, new Integer( 0 ), intAnnotation.minValue(), intAnnotation.maxValue(), theClass, name, delegate, throwException )
+                    handleIntAndLong( arg, intAnnotation.divisorSet() as Set, new Integer( 0 ), intAnnotation, theClass, name, delegate, throwException )
                 } else if ( longAnnotation ) {
-                    handleIntAndLong( arg, longAnnotation.divisorSet() as Set, new Long( 0 ), longAnnotation.minValue(), longAnnotation.maxValue(), theClass, name, delegate, throwException )                
+                    handleIntAndLong( arg, longAnnotation.divisorSet() as Set, new Long( 0 ), longAnnotation, theClass, name, delegate, throwException )                
                 } else if ( stringAnnotation ) {
                     def theMatch = Pattern.compile( stringAnnotation.regEx(), Pattern.COMMENTS )
                     def minimum = stringAnnotation.minLength()
@@ -109,37 +109,36 @@ class AnnotationProcessor {
     } // end method processClass
     
     // theNumber must be 0 - it is used to prevent division by 0
-    def private static handleIntAndLong( arg, divSet, theNumber, annMinValue, annMaxValue, theClass, name, delegate, throwException ) {
+    def private static handleIntAndLong( arg, divSet, theNumber, annotation, theClass, name, delegate, throwException ) {
         println "in int and long with arg ${arg}"
         divSet.remove( theNumber )
         if ( divSet.size() == 0 ) { divSet.add( ++theNumber ) }
         if ( ( arg.class.name == theNumber.class.name ) && 
             ( divSet.find{ arg % it == 0 }  != null ) &&
-            ( arg >= annMinValue ) &&
-            ( arg <= annMaxValue ) &&
+            ( arg >= annotation.minValue() ) &&
+            ( arg <= annotation.maxValue() ) &&
             ( arg >= theNumber.MIN_VALUE ) &&
             ( arg <= theNumber.MAX_VALUE ) ) {
             theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg )
         } else { 
             if ( throwException ) {
                 throw new Exception( "Groovy validation exception: \n" +
-                "${arg} is a ${theNumber.class.name} outside the range ${annMinValue} to ${annMaxValue} or it is not divisible by anything in the set ${divSet} " )
+                "${arg} is a ${theNumber.class.name} outside the range ${annotation.minValue()} to ${annotation.maxValue()} or it is not divisible by anything in the set ${divSet} " )
             }
         }
     } // handleIntAndLong
 
-    def private static handleDoubleAndFloat( arg, numClass, annMinValue, annMaxValue, name, theClass, delegate, throwException ) {
-
+    def private static handleDoubleAndFloat( arg, numClass, annotation, name, theClass, delegate, throwException ) {
         if ( ( arg.class.name == numClass.class.name ) && 
-            ( arg >= annMinValue ) &&
-            ( arg <= annMaxValue ) &&
+            ( arg >= annotation.minValue() ) &&
+            ( arg <= annotation.maxValue() ) &&
             ( arg >= numClass.MIN_VALUE ) &&
             ( arg <= numClass.MAX_VALUE ) ) {
             theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg )
         } else { 
             if ( throwException ) {
                 throw new Exception( "Groovy validation exception: \n" +
-                "${arg} is a ${numClass.name} outside the range ${annMinValue} to ${annMaxValue}" )
+                "${arg} is a ${numClass.name} outside the range ${annotation.minValue()} to ${annotation.maxValue()}" )
             }
         }
     } // handleDoubleAndFloat
