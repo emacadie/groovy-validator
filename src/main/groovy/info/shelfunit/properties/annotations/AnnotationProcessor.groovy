@@ -60,10 +60,9 @@ class AnnotationProcessor {
     static process( Class theClass, boolean throwException = false ) {
         
         def hasImmutableAnn = theClass.getAnnotation( Immutable.class )
-        
         if ( !hasImmutableAnn ) {
             processClass( theClass, throwException )
-        } // if ( !hasImmutableAnn )
+        } 
         
     } // end process - line 44, 153, 134
     
@@ -76,38 +75,36 @@ class AnnotationProcessor {
             def doubleAnnotation = field?.getAnnotation( DoubleAnnotation.class )
             def floatAnnotation  = field?.getAnnotation( FloatAnnotation.class )
             def longAnnotation   = field?.getAnnotation( LongAnnotation.class )
-            def divSet
-                
-            if ( doubleAnnotation ) {
-                handleDoubleAndFloat( arg, new Double( 0 ), doubleAnnotation.minValue(), doubleAnnotation.maxValue(), name, theClass, delegate, throwException )
-            } else if ( floatAnnotation ) {
-                handleDoubleAndFloat( arg, new Float( 0 ), floatAnnotation.minValue(), floatAnnotation.maxValue(), name, theClass, delegate, throwException )
-            } else if ( intAnnotation ) {
-                handleIntAndLong( arg, intAnnotation.divisorSet() as Set, new Integer( 0 ), intAnnotation.minValue(), intAnnotation.maxValue(), theClass, name, delegate, throwException )
-            } else if ( longAnnotation ) {
-                handleIntAndLong( arg, longAnnotation.divisorSet() as Set, new Long( 0 ), longAnnotation.minValue(), longAnnotation.maxValue(), theClass, name, delegate, throwException )                
-            } else if ( stringAnnotation ) {
-                def theMatch = Pattern.compile( stringAnnotation.regEx(), Pattern.COMMENTS )
-                def minimum = stringAnnotation.minLength()
-                if ( minimum < 0 ) { minimum = 0 }
-                if ( ( arg.length() >= minimum ) &&
-                    ( arg.length() <= stringAnnotation.maxLength() ) && 
-                     ( theMatch.matcher( arg ).matches() ) ) {
-                    theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg.toString() )
-                } else { 
-                    if ( throwException ) {
-                        throw new Exception( "Groovy validation exception: \n" +
-                        "\"${arg}\" is a String with a length outside the range of ${stringAnnotation.minLength()} to ${stringAnnotation.maxLength()} characters or does not match the regular expresstion ${stringAnnotation.regEx()}" )
+
+            // java.lang.reflect.Modifier.FINAL = 16 PUBLIC = 1
+            if ( field.getModifiers() != 17 ) {
+                if ( doubleAnnotation ) {
+                    handleDoubleAndFloat( arg, new Double( 0 ), doubleAnnotation.minValue(), doubleAnnotation.maxValue(), name, theClass, delegate, throwException )
+                } else if ( floatAnnotation ) {
+                    handleDoubleAndFloat( arg, new Float( 0 ), floatAnnotation.minValue(), floatAnnotation.maxValue(), name, theClass, delegate, throwException )
+                } else if ( intAnnotation ) {
+                    handleIntAndLong( arg, intAnnotation.divisorSet() as Set, new Integer( 0 ), intAnnotation.minValue(), intAnnotation.maxValue(), theClass, name, delegate, throwException )
+                } else if ( longAnnotation ) {
+                    handleIntAndLong( arg, longAnnotation.divisorSet() as Set, new Long( 0 ), longAnnotation.minValue(), longAnnotation.maxValue(), theClass, name, delegate, throwException )                
+                } else if ( stringAnnotation ) {
+                    def theMatch = Pattern.compile( stringAnnotation.regEx(), Pattern.COMMENTS )
+                    def minimum = stringAnnotation.minLength()
+                    if ( minimum < 0 ) { minimum = 0 }
+                    if ( ( arg.length() >= minimum ) &&
+                        ( arg.length() <= stringAnnotation.maxLength() ) && 
+                         ( theMatch.matcher( arg ).matches() ) ) {
+                        theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg.toString() )
+                    } else { 
+                        if ( throwException ) {
+                            throw new Exception( "Groovy validation exception: \n" +
+                            "\"${arg}\" is a String with a length outside the range of ${stringAnnotation.minLength()} to ${stringAnnotation.maxLength()} characters or does not match the regular expresstion ${stringAnnotation.regEx()}" )
+                        }
                     }
-                }
-            
-            } else {
-                // java.lang.reflect.Modifier.FINAL = 16 PUBLIC = 1
-                if ( theClass.metaClass.getMetaProperty( name ).getModifiers() != 17 ) {
+                } else {
                     println "-----\tHere is theClass.metaClass.getMetaProperty( name ).getModifiers(): ${theClass.metaClass.getMetaProperty( name ).getModifiers()}" 
                     theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg ) // this works
                 }
-            }
+            } // if ( !fieldIsFinal )
         } // end closure
     } // end method processClass
     
