@@ -83,9 +83,9 @@ class AnnotationProcessor {
                 } else if ( floatAnnotation ) {
                     handleDoubleAndFloat( arg, new Float( 0 ), floatAnnotation, name, theClass, delegate, throwException )
                 } else if ( intAnnotation ) {
-                    handleIntAndLong( arg, intAnnotation.divisorSet() as Set, new Integer( 0 ), intAnnotation, theClass, name, delegate, throwException )
+                    handleIntAndLong( arg, new Integer( 0 ), intAnnotation, theClass, name, delegate, throwException )
                 } else if ( longAnnotation ) {
-                    handleIntAndLong( arg, longAnnotation.divisorSet() as Set, new Long( 0 ), longAnnotation, theClass, name, delegate, throwException )                
+                    handleIntAndLong( arg, new Long( 0 ), longAnnotation, theClass, name, delegate, throwException )                
                 } else if ( stringAnnotation ) {
                     def theMatch = Pattern.compile( stringAnnotation.regEx(), Pattern.COMMENTS )
                     def minimum = stringAnnotation.minLength()
@@ -109,7 +109,8 @@ class AnnotationProcessor {
     } // end method processClass
     
     // theNumber must be 0 - it is used to prevent division by 0
-    def private static handleIntAndLong( arg, divSet, theNumber, annotation, theClass, name, delegate, throwException ) {
+    def private static handleIntAndLong( arg, theNumber, annotation, theClass, name, delegate, throwException ) {
+        def divSet = annotation.divisorSet() as Set
         println "in int and long with arg ${arg}"
         divSet.remove( theNumber )
         if ( divSet.size() == 0 ) { divSet.add( ++theNumber ) }
