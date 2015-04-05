@@ -89,7 +89,7 @@ class AnnotationProcessor {
                     handleIntAndLong( arg, new Integer( 0 ), intAnnotation, theClass, name, delegate, throwException )
                 } else if ( longAnnotation ) {
                     handleIntAndLong( arg, new Long( 0 ), longAnnotation, theClass, name, delegate, throwException )                
-                } else if ( stringAnnotation && useStringBlock ) {
+                } else if ( stringAnnotation ) {
                     
                     def theMatch = Pattern.compile( stringAnnotation.regEx(), Pattern.COMMENTS )
                     def minimum = stringAnnotation.minLength()

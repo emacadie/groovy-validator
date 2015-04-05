@@ -184,9 +184,9 @@ class StringAnnotationTransform implements ASTTransformation {
                     println "theAst is a ${theAst.class.name}"
                 }
                 def listOfStatements = [ ast[ 0 ] ]
-                // annotatedClass.addStaticInitializerStatements( listOfStatements, true )
+                annotatedClass.addStaticInitializerStatements( listOfStatements, true )
                 // annotatedClass.addStaticInitializerStatements( listOfStatements, false )
-                annotatedClass.addObjectInitializerStatements( ast[ 0 ] )
+                // annotatedClass.addObjectInitializerStatements( ast[ 0 ] )
                 def someClassNode = ast[ 1 ]
                 def methods = ast[ 1 ].methods
                 methods.each { meth -> 
