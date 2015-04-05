@@ -98,11 +98,31 @@ class StringAnnotationTransform implements ASTTransformation {
         println "\nmethods of class ${annotatedClass.name}" // look for createValidatingConstructor from AstImmutableConstructorTransform
         def hasCreateValidatingConstructor = false
         def hasStaticInitializer = false
+        def methodToRemove
         annotatedClass.methods.each { mNode ->
             print " ${mNode.name}, "
             if ( mNode.name == "createValidatingConstructor" ) { hasCreateValidatingConstructor = true }
             if ( mNode.name == "checkForStaticGroovyValidatorInitializer" ) { hasStaticInitializer = true }
+            
+            if ( mNode.name == "set${fieldNode.name.capitalize()}" ) { methodToRemove = mNode }
+            
+            
         }
+        
+        annotatedClass.removeMethod( methodToRemove )
+        
+        // ///////////////////////////////////////
+        /*
+        def existingMethods = annotatedClass.methods
+                existingMethods.each { eMeth -> 
+                    if ( eMeth.name == "set${fieldNode.name.capitalize()}" ) { 
+                        println "Removing method set${fieldNode.name.capitalize()} from old class"
+                        annotatedClass.removeMethod( eMeth ) 
+                    }
+                }
+                */
+        // ///////////////////////////////////////
+        
         println ",  hasCreateValidatingConstructor: ${hasCreateValidatingConstructor}"
         
         println "Here is annotationNode.getMember('minLength') ${ annotationNode.getMember( 'minLength' ) ? annotationNode.getMember( 'minLength' ).getValue() : 0 }"
@@ -118,7 +138,7 @@ class StringAnnotationTransform implements ASTTransformation {
         def patternString1 = regex.replace(  "\\", "\\\\" ) 
         def methodString = new StringBuffer()
         methodString << """
-    def set${fieldNode.name.capitalize()}( arg ) {
+    public void set${fieldNode.name.capitalize()}( java.lang.String arg ) {
         println \" calling set${fieldNode.name.capitalize()} with arg \" + arg
     """
         if ( !catchAll ) {
@@ -146,7 +166,7 @@ class StringAnnotationTransform implements ASTTransformation {
         methodString << """
         def checkForStaticGroovyValidatorInitializer() {}
         // static {
-        //      info.shelfunit.properties.annotations.AnnotationProcessor.process( ${annotatedClass.name}, true )
+              info.shelfunit.properties.annotations.AnnotationProcessor.process( ${annotatedClass.name}, true )
         // }
         """
         // println "here is the method string: ${methodString}"
@@ -160,13 +180,16 @@ class StringAnnotationTransform implements ASTTransformation {
                 println "just called AstBuilder().buildFromString"
                 // look at block statement
                 // look at the class Node
-                def exisingMethods = annotatedClass.methods
-                existingMethods.each { it -> eMeth
-                    if ( eMeth.name == "set${fieldNode.name.capitalize()}" ) { annotatedClass.removeMethod( eMeth ) }
+                ast.each { theAst ->
+                    println "theAst is a ${theAst.class.name}"
                 }
+                def listOfStatements = [ ast[ 0 ] ]
+                // annotatedClass.addStaticInitializerStatements( listOfStatements, true )
+                // annotatedClass.addStaticInitializerStatements( listOfStatements, false )
+                annotatedClass.addObjectInitializerStatements( ast[ 0 ] )
                 def someClassNode = ast[ 1 ]
                 def methods = ast[ 1 ].methods
-                methods.each { it -> meth
+                methods.each { meth -> 
                     println "name of method after buildFromString: ${meth.name} "
                 }
                 // def methods = ast[ 1 ].getAllDeclaredMethods()
@@ -174,7 +197,7 @@ class StringAnnotationTransform implements ASTTransformation {
                 annotatedClass.addMethod( methods.find { it.name == "checkForStaticGroovyValidatorInitializer" } )
             } catch ( Exception e ) {
                 // println "Some exception occured: ${e.getMessage()}"
-                // e.printStackTrace()
+                e.printStackTrace()
             }
         }
         
