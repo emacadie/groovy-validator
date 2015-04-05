@@ -137,6 +137,7 @@ class StringAnnotationTransform implements ASTTransformation {
         println "regex ${regex} is catchAll: ${catchAll}  Here is the test: ${( regex == '".*"' )}"
         def patternString1 = regex.replace(  "\\", "\\\\" ) 
         def methodString = new StringBuffer()
+        /*
         methodString << """
     public void set${fieldNode.name.capitalize()}( java.lang.String arg ) {
         println \" calling set${fieldNode.name.capitalize()} with arg \" + arg
@@ -161,15 +162,15 @@ class StringAnnotationTransform implements ASTTransformation {
             )
         }
     }"""
-    
+    */
         methodString << "\n\n"
         methodString << """
         def checkForStaticGroovyValidatorInitializer() {}
         // static {
-              info.shelfunit.properties.annotations.AnnotationProcessor.process( ${annotatedClass.name}, true )
+              info.shelfunit.properties.annotations.AnnotationProcessor.process( ${annotatedClass.getNameWithoutPackage()}, true )
         // }
         """
-        // println "here is the method string: ${methodString}"
+        println "here is the method string: ${methodString}"
         if ( !hasCreateValidatingConstructor && !hasStaticInitializer ) {
             try {
                 // CompilePhase.INSTRUCTION_SELECTION
@@ -193,7 +194,7 @@ class StringAnnotationTransform implements ASTTransformation {
                     println "name of method after buildFromString: ${meth.name} "
                 }
                 // def methods = ast[ 1 ].getAllDeclaredMethods()
-                annotatedClass.addMethod( methods.find { it.name == "set${fieldNode.name.capitalize()}" } )
+                // annotatedClass.addMethod( methods.find { it.name == "set${fieldNode.name.capitalize()}" } )
                 annotatedClass.addMethod( methods.find { it.name == "checkForStaticGroovyValidatorInitializer" } )
             } catch ( Exception e ) {
                 // println "Some exception occured: ${e.getMessage()}"
