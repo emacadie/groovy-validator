@@ -2,14 +2,14 @@ package info.shelfunit.properties.sample.exception
 
 import spock.lang.Specification
 
-class BookTest extends Specification { 
+class SecondBookTest extends Specification { 
     def setup() {}          // run before every feature method
     def cleanup() {}        // run after every feature method
     def setupSpec() {}     // run before the first feature method
     def cleanupSpec() {}   // run after the last feature method
     
     def "test the no arg constructor"() {
-        def bTest1 = new Book()
+        def bTest1 = new SecondBook()
         bTest1.pages = 100
        
         when:
@@ -32,7 +32,7 @@ class BookTest extends Specification {
     }
     
     def "test the map constructor"() {
-        def bTest1 = new Book( pages: 100, title: "abcdefg", year: 1979 )
+        def bTest1 = new SecondBook( pages: 100, title: "abcdefg", year: 1979 )
         bTest1.pages = 100
        
         expect:
