@@ -67,7 +67,7 @@ class AnnotationProcessor {
     } // end process - line 44, 153, 134
     
     def private static processClass( Class theClass, boolean throwException ) {
-        def useStringBlock = true
+        def useStringBlock = false
         theClass.metaClass.setProperty = { String name, arg ->
                 
             def field = theClass.getDeclaredField( name )

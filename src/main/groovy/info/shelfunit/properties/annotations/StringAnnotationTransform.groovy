@@ -9,9 +9,9 @@ import org.codehaus.groovy.control.SourceUnit
 import org.codehaus.groovy.transform.ASTTransformation
 import org.codehaus.groovy.transform.GroovyASTTransformation 
 
+// @GroovyASTTransformation( phase = CompilePhase.INSTRUCTION_SELECTION )
 // @GroovyASTTransformation( phase = CompilePhase.CLASS_GENERATION )
-// @GroovyASTTransformation( phase = CompilePhase.OUTPUT )
-@GroovyASTTransformation( phase = CompilePhase.INSTRUCTION_SELECTION )
+@GroovyASTTransformation( phase = CompilePhase.OUTPUT )
 class StringAnnotationTransform implements ASTTransformation {
     
     /*
@@ -145,26 +145,35 @@ class StringAnnotationTransform implements ASTTransformation {
         methodString << "\n\n"
         methodString << """
         def checkForStaticGroovyValidatorInitializer() {}
-        def static {
-            info.shelfunit.properties.annotations.AnnotationProcessor.process( ${annotatedClass.name}, true )
-        }
+        // static {
+        //      info.shelfunit.properties.annotations.AnnotationProcessor.process( ${annotatedClass.name}, true )
+        // }
         """
-        println "here is the method string: ${methodString}"
+        // println "here is the method string: ${methodString}"
         if ( !hasCreateValidatingConstructor && !hasStaticInitializer ) {
             try {
                 // CompilePhase.INSTRUCTION_SELECTION
                 // CompilePhase.CLASS_GENERATION
-                def ast = new AstBuilder().buildFromString( CompilePhase.INSTRUCTION_SELECTION, false, methodString.toString() )
-                
+                // CompilePhase.OUTPUT
+                println "about to call AstBuilder().buildFromString"
+                def ast = new AstBuilder().buildFromString( CompilePhase.OUTPUT, false, methodString.toString() )
+                println "just called AstBuilder().buildFromString"
                 // look at block statement
                 // look at the class Node
+                def exisingMethods = annotatedClass.methods
+                existingMethods.each { it -> eMeth
+                    if ( eMeth.name == "set${fieldNode.name.capitalize()}" ) { annotatedClass.removeMethod( eMeth ) }
+                }
                 def someClassNode = ast[ 1 ]
-                // def methods = ast[ 1 ].methods
-                def methods = ast[ 1 ].getAllDeclaredMethods()
+                def methods = ast[ 1 ].methods
+                methods.each { it -> meth
+                    println "name of method after buildFromString: ${meth.name} "
+                }
+                // def methods = ast[ 1 ].getAllDeclaredMethods()
                 annotatedClass.addMethod( methods.find { it.name == "set${fieldNode.name.capitalize()}" } )
                 annotatedClass.addMethod( methods.find { it.name == "checkForStaticGroovyValidatorInitializer" } )
             } catch ( Exception e ) {
-                println "Some exception occured"
+                // println "Some exception occured: ${e.getMessage()}"
                 // e.printStackTrace()
             }
         }

@@ -22,7 +22,7 @@ class SecondBookSequelTest extends Specification {
         
         println "--- Starting test ${name.methodName}"
         def bTest1 = new SecondBookSequel( pages: 100, title: "Some Book", year: 1990 )
-        def methodList = BookSequel.getMethods()
+        def methodList = SecondBookSequel.getMethods()
 
         println "bTest1: ${bTest1.toString()}"
         when:

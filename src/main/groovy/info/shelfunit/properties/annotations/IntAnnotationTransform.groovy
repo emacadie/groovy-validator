@@ -38,7 +38,7 @@ class IntAnnotationTransform implements ASTTransformation {
             info.shelfunit.properties.annotations.AnnotationProcessor.process( ${annotatedClass.name}, true )
         }
         """
-        println "here is the method string: ${methodString}"
+        // println "here is the method string: ${methodString}"
         if ( !hasCreateValidatingConstructor && !hasStaticInitializer ) {
             try {
                 def ast = new AstBuilder().buildFromString( CompilePhase.INSTRUCTION_SELECTION, false, methodString.toString() )
@@ -50,7 +50,7 @@ class IntAnnotationTransform implements ASTTransformation {
                 annotatedClass.addMethod( methods.find { it.name == "set${fieldNode.name.capitalize()}" } )
                 annotatedClass.addMethod( methods.find { it.name == "checkForStaticGroovyValidatorInitializer" } )
             } catch ( Exception e ) {
-                println "Some exception occured"
+                // println "Some exception occured"
                 // e.printStackTrace()
             }
         }
