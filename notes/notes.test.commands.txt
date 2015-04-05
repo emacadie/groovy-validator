@@ -1,12 +1,15 @@
 gradle -Dtest.single=FirstImmutableSampleTest test -info   
 gradle -Dtest.single=SecondImmutableSampleTest test -info  
-gradle -Dtest.single=BookTest test -info    
+   
 gradle -Dtest.single=ImmutableObject001Test test -info    
 gradle -Dtest.single=ImmutableObject002Test test -info    
 gradle -Dtest.single=BuilderTest001 test -info    
 gradle -Dtest.single=WithTest001 test -info    
 gradle -Dtest.single=CarTest test -info    
+gradle -Dtest.single=BookTest test -info 
 gradle -Dtest.single=BookSequelTest test -info    
+gradle -Dtest.single=SecondBookTest test -info 
+gradle -Dtest.single=SecondBookSequelTest test -info  
 gradle -Dtest.single=TrulyImmutable001Test test -info   
 
 gradle -Dtest.single=FloatRunnerTest test -info   
@@ -37,19 +40,7 @@ gradle -Dtest.single=ImmutableLongDivisorSpec test -info
 
 gradle -Dtest.single=BoxSpec test -info  
 
-For the proper annotations:
-sample/exception/BookSequel.groovy:12:    @StringAnnotation( minLength = 5, maxLength = 20 )
-sample/exception/Book.groovy:16:    @StringAnnotation( minLength = 5, maxLength = 20 )
-sample/immutable/ImmutableObject001Test.groovy:51:    @StringAnnotation( minLength = 5, maxLength = 10 )
-sample/immutable/ImmutableObject001Test.groovy:53:    @StringAnnotation( maxLength = 150 )
-sample/immutable/exception/ImmutableExObject001Test.groovy:89:    @StringAnnotation( minLength = 5, maxLength = 10 )
-sample/immutable/exception/ImmutableExObject001Test.groovy:91:    @StringAnnotation( maxLength = 150 )
-sample/immutable/exception/ImmutableExObjectColl001Test.groovy:50:    @StringAnnotation( minLength = 5, maxLength = 10 )
-sample/immutable/exception/ImmutableExObjectColl001Test.groovy:52:    @StringAnnotation( maxLength = 150 )
-sample/immutable/ImmutableObjectColl001Test.groovy:52:    @StringAnnotation( minLength = 5, maxLength = 10 )
-sample/immutable/ImmutableObjectColl001Test.groovy:54:    @StringAnnotation( maxLength = 150 )
-sample/BookSequel.groovy:12:    @StringAnnotation( minLength = 5, maxLength = 20 )
-sample/Book.groovy:16:    @StringAnnotation( minLength = 5, maxLength = 20 )
+
 
 In the console:
 package 
@@ -85,5 +76,36 @@ So it works if I do that.
 It seems to work if I don't have the sample in the test directory.
 What if I move stuff to /src/main?
 Can gradle exclude some files from compiliation?
+
+For proper annotations:
+
+gradle -Dtest.single=SecondBookTest test -info 
+gradle -Dtest.single=SecondBookSequelTest test -info  
+gradle -Dtest.single=BookTest test -info 
+gradle -Dtest.single=BookSequelTest test -info
+gradle -Dtest.single=ImmutableExObject001Test test -info
+gradle -Dtest.single=ImmutableObject001Test test -info 
+
+cd src/test/groovy/info/shelfunit/properties
+grep -rn StringAnnotation * | grep -v import | grep -v '//' | grep StringAnnotation
+sample/SampleRunner.groovy:72:                def stringAnnotation = field?.getAnnotation( StringAnnotation.class )
+sample/SampleRunner.groovy:74:                    print "${it.getName()} has StringAnnotation"
+sample/SampleRunner.groovy:120:            def stringAnnotation = field?.getAnnotation( StringAnnotation.class )
+sample/exception/SampleRunner.groovy:72:                def stringAnnotation = field?.getAnnotation( StringAnnotation.class )
+sample/exception/SampleRunner.groovy:74:                    print "${it.getName()} has StringAnnotation"
+sample/exception/SampleRunner.groovy:120:            def stringAnnotation = field?.getAnnotation( StringAnnotation.class )
+sample/exception/SecondBook.groovy:16:    @StringAnnotation( minLength = 5, maxLength = 20 )
+sample/exception/SecondBookSequel.groovy:11:    @StringAnnotation( minLength = 5, maxLength = 20 )
+sample/immutable/ImmutableObject001Test.groovy:51:    @StringAnnotation( minLength = 5, maxLength = 10 )
+sample/immutable/ImmutableObject001Test.groovy:53:    @StringAnnotation( maxLength = 150 )
+sample/immutable/exception/ImmutableExObject001Test.groovy:89:    @StringAnnotation( minLength = 5, maxLength = 10 )
+sample/immutable/exception/ImmutableExObject001Test.groovy:91:    @StringAnnotation( maxLength = 150 )
+sample/immutable/exception/ImmutableExObjectColl001Test.groovy:50:    @StringAnnotation( minLength = 5, maxLength = 10 )
+sample/immutable/exception/ImmutableExObjectColl001Test.groovy:52:    @StringAnnotation( maxLength = 150 )
+sample/immutable/ImmutableObjectColl001Test.groovy:52:    @StringAnnotation( minLength = 5, maxLength = 10 )
+sample/immutable/ImmutableObjectColl001Test.groovy:54:    @StringAnnotation( maxLength = 150 )
+sample/BookSequel.groovy:12:    @StringAnnotation( minLength = 5, maxLength = 20 )
+sample/Book.groovy:16:    @StringAnnotation( minLength = 5, maxLength = 20 )
+
 
 

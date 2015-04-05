@@ -97,9 +97,11 @@ class StringAnnotationTransform implements ASTTransformation {
         def annotatedClass = fieldNode.getOwner() // the class
         println "\nmethods of class ${annotatedClass.name}" // look for createValidatingConstructor from AstImmutableConstructorTransform
         def hasCreateValidatingConstructor = false
+        def hasStaticInitializer = false
         annotatedClass.methods.each { mNode ->
             print " ${mNode.name}, "
-            if (mNode.name == "createValidatingConstructor" ) { hasCreateValidatingConstructor = true }
+            if ( mNode.name == "createValidatingConstructor" ) { hasCreateValidatingConstructor = true }
+            if ( mNode.name == "checkForStaticGroovyValidatorInitializer" ) { hasStaticInitializer = true }
         }
         println ",  hasCreateValidatingConstructor: ${hasCreateValidatingConstructor}"
         
@@ -139,19 +141,31 @@ class StringAnnotationTransform implements ASTTransformation {
             )
         }
     }"""
+    
+        methodString << "\n\n"
+        methodString << """
+        def checkForStaticGroovyValidatorInitializer() {}
+        def static {
+            info.shelfunit.properties.annotations.AnnotationProcessor.process( ${annotatedClass.name}, true )
+        }
+        """
         println "here is the method string: ${methodString}"
-        if ( !hasCreateValidatingConstructor ) {
+        if ( !hasCreateValidatingConstructor && !hasStaticInitializer ) {
             try {
+                // CompilePhase.INSTRUCTION_SELECTION
+                // CompilePhase.CLASS_GENERATION
                 def ast = new AstBuilder().buildFromString( CompilePhase.INSTRUCTION_SELECTION, false, methodString.toString() )
+                
                 // look at block statement
                 // look at the class Node
                 def someClassNode = ast[ 1 ]
-                def methods = ast[ 1 ].methods
+                // def methods = ast[ 1 ].methods
+                def methods = ast[ 1 ].getAllDeclaredMethods()
                 annotatedClass.addMethod( methods.find { it.name == "set${fieldNode.name.capitalize()}" } )
-                
+                annotatedClass.addMethod( methods.find { it.name == "checkForStaticGroovyValidatorInitializer" } )
             } catch ( Exception e ) {
                 println "Some exception occured"
-                e.printStackTrace()
+                // e.printStackTrace()
             }
         }
         

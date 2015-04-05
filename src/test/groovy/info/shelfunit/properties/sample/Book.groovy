@@ -1,6 +1,6 @@
 package info.shelfunit.properties.sample
 
-import info.shelfunit.properties.annotations.AnnotationProcessor
+// import info.shelfunit.properties.annotations.AnnotationProcessor
 import info.shelfunit.properties.annotations.StringAnnotation
 import groovy.transform.ToString
 
@@ -9,7 +9,7 @@ import groovy.transform.ToString
 class Book {
     
     static { 
-        AnnotationProcessor.process( Book ) 
+        // AnnotationProcessor.process( Book ) 
     }
     
     int pages

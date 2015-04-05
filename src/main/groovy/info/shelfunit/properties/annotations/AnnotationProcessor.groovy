@@ -67,6 +67,7 @@ class AnnotationProcessor {
     } // end process - line 44, 153, 134
     
     def private static processClass( Class theClass, boolean throwException ) {
+        def useStringBlock = true
         theClass.metaClass.setProperty = { String name, arg ->
                 
             def field = theClass.getDeclaredField( name )
@@ -75,39 +76,9 @@ class AnnotationProcessor {
             def doubleAnnotation = field?.getAnnotation( DoubleAnnotation.class )
             def floatAnnotation  = field?.getAnnotation( FloatAnnotation.class )
             def longAnnotation   = field?.getAnnotation( LongAnnotation.class )
-
             def divSet
             
-            if ( doubleAnnotation ) {
-                handleDoubleAndFloat( arg, new Double( 0 ), doubleAnnotation.minValue(), doubleAnnotation.maxValue(), name, theClass, delegate, throwException )
-            } else if ( floatAnnotation ) {
-                handleDoubleAndFloat( arg, new Float( 0 ), floatAnnotation.minValue(), floatAnnotation.maxValue(), name, theClass, delegate, throwException )
-            } else if ( intAnnotation ) {
-                handleIntAndLong( arg, intAnnotation.divisorSet() as Set, new Integer( 0 ), intAnnotation.minValue(), intAnnotation.maxValue(), theClass, name, delegate, throwException )
-            } else if ( longAnnotation ) {
-                handleIntAndLong( arg, longAnnotation.divisorSet() as Set, new Long( 0 ), longAnnotation.minValue(), longAnnotation.maxValue(), theClass, name, delegate, throwException )                
-            
-            } else if ( stringAnnotation ) {
-            /*    
-                def theMatch = Pattern.compile( stringAnnotation.regEx(), Pattern.COMMENTS )
-                def minimum = stringAnnotation.minLength()
-                if ( minimum < 0 ) { minimum = 0 }
-                if ( ( arg.length() >= minimum ) &&
-                    ( arg.length() <= stringAnnotation.maxLength() ) && 
-                     ( theMatch.matcher( arg ).matches() ) ) {
-                    theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg.toString() )
-                } else { 
-                    if ( throwException ) {
-                        throw new Exception( "Groovy validation exception: \n" +
-                        "\"${arg}\" is a String with a length outside the range of ${stringAnnotation.minLength()} to ${stringAnnotation.maxLength()} characters or does not match the regular expresstion ${stringAnnotation.regEx()}" )
-                    }
-                }
-            */
-            } else {
-                // java.lang.reflect.Modifier.FINAL = 16 PUBLIC = 1
-                if ( theClass.metaClass.getMetaProperty( name ).getModifiers() != 17 ) {
-
-
+            // if ( theClass.metaClass.getMetaProperty( name ).getModifiers() != 17 ) {
             // java.lang.reflect.Modifier.FINAL = 16 PUBLIC = 1
             if ( field.getModifiers() != 17 ) {
                 if ( doubleAnnotation ) {
@@ -118,7 +89,8 @@ class AnnotationProcessor {
                     handleIntAndLong( arg, new Integer( 0 ), intAnnotation, theClass, name, delegate, throwException )
                 } else if ( longAnnotation ) {
                     handleIntAndLong( arg, new Long( 0 ), longAnnotation, theClass, name, delegate, throwException )                
-                } else if ( stringAnnotation ) {
+                } else if ( stringAnnotation && useStringBlock ) {
+                    
                     def theMatch = Pattern.compile( stringAnnotation.regEx(), Pattern.COMMENTS )
                     def minimum = stringAnnotation.minLength()
                     if ( minimum < 0 ) { minimum = 0 }
@@ -132,6 +104,7 @@ class AnnotationProcessor {
                             "\"${arg}\" is a String with a length outside the range of ${stringAnnotation.minLength()} to ${stringAnnotation.maxLength()} characters or does not match the regular expresstion ${stringAnnotation.regEx()}" )
                         }
                     }
+                    
                 } else {
 
                     println "-----\tHere is theClass.metaClass.getMetaProperty( name ).getModifiers(): ${theClass.metaClass.getMetaProperty( name ).getModifiers()}" 
@@ -140,7 +113,7 @@ class AnnotationProcessor {
             } // if ( !fieldIsFinal )
         } // end closure
     } // end method processClass
-    
+   
     // theNumber must be 0 - it is used to prevent division by 0
     def private static handleIntAndLong( arg, theNumber, annotation, theClass, name, delegate, throwException ) {
         def divSet = annotation.divisorSet() as Set

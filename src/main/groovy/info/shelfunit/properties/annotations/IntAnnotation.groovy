@@ -1,5 +1,7 @@
 package info.shelfunit.properties.annotations
 
+import org.codehaus.groovy.transform.GroovyASTTransformationClass
+
 import java.lang.annotation.Retention
 import java.lang.annotation.Target
 
@@ -25,6 +27,7 @@ import java.lang.annotation.RetentionPolicy
 
 @Retention( RetentionPolicy.RUNTIME ) 
 @Target( ElementType.FIELD )
+@GroovyASTTransformationClass( [ 'info.shelfunit.properties.annotations.IntAnnotationTransform' ] )
 public @interface IntAnnotation {
     /**
     The lowest value you want this field to hold. The default is 0. It could go as low as Integer.MIN_VALUE.

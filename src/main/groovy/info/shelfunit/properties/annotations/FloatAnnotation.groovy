@@ -1,5 +1,7 @@
 package info.shelfunit.properties.annotations
 
+import org.codehaus.groovy.transform.GroovyASTTransformationClass
+
 import java.lang.annotation.Retention
 import java.lang.annotation.Target
 
@@ -26,7 +28,7 @@ import java.lang.annotation.RetentionPolicy
 
 @Retention( RetentionPolicy.RUNTIME ) 
 @Target( ElementType.FIELD )
-
+@GroovyASTTransformationClass( [ 'info.shelfunit.properties.annotations.ValidationAnnotationTransform' ] )
 public @interface FloatAnnotation {
     /**
     The lowest value you want this field to hold. The default is 0.0f. It could go as low as Float.MIN_VALUE.

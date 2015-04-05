@@ -1,5 +1,7 @@
 package info.shelfunit.properties.annotations
 
+import org.codehaus.groovy.transform.GroovyASTTransformationClass
+
 import java.lang.annotation.ElementType
 import java.lang.annotation.Retention
 import java.lang.annotation.RetentionPolicy
@@ -26,6 +28,7 @@ import java.lang.annotation.Target
 */
 @Retention( RetentionPolicy.RUNTIME ) 
 @Target( ElementType.FIELD )
+@GroovyASTTransformationClass( [ 'info.shelfunit.properties.annotations.ValidationAnnotationTransform' ] )
 public @interface LongAnnotation {
         /**
     The lowest value you want this field to hold. The default is 0. It could go as low as Long.MIN_VALUE.

@@ -9,7 +9,7 @@ import groovy.transform.ToString
 class SecondBook {
     
     static { 
-        AnnotationProcessor.process( SecondBook, true ) 
+        // AnnotationProcessor.process( SecondBook, true ) 
     }
     
     int pages
