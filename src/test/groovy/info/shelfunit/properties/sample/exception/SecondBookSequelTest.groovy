@@ -7,11 +7,11 @@ import info.shelfunit.properties.annotations.AnnotationProcessor
 import org.junit.Rule
 import org.junit.rules.TestName
 
-class BookSequelTest extends Specification { 
+class SecondBookSequelTest extends Specification { 
     def setup() {}          // run before every feature method
     def cleanup() {}        // run after every feature method
     def setupSpec() {
-        AnnotationProcessor.process( BookSequel, true )
+        AnnotationProcessor.process( SecondBookSequel, true )
     }     // run before the first feature method
     def cleanupSpec() {}   // run after the last feature method
     
@@ -21,7 +21,7 @@ class BookSequelTest extends Specification {
     def "test the no arg constructor"() {
         
         println "--- Starting test ${name.methodName}"
-        def bTest1 = new BookSequel( pages: 100, title: "Some Book", year: 1990 )
+        def bTest1 = new SecondBookSequel( pages: 100, title: "Some Book", year: 1990 )
         def methodList = BookSequel.getMethods()
 
         println "bTest1: ${bTest1.toString()}"
@@ -50,7 +50,7 @@ class BookSequelTest extends Specification {
         println "--- Starting test ${name.methodName}"
         
         try {
-        def bTest1 = new BookSequel( pages: 100, title: "S", year: 1990 )
+        def bTest1 = new SecondBookSequel( pages: 100, title: "S", year: 1990 )
         } catch ( Exception ex ) {
         }
         // bTest1.title == null

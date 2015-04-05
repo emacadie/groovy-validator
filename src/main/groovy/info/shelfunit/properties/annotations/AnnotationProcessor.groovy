@@ -1,6 +1,7 @@
 package info.shelfunit.properties.annotations
 
 import java.util.regex.Pattern
+import groovy.transform.Immutable
 
 /**
 <p>This is a class that will process the annotations {@link info.shelfunit.properties.annotations.DoubleAnnotation}, {@link info.shelfunit.properties.annotations.FloatAnnotation}, {@link info.shelfunit.properties.annotations.IntAnnotation}, {@link info.shelfunit.properties.annotations.LongAnnotation} and {@link info.shelfunit.properties.annotations.StringAnnotation}</p>
@@ -15,7 +16,7 @@ import java.util.regex.Pattern
 class AnnotationProcessor {
     
     /**
-    <p>This is the method that actually processes the annotations.</p>
+    <p>This is the method that actually processes the annotations for mutable objects.</p>
     <p>Suppose you made a class called "Book" that used some of the annotations this class processes. Somewhere in your code, you
     will need to do this:</p>
     <pre>
@@ -58,14 +59,23 @@ class AnnotationProcessor {
     */
     static process( Class theClass, boolean throwException = false ) {
         
+        def hasImmutableAnn = theClass.getAnnotation( Immutable.class )
+        if ( !hasImmutableAnn ) {
+            processClass( theClass, throwException )
+        } 
+        
+    } // end process - line 44, 153, 134
+    
+    def private static processClass( Class theClass, boolean throwException ) {
         theClass.metaClass.setProperty = { String name, arg ->
-            
+                
             def field = theClass.getDeclaredField( name )
             def intAnnotation    = field?.getAnnotation( IntAnnotation.class )
             def stringAnnotation = field?.getAnnotation( StringAnnotation.class )
             def doubleAnnotation = field?.getAnnotation( DoubleAnnotation.class )
             def floatAnnotation  = field?.getAnnotation( FloatAnnotation.class )
             def longAnnotation   = field?.getAnnotation( LongAnnotation.class )
+
             def divSet
             
             if ( doubleAnnotation ) {
@@ -96,46 +106,73 @@ class AnnotationProcessor {
             } else {
                 // java.lang.reflect.Modifier.FINAL = 16 PUBLIC = 1
                 if ( theClass.metaClass.getMetaProperty( name ).getModifiers() != 17 ) {
+
+
+            // java.lang.reflect.Modifier.FINAL = 16 PUBLIC = 1
+            if ( field.getModifiers() != 17 ) {
+                if ( doubleAnnotation ) {
+                    handleDoubleAndFloat( arg, new Double( 0 ), doubleAnnotation, name, theClass, delegate, throwException )
+                } else if ( floatAnnotation ) {
+                    handleDoubleAndFloat( arg, new Float( 0 ), floatAnnotation, name, theClass, delegate, throwException )
+                } else if ( intAnnotation ) {
+                    handleIntAndLong( arg, new Integer( 0 ), intAnnotation, theClass, name, delegate, throwException )
+                } else if ( longAnnotation ) {
+                    handleIntAndLong( arg, new Long( 0 ), longAnnotation, theClass, name, delegate, throwException )                
+                } else if ( stringAnnotation ) {
+                    def theMatch = Pattern.compile( stringAnnotation.regEx(), Pattern.COMMENTS )
+                    def minimum = stringAnnotation.minLength()
+                    if ( minimum < 0 ) { minimum = 0 }
+                    if ( ( arg.length() >= minimum ) &&
+                        ( arg.length() <= stringAnnotation.maxLength() ) && 
+                         ( theMatch.matcher( arg ).matches() ) ) {
+                        theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg.toString() )
+                    } else { 
+                        if ( throwException ) {
+                            throw new Exception( "Groovy validation exception: \n" +
+                            "\"${arg}\" is a String with a length outside the range of ${stringAnnotation.minLength()} to ${stringAnnotation.maxLength()} characters or does not match the regular expresstion ${stringAnnotation.regEx()}" )
+                        }
+                    }
+                } else {
+
                     println "-----\tHere is theClass.metaClass.getMetaProperty( name ).getModifiers(): ${theClass.metaClass.getMetaProperty( name ).getModifiers()}" 
                     theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg ) // this works
                 }
-            }
-        }
-        
-    } // end process - line 44, 153, 134
+            } // if ( !fieldIsFinal )
+        } // end closure
+    } // end method processClass
     
-    // theNumber must be 0
-    def private static handleIntAndLong( arg, divSet, theNumber, annMinValue, annMaxValue, theClass, name, delegate, throwException ) {
+    // theNumber must be 0 - it is used to prevent division by 0
+    def private static handleIntAndLong( arg, theNumber, annotation, theClass, name, delegate, throwException ) {
+        def divSet = annotation.divisorSet() as Set
         println "in int and long with arg ${arg}"
         divSet.remove( theNumber )
         if ( divSet.size() == 0 ) { divSet.add( ++theNumber ) }
         if ( ( arg.class.name == theNumber.class.name ) && 
             ( divSet.find{ arg % it == 0 }  != null ) &&
-            ( arg >= annMinValue ) &&
-            ( arg <= annMaxValue ) &&
+            ( arg >= annotation.minValue() ) &&
+            ( arg <= annotation.maxValue() ) &&
             ( arg >= theNumber.MIN_VALUE ) &&
             ( arg <= theNumber.MAX_VALUE ) ) {
             theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg )
         } else { 
             if ( throwException ) {
                 throw new Exception( "Groovy validation exception: \n" +
-                "${arg} is a ${theNumber.class.name} outside the range ${annMinValue} to ${annMaxValue} or it is not divisible by anything in the set ${divSet} " )
+                "${arg} is a ${theNumber.class.name} outside the range ${annotation.minValue()} to ${annotation.maxValue()} or it is not divisible by anything in the set ${divSet} " )
             }
         }
     } // handleIntAndLong
 
-    def private static handleDoubleAndFloat( arg, numClass, annMinValue, annMaxValue, name, theClass, delegate, throwException ) {
-
+    def private static handleDoubleAndFloat( arg, numClass, annotation, name, theClass, delegate, throwException ) {
         if ( ( arg.class.name == numClass.class.name ) && 
-            ( arg >= annMinValue ) &&
-            ( arg <= annMaxValue ) &&
+            ( arg >= annotation.minValue() ) &&
+            ( arg <= annotation.maxValue() ) &&
             ( arg >= numClass.MIN_VALUE ) &&
             ( arg <= numClass.MAX_VALUE ) ) {
             theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg )
         } else { 
             if ( throwException ) {
                 throw new Exception( "Groovy validation exception: \n" +
-                "${arg} is a ${numClass.name} outside the range ${annMinValue} to ${annMaxValue}" )
+                "${arg} is a ${numClass.name} outside the range ${annotation.minValue()} to ${annotation.maxValue()}" )
             }
         }
     } // handleDoubleAndFloat

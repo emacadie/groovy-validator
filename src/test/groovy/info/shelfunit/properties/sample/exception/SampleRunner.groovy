@@ -25,9 +25,9 @@ class SampleRunner {
     } // def doMovieStuff001()
     */
     
-    def seeBookMethods() {
-        println "\n\nStarting seeBookMethods"
-        def bmc = Book.metaClass
+    def seeSecondBookMethods() {
+        println "\n\nStarting seeSecondBookMethods"
+        def bmc = SecondBook.metaClass
         bmc.methods.each {
             print "name: ${it.getName()}, "
         }
@@ -42,17 +42,17 @@ class SampleRunner {
             print "name: ${it.getName()}, "
         }
         print "\n\n"
-        println "Ending seeBookMethods"
-    } // seeBookMethods
+        println "Ending seeSecondBookMethods"
+    } // seeSecondBookMethods
    
 
     def doStuff001() {
-        // def b = new Book()
-        def bmc = Book.metaClass
+        // def b = new SecondBook()
+        def bmc = SecondBook.metaClass
        
-        def bFieldNames = [] // = Book.class.getDeclaredFields().each{it.getName()}
+        def bFieldNames = [] // = SecondBook.class.getDeclaredFields().each{it.getName()}
        
-        def bFields = Book.class.getDeclaredFields()
+        def bFields = SecondBook.class.getDeclaredFields()
         println "Fields of book:"
         bFields.each {
             print "${it.getName()} "
@@ -68,7 +68,7 @@ class SampleRunner {
         bmc.properties.each {
             print "${it.getName()} "
             if ( bFieldNames.contains( it.getName() ) ) {
-                def field = Book.class.getDeclaredField( it.getName() )
+                def field = SecondBook.class.getDeclaredField( it.getName() )
                 def stringAnnotation = field?.getAnnotation( StringAnnotation.class )
                 if ( stringAnnotation ) {
                     print "${it.getName()} has StringAnnotation"
@@ -77,16 +77,16 @@ class SampleRunner {
                     print " stringAnnotation.max(): ${stringAnnotation.max()} "
                     def mName = "set${it.getName().capitalize()}"
                     print " method would be ${mName} "
-                    Book.metaClass.invokeMethod = { String name, args ->
+                    SecondBook.metaClass.invokeMethod = { String name, args ->
                         println "Method name in invokeMethod is ${name}"
                         if ( name == mName ) {
-                            println "Looking at Book.set${it.getName().capitalize()}"
+                            println "Looking at SecondBook.set${it.getName().capitalize()}"
                             if ( !( args[ 0 ].length() > stringAnnotation.min() ) ||
                                 !( args[ 0 ].length() < stringAnnotation.max() ) ) {
-                                Book.metaClass.invokeMissingMethod(delegate, name, args)
-                                Book.metaClass.getMetaMethod("set${it.getName().capitalize()}").invoke(delegate, args)
+                                SecondBook.metaClass.invokeMissingMethod(delegate, name, args)
+                                SecondBook.metaClass.getMetaMethod("set${it.getName().capitalize()}").invoke(delegate, args)
                             } else {
-                                println "Cannot call Book.set${it.getName().capitalize()}"
+                                println "Cannot call SecondBook.set${it.getName().capitalize()}"
                             }
                         }
                     }
@@ -99,44 +99,44 @@ class SampleRunner {
         */
        
        /*
-        Book.metaClass.invokeMethod = { String name, args ->
+        SecondBook.metaClass.invokeMethod = { String name, args ->
             println "Method name in standalone invokeMethod is ${name}"
             if ( name == 'setTitle' ) {
-                println "Looking at Book.setTitle"
+                println "Looking at SecondBook.setTitle"
                 if ( !( args[ 0 ].length() > stringAnnotation.min() ) ||
                     !( args[ 0 ].length() < stringAnnotation.max() ) ) {
-                    Book.metaClass.invokeMissingMethod(delegate, name, args)
-                    Book.metaClass.getMetaMethod('setTitle').invoke(delegate, args)
+                    SecondBook.metaClass.invokeMissingMethod(delegate, name, args)
+                    SecondBook.metaClass.getMetaMethod('setTitle').invoke(delegate, args)
                 } else {
-                    println "Cannot call Book.setTitle"
+                    println "Cannot call SecondBook.setTitle"
                 }
             }
         }
         */
 
-        Book.metaClass.setProperty = { String name, arg ->
+        SecondBook.metaClass.setProperty = { String name, arg ->
             println "name in setProperty is ${name}"
-            def field = Book.class.getDeclaredField( name )
+            def field = SecondBook.class.getDeclaredField( name )
             def stringAnnotation = field?.getAnnotation( StringAnnotation.class )
             println "-- Here is stringAnnotation: ${stringAnnotation}"
             if ( stringAnnotation ) {
-                println "Looking at Book.set${name.capitalize()}"
+                println "Looking at SecondBook.set${name.capitalize()}"
                 if ( !( arg.length() < stringAnnotation.min() ) &&
                     !( arg.length() > stringAnnotation.max() ) ) {
-                    Book.class.metaClass.getMetaProperty( name ).setProperty( delegate, arg.toString() )
+                    SecondBook.class.metaClass.getMetaProperty( name ).setProperty( delegate, arg.toString() )
                 } else {
-                    println "Cannot call Book.setTitle"
+                    println "Cannot call SecondBook.setTitle"
                 }
             } else {
                 def mName = "set${name.capitalize()}"
-                def propClassName = Book.class.metaClass.getMetaProperty( name ).getType().getName()
+                def propClassName = SecondBook.class.metaClass.getMetaProperty( name ).getType().getName()
                 println "LET'S TRY CALLING ${mName}, it's a ${propClassName}"
-                Book.class.metaClass.getMetaProperty( name ).setProperty( delegate, arg ) // this works
+                SecondBook.class.metaClass.getMetaProperty( name ).setProperty( delegate, arg ) // this works
             }
         }
 
         println " \n========"
-        def bTest1 = new Book()
+        def bTest1 = new SecondBook()
        
         println "bTest1.title: ${bTest1.title} "
         bTest1.title = "abcdefg"
@@ -181,10 +181,10 @@ class SampleRunner {
 
   static void main( String[] args ) {
     def sr = new SampleRunner()
-    sr.seeBookMethods()
+    sr.seeSecondBookMethods()
     sr.doStuff001()
     // sr.doMovieStuff001()
-    // sr.seeBookMethods()
+    // sr.seeSecondBookMethods()
     sr.tryFirstSubject()
   }
 
