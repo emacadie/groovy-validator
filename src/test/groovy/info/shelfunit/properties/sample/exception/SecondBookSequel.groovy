@@ -1,7 +1,7 @@
 package info.shelfunit.properties.sample.exception
 
-import validator.IntAnnotation
-import validator.StringAnnotation
+import validation.IntAnnotation
+import validation.StringAnnotation
 import groovy.transform.ToString
 
 

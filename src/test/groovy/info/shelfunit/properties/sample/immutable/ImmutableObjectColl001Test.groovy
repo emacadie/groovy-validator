@@ -40,12 +40,12 @@ class ImmutableObjectColl001Test extends Specification {
         String classString = '''
 package info.shelfunit.somepackage
 
-import info.shelfunit.properties.annotations.ImmutableValidator
-import info.shelfunit.properties.annotations.DoubleAnnotation
-import info.shelfunit.properties.annotations.FloatAnnotation
-import info.shelfunit.properties.annotations.IntAnnotation
-import info.shelfunit.properties.annotations.LongAnnotation
-import info.shelfunit.properties.annotations.StringAnnotation
+import validation.ImmutableValidator
+import validation.DoubleAnnotation
+import validation.FloatAnnotation
+import validation.IntAnnotation
+import validation.LongAnnotation
+import validation.StringAnnotation
 
 @ImmutableValidator
 class UVW {

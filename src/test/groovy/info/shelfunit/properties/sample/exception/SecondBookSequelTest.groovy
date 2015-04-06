@@ -2,7 +2,7 @@ package info.shelfunit.properties.sample.exception
 
 import spock.lang.Specification
 
-import validator.AnnotationProcessor
+import validation.AnnotationProcessor
 
 import org.junit.Rule
 import org.junit.rules.TestName

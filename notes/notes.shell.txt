@@ -6,7 +6,7 @@ bin/groovy-validator_shell.sh
 
 To use the AstImmutableConstructor annotation in shell or console, comment out line in the multi-line string for the package
 
-import info.shelfunit.properties.annotations.*
+import validation.*
 
 package info.shelfunit.properties.sample.other
 
@@ -26,8 +26,8 @@ cc1.creditLimit = 5000
 cc1.toString()
 
 import groovy.transform.ToString
-import info.shelfunit.properties.annotations.IntAnnotation
-import info.shelfunit.properties.annotations.StringAnnotation
+import validation.IntAnnotation
+import validation.StringAnnotation
 
 @ToString( includeNames = true )
 class Person {
@@ -36,7 +36,7 @@ class Person {
     @IntAnnotation( minValue = 0, maxValue = 100 ) def age
 }
 
-info.shelfunit.properties.annotations.AnnotationProcessor.process( Person ) 
+validation.AnnotationProcessor.process( Person ) 
 
 person = new Person( firstName: 'John', lastName: 'Doe', age: 21 )
 person.toString()
@@ -45,12 +45,12 @@ person2 = new Person( firstName: 'John', lastName: 'qwertyuiopasdfghjklzxcvbnm',
 person2.toString()
 
 ----------------------------------------------------
-import info.shelfunit.properties.annotations.AstImmutableConstructor
-import info.shelfunit.properties.annotations.DoubleAnnotation
-import info.shelfunit.properties.annotations.FloatAnnotation
-import info.shelfunit.properties.annotations.IntAnnotation
-import info.shelfunit.properties.annotations.LongAnnotation
-import info.shelfunit.properties.annotations.StringAnnotation
+import validation.AstImmutableConstructor
+import validation.DoubleAnnotation
+import validation.FloatAnnotation
+import validation.IntAnnotation
+import validation.LongAnnotation
+import validation.StringAnnotation
 import groovy.transform.Immutable
 
 @Immutable

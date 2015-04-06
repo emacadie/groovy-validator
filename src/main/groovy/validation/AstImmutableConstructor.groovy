@@ -91,7 +91,7 @@ Groovy validation exception:
 */
 @Retention( RetentionPolicy.SOURCE )
 @Target( [ ElementType.TYPE ] )
-@GroovyASTTransformationClass( [ 'info.shelfunit.properties.annotations.AstImmutableConstructorTransform' ] )
+@GroovyASTTransformationClass( [ 'validation.AstImmutableConstructorTransform' ] )
 public @interface AstImmutableConstructor {
 }
 

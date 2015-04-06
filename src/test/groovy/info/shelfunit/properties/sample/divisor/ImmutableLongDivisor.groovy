@@ -1,7 +1,7 @@
 package info.shelfunit.properties.sample.divisor
 
-import info.shelfunit.properties.annotations.LongAnnotation
-import info.shelfunit.properties.annotations.ImmutableValidator 
+import validation.LongAnnotation
+import validation.ImmutableValidator 
 
 @ImmutableValidator
 class ImmutableLongDivisor {

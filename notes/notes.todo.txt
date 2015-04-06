@@ -1,5 +1,5 @@
 TODO:
-Update AnnotationProcessor to check if a class has import info.shelfunit.properties.annotations.ImmutableValidator
+Update AnnotationProcessor to check if a class has import validation.ImmutableValidator
 If so, skip processing
 
 

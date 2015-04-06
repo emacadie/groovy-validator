@@ -22,8 +22,8 @@ So I made some annotations that can do some validation for you.
 ```groovy
 package info.shelfunit.properties.sample
  
-import info.shelfunit.properties.annotations.IntAnnotation
-import info.shelfunit.properties.annotations.StringAnnotation
+import validation.IntAnnotation
+import validation.StringAnnotation
  
 class Book {
      
@@ -48,10 +48,10 @@ This project can also handle immutable objects. Instead of using AnnotationProce
 ```groovy
 package info.shelfunit.properties.sample.immutable
  
-import info.shelfunit.properties.annotations.ImmutableValidator
-import info.shelfunit.properties.annotations.IntAnnotation
-import info.shelfunit.properties.annotations.LongAnnotation
-import info.shelfunit.properties.annotations.StringAnnotation
+import validation.ImmutableValidator
+import validation.IntAnnotation
+import validation.LongAnnotation
+import validation.StringAnnotation
  
 @ImmutableValidator
 class ImmutableObject002 {

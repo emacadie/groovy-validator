@@ -1,7 +1,7 @@
 package info.shelfunit.properties.sample.immutable
 
-import info.shelfunit.properties.annotations.ImmutableValidator
-import info.shelfunit.properties.annotations.StringAnnotation
+import validation.ImmutableValidator
+import validation.StringAnnotation
 
 @ImmutableValidator
 class ImmutableRegEx {

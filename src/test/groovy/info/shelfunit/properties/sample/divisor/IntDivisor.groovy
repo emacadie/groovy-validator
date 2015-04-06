@@ -1,6 +1,6 @@
 package info.shelfunit.properties.sample.divisor
 
-import info.shelfunit.properties.annotations.IntAnnotation
+import validation.IntAnnotation
 import groovy.transform.ToString
 
 @ToString( includeNames = true )

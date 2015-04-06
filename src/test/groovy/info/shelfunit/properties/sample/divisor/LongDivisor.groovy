@@ -1,6 +1,6 @@
 package info.shelfunit.properties.sample.divisor
 
-import info.shelfunit.properties.annotations.LongAnnotation
+import validation.LongAnnotation
 
 class LongDivisor {
     

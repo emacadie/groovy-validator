@@ -1,6 +1,6 @@
 package info.shelfunit.properties.sample.other
 
-import info.shelfunit.properties.annotations.AnnotationProcessor
+import validation.AnnotationProcessor
 
 import java.lang.reflect.Method
 import spock.lang.Specification
