@@ -1,8 +1,8 @@
 package info.shelfunit.properties.nonmutable.exception
 
-import info.shelfunit.properties.annotations.AstImmutableConstructor
-import info.shelfunit.properties.annotations.IntAnnotation
-import info.shelfunit.properties.annotations.StringAnnotation
+import validation.AstImmutableConstructor
+import validation.IntAnnotation
+import validation.StringAnnotation
 import groovy.transform.Immutable
 import groovy.transform.ToString
 

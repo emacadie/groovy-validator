@@ -2,7 +2,7 @@ package info.shelfunit.properties.sample
 
 import spock.lang.Specification
 
-import info.shelfunit.properties.annotations.AnnotationProcessor
+import validation.AnnotationProcessor
 
 import org.junit.Rule
 import org.junit.rules.TestName

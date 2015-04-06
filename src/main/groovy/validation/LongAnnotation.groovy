@@ -1,4 +1,4 @@
-package info.shelfunit.properties.annotations
+package validation
 
 import java.lang.annotation.ElementType
 import java.lang.annotation.Retention

@@ -1,7 +1,7 @@
 package info.shelfunit.properties.sample
 
-import info.shelfunit.properties.annotations.AnnotationProcessor
-import info.shelfunit.properties.annotations.StringAnnotation
+import validation.AnnotationProcessor
+import validation.StringAnnotation
 import groovy.transform.ToString
 
 

@@ -1,4 +1,4 @@
-package info.shelfunit.properties.annotations
+package validation
 
 class FinalProcessor {
     static process( Class theClass, boolean throwException = false ) {

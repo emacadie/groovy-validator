@@ -4,7 +4,7 @@ import spock.lang.Specification
 import org.junit.Rule
 import org.junit.rules.TestName
 
-import info.shelfunit.properties.annotations.AnnotationProcessor
+import validation.AnnotationProcessor
 
 class SecondImmutableSampleTest extends Specification { 
     

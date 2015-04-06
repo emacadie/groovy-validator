@@ -1,7 +1,7 @@
 package info.shelfunit.properties.sample
 
-import info.shelfunit.properties.annotations.AnnotationProcessor
-import info.shelfunit.properties.annotations.LongAnnotation
+import validation.AnnotationProcessor
+import validation.LongAnnotation
 
 class LongRunner {
     

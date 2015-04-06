@@ -1,4 +1,4 @@
-package info.shelfunit.properties.annotations
+package validation
 
 /**
 This is a class that will catch an exception in the validating classes. If it is enabled, it will give messages like

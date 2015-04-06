@@ -1,4 +1,4 @@
-package info.shelfunit.properties.annotations
+package validation
 
 import java.util.regex.Pattern
 import groovy.transform.Immutable
