@@ -70,5 +70,5 @@ bTest2 = new ImmutableObject002( [ firstString: "Hello1", firstInt: 200 ], true 
 println " bTest2: ${bTest2.toString()}"
 
 
-http://beta.groovy-lang.org/docs/groovy-2.3.0/html/gapi/index.html?groovy/transform/ToString.html
+http://docs.groovy-lang.org/latest/html/gapi/index.html?groovy/transform/ToString.html
 

@@ -56,13 +56,13 @@ the constructor: name: <init> text: public void <init>(java.lang.String firstStr
 --- name of field: firstString
 It is a java.lang.String
 size of annotations for firstString: 1
-annotationNode is a org.codehaus.groovy.ast.AnnotationNode of type info.shelfunit.properties.annotations.StringAnnotation
+annotationNode is a org.codehaus.groovy.ast.AnnotationNode of type validation.StringAnnotation
 In members, here is key: maxLength, here is value: ConstantExpression[10], here is the value of the value: 10 and it is a java.lang.Integer
 In members, here is key: minLength, here is value: ConstantExpression[5], here is the value of the value: 5 and it is a java.lang.Integer
 --- name of field: firstInt
 It is a int
 size of annotations for firstInt: 1
-annotationNode is a org.codehaus.groovy.ast.AnnotationNode of type info.shelfunit.properties.annotations.IntAnnotation
+annotationNode is a org.codehaus.groovy.ast.AnnotationNode of type validation.IntAnnotation
 In members, here is key: minValue, here is value: ConstantExpression[10], here is the value of the value: 10 and it is a java.lang.Integer
 In members, here is key: maxValue, here is value: ConstantExpression[100], here is the value of the value: 100 and it is a java.lang.Integer
 here is sb1: def val
@@ -133,36 +133,36 @@ the constructor: name: <init> text: public void <init>(java.lang.String firstStr
 --- name of field: firstString
 It is a java.lang.String
 size of annotations for firstString: 1
-annotationNode is a org.codehaus.groovy.ast.AnnotationNode of type info.shelfunit.properties.annotations.StringAnnotation
+annotationNode is a org.codehaus.groovy.ast.AnnotationNode of type validation.StringAnnotation
 In members, here is key: maxLength, here is value: ConstantExpression[10], here is the value of the value: 10 and it is a java.lang.Integer
 In members, here is key: minLength, here is value: ConstantExpression[5], here is the value of the value: 5 and it is a java.lang.Integer
 --- name of field: secondString
 It is a java.lang.String
 size of annotations for secondString: 1
-annotationNode is a org.codehaus.groovy.ast.AnnotationNode of type info.shelfunit.properties.annotations.StringAnnotation
+annotationNode is a org.codehaus.groovy.ast.AnnotationNode of type validation.StringAnnotation
 In members, here is key: maxLength, here is value: ConstantExpression[15], here is the value of the value: 15 and it is a java.lang.Integer
 --- name of field: firstDouble
 It is a double
 size of annotations for firstDouble: 1
-annotationNode is a org.codehaus.groovy.ast.AnnotationNode of type info.shelfunit.properties.annotations.DoubleAnnotation
+annotationNode is a org.codehaus.groovy.ast.AnnotationNode of type validation.DoubleAnnotation
 In members, here is key: minValue, here is value: ConstantExpression[10.0], here is the value of the value: 10.0 and it is a java.lang.Double
 In members, here is key: maxValue, here is value: ConstantExpression[100.0], here is the value of the value: 100.0 and it is a java.lang.Double
 --- name of field: firstFloat
 It is a float
 size of annotations for firstFloat: 1
-annotationNode is a org.codehaus.groovy.ast.AnnotationNode of type info.shelfunit.properties.annotations.FloatAnnotation
+annotationNode is a org.codehaus.groovy.ast.AnnotationNode of type validation.FloatAnnotation
 In members, here is key: minValue, here is value: ConstantExpression[10.0], here is the value of the value: 10.0 and it is a java.lang.Float
 In members, here is key: maxValue, here is value: ConstantExpression[100.0], here is the value of the value: 100.0 and it is a java.lang.Float
 --- name of field: firstInt
 It is a int
 size of annotations for firstInt: 1
-annotationNode is a org.codehaus.groovy.ast.AnnotationNode of type info.shelfunit.properties.annotations.IntAnnotation
+annotationNode is a org.codehaus.groovy.ast.AnnotationNode of type validation.IntAnnotation
 In members, here is key: minValue, here is value: ConstantExpression[10], here is the value of the value: 10 and it is a java.lang.Integer
 In members, here is key: maxValue, here is value: ConstantExpression[100], here is the value of the value: 100 and it is a java.lang.Integer
 --- name of field: firstLong
 It is a long
 size of annotations for firstLong: 1
-annotationNode is a org.codehaus.groovy.ast.AnnotationNode of type info.shelfunit.properties.annotations.LongAnnotation
+annotationNode is a org.codehaus.groovy.ast.AnnotationNode of type validation.LongAnnotation
 In members, here is key: maxValue, here is value: ConstantExpression[100], here is the value of the value: 100 and it is a java.lang.Long
 here is sb1: def val
 val = argMap[ 'firstString' ]
@@ -262,12 +262,12 @@ the constructor: name: <init> text: public void <init>(int miles = 0, int year =
 --- name of field: miles
 It is a int
 size of annotations for miles: 1
-annotationNode is a org.codehaus.groovy.ast.AnnotationNode of type info.shelfunit.properties.annotations.IntAnnotation
+annotationNode is a org.codehaus.groovy.ast.AnnotationNode of type validation.IntAnnotation
 In members, here is key: minValue, here is value: ConstantExpression[0], here is the value of the value: 0 and it is a java.lang.Integer
 --- name of field: year
 It is a int
 size of annotations for year: 1
-annotationNode is a org.codehaus.groovy.ast.AnnotationNode of type info.shelfunit.properties.annotations.IntAnnotation
+annotationNode is a org.codehaus.groovy.ast.AnnotationNode of type validation.IntAnnotation
 In members, here is key: minValue, here is value: ConstantExpression[1990], here is the value of the value: 1990 and it is a java.lang.Integer
 here is sb1: def val
 val = argMap[ 'miles' ]
@@ -337,25 +337,25 @@ the constructor: name: <init> text: public void <init>(java.lang.String firstStr
 --- name of field: firstString
 It is a java.lang.String
 size of annotations for firstString: 1
-annotationNode is a org.codehaus.groovy.ast.AnnotationNode of type info.shelfunit.properties.annotations.StringAnnotation
+annotationNode is a org.codehaus.groovy.ast.AnnotationNode of type validation.StringAnnotation
 In members, here is key: maxLength, here is value: ConstantExpression[200], here is the value of the value: 200 and it is a java.lang.Integer
 In members, here is key: minLength, here is value: ConstantExpression[5], here is the value of the value: 5 and it is a java.lang.Integer
 --- name of field: secondString
 It is a java.lang.String
 size of annotations for secondString: 1
-annotationNode is a org.codehaus.groovy.ast.AnnotationNode of type info.shelfunit.properties.annotations.StringAnnotation
+annotationNode is a org.codehaus.groovy.ast.AnnotationNode of type validation.StringAnnotation
 In members, here is key: maxLength, here is value: ConstantExpression[20], here is the value of the value: 20 and it is a java.lang.Integer
 In members, here is key: minLength, here is value: ConstantExpression[5], here is the value of the value: 5 and it is a java.lang.Integer
 --- name of field: firstInt
 It is a int
 size of annotations for firstInt: 1
-annotationNode is a org.codehaus.groovy.ast.AnnotationNode of type info.shelfunit.properties.annotations.IntAnnotation
+annotationNode is a org.codehaus.groovy.ast.AnnotationNode of type validation.IntAnnotation
 In members, here is key: minValue, here is value: ConstantExpression[30], here is the value of the value: 30 and it is a java.lang.Integer
 In members, here is key: maxValue, here is value: ConstantExpression[400], here is the value of the value: 400 and it is a java.lang.Integer
 --- name of field: secondInt
 It is a int
 size of annotations for secondInt: 1
-annotationNode is a org.codehaus.groovy.ast.AnnotationNode of type info.shelfunit.properties.annotations.IntAnnotation
+annotationNode is a org.codehaus.groovy.ast.AnnotationNode of type validation.IntAnnotation
 In members, here is key: minValue, here is value: ConstantExpression[30], here is the value of the value: 30 and it is a java.lang.Integer
 In members, here is key: maxValue, here is value: ConstantExpression[400], here is the value of the value: 400 and it is a java.lang.Integer
 here is sb1: def val
