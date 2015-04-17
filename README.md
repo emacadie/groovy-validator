@@ -27,9 +27,9 @@ import validation.IntAnnotation
 import validation.StringAnnotation
  
 class Book {
-     
-    AnnotationProcessor.process( Book.class )
-    
+    static {
+        AnnotationProcessor.process( Book.class )
+    }
     @IntAnnotation( minValue = 30, maxValue = 400 )
     def pages
     @StringAnnotation( minLength = 5, maxLength = 20, regEx = /^.*?[Gg]roovy.*$/  )
