@@ -1,7 +1,5 @@
 package info.shelfunit.properties.visibility
 
-import visibility.VisibilityProcessor
-
 import spock.lang.Specification
 
 import org.junit.Rule
@@ -12,7 +10,6 @@ class SecondUSStateTest extends Specification {
     def setup() {}          // run before every feature method
     def cleanup() {}        // run after every feature method
     def setupSpec() {
-        // VisibilityProcessor.process( USState )
     }     // run before the first feature method
     def cleanupSpec() {}   // run after the last feature method
     
@@ -47,6 +44,7 @@ class SecondUSStateTest extends Specification {
         il.setName( "Indiana" )
         then:
         il.name == "Illinois"
+        il.getName( ) == "Illinois"
         
         when:
         il.setCapitalCity( "Vandalia" )

@@ -19,31 +19,31 @@ class HiddenTransformation implements ASTTransformation {
         if ( !astNodes[ 1 ] ) { return } 
 
         astNodes.eachWithIndex { theNode, x ->
-            println "theNode [${x}] is a ${theNode.class.name}"
+            // println "theNode [${x}] is a ${theNode.class.name}"
         }
         def annotationNode = astNodes[ 0 ]
         def fieldNode = astNodes[ 1 ]
         // theNode [0] is a org.codehaus.groovy.ast.AnnotationNode
         // theNode [1] is a org.codehaus.groovy.ast.FieldNode in this case since we are annotating a field
-        println "annotation is for ${annotationNode.classNode.name}"
-        println "field is for class ${fieldNode.getOwner().name} and field ${fieldNode.name}, so setter would be set${fieldNode.name.capitalize()}"
+        // println "annotation is for ${annotationNode.classNode.name}"
+        // println "field is for class ${fieldNode.getOwner().name} and field ${fieldNode.name}, so setter would be set${fieldNode.name.capitalize()}"
         
         def theClass = annotationNode.classNode
-        println "methods of annotation  ${theClass.name}:"
+        // println "methods of annotation  ${theClass.name}:"
         theClass.methods.each { methodNode ->
-            print " ${methodNode.name}, "
+            // print " ${methodNode.name}, "
         }
         def annotatedClass = fieldNode.getOwner() // the class
-        println "\nmethods of class ${annotatedClass.name}" // look for createValidatingConstructor from AstImmutableConstructorTransform
+        // println "\nmethods of class ${annotatedClass.name}" // look for createValidatingConstructor from AstImmutableConstructorTransform
         def hasCreateValidatingConstructor = false
         annotatedClass.methods.each { mNode ->
-            print " ${mNode.name}, "
+            // print " ${mNode.name}, "
             if (mNode.name == "createValidatingConstructor" ) { hasCreateValidatingConstructor = true }
         }
-        println ",  hasCreateValidatingConstructor: ${hasCreateValidatingConstructor}"
+        // println ",  hasCreateValidatingConstructor: ${hasCreateValidatingConstructor}"
         
 
-        println "\n--------------------------------------\n\n"
+        // println "\n--------------------------------------\n\n"
 
         def methodString = new StringBuffer()
         methodString << """
@@ -54,7 +54,7 @@ class HiddenTransformation implements ASTTransformation {
        }
     """
  
-        println "here is the method string: ${methodString}"
+        // println "here is the method string: ${methodString}"
         if ( !hasCreateValidatingConstructor ) {
             try {
                 def ast = new AstBuilder().buildFromString( CompilePhase.INSTRUCTION_SELECTION, false, methodString.toString() )
@@ -71,7 +71,6 @@ class HiddenTransformation implements ASTTransformation {
         }
         
     } // end method visit
-    
 
 } // end class  - line 208, 228
 

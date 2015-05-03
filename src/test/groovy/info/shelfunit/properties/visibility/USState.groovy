@@ -11,9 +11,13 @@ class USState {
     
     String capitalCity
     
-    USState( argName, argCapCity ) {
+    @Hidden
+    def abbrev
+    
+    USState( argName, argCapCity, argAbbrev ) {
         name = argName
         capitalCity = argCapCity
+        abbrev = argAbbrev
     }
     
 }

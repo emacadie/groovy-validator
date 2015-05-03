@@ -5,11 +5,8 @@ import groovy.transform.ToString
 
 @ToString( includeNames = true, includeFields = true )
 class SecondUSState {
-    
+    @Hidden
     String name
-    def setName( arg ) {
-        println "No setter for you"
-    }
     
     String capitalCity
     
