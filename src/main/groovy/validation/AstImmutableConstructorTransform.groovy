@@ -180,7 +180,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                             if ( holdSet.size() == zeroNum ) { holdSet.add( ++zeroNum ) }
                             sb1 << """
                             if ( (val == null ) || ( ( ${minimum} <= val ) && ( val <= ${maximum} ) && ( ${holdSet}.find{ val % it == 0 }  != null ) ) ) {
-                                println( 'setting ${nodeName} to ' + val );
+                                println( 'setting ${nodeName} which is a ${zeroNum.class.name} to ' + val );
                                 newMap[ '${nodeName}' ] = val
                             } else { 
                                 if ( throwException ) {
@@ -198,6 +198,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                     def maximum = annotationNode.getMember( 'maxValue' ) ? annotationNode.getMember( 'maxValue' ).getValue() :  maxValue
                     sb1 << """
                     if ( ( ${minimum} <= val ) && ( val <= ${maximum} ) ) {
+                    println( 'setting ${nodeName} which is a ${numClassName} to ' + val );
                         newMap[ '${nodeName}' ] = val
                     } else { 
                         if ( throwException ) {

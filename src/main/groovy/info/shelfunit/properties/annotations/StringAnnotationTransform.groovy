@@ -1,7 +1,6 @@
 package info.shelfunit.properties.annotations
 
 import org.codehaus.groovy.ast.ASTNode
-// import org.codehaus.groovy.ast.ClassNode 
 
 import org.codehaus.groovy.ast.builder.AstBuilder
 import org.codehaus.groovy.control.CompilePhase
@@ -9,7 +8,7 @@ import org.codehaus.groovy.control.SourceUnit
 import org.codehaus.groovy.transform.ASTTransformation
 import org.codehaus.groovy.transform.GroovyASTTransformation 
 
-@GroovyASTTransformation( phase = CompilePhase.INSTRUCTION_SELECTION )
+@GroovyASTTransformation( phase = CompilePhase.CLASS_GENERATION ) //.INSTRUCTION_SELECTION )
 class StringAnnotationTransform implements ASTTransformation {
 
     void visit( ASTNode[] astNodes, SourceUnit sourceUnit ) {
@@ -86,7 +85,8 @@ class StringAnnotationTransform implements ASTTransformation {
         // println "here is the method string: ${methodString}"
         
             try {
-                def ast = new AstBuilder().buildFromString( CompilePhase.INSTRUCTION_SELECTION, false, methodString.toString() )
+                def ast = new AstBuilder().buildFromString( CompilePhase.CLASS_GENERATION, false, methodString.toString() )
+                // CompilePhase.INSTRUCTION_SELECTION, false, methodString.toString() )
                 // println "ast[ 0 ] is a ${ast[ 0 ].class.name}, and ast[ 1 ] is a ${ast[ 1 ].class.name}"
                 def someClassNode = ast[ 1 ]
                 def methods = ast[ 1 ].methods
