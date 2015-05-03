@@ -22,11 +22,14 @@ So I made some annotations that can do some validation for you.
 ```groovy
 package info.shelfunit.properties.sample
  
-import info.shelfunit.properties.annotations.IntAnnotation
-import info.shelfunit.properties.annotations.StringAnnotation
+import validation.AnnotationProcessor
+import validation.IntAnnotation
+import validation.StringAnnotation
  
 class Book {
-     
+    static {
+        AnnotationProcessor.process( Book.class )
+    }
     @IntAnnotation( minValue = 30, maxValue = 400 )
     def pages
     @StringAnnotation( minLength = 5, maxLength = 20, regEx = /^.*?[Gg]roovy.*$/  )
@@ -35,23 +38,25 @@ class Book {
 }
 ```
 
-You can process the annotations by calling the static process method on info.shelfunit.properties.annotations.AnnotationProcessor, sending your POGO class as an argument:
+The annotations for POGOs are processed by calling the static process method on validation.AnnotationProcessor, sending your POGO class as an argument:
 
 ```groovy
 AnnotationProcessor.process( Book.class )
 ```
 
+This can be done in a static block in your POGO (as in the Book.groovy example above) or separately outside your class. 
+
 For POGOs, if a numeric field is declared as "def", it will become null if the argument does not meet the validation constraints. If it is declared as a primitive, it will be set to 0 if the argument does not meet the validation constraints.
 
-This project can also handle immutable objects. Instead of using AnnotationProcessor.process(), you annotate the class with the ImmutableValidator annotation. ImmutableValidator combines Groovy's [Immutable](http://beta.groovy-lang.org/docs/groovy-2.3.0/html/gapi/index.html?groovy/transform/Immutable.html) and [ToString](http://beta.groovy-lang.org/docs/groovy-2.3.0/html/gapi/index.html?groovy/transform/ToString.html) annotations with another annotation processor I wrote. Here is an example:
+This project can also validate fields in immutable objects. Instead of using AnnotationProcessor.process(), you annotate the class with  ImmutableValidator:
 
 ```groovy
 package info.shelfunit.properties.sample.immutable
  
-import info.shelfunit.properties.annotations.ImmutableValidator
-import info.shelfunit.properties.annotations.IntAnnotation
-import info.shelfunit.properties.annotations.LongAnnotation
-import info.shelfunit.properties.annotations.StringAnnotation
+import validation.ImmutableValidator
+import validation.IntAnnotation
+import validation.LongAnnotation
+import validation.StringAnnotation
  
 @ImmutableValidator
 class ImmutableObject002 {
@@ -64,7 +69,7 @@ class ImmutableObject002 {
 }
 ```
 
-To process the annotations, put your properties in a Map, and add a boolean called "validation" and set it to true:
+To process the annotations, put your properties in a Map, and add a boolean called "validation" and set it to true (since I couldn't overload the Map constructor, I added a boolean):
 
 ```groovy
 def validatingImObject = new ImmutableObject002( 
@@ -101,7 +106,7 @@ Groovy validation exception:
 222 is a long outside the range 0 to 100 or it is not divisible by anything in the set [5, 7] 
 ```
 
-If "thowException" is true for a POGO, the field will either retains its pre-existing value (if it had one) or be set to null. If "throwException" is true for an immutable object, the object will not be created.
+If "thowException" is true for a POGO, the field will either retain its pre-existing value (if it had one) or be set to null. If "throwException" is true for an immutable object and an exception is thrown, then the object will not be created.
 
 Right now it only handles String, double, float, int and long. For String, it checks the string is checked against a minimum ("minLength") and maximum ("maxLength") length, and against a regular expression ("regEx"). For integers and longs, the field is checked against minimum ("minValue") and maximum ("maxValue") values, and a set of divisors ("divisorSet"). For double and float, the field is checked against minimum ("minValue") and maximum ("maxValue") values. There are defaults for all of these.  
 
@@ -112,7 +117,8 @@ Run
 ```
 gradle distZip
 ```
-and use build/libs/groovy-validator.jar in your project.
+and use build/libs/groovy-validator.jar in your project.  
 
+Note: as of 2015-05-02, the "Hidden" annotation is not working
 
 

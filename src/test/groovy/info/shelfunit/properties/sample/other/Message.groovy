@@ -3,7 +3,7 @@ package info.shelfunit.properties.sample.other
 import groovy.transform.ToString
 import groovy.transform.builder.Builder
 import groovy.transform.builder.DefaultStrategy
-import info.shelfunit.properties.annotations.StringAnnotation
+import validation.StringAnnotation
 
 @ToString( includeNames = true )
 @Builder( builderStrategy = DefaultStrategy )

@@ -1,7 +1,7 @@
 package info.shelfunit.properties.nonmutable
 
-import info.shelfunit.properties.annotations.IntAnnotation
-import info.shelfunit.properties.annotations.StringAnnotation
+import validation.IntAnnotation
+import validation.StringAnnotation
 
 class SecondImmutableExSample {
 

@@ -15,6 +15,9 @@ gradle -Dtest.single=TrulyImmutable001Test test -info
 gradle -Dtest.single=FloatRunnerTest test -info   
 gradle -Dtest.single=DoubleRunnerTest test -info   
 
+gradle -Dtest.single=USStateTest test -info
+gradle -Dtest.single=SecondUSStateTest test -info
+
 Tests with exceptions:
 Package info.shelfunit.properties.sample.exception
 gradle -Dtest.single=DoubleExRunnerTest  test -info  

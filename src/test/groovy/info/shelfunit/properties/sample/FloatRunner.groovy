@@ -1,7 +1,7 @@
 package info.shelfunit.properties.sample
 
-import info.shelfunit.properties.annotations.AnnotationProcessor
-import info.shelfunit.properties.annotations.FloatAnnotation
+import validation.AnnotationProcessor
+import validation.FloatAnnotation
 import groovy.transform.ToString
 
 @ToString( includeNames = true )

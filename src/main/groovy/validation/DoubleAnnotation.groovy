@@ -1,4 +1,4 @@
-package info.shelfunit.properties.annotations
+package validation
 
 import org.codehaus.groovy.transform.GroovyASTTransformationClass
 
@@ -19,9 +19,9 @@ import java.lang.annotation.RetentionPolicy
 </pre>
 <p>If the field is defined as "double" and it is given a value in the first call to setX that is outside your constraints, then it will be set to 0. If the field is defined as "def" and it is given a value that is outside your constraints, then it will be set to null. If the field already has a valid value and it is sent an invalid one in a call to setX, the new, invalid value will be ignored.</p>
 
-<p>An application, class or library that uses this annotation must also import {@link info.shelfunit.properties.annotations.AnnotationProcessor} (for a POGO) or {@link info.shelfunit.properties.annotations.ImmutableValidator} (for an immutable object).</p>
+<p>An application, class or library that uses this annotation must also import {@link validation.AnnotationProcessor} (for a POGO) or {@link validation.ImmutableValidator} (for an immutable object).</p>
 
-<p>You must append the "d" at the end of the number. If you set "throwException" to true for {@link info.shelfunit.properties.annotations.AnnotationProcessor} or {@link info.shelfunit.properties.annotations.ImmutableValidator} and an exception is thrown, the "d" will not be printed as part of the number in the message.</p>
+<p>You must append the "d" at the end of the number. If you set "throwException" to true for {@link validation.AnnotationProcessor} or {@link validation.ImmutableValidator} and an exception is thrown, the "d" will not be printed as part of the number in the message.</p>
 
 <p></p>
 */

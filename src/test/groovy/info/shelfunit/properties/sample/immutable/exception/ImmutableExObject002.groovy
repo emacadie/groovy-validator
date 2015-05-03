@@ -1,11 +1,11 @@
 package info.shelfunit.properties.sample.immutable.exception
 
-import info.shelfunit.properties.annotations.AstImmutableConstructor
-import info.shelfunit.properties.annotations.DoubleAnnotation
-import info.shelfunit.properties.annotations.FloatAnnotation
-import info.shelfunit.properties.annotations.IntAnnotation
-import info.shelfunit.properties.annotations.LongAnnotation
-import info.shelfunit.properties.annotations.StringAnnotation
+import validation.AstImmutableConstructor
+import validation.DoubleAnnotation
+import validation.FloatAnnotation
+import validation.IntAnnotation
+import validation.LongAnnotation
+import validation.StringAnnotation
 import groovy.transform.Immutable
 import groovy.transform.ToString
 

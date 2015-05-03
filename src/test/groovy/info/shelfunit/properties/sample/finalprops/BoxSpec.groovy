@@ -1,6 +1,6 @@
 package info.shelfunit.properties.sample.finalprops
 
-import info.shelfunit.properties.annotations.FinalProcessor
+import validation.FinalProcessor
 
 import spock.lang.Specification
 import org.junit.Rule

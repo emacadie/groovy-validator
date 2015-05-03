@@ -1,4 +1,4 @@
-package info.shelfunit.properties.annotations
+package validation
 
 import org.codehaus.groovy.transform.GroovyASTTransformationClass
 
@@ -8,11 +8,11 @@ import java.lang.annotation.RetentionPolicy
 import java.lang.annotation.Target
 
 /**
-<p>This is an annotation that can be used to validate fields in immutable objects. It is intended to be used with the <a href="http://beta.groovy-lang.org/docs/groovy-2.3.0/html/gapi/index.html?groovy/transform/Immutable.html">Immutable</a> annotation at the class level, although I think it will also work with mutable POGOs as well. The fields can be annotated with the following annotations: {@link info.shelfunit.properties.annotations.DoubleAnnotation}, {@link info.shelfunit.properties.annotations.FloatAnnotation}, {@link info.shelfunit.properties.annotations.IntAnnotation}, {@link info.shelfunit.properties.annotations.LongAnnotation} and {@link info.shelfunit.properties.annotations.StringAnnotation}. You do not need to run the {@link info.shelfunit.properties.annotations.AnnotationProcessor} for this to work.</p>
+<p>This is an annotation that can be used to validate fields in immutable objects. It is intended to be used with the <a href="http://docs.groovy-lang.org/latest/html/gapi/index.html?groovy/transform/Immutable.html">Immutable</a> annotation at the class level, although I think it will also work with mutable POGOs as well. The fields can be annotated with the following annotations: {@link validation.DoubleAnnotation}, {@link validation.FloatAnnotation}, {@link validation.IntAnnotation}, {@link validation.LongAnnotation} and {@link validation.StringAnnotation}. You do not need to run the {@link validation.AnnotationProcessor} for this to work.</p>
 
-<p>The {@link info.shelfunit.properties.annotations.ImmutableValidator} annotation does the same thing, with a few less lines of code. It is a meta-annotation that wraps this one. If you use this annotation, you MUST also annotate your class with Groovy's <a href="http://beta.groovy-lang.org/docs/groovy-2.3.0/html/gapi/index.html?groovy/transform/Immutable.html">Immutable</a> annotation. {@link info.shelfunit.properties.annotations.ImmutableValidator}. on the other hand, is a meta-annotation using <a href="http://beta.groovy-lang.org/docs/groovy-2.3.0/html/gapi/index.html?groovy/transform/AnnotationCollector.html">AnnotationCollector</a> to combine this annotation with <a href="http://beta.groovy-lang.org/docs/groovy-2.3.0/html/gapi/index.html?groovy/transform/Immutable.html">Immutable</a> and <a href="http://beta.groovy-lang.org/docs/groovy-2.3.0/html/gapi/index.html?groovy/transform/ToString.html">ToString</a> into one annotation. </p>
+<p>The {@link validation.ImmutableValidator} annotation does the same thing, with a few less lines of code. It is a meta-annotation that wraps this one. If you use this annotation, you MUST also annotate your class with Groovy's <a href="http://docs.groovy-lang.org/latest/html/gapi/index.html?groovy/transform/Immutable.html">Immutable</a> annotation. {@link validation.ImmutableValidator}. on the other hand, is a meta-annotation using <a href="http://docs.groovy-lang.org/latest/html/gapi/index.html?groovy/transform/AnnotationCollector.html">AnnotationCollector</a> to combine this annotation with <a href="http://docs.groovy-lang.org/latest/html/gapi/index.html?groovy/transform/Immutable.html">Immutable</a> and <a href="http://docs.groovy-lang.org/latest/html/gapi/index.html?groovy/transform/ToString.html">ToString</a> into one annotation. </p>
 
-<p>The fields must be of a type that can be in an object annotated with the <a href="http://beta.groovy-lang.org/docs/groovy-2.3.0/html/gapi/index.html?groovy/transform/Immutable.html">Immutable</a> annotation. Unlike  the {@link info.shelfunit.properties.annotations.AnnotationProcessor} annotation, you cannot have fields declared as "def".</p>
+<p>The fields must be of a type that can be in an object annotated with the <a href="http://docs.groovy-lang.org/latest/html/gapi/index.html?groovy/transform/Immutable.html">Immutable</a> annotation. Unlike  the {@link validation.AnnotationProcessor} annotation, you cannot have fields declared as "def".</p>
 
 <p>
 There is a bit of a bug: It will set String, double, float, int and long fields within the default constraints in the annotations listed in the previous paragraph even if the fields are not annotated. They are pretty broad, but the default for the numbers is to set the minimum equal to 0. So if you have no annotation for an int, and you try to give it a value below 0, it will be set to 0. However, this might be a "bug" that really is a feature.
@@ -25,10 +25,10 @@ Here is an example class:
 <pre>
 package info.shelfunit.properties.sample.immutable
 
-import info.shelfunit.properties.annotations.AstImmutableConstructor
-import info.shelfunit.properties.annotations.IntAnnotation
-import info.shelfunit.properties.annotations.LongAnnotation
-import info.shelfunit.properties.annotations.StringAnnotation
+import validation.AstImmutableConstructor
+import validation.IntAnnotation
+import validation.LongAnnotation
+import validation.StringAnnotation
 import groovy.transform.Immutable
 import groovy.transform.ToString
 
@@ -91,7 +91,7 @@ Groovy validation exception:
 */
 @Retention( RetentionPolicy.SOURCE )
 @Target( [ ElementType.TYPE ] )
-@GroovyASTTransformationClass( [ 'info.shelfunit.properties.annotations.AstImmutableConstructorTransform' ] )
+@GroovyASTTransformationClass( [ 'validation.AstImmutableConstructorTransform' ] )
 public @interface AstImmutableConstructor {
 }
 

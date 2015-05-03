@@ -1,7 +1,7 @@
 package info.shelfunit.properties.sample.exception
 
-import info.shelfunit.properties.annotations.AnnotationProcessor
-import info.shelfunit.properties.annotations.DoubleAnnotation
+import validation.AnnotationProcessor
+import validation.DoubleAnnotation
 
 class DoubleExRunner {
     

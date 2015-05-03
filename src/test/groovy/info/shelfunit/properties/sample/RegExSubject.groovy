@@ -1,6 +1,6 @@
 package info.shelfunit.properties.sample
 
-import info.shelfunit.properties.annotations.StringAnnotation
+import validation.StringAnnotation
 import groovy.transform.ToString
 
 @ToString( includeNames = true )

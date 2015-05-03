@@ -1,4 +1,4 @@
-package info.shelfunit.properties.annotations
+package validation
 
 import org.codehaus.groovy.ast.ASTNode
 import org.codehaus.groovy.ast.ClassNode 

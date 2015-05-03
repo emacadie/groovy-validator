@@ -2,8 +2,8 @@ package info.shelfunit.properties.sample.other
 
 import groovy.transform.ToString
 import groovy.transform.TupleConstructor 
-import info.shelfunit.properties.annotations.IntAnnotation
-import info.shelfunit.properties.annotations.AstImmutableConstructor
+import validation.IntAnnotation
+import validation.AstImmutableConstructor
 
 @ToString( includeNames = true )
 // @AstImmutableConstructor

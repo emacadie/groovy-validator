@@ -1,8 +1,8 @@
 package info.shelfunit.properties.sample.finalprops
 
 import groovy.transform.ToString
-import info.shelfunit.properties.annotations.IntAnnotation
-import info.shelfunit.properties.annotations.StringAnnotation
+import validation.IntAnnotation
+import validation.StringAnnotation
 
 @ToString( includeNames = true )
 class Box {

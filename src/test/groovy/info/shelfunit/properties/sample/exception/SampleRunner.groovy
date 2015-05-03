@@ -1,7 +1,7 @@
 package info.shelfunit.properties.sample.exception
 
-import info.shelfunit.properties.annotations.StringAnnotation
-import info.shelfunit.properties.annotations.AnnotationProcessor
+import validation.StringAnnotation
+import validation.AnnotationProcessor
 
 class SampleRunner {
    /*

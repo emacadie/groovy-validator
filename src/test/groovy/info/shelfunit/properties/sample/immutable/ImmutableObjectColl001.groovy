@@ -1,8 +1,8 @@
 package info.shelfunit.properties.sample.immutable
 
-import info.shelfunit.properties.annotations.ImmutableValidator
-import info.shelfunit.properties.annotations.IntAnnotation
-import info.shelfunit.properties.annotations.StringAnnotation
+import validation.ImmutableValidator
+import validation.IntAnnotation
+import validation.StringAnnotation
 
 @ImmutableValidator
 class ImmutableObjectColl001 {

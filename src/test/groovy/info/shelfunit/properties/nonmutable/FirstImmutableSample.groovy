@@ -1,8 +1,8 @@
 package info.shelfunit.properties.nonmutable
 
-import info.shelfunit.properties.annotations.AnnotationProcessor
-import info.shelfunit.properties.annotations.IntAnnotation
-import info.shelfunit.properties.annotations.StringAnnotation
+import validation.AnnotationProcessor
+import validation.IntAnnotation
+import validation.StringAnnotation
 
 class FirstImmutableSample {
     /*

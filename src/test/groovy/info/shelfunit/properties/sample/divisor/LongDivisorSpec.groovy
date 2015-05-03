@@ -3,7 +3,7 @@ package info.shelfunit.properties.sample.divisor
 import spock.lang.Specification
 import org.junit.Rule
 import org.junit.rules.TestName
-import info.shelfunit.properties.annotations.AnnotationProcessor
+import validation.AnnotationProcessor
 
 class LongDivisorSpec extends Specification { 
     def setup() {}          // run before every feature method

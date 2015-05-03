@@ -1,6 +1,6 @@
 package info.shelfunit.properties.sample.other
 
-import info.shelfunit.properties.annotations.AnnotationProcessor
+import validation.AnnotationProcessor
 
 import spock.lang.Specification
 import org.junit.Rule

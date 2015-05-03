@@ -31,7 +31,8 @@ http://java.dzone.com/articles/groovy-ast-transformations
 https://github.com/groovy/groovy-core/blob/master/src/main/org/codehaus/groovy/transform/ImmutableASTTransformation.java
 
 I think the fields have annotations, not properties
-http://beta.groovy-lang.org/docs/latest/html/gapi/org/codehaus/groovy/ast/FieldNode.html
+http://docs.groovy-lang.org/latest/html/gapi/index.html?groovy/transform/Immutable.html
+http://docs.groovy-lang.org/latest/html/gapi/org/codehaus/groovy/ast/FieldNode.html
 https://github.com/groovy/groovy-core/blob/master/src/test/org/codehaus/groovy/ast/builder/AstBuilderFromStringTest.groovy
 
 
@@ -56,9 +57,9 @@ or the with statement:
      lastName = "Lewandowski"
      age = 21
  }
-These are from http://beta.groovy-lang.org/docs/groovy-2.3.0/html/gapi/index.html?groovy/transform/builder/package-summary.html
-http://beta.groovy-lang.org/docs/groovy-2.3.0/html/gapi/index.html?groovy/transform/builder/Builder.html
-http://beta.groovy-lang.org/docs/groovy-2.3.0/html/gapi/index.html?groovy/transform/Immutable.html
+These are from http://docs.groovy-lang.org/latest/html/gapi/index.html?groovy/transform/builder/package-summary.html
+http://docs.groovy-lang.org/latest/html/gapi/index.html?groovy/transform/builder/Builder.html
+http://docs.groovy-lang.org/latest/html/gapi/index.html?groovy/transform/Immutable.html
 Also look at
 http://mrhaki.blogspot.com/2014/05/groovy-goodness-use-builder-ast.html
 http://blog.jdriven.com/2014/05/groovy-goodness-builder-definition-extra-type-checks/

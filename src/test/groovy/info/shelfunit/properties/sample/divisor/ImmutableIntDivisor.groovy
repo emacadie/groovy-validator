@@ -1,7 +1,7 @@
 package info.shelfunit.properties.sample.divisor
 
-import info.shelfunit.properties.annotations.IntAnnotation
-import info.shelfunit.properties.annotations.ImmutableValidator 
+import validation.IntAnnotation
+import validation.ImmutableValidator 
 
 @ImmutableValidator
 class ImmutableIntDivisor {
