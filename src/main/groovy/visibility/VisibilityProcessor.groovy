@@ -1,6 +1,5 @@
 package visibility
 
-import java.util.regex.Pattern
 import groovy.transform.Immutable
 
 /**
@@ -81,7 +80,7 @@ class VisibilityProcessor {
                     // theClass.metaClass.getMetaProperty( name ).setProperty( null, null )
                     println "About to try making ${'set' + name.capitalize()}"
                     theClass.metaClass."${'set' + name.capitalize()}" { Object ffff ->
-                        delegate.set( name, currentValue )
+                        // delegate.set( name, currentValue )
                     }
                     
                 } 
@@ -89,5 +88,5 @@ class VisibilityProcessor {
         } // end closure
     } // end method processClass
     
-} // end class AnnotationProcessor - line 128 - line 157, 150
+} // end class VisibilityProcessor - line 128 - line 157, 150
 

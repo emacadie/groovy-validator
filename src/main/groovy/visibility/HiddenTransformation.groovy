@@ -1,7 +1,7 @@
 package visibility
 
 import org.codehaus.groovy.ast.ASTNode
-import org.codehaus.groovy.ast.ClassNode 
+// import org.codehaus.groovy.ast.ClassNode 
 
 import org.codehaus.groovy.ast.builder.AstBuilder
 import org.codehaus.groovy.control.CompilePhase
@@ -15,15 +15,16 @@ class HiddenTransformation implements ASTTransformation {
     void visit( ASTNode[] astNodes, SourceUnit sourceUnit ) {
         
         if ( !astNodes ) { return }
-        if ( !astNodes[ 0 ] ) { return }
-        if ( !astNodes[ 1 ] ) { return }
+        if ( !astNodes[ 0 ] ) { return } 
+        if ( !astNodes[ 1 ] ) { return } 
+
         astNodes.eachWithIndex { theNode, x ->
             println "theNode [${x}] is a ${theNode.class.name}"
         }
         def annotationNode = astNodes[ 0 ]
         def fieldNode = astNodes[ 1 ]
         // theNode [0] is a org.codehaus.groovy.ast.AnnotationNode
-        // theNode [1] is a org.codehaus.groovy.ast.FieldNode
+        // theNode [1] is a org.codehaus.groovy.ast.FieldNode in this case since we are annotating a field
         println "annotation is for ${annotationNode.classNode.name}"
         println "field is for class ${fieldNode.getOwner().name} and field ${fieldNode.name}, so setter would be set${fieldNode.name.capitalize()}"
         
@@ -41,20 +42,15 @@ class HiddenTransformation implements ASTTransformation {
         }
         println ",  hasCreateValidatingConstructor: ${hasCreateValidatingConstructor}"
         
-        println "Here is annotationNode.getMember('minLength') ${ annotationNode.getMember( 'minLength' ) ? annotationNode.getMember( 'minLength' ).getValue() : 0 }"
-        println "Here is annotationNode.getMember('maxLength') ${ annotationNode.getMember( 'maxLength' ) ? annotationNode.getMember( 'maxLength' ).getValue() :  Integer.MAX_VALUE }"
-        println "Here is annotationNode.getMember('regEx' ): ${annotationNode.getMember( 'regEx' ) ? "/" + annotationNode?.getMember( 'regEx' )?.getText() + "/" : "\".*\""}" 
+
         println "\n--------------------------------------\n\n"
-        
-        def min = annotationNode.getMember( 'minLength' ) ? annotationNode.getMember( 'minLength' ).getValue() : 0 
-        def max = annotationNode.getMember( 'maxLength' ) ? annotationNode.getMember( 'maxLength' ).getValue() :  Integer.MAX_VALUE 
-        def regex = annotationNode.getMember( 'regEx' ) ? "/" + annotationNode?.getMember( 'regEx' )?.getText() + "/" : "\".*\""
-        def catchAll = ( regex == '".*"' ) ?: false
-        println "regex ${regex} is catchAll: ${catchAll}  Here is the test: ${( regex == '".*"' )}"
-        def patternString1 = regex.replace(  "\\", "\\\\" ) 
+
         def methodString = new StringBuffer()
         methodString << """
-    def set${fieldNode.name.capitalize()}( arg ) {
+    public void set${fieldNode.name.capitalize()}( Object arg ) {
+        if ( arg.getClass().getName() == "java.lang.String" ) {
+            System.out.println( "Method set${fieldNode.name.capitalize()} called with arg " + arg + ", ignoring" );
+        }
        }
     """
  

@@ -1,6 +1,5 @@
 package info.shelfunit.properties.visibility
 
-import visibility.Hidden
 import visibility.VisibilityProcessor
 
 import spock.lang.Specification

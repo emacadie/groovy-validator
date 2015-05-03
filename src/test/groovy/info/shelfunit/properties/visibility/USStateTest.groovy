@@ -1,6 +1,5 @@
 package info.shelfunit.properties.visibility
 
-import visibility.Hidden
 import visibility.VisibilityProcessor
 
 import spock.lang.Specification
@@ -29,6 +28,7 @@ class USStateTest extends Specification {
         il.name = "Indiana"
         then:
         il.name == "Illinois"
+        il.capitalCity == "Kaskaskia"
         
         when:
         il.capitalCity = "Vandalia"
