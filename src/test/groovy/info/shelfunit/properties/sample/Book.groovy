@@ -1,19 +1,15 @@
 package info.shelfunit.properties.sample
 
-<<<<<<< HEAD
-// import info.shelfunit.properties.annotations.AnnotationProcessor
-import info.shelfunit.properties.annotations.StringAnnotation
-=======
 import validation.AnnotationProcessor
 import validation.StringAnnotation
->>>>>>> working
-import groovy.transform.ToString
 
+import groovy.transform.ToString
 
 @ToString( includeNames = true )
 class Book {
     
-    static { 
+    static {
+        println "In the static block"
         // AnnotationProcessor.process( Book ) 
     }
     

@@ -10,8 +10,8 @@ import org.codehaus.groovy.transform.ASTTransformation
 import org.codehaus.groovy.transform.GroovyASTTransformation 
 
 // @GroovyASTTransformation( phase = CompilePhase.INSTRUCTION_SELECTION )
-// @GroovyASTTransformation( phase = CompilePhase.CLASS_GENERATION )
-@GroovyASTTransformation( phase = CompilePhase.OUTPUT )
+@GroovyASTTransformation( phase = CompilePhase.CLASS_GENERATION )
+// @GroovyASTTransformation( phase = CompilePhase.OUTPUT )
 class StringAnnotationTransform implements ASTTransformation {
     
     /*
@@ -137,37 +137,38 @@ class StringAnnotationTransform implements ASTTransformation {
         println "regex ${regex} is catchAll: ${catchAll}  Here is the test: ${( regex == '".*"' )}"
         def patternString1 = regex.replace(  "\\", "\\\\" ) 
         def methodString = new StringBuffer()
-        /*
+        
         methodString << """
-    public void set${fieldNode.name.capitalize()}( java.lang.String arg ) {
-        println \" calling set${fieldNode.name.capitalize()} with arg \" + arg
+    public void set${fieldNode.name.capitalize()}( java.lang.Object arg ) {
+        System.out.println( \" calling set${fieldNode.name.capitalize()} with arg \" + arg );
     """
         if ( !catchAll ) {
             methodString <<  """
-        def theMatch = java.util.regex.Pattern.compile( ${regex}, java.util.regex.Pattern.COMMENTS )
+        java.util.regex.Pattern theMatch = java.util.regex.Pattern.compile( ${regex}, java.util.regex.Pattern.COMMENTS );
             """ 
         }
         methodString << """
-        if ( ( ${min} <= arg?.length() ) && ( arg?.length() <= ${max} ) """
+        if ( ( ${min} <= arg.length() ) && ( arg.length() <= ${max} ) """
         if ( !catchAll ) {
             methodString << "&& ( theMatch.matcher( arg ).matches() ) "
         }
         methodString << """) {
-            this.${fieldNode.getName()} = arg
+            this.${fieldNode.getName()} = arg;
         } else { 
             throw new Exception(
-                 '"' + arg + '" is a String with a length outside the range of ${min} to ${max} characters """
-                if ( !catchAll ) { methodString << " or does not match the regular expression ${patternString1} " } 
-                methodString << """' 
-            )
+                 arg + \" is a String with a length outside the range of ${min} to ${max} characters \" """
+                if ( !catchAll ) { methodString << " + \" or does not match the regular expression ${patternString1} \" " } 
+                methodString << """ 
+            );
         }
     }"""
-    */
+    
         methodString << "\n\n"
         methodString << """
         def checkForStaticGroovyValidatorInitializer() {}
         // static {
-              info.shelfunit.properties.annotations.AnnotationProcessor.process( ${annotatedClass.getNameWithoutPackage()}, true )
+            // System.out.println( \"About to call validation.AnnotationProcessor.process( ${annotatedClass.getNameWithoutPackage()}, true ) \" );
+              // validation.AnnotationProcessor.process( ${annotatedClass.getNameWithoutPackage()}, true )
         // }
         """
         println "here is the method string: ${methodString}"
@@ -177,7 +178,7 @@ class StringAnnotationTransform implements ASTTransformation {
                 // CompilePhase.CLASS_GENERATION
                 // CompilePhase.OUTPUT
                 println "about to call AstBuilder().buildFromString"
-                def ast = new AstBuilder().buildFromString( CompilePhase.OUTPUT, false, methodString.toString() )
+                def ast = new AstBuilder().buildFromString( CompilePhase.CLASS_GENERATION, false, methodString.toString() )
                 println "just called AstBuilder().buildFromString"
                 // look at block statement
                 // look at the class Node
@@ -193,8 +194,15 @@ class StringAnnotationTransform implements ASTTransformation {
                 methods.each { meth -> 
                     println "name of method after buildFromString: ${meth.name} "
                 }
+                // remove any pre-existing method for our field
+                def methodsToRemove = annotatedClass.getMethods( "set${fieldNode.name.capitalize()}" )
+                methodsToRemove.each { mtr ->
+                    annotatedClass.removeMethod( mtr )
+                }
+                
+                // add our method
                 // def methods = ast[ 1 ].getAllDeclaredMethods()
-                // annotatedClass.addMethod( methods.find { it.name == "set${fieldNode.name.capitalize()}" } )
+                annotatedClass.addMethod( methods.find { it.name == "set${fieldNode.name.capitalize()}" } )
                 annotatedClass.addMethod( methods.find { it.name == "checkForStaticGroovyValidatorInitializer" } )
             } catch ( Exception e ) {
                 // println "Some exception occured: ${e.getMessage()}"
