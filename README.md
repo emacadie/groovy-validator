@@ -119,6 +119,6 @@ gradle distZip
 ```
 and use build/libs/groovy-validator.jar in your project.  
 
-Note: as of 2015-05-02, the "Hidden" annotation is not working
+
 
 

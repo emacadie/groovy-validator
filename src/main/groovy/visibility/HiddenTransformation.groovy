@@ -1,7 +1,6 @@
 package visibility
 
 import org.codehaus.groovy.ast.ASTNode
-// import org.codehaus.groovy.ast.ClassNode 
 
 import org.codehaus.groovy.ast.builder.AstBuilder
 import org.codehaus.groovy.control.CompilePhase
@@ -41,6 +40,7 @@ class HiddenTransformation implements ASTTransformation {
             if (mNode.name == "createValidatingConstructor" ) { hasCreateValidatingConstructor = true }
         }
         // println ",  hasCreateValidatingConstructor: ${hasCreateValidatingConstructor}"
+        
 
         // println "\n--------------------------------------\n\n"
 
@@ -70,7 +70,7 @@ class HiddenTransformation implements ASTTransformation {
         }
         
     } // end method visit
-    
 
 } // end class  - line 208, 228
+
 

@@ -8,20 +8,11 @@ class SecondUSState {
     @Hidden
     String name
     
-    @Hidden
-    String abbrev
-    /*
-    def setName( arg ) {
-        println "No setter for you"
-    }
-    */
-    
     String capitalCity
     
-    SecondUSState( argName, argCapCity, argAbbrev ) {
+    SecondUSState( argName, argCapCity ) {
         name = argName
         capitalCity = argCapCity
-        abbrev = argAbbrev
     }
     
 }
