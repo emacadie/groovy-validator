@@ -8,14 +8,14 @@ import groovy.transform.ToString
 class FloatRunner {
     
     static { 
-        AnnotationProcessor.process( FloatRunner.class ) 
+        // AnnotationProcessor.process( FloatRunner.class ) 
     }
     
-    @FloatAnnotation( minValue = 0f, maxValue = 1000f )
+    @FloatAnnotation( minValue = 0f, maxValue = 1000f, throwEx = false )
     def firstNum
-    @FloatAnnotation( maxValue = 1000f )
+    @FloatAnnotation( maxValue = 1000f, throwEx = false )
     def secondNum
-    @FloatAnnotation( minValue = 10f )
+    @FloatAnnotation( minValue = 10f, throwEx = false )
     def thirdNum
     
 }

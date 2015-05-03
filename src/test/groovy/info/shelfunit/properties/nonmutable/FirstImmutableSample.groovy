@@ -12,10 +12,10 @@ class FirstImmutableSample {
         AnnotationProcessor.process( FirstImmutableSample.class ) 
     }
     */
-    @StringAnnotation( minLength = 5, maxLength = 200 )
-    String first // String
-    // @StringAnnotation( minLength = 5, maxLength = 20 )
-    // String secondString
+    @StringAnnotation( minLength = 5, maxLength = 200, throwEx = false )
+    String firstString
+    @StringAnnotation( minLength = 5, maxLength = 20, throwEx = false )
+    String secondString
     @IntAnnotation( minValue = 30, maxValue = 400 )
     int firstInt
     @IntAnnotation( minValue = 30, maxValue = 400 )

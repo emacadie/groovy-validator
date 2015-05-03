@@ -10,8 +10,6 @@ import org.codehaus.groovy.transform.ASTTransformation
 import org.codehaus.groovy.transform.GroovyASTTransformation 
 
 @GroovyASTTransformation( phase = CompilePhase.INSTRUCTION_SELECTION )
-// @GroovyASTTransformation( phase = CompilePhase.CLASS_GENERATION )
-// @GroovyASTTransformation( phase = CompilePhase.OUTPUT )
 class StringAnnotationTransform implements ASTTransformation {
     
     void visit( ASTNode[] astNodes, SourceUnit sourceUnit ) {
@@ -20,22 +18,22 @@ class StringAnnotationTransform implements ASTTransformation {
         if ( !astNodes[ 0 ] ) { return }
         if ( !astNodes[ 1 ] ) { return }
         astNodes.eachWithIndex { theNode, x ->
-            println "theNode [${x}] is a ${theNode.class.name}"
+            // println "theNode [${x}] is a ${theNode.class.name}"
         }
         def annotationNode = astNodes[ 0 ]
         def fieldNode = astNodes[ 1 ]
         // theNode [0] is a org.codehaus.groovy.ast.AnnotationNode
         // theNode [1] is a org.codehaus.groovy.ast.FieldNode
-        println "annotation is for ${annotationNode.classNode.name}"
-        println "field is for class ${fieldNode.getOwner().name} and field ${fieldNode.name}, so setter would be set${fieldNode.name.capitalize()}"
+        // println "annotation is for ${annotationNode.classNode.name}"
+        // println "field is for class ${fieldNode.getOwner().name} and field ${fieldNode.name}, so setter would be set${fieldNode.name.capitalize()}"
         
         def theAnnotation = annotationNode.classNode
-        println "methods of annotation  ${theAnnotation.name}:"
+        // println "methods of annotation  ${theAnnotation.name}:"
         theAnnotation.methods.each { methodNode ->
-            print " ${methodNode.name}, "
+             // print " ${methodNode.name}, "
         }
         def annotatedClass = fieldNode.getOwner() // the class
-        println "\nmethods of class ${annotatedClass.name}" // look for createValidatingConstructor from AstImmutableConstructorTransform
+        // println "\nmethods of class ${annotatedClass.name}" // look for createValidatingConstructor from AstImmutableConstructorTransform
         def hasCreateValidatingConstructor = false
         def hasStaticInitializer = false
         def methodToRemove
@@ -49,9 +47,9 @@ class StringAnnotationTransform implements ASTTransformation {
         
         // println ",  hasCreateValidatingConstructor: ${hasCreateValidatingConstructor}"
         
-        println "Here is annotationNode.getMember('minLength') ${ annotationNode.getMember( 'minLength' ) ? annotationNode.getMember( 'minLength' ).getValue() : 0 }"
-        println "Here is annotationNode.getMember('maxLength') ${ annotationNode.getMember( 'maxLength' ) ? annotationNode.getMember( 'maxLength' ).getValue() :  Integer.MAX_VALUE }"
-        println "Here is annotationNode.getMember('regEx' ): ${annotationNode.getMember( 'regEx' ) ? "/" + annotationNode?.getMember( 'regEx' )?.getText() + "/" : "\".*\""}" 
+        // println "Here is annotationNode.getMember('minLength') ${ annotationNode.getMember( 'minLength' ) ? annotationNode.getMember( 'minLength' ).getValue() : 0 }"
+        // println "Here is annotationNode.getMember('maxLength') ${ annotationNode.getMember( 'maxLength' ) ? annotationNode.getMember( 'maxLength' ).getValue() :  Integer.MAX_VALUE }"
+        // println "Here is annotationNode.getMember('regEx' ): ${annotationNode.getMember( 'regEx' ) ? "/" + annotationNode?.getMember( 'regEx' )?.getText() + "/" : "\".*\""}" 
         println "\n--------------------------------------\n\n"
         
         def min = annotationNode.getMember( 'minLength' ) ? annotationNode.getMember( 'minLength' ).getValue() : 0 
@@ -85,7 +83,7 @@ class StringAnnotationTransform implements ASTTransformation {
     }
     """
 
-        println "here is the method string: ${methodString}"
+        // println "here is the method string: ${methodString}"
         if ( !hasCreateValidatingConstructor ) {
             try {
                 def ast = new AstBuilder().buildFromString( CompilePhase.INSTRUCTION_SELECTION, false, methodString.toString() )

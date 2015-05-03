@@ -25,15 +25,15 @@ class FirstImmutableSampleTest extends Specification {
         // println "About to make junk"
         // def junk = new FirstImmutableSample()
         println "About to make throwaway"
-        def throwaway = new FirstImmutableSample( first: "Not Junk", // secondString: "Goodbye Junk", 
+        def throwaway = new FirstImmutableSample( firstString: "Not Junk", secondString: "Goodbye Junk", 
         firstInt: 21 )
-        throwaway.first = "Throwaway"
+        throwaway.firstString = "Throwaway"
         println "Just made throwaway, about to make bTest1"
-        def bTest1 = new FirstImmutableSample( first: "Hello1", // secondString: "Goodbye", 
+        def bTest1 = new FirstImmutableSample( firstString: "Hello1", secondString: "Goodbye", 
         firstInt: 21, secondInt: 2000 )
         println "In test ${name.methodName}, bTest1: ${bTest1.toString()}"
         expect:
-        bTest1.first == "Hello1"
+        bTest1.firstString == "Hello1"
         bTest1.secondInt == null
         
     } // end "test the no arg constructor"
@@ -41,11 +41,11 @@ class FirstImmutableSampleTest extends Specification {
     
     def "test bTest2"() {
         println "--- Starting test ${name.methodName}"
-        def bTest2 = new FirstImmutableSample( first: "Hello2", // secondString: "Goodbye, this is more than 20 characters", 
+        def bTest2 = new FirstImmutableSample( firstString: "Hello2", secondString: "Goodbye, this is more than 20 characters", 
         firstInt: 22, secondInt: 20 )
         println "In test ${name.methodName}, bTest2: ${bTest2.toString()}"
         expect:
-        bTest2.first == "Hello2"
+        bTest2.firstString == "Hello2"
     } // end "test bTest2"
     
     def "test the no arg constructor again"() {
@@ -61,11 +61,11 @@ class FirstImmutableSampleTest extends Specification {
         }
         */
         
-        def bTest1 = new FirstImmutableSample( first: "Hello3", // secondString: "Goodbye", 
+        def bTest1 = new FirstImmutableSample( firstString: "Hello3", secondString: "Goodbye", 
         firstInt: 21, secondInt: 401 )
         println "In test ${name.methodName}, bTest1: ${bTest1.toString()}"
         expect:
-        bTest1.first == "Hello3"
+        bTest1.firstString == "Hello3"
         bTest1.secondInt == null
         
     } // end "test the no arg constructor again"

@@ -28,7 +28,7 @@ import java.lang.annotation.RetentionPolicy
 
 @Retention( RetentionPolicy.RUNTIME ) 
 @Target( ElementType.FIELD )
-@GroovyASTTransformationClass( [ 'info.shelfunit.properties.annotations.ValidationAnnotationTransform' ] )
+@GroovyASTTransformationClass( [ 'info.shelfunit.properties.annotations.FloatAnnotationTransform' ] )
 public @interface FloatAnnotation {
     /**
     The lowest value you want this field to hold. The default is 0.0f. It could go as low as Float.MIN_VALUE.
@@ -42,6 +42,8 @@ public @interface FloatAnnotation {
   A number that your variable can be divided by. If you want a number to be even, then would select 2.
   */
   // public float[] divisor() default [ 1.0f  ]
+  
+  public boolean throwEx() default true
 }
 
 

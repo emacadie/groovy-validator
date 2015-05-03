@@ -27,7 +27,7 @@ import java.lang.annotation.RetentionPolicy
 
 @Retention( RetentionPolicy.RUNTIME ) 
 @Target( ElementType.FIELD )
-@GroovyASTTransformationClass( [ 'info.shelfunit.properties.annotations.IntAnnotationTransform' ] )
+// @GroovyASTTransformationClass( [ 'info.shelfunit.properties.annotations.IntAnnotationTransform' ] )
 public @interface IntAnnotation {
     /**
     The lowest value you want this field to hold. The default is 0. It could go as low as Integer.MIN_VALUE.
@@ -41,7 +41,9 @@ public @interface IntAnnotation {
   /**
   A number that your variable can be divided by. If you want a number to be even, then would select [ 2 ]. If you wanted to do fizzbuzz, you would set it to [ 3, 5 ]. The default is [1]. This must be specified using the list notation. If you simply provide a number things will not work as expected.
   */
-  public int[] divisorSet() default [1]
+  public int[] divisorSet() default [ 1 ]
+  
+  public boolean throwEx() default true
 }
 
 

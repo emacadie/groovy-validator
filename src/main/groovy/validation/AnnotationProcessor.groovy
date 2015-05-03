@@ -84,7 +84,7 @@ class AnnotationProcessor {
                 if ( doubleAnnotation ) {
                     handleDoubleAndFloat( arg, new Double( 0 ), doubleAnnotation, name, theClass, delegate, throwException )
                 } else if ( floatAnnotation ) {
-                    handleDoubleAndFloat( arg, new Float( 0 ), floatAnnotation, name, theClass, delegate, throwException )
+                    // handleDoubleAndFloat( arg, new Float( 0 ), floatAnnotation, name, theClass, delegate, throwException )
                 } else if ( intAnnotation ) {
                     handleIntAndLong( arg, new Integer( 0 ), intAnnotation, theClass, name, delegate, throwException )
                 } else if ( longAnnotation ) {
