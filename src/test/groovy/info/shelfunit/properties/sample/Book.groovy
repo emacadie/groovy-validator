@@ -4,7 +4,6 @@ import validation.AnnotationProcessor
 import validation.StringAnnotation
 import groovy.transform.ToString
 
-
 @ToString( includeNames = true )
 class Book {
     
