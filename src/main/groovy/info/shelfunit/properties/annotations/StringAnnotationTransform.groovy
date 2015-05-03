@@ -11,7 +11,7 @@ import org.codehaus.groovy.transform.GroovyASTTransformation
 
 @GroovyASTTransformation( phase = CompilePhase.INSTRUCTION_SELECTION )
 class StringAnnotationTransform implements ASTTransformation {
-    
+
     void visit( ASTNode[] astNodes, SourceUnit sourceUnit ) {
         
         if ( !astNodes ) { return }
@@ -24,8 +24,8 @@ class StringAnnotationTransform implements ASTTransformation {
         def fieldNode = astNodes[ 1 ]
         // theNode [0] is a org.codehaus.groovy.ast.AnnotationNode
         // theNode [1] is a org.codehaus.groovy.ast.FieldNode
-        // println "annotation is for ${annotationNode.classNode.name}"
-        // println "field is for class ${fieldNode.getOwner().name} and field ${fieldNode.name}, so setter would be set${fieldNode.name.capitalize()}"
+        println "annotation is for ${annotationNode.classNode.name}"
+        println "field is for class ${fieldNode.getOwner().name} and field ${fieldNode.name}, so setter would be set${fieldNode.name.capitalize()}"
         
         def theAnnotation = annotationNode.classNode
         // println "methods of annotation  ${theAnnotation.name}:"
@@ -45,13 +45,13 @@ class StringAnnotationTransform implements ASTTransformation {
             if ( mNode.name == "set${fieldNode.name.capitalize()}" ) { methodToRemove = mNode }
         }
         
-        // println ",  hasCreateValidatingConstructor: ${hasCreateValidatingConstructor}"
+        println ",  hasCreateValidatingConstructor: ${hasCreateValidatingConstructor}"
         
         // println "Here is annotationNode.getMember('minLength') ${ annotationNode.getMember( 'minLength' ) ? annotationNode.getMember( 'minLength' ).getValue() : 0 }"
         // println "Here is annotationNode.getMember('maxLength') ${ annotationNode.getMember( 'maxLength' ) ? annotationNode.getMember( 'maxLength' ).getValue() :  Integer.MAX_VALUE }"
         // println "Here is annotationNode.getMember('regEx' ): ${annotationNode.getMember( 'regEx' ) ? "/" + annotationNode?.getMember( 'regEx' )?.getText() + "/" : "\".*\""}" 
-        println "\n--------------------------------------\n\n"
-        
+        // println "\n--------------------------------------\n\n"
+        if ( !hasCreateValidatingConstructor ) {
         def min = annotationNode.getMember( 'minLength' ) ? annotationNode.getMember( 'minLength' ).getValue() : 0 
         def max = annotationNode.getMember( 'maxLength' ) ? annotationNode.getMember( 'maxLength' ).getValue() :  Integer.MAX_VALUE 
         def throwEx = annotationNode.getMember( 'throwEx' ) ? annotationNode?.getMember( 'throwEx' ).getValue() : true
@@ -84,7 +84,7 @@ class StringAnnotationTransform implements ASTTransformation {
     """
 
         // println "here is the method string: ${methodString}"
-        if ( !hasCreateValidatingConstructor ) {
+        
             try {
                 def ast = new AstBuilder().buildFromString( CompilePhase.INSTRUCTION_SELECTION, false, methodString.toString() )
                 // println "ast[ 0 ] is a ${ast[ 0 ].class.name}, and ast[ 1 ] is a ${ast[ 1 ].class.name}"
@@ -99,6 +99,6 @@ class StringAnnotationTransform implements ASTTransformation {
         }
         
     } // end method visit
-    
+   
 } // end class  - line 208, 228, 211
 

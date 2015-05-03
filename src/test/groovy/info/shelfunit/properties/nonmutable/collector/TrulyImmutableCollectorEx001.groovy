@@ -7,9 +7,9 @@ import validation.StringAnnotation
 @ImmutableValidator
 class TrulyImmutableCollectorEx001 {
 
-    // @StringAnnotation( minLength = 5, maxLength = 200 )
+    @StringAnnotation( minLength = 5, maxLength = 200, throwEx = false )
     String firstString
-    // @StringAnnotation( minLength = 5, maxLength = 20 )
+    @StringAnnotation( minLength = 5, maxLength = 20 )
     String secondString
     @IntAnnotation( minValue = 30, maxValue = 400 )
     int firstInt

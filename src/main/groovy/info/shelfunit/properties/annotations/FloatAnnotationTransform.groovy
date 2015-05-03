@@ -42,7 +42,7 @@ class FloatAnnotationTransform implements ASTTransformation {
             if ( mNode.name == "set${fieldNode.name.capitalize()}" ) { methodToRemove = mNode }
         }
   
-        println "\n--------------------------------------\n\n"
+        // println "\n--------------------------------------\n\n"
         
         def min = annotationNode.getMember( 'minValue' ) ? annotationNode.getMember( 'minValue' ).getValue() : 0 
         def max = annotationNode.getMember( 'maxValue' ) ? annotationNode.getMember( 'maxValue' ).getValue() :  Float.MAX_VALUE 
@@ -56,7 +56,6 @@ class FloatAnnotationTransform implements ASTTransformation {
         } else {
         """
          methodString << """
-         
             if ( ( arg >= ${min} ) && ( arg <= ${max} ) && ( arg >= Float.MIN_VALUE ) && ( arg <= Float.MAX_VALUE ) ) {
                 this.${fieldNode.getName()} = arg;
             """
@@ -73,7 +72,7 @@ class FloatAnnotationTransform implements ASTTransformation {
     }
     """
 
-        println "here is the method string: ${methodString}"
+        // println "here is the method string: ${methodString}"
         if ( !hasCreateValidatingConstructor ) {
             try {
                 def ast = new AstBuilder().buildFromString( CompilePhase.INSTRUCTION_SELECTION, false, methodString.toString() )
