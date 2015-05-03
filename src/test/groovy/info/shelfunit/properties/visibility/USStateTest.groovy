@@ -1,7 +1,5 @@
 package info.shelfunit.properties.visibility
 
-import visibility.VisibilityProcessor
-
 import spock.lang.Specification
 
 import org.junit.Rule
@@ -11,9 +9,7 @@ class USStateTest extends Specification {
     
     def setup() {}          // run before every feature method
     def cleanup() {}        // run after every feature method
-    def setupSpec() {
-        // VisibilityProcessor.process( USState )
-    }     // run before the first feature method
+    def setupSpec() {}     // run before the first feature method
     def cleanupSpec() {}   // run after the last feature method
     
     @Rule 
