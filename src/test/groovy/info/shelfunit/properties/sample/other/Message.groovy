@@ -12,9 +12,9 @@ class Message {
     String from
     // @StringAnnotation( minLength = 5, maxLength = 20 )
     String to
-    // @StringAnnotation( minLength = 5, maxLength = 20 )
+    @StringAnnotation( minLength = 5, maxLength = 20, throwEx = false )
     String subject
-    // @StringAnnotation( minLength = 5, maxLength = 20 )
+    @StringAnnotation( minLength = 5, maxLength = 20, throwEx = false )
     String body
 }
 

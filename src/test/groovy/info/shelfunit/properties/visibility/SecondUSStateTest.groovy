@@ -22,26 +22,30 @@ class SecondUSStateTest extends Specification {
     def "test with properties"() {
         
         println "--- Starting test ${name.methodName}"
-        def il = new SecondUSState( 'Illinois', 'Kaskaskia' ) 
+        def il = new SecondUSState( 'Illinois', 'Kaskaskia', 'IL' ) 
         println "il: ${il.toString()}"
         when:
         il.name = "Indiana"
+        il.abbrev = "IN"
         then:
         il.name == "Illinois"
+        il.abbrev == "IL"
         
         when:
         il.capitalCity = "Vandalia"
         il.name = "LincolnLand"
+        il.abbrev = "XX"
         then:
         il.capitalCity == "Vandalia"
         il.name == "Illinois"
+        il.abbrev == "IL"
         println "il at the end: ${il.toString()}"
     }
     
     def "test with setters"() {
         
         println "--- Starting test ${name.methodName}"
-        def il = new SecondUSState( 'Illinois', 'Kaskaskia' ) 
+        def il = new SecondUSState( 'Illinois', 'Kaskaskia', 'IL' ) 
         println "il: ${il.toString()}"
         when:
         il.setName( "Indiana" )
@@ -51,9 +55,11 @@ class SecondUSStateTest extends Specification {
         when:
         il.setCapitalCity( "Vandalia" )
         il.setName( "LincolnLand" )
+        il.setAbbrev( 'WI' )
         then:
         il.capitalCity == "Vandalia"
         il.name == "Illinois"
+        il.abbrev == "IL"
         println "il at the end: ${il.toString()}"
     }
     

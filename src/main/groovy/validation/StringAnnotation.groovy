@@ -48,5 +48,7 @@ public @interface StringAnnotation {
     <p>You cannot use comments to document the regular expression. It must be unbroken on one line.</p>
     */
     public String regEx() default ".*"
+    
+    public boolean throwEx() default true
 }
 

@@ -43,7 +43,8 @@ gradle -Dtest.single=ImmutableLongDivisorSpec test -info
 
 gradle -Dtest.single=BoxSpec test -info  
 
-
+gradle -Dtest.single=SecondUSStateTest test -info
+gradle -Dtest.single=USStateTest test -info
 
 In the console:
 package 
