@@ -179,15 +179,17 @@ class StringAnnotationTransform implements ASTTransformation {
         }
         """
          methodString << """
-        if ( ( ${min} <= arg.length() ) && ( arg.length() <= ${max} ) ) {
+         java.util.regex.Pattern theMatch = java.util.regex.Pattern.compile( ${regex}, java.util.regex.Pattern.COMMENTS );
+        if ( ( ${min} <= arg.length() ) && ( arg.length() <= ${max} ) && ( theMatch.matcher( arg ).matches() ) ) {
             this.${fieldNode.getName()} = arg;
-        
+        } else {
+            throw new Exception(
+                 arg + " is a String with a length outside the range of ${min} to ${max} characters  or does not match the regular expression  " )  
         }
     }
     """
-        
+        // ${patternString1}
         println "here is the method string: ${methodString}"
-         println "here is the method string: ${methodString}"
         if ( !hasCreateValidatingConstructor ) {
             try {
                 def ast = new AstBuilder().buildFromString( CompilePhase.INSTRUCTION_SELECTION, false, methodString.toString() )
