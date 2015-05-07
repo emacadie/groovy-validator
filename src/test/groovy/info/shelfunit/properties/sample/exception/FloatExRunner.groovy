@@ -1,12 +1,12 @@
 package info.shelfunit.properties.sample.exception
 
-import validation.AnnotationProcessor
+// import validation.AnnotationProcessor
 import validation.FloatAnnotation
 
 class FloatExRunner {
     
     static { 
-        AnnotationProcessor.process( FloatExRunner, true ) 
+        // AnnotationProcessor.process( FloatExRunner, true ) 
     }
     
     @FloatAnnotation( minValue = 0f, maxValue = 1000f )

@@ -72,7 +72,7 @@ class AnnotationProcessor {
                 
             def field = theClass.getDeclaredField( name )
             def intAnnotation    = field?.getAnnotation( IntAnnotation.class )
-            // def stringAnnotation = field?.getAnnotation( StringAnnotation.class )
+            def stringAnnotation = field?.getAnnotation( StringAnnotation.class )
             def doubleAnnotation = field?.getAnnotation( DoubleAnnotation.class )
             def floatAnnotation  = field?.getAnnotation( FloatAnnotation.class )
             def longAnnotation   = field?.getAnnotation( LongAnnotation.class )
@@ -89,7 +89,7 @@ class AnnotationProcessor {
                     handleIntAndLong( arg, new Integer( 0 ), intAnnotation, theClass, name, delegate, throwException )
                 } else if ( longAnnotation ) {
                     handleIntAndLong( arg, new Long( 0 ), longAnnotation, theClass, name, delegate, throwException )                
-                // } else if ( stringAnnotation ) {
+                } else if ( stringAnnotation ) {
                     /*
                     println "Processing the string in AnnotationProcessor for ${theClass.getName()}"
                     def theMatch = Pattern.compile( stringAnnotation.regEx(), Pattern.COMMENTS )

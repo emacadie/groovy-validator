@@ -8,7 +8,7 @@ import org.codehaus.groovy.control.SourceUnit
 import org.codehaus.groovy.transform.ASTTransformation
 import org.codehaus.groovy.transform.GroovyASTTransformation 
 
-@GroovyASTTransformation( phase = CompilePhase.CLASS_GENERATION ) //.INSTRUCTION_SELECTION )
+@GroovyASTTransformation( phase = CompilePhase.INSTRUCTION_SELECTION )
 class StringAnnotationTransform implements ASTTransformation {
 
     void visit( ASTNode[] astNodes, SourceUnit sourceUnit ) {
@@ -23,8 +23,8 @@ class StringAnnotationTransform implements ASTTransformation {
         def fieldNode = astNodes[ 1 ]
         // theNode [0] is a org.codehaus.groovy.ast.AnnotationNode
         // theNode [1] is a org.codehaus.groovy.ast.FieldNode
-        println "annotation is for ${annotationNode.classNode.name}"
-        println "field is for class ${fieldNode.getOwner().name} and field ${fieldNode.name}, so setter would be set${fieldNode.name.capitalize()}"
+        // println "annotation is for ${annotationNode.classNode.name}"
+        // println "field is for class ${fieldNode.getOwner().name} and field ${fieldNode.name}, so setter would be set${fieldNode.name.capitalize()}"
         
         def theAnnotation = annotationNode.classNode
         // println "methods of annotation  ${theAnnotation.name}:"
@@ -44,7 +44,7 @@ class StringAnnotationTransform implements ASTTransformation {
             if ( mNode.name == "set${fieldNode.name.capitalize()}" ) { methodToRemove = mNode }
         }
         
-        println ",  hasCreateValidatingConstructor: ${hasCreateValidatingConstructor}"
+        // println ",  hasCreateValidatingConstructor: ${hasCreateValidatingConstructor}"
         
         // println "Here is annotationNode.getMember('minLength') ${ annotationNode.getMember( 'minLength' ) ? annotationNode.getMember( 'minLength' ).getValue() : 0 }"
         // println "Here is annotationNode.getMember('maxLength') ${ annotationNode.getMember( 'maxLength' ) ? annotationNode.getMember( 'maxLength' ).getValue() :  Integer.MAX_VALUE }"
@@ -62,7 +62,7 @@ class StringAnnotationTransform implements ASTTransformation {
         methodString << """
     public void set${fieldNode.name.capitalize()}( Object arg ) {
         if ( arg.getClass().getName() == "java.lang.String" ) {
-            System.out.println( "Method set${fieldNode.name.capitalize()} called with arg " + arg + ", ignoring the love" );
+            // System.out.println( "Method set${fieldNode.name.capitalize()} called with arg " + arg + ", ignoring the love" );
         }
         """
          methodString << """
@@ -85,13 +85,11 @@ class StringAnnotationTransform implements ASTTransformation {
         // println "here is the method string: ${methodString}"
         
             try {
-                def ast = new AstBuilder().buildFromString( CompilePhase.CLASS_GENERATION, false, methodString.toString() )
-                // CompilePhase.INSTRUCTION_SELECTION, false, methodString.toString() )
+                def ast = new AstBuilder().buildFromString( CompilePhase.INSTRUCTION_SELECTION, false, methodString.toString() )
                 // println "ast[ 0 ] is a ${ast[ 0 ].class.name}, and ast[ 1 ] is a ${ast[ 1 ].class.name}"
                 def someClassNode = ast[ 1 ]
                 def methods = ast[ 1 ].methods
                 annotatedClass.addMethod( methods.find { it.name == "set${fieldNode.name.capitalize()}" } )
-                
             } catch ( Exception e ) {
                 println "Some exception occured"
                 e.printStackTrace()

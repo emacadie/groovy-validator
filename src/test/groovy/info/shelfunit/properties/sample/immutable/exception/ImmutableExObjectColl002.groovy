@@ -9,9 +9,9 @@ import validation.StringAnnotation
 
 @ImmutableValidator
 class ImmutableExObjectColl002 {
-    // @StringAnnotation( minLength = 5, maxLength = 10 )
+    @StringAnnotation( minLength = 5, maxLength = 10 )
     String firstString
-    // @StringAnnotation( maxLength = 15 )
+    @StringAnnotation( maxLength = 15 )
     String secondString
     @DoubleAnnotation( minValue = 10d, maxValue = 100d )
     double firstDouble

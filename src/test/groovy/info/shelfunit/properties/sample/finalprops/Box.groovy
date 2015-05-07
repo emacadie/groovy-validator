@@ -6,7 +6,7 @@ import validation.StringAnnotation
 
 @ToString( includeNames = true )
 class Box {
-    @IntAnnotation( minValue = 10 )
+    // @IntAnnotation( minValue = 10 )
     final int secondInt
     final int firstInt
     

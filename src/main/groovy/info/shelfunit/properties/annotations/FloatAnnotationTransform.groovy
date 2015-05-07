@@ -24,16 +24,16 @@ class FloatAnnotationTransform implements ASTTransformation {
         def fieldNode = astNodes[ 1 ]
         // theNode [0] is a org.codehaus.groovy.ast.AnnotationNode
         // theNode [1] is a org.codehaus.groovy.ast.FieldNode
-        println "annotation is for ${annotationNode.classNode.name}"
-        println "field is for class ${fieldNode.getOwner().name} and field ${fieldNode.name}, so setter would be set${fieldNode.name.capitalize()}"
+        // println "annotation is for ${annotationNode.classNode.name}"
+        // println "field is for class ${fieldNode.getOwner().name} and field ${fieldNode.name}, so setter would be set${fieldNode.name.capitalize()}"
         
         def theAnnotation = annotationNode.classNode
-        println "methods of annotation  ${theAnnotation.name}:"
+        // println "methods of annotation  ${theAnnotation.name}:"
         theAnnotation.methods.each { methodNode ->
             print " ${methodNode.name}, "
         }
         def annotatedClass = fieldNode.getOwner() // the class
-        println "\nmethods of class ${annotatedClass.name}" // look for createValidatingConstructor from AstImmutableConstructorTransform
+        // println "\nmethods of class ${annotatedClass.name}" // look for createValidatingConstructor from AstImmutableConstructorTransform
         def hasCreateValidatingConstructor = false
         def methodToRemove
         annotatedClass.methods.each { mNode ->
@@ -52,7 +52,7 @@ class FloatAnnotationTransform implements ASTTransformation {
         methodString << """
     public void set${fieldNode.name.capitalize()}( Object arg ) {
         if ( arg.getClass().getName() != "java.lang.Float" ) {
-            System.out.println( "Method set${fieldNode.name.capitalize()} called with arg " + arg + ", ignoring the love" );
+            // System.out.println( "Method set${fieldNode.name.capitalize()} called with arg " + arg + ", ignoring the love" );
         } else {
         """
          methodString << """

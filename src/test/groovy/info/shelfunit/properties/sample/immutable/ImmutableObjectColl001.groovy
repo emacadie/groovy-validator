@@ -6,7 +6,7 @@ import validation.StringAnnotation
 
 @ImmutableValidator
 class ImmutableObjectColl001 {
-    // @StringAnnotation( minLength = 5, maxLength = 10 )
+    @StringAnnotation( minLength = 5, maxLength = 10 )
     String firstString
     @IntAnnotation( minValue = 10, maxValue = 100 )
     int firstInt

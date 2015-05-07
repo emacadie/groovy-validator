@@ -7,7 +7,7 @@ import validation.StringAnnotation
 @ImmutableValidator(includePackage = false)
 class ImmutablePartial {
 
-    // @StringAnnotation( minLength = 10 ) 
+    @StringAnnotation( minLength = 10 ) 
     String stringWithAnn
     
     String stringWithoutAnn
