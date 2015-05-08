@@ -82,7 +82,7 @@ class AnnotationProcessor {
             // java.lang.reflect.Modifier.FINAL = 16 PUBLIC = 1
             if ( field.getModifiers() != 17 ) {
                 if ( doubleAnnotation ) {
-                    handleDoubleAndFloat( arg, new Double( 0 ), doubleAnnotation, name, theClass, delegate, throwException )
+                    // handleDoubleAndFloat( arg, new Double( 0 ), doubleAnnotation, name, theClass, delegate, throwException )
                 } else if ( floatAnnotation ) {
                     // handleDoubleAndFloat( arg, new Float( 0 ), floatAnnotation, name, theClass, delegate, throwException )
                 } else if ( intAnnotation ) {

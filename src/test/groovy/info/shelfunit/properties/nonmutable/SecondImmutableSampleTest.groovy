@@ -12,7 +12,7 @@ class SecondImmutableSampleTest extends Specification {
     def setup() {}       // run before every feature method
     def cleanup() {}     // run after every feature method
     def setupSpec() {
-        AnnotationProcessor.process( SecondImmutableSample.class ) 
+        // AnnotationProcessor.process( SecondImmutableSample.class ) 
     }   // run before the first feature method
     def cleanupSpec() {} // run after the last feature method
     

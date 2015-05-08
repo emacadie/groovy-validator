@@ -10,13 +10,13 @@ class FirstImmutableExSample {
         AnnotationProcessor.process( FirstImmutableSample.class ) 
     }
     */
-    @StringAnnotation( minLength = 5, maxLength = 200 )
+    @StringAnnotation( minLength = 5, maxLength = 200, throwEx = false )
     String firstString
-    @StringAnnotation( minLength = 5, maxLength = 20 )
+    @StringAnnotation( minLength = 5, maxLength = 20, throwEx = false )
     String secondString
-    @IntAnnotation( minValue = 30, maxValue = 400 )
+    @IntAnnotation( minValue = 30, maxValue = 400, throwEx = false )
     int firstInt
-    @IntAnnotation( minValue = 30, maxValue = 400 )
+    @IntAnnotation( minValue = 30, maxValue = 400, throwEx = false )
     def secondInt
     
     def String toString() {

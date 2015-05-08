@@ -55,7 +55,7 @@ class DoubleAnnotationTransform implements ASTTransformation {
         } else {
         """
          methodString << """
-            if ( ( arg >= ${min} ) && ( arg <= ${max} ) && ( arg >= Float.MIN_VALUE ) && ( arg <= Float.MAX_VALUE ) ) {
+            if ( ( arg >= ${min} ) && ( arg <= ${max} ) && ( arg >= Double.MIN_VALUE ) && ( arg <= Double.MAX_VALUE ) ) {
                 this.${fieldNode.getName()} = arg;
             """
                 if ( throwEx ) {
