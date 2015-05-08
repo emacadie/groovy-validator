@@ -17,22 +17,22 @@ class IntAnnotationTransform implements ASTTransformation {
         if ( !astNodes[ 0 ] ) { return }
         if ( !astNodes[ 1 ] ) { return }
         astNodes.eachWithIndex { theNode, x ->
-            println "theNode [${x}] is a ${theNode.class.name}"
+            // println "theNode [${x}] is a ${theNode.class.name}"
         }
         def annotationNode = astNodes[ 0 ]
         def fieldNode = astNodes[ 1 ]
         // theNode [0] is a org.codehaus.groovy.ast.AnnotationNode
         // theNode [1] is a org.codehaus.groovy.ast.FieldNode
-        println "annotation is for ${annotationNode.classNode.name}"
-        println "field is for class ${fieldNode.getOwner().name} and field ${fieldNode.name}, so setter would be set${fieldNode.name.capitalize()}"
+        // println "annotation is for ${annotationNode.classNode.name}"
+        // println "field is for class ${fieldNode.getOwner().name} and field ${fieldNode.name}, so setter would be set${fieldNode.name.capitalize()}"
         
         def theAnnotation = annotationNode.classNode
-        println "methods of annotation  ${theAnnotation.name}:"
+        // println "methods of annotation  ${theAnnotation.name}:"
         theAnnotation.methods.each { methodNode ->
-            print " ${methodNode.name}, "
+            // print " ${methodNode.name}, "
         }
         def annotatedClass = fieldNode.getOwner() // the class
-        println "\nmethods of class ${annotatedClass.name}" // look for createValidatingConstructor from AstImmutableConstructorTransform
+        // println "\nmethods of class ${annotatedClass.name}" // look for createValidatingConstructor from AstImmutableConstructorTransform
         def hasCreateValidatingConstructor = false
         def methodToRemove
         annotatedClass.methods.each { mNode ->
@@ -43,35 +43,39 @@ class IntAnnotationTransform implements ASTTransformation {
         
         // println ",  hasCreateValidatingConstructor: ${hasCreateValidatingConstructor}"
         
-        println "Here is annotationNode.getMember('minLength') ${ annotationNode.getMember( 'minLength' ) ? annotationNode.getMember( 'minLength' ).getValue() : 0 }"
-        println "Here is annotationNode.getMember('maxLength') ${ annotationNode.getMember( 'maxLength' ) ? annotationNode.getMember( 'maxLength' ).getValue() :  Integer.MAX_VALUE }"
-        println "Here is annotationNode.getMember('regEx' ): ${annotationNode.getMember( 'regEx' ) ? "/" + annotationNode?.getMember( 'regEx' )?.getText() + "/" : "\".*\""}" 
-        println "\n--------------------------------------\n\n"
+        // println "Here is annotationNode.getMember('minLength') ${ annotationNode.getMember( 'minLength' ) ? annotationNode.getMember( 'minLength' ).getValue() : 0 }"
+        // println "Here is annotationNode.getMember('maxLength') ${ annotationNode.getMember( 'maxLength' ) ? annotationNode.getMember( 'maxLength' ).getValue() :  Integer.MAX_VALUE }"
+        // println "Here is annotationNode.getMember('regEx' ): ${annotationNode.getMember( 'regEx' ) ? "/" + annotationNode?.getMember( 'regEx' )?.getText() + "/" : "\".*\""}" 
+        // println "\n--------------------------------------\n\n"
         
-        def min = annotationNode.getMember( 'minLength' ) ? annotationNode.getMember( 'minLength' ).getValue() : 0 
-        def max = annotationNode.getMember( 'maxLength' ) ? annotationNode.getMember( 'maxLength' ).getValue() :  Integer.MAX_VALUE 
+        def minimum = annotationNode.getMember( 'minValue' ) ? annotationNode.getMember( 'minValue' ).getValue() : 0
+        def maximum = annotationNode.getMember( 'maxValue' ) ? annotationNode.getMember( 'maxValue' ).getValue() :  java.lang.Integer.MAX_VALUE
         def throwEx = annotationNode.getMember( 'throwEx' ) ? annotationNode?.getMember( 'throwEx' ).getValue() : true
-        def regex = annotationNode.getMember( 'regEx' ) ? "/" + annotationNode?.getMember( 'regEx' )?.getText() + "/" : "\".*\""
-        def catchAll = ( regex == '".*"' ) ?: false
-        // println "regex ${regex} is catchAll: ${catchAll}  Here is the test: ${( regex == '".*"' )}"
-        def patternString1 = regex.replace(  "\\", "\\\\" ) 
+        def holdSet = [] as Set
+        try {
+            annotationNode.getMember( 'divisorSet' ).getExpressions().each { member ->
+                holdSet.add( new Integer( member.getValue() ) )
+            }
+        } catch ( Exception e ) { }
+        holdSet.remove( 0 )
+        if ( holdSet.size() == 0 ) { holdSet.add( 1 ) }
+
         def methodString = new StringBuffer()
         methodString << """
     public void set${fieldNode.name.capitalize()}( Object arg ) {
-        if ( arg.getClass().getName() == "java.lang.String" ) {
+        if ( arg.getClass().getName() == "java.lang.Integer" ) {
             System.out.println( "Method set${fieldNode.name.capitalize()} called with arg " + arg + ", ignoring the love" );
         }
         """
          methodString << """
-         java.util.regex.Pattern theMatch = java.util.regex.Pattern.compile( ${regex}, java.util.regex.Pattern.COMMENTS );
-        if ( ( ${min} <= arg.length() ) && ( arg.length() <= ${max} ) && ( theMatch.matcher( arg ).matches() ) ) {
-            this.${fieldNode.getName()} = arg;
+         if ( ( arg == null ) || ( ( ${minimum} <= arg ) && ( arg <= ${maximum} ) && ( ${holdSet}.find{ arg % it == 0 }  != null ) ) ) {
+             this.${fieldNode.getName()} = arg;
         """
             if ( throwEx ) {
                 methodString << """
          } else {
             throw new Exception(
-                 arg + " is a String with a length outside the range of ${min} to ${max} characters or does not match the regular expression ${patternString1.replaceAll( "\"", "'" )} " )
+                 arg + "is an integer outside the range ${minimum} to ${maximum} or it is not divisible by anything in the set ${holdSet} " )
                  """
             }
         methodString << """
@@ -79,7 +83,7 @@ class IntAnnotationTransform implements ASTTransformation {
     }
     """
 
-        println "here is the method string: ${methodString}"
+        // println "here is the method string: ${methodString}"
         if ( !hasCreateValidatingConstructor ) {
             try {
                 def ast = new AstBuilder().buildFromString( CompilePhase.INSTRUCTION_SELECTION, false, methodString.toString() )

@@ -2,7 +2,7 @@ package info.shelfunit.properties.sample
 
 import spock.lang.Specification
 
-import validation.AnnotationProcessor
+// import validation.AnnotationProcessor
 
 import org.junit.Rule
 import org.junit.rules.TestName
@@ -11,7 +11,7 @@ class BookSequelTest extends Specification {
     def setup() {}          // run before every feature method
     def cleanup() {}        // run after every feature method
     def setupSpec() {
-        AnnotationProcessor.process( BookSequel )
+        // AnnotationProcessor.process( BookSequel )
     }     // run before the first feature method
     def cleanupSpec() {}   // run after the last feature method
     
@@ -42,10 +42,11 @@ class BookSequelTest extends Specification {
     
     def "test the map constructor"() {
         println "--- Starting test ${name.methodName}"
+        
         def bTest1 = new BookSequel( pages: 100, title: "S", year: 1990 )
+        
         println "bTest1: ${bTest1.toString()}"
         
-       
         expect:
         bTest1.title == null
        

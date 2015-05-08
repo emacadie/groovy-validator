@@ -49,6 +49,6 @@ public @interface StringAnnotation {
     */
     public String regEx() default ".*"
     
-    // public boolean throwEx() default true
+    public boolean throwEx() default true
 }
 
