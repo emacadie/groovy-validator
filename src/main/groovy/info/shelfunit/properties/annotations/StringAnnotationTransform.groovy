@@ -55,9 +55,11 @@ class StringAnnotationTransform implements ASTTransformation {
         def max = annotationNode.getMember( 'maxLength' ) ? annotationNode.getMember( 'maxLength' ).getValue() :  Integer.MAX_VALUE 
         def throwEx = annotationNode.getMember( 'throwEx' ) ? annotationNode?.getMember( 'throwEx' ).getValue() : true
         def regex = annotationNode.getMember( 'regEx' ) ? "/" + annotationNode?.getMember( 'regEx' )?.getText() + "/" : "\".*\""
+        
         def catchAll = ( regex == '".*"' ) ?: false
         // println "regex ${regex} is catchAll: ${catchAll}  Here is the test: ${( regex == '".*"' )}"
         def patternString1 = regex.replace(  "\\", "\\\\" ) 
+        
         def methodString = new StringBuffer()
         methodString << """
     public void set${fieldNode.name.capitalize()}( Object arg ) {
@@ -81,6 +83,7 @@ class StringAnnotationTransform implements ASTTransformation {
         }
     }
     """
+    // ${patternString1.replaceAll( "\"", "'" )}
 
         // println "here is the method string: ${methodString}"
         
