@@ -9,7 +9,7 @@ import org.codehaus.groovy.transform.ASTTransformation
 import org.codehaus.groovy.transform.GroovyASTTransformation 
 
 @GroovyASTTransformation( phase = CompilePhase.INSTRUCTION_SELECTION )
-class IntAnnotationTransform implements ASTTransformation {
+class DoubleAnnotationTransform implements ASTTransformation {
     
     void visit( ASTNode[] astNodes, SourceUnit sourceUnit ) {
         
@@ -29,7 +29,7 @@ class IntAnnotationTransform implements ASTTransformation {
         def theAnnotation = annotationNode.classNode
         // println "methods of annotation  ${theAnnotation.name}:"
         theAnnotation.methods.each { methodNode ->
-            // print " ${methodNode.name}, "
+            print " ${methodNode.name}, "
         }
         def annotatedClass = fieldNode.getOwner() // the class
         // println "\nmethods of class ${annotatedClass.name}" // look for createValidatingConstructor from AstImmutableConstructorTransform
@@ -40,45 +40,33 @@ class IntAnnotationTransform implements ASTTransformation {
             if ( mNode.name == "createValidatingConstructor" ) { hasCreateValidatingConstructor = true }
             if ( mNode.name == "set${fieldNode.name.capitalize()}" ) { methodToRemove = mNode }
         }
-        
-        // println ",  hasCreateValidatingConstructor: ${hasCreateValidatingConstructor}"
-        
-        // println "Here is annotationNode.getMember('minLength') ${ annotationNode.getMember( 'minLength' ) ? annotationNode.getMember( 'minLength' ).getValue() : 0 }"
-        // println "Here is annotationNode.getMember('maxLength') ${ annotationNode.getMember( 'maxLength' ) ? annotationNode.getMember( 'maxLength' ).getValue() :  Integer.MAX_VALUE }"
-        // println "Here is annotationNode.getMember('regEx' ): ${annotationNode.getMember( 'regEx' ) ? "/" + annotationNode?.getMember( 'regEx' )?.getText() + "/" : "\".*\""}" 
+  
         // println "\n--------------------------------------\n\n"
         
-        def minimum = annotationNode.getMember( 'minValue' ) ? annotationNode.getMember( 'minValue' ).getValue() : 0
-        def maximum = annotationNode.getMember( 'maxValue' ) ? annotationNode.getMember( 'maxValue' ).getValue() :  java.lang.Integer.MAX_VALUE
+        def min = annotationNode.getMember( 'minValue' ) ? annotationNode.getMember( 'minValue' ).getValue() : 0 
+        def max = annotationNode.getMember( 'maxValue' ) ? annotationNode.getMember( 'maxValue' ).getValue() :  Double.MAX_VALUE 
         def throwEx = annotationNode.getMember( 'throwEx' ) ? annotationNode?.getMember( 'throwEx' ).getValue() : true
-        def holdSet = [] as Set
-        try {
-            annotationNode.getMember( 'divisorSet' ).getExpressions().each { member ->
-                holdSet.add( new Integer( member.getValue() ) )
-            }
-        } catch ( Exception e ) { }
-        holdSet.remove( 0 )
-        if ( holdSet.size() == 0 ) { holdSet.add( 1 ) }
-
+        
         def methodString = new StringBuffer()
         methodString << """
     public void set${fieldNode.name.capitalize()}( Object arg ) {
-        if ( arg.getClass().getName() == "java.lang.Integer" ) {
-            System.out.println( "Method set${fieldNode.name.capitalize()} called with arg " + arg + ", ignoring the love" );
-        }
+        if ( arg.getClass().getName() != "java.lang.Double" ) {
+            // System.out.println( "Method set${fieldNode.name.capitalize()} called with arg " + arg + ", ignoring the love" );
+        } else {
         """
          methodString << """
-         if ( ( arg == null ) || ( ( ${minimum} <= arg ) && ( arg <= ${maximum} ) && ( ${holdSet}.find{ arg % it == 0 }  != null ) ) ) {
-             this.${fieldNode.getName()} = arg;
-        """
-            if ( throwEx ) {
-                methodString << """
-         } else {
-            throw new Exception(
-                 arg + " is an integer outside the range ${minimum} to ${maximum} or it is not divisible by anything in the set ${holdSet} " )
-                 """
+            if ( ( arg >= ${min} ) && ( arg <= ${max} ) && ( arg >= Float.MIN_VALUE ) && ( arg <= Float.MAX_VALUE ) ) {
+                this.${fieldNode.getName()} = arg;
+            """
+                if ( throwEx ) {
+                    methodString << """
+             } else {
+                throw new Exception(
+                     arg + " is a Double outside the range ${min} to ${max}" )
+                     """
+                }
+            methodString << """
             }
-        methodString << """
         }
     }
     """
@@ -100,5 +88,4 @@ class IntAnnotationTransform implements ASTTransformation {
         
     } // end method visit
     
-} // end class  - line 174
-
+} // end class  - line 208, 228, 211

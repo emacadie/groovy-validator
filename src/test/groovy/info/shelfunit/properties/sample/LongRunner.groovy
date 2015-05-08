@@ -9,11 +9,11 @@ class LongRunner {
         // AnnotationProcessor.process( LongRunner.class ) 
     }
     
-    @LongAnnotation( minValue = 0L, maxValue = 1000L )
+    @LongAnnotation( minValue = 0L, maxValue = 1000L, throwEx = false )
     def firstNum
-    @LongAnnotation( maxValue = 1000L )
+    @LongAnnotation( maxValue = 1000L, throwEx = false )
     def secondNum
-    @LongAnnotation( minValue = 10L )
+    @LongAnnotation( minValue = 10L, throwEx = false )
     def thirdNum
 }
 

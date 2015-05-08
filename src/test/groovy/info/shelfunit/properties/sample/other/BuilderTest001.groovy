@@ -11,7 +11,7 @@ class BuilderTest001 extends Specification {
     def setup() {}       // run before every feature method
     def cleanup() {}     // run after every feature method
     def setupSpec() {
-        AnnotationProcessor.process( Message ) 
+        // AnnotationProcessor.process( Message ) 
     }   // run before the first feature method
     def cleanupSpec() {} // run after the last feature method
     

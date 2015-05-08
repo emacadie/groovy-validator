@@ -9,7 +9,7 @@ import validation.AstImmutableConstructor
 // @AstImmutableConstructor
 @TupleConstructor
 class Car {
-    @IntAnnotation( minValue = 10 )
+    @IntAnnotation( minValue = 10, throwEx = false )
     int miles
     // @IntAnnotation( minValue = 1990 )
     final int year

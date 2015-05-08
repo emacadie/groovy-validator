@@ -88,7 +88,7 @@ class AnnotationProcessor {
                 } else if ( intAnnotation ) {
                     // handleIntAndLong( arg, new Integer( 0 ), intAnnotation, theClass, name, delegate, throwException )
                 } else if ( longAnnotation ) {
-                    handleIntAndLong( arg, new Long( 0 ), longAnnotation, theClass, name, delegate, throwException )                
+                    // handleIntAndLong( arg, new Long( 0 ), longAnnotation, theClass, name, delegate, throwException )                
                 } else if ( stringAnnotation ) {
                     /*
                     println "Processing the string in AnnotationProcessor for ${theClass.getName()}"

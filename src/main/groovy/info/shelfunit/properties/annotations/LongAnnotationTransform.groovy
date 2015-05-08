@@ -54,7 +54,7 @@ class LongAnnotationTransform implements ASTTransformation {
         def holdSet = [] as Set
         try {
             annotationNode.getMember( 'divisorSet' ).getExpressions().each { member ->
-                holdSet.add( new Integer( member.getValue() ) )
+                holdSet.add( new Long( member.getValue() ) )
             }
         } catch ( Exception e ) { }
         holdSet.remove( 0L )

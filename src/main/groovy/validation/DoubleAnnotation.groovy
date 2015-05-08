@@ -27,7 +27,7 @@ import java.lang.annotation.RetentionPolicy
 */
 @Retention( RetentionPolicy.RUNTIME ) 
 @Target( ElementType.FIELD )
-@GroovyASTTransformationClass( [ 'info.shelfunit.properties.annotations.ValidationAnnotationTransform' ] )
+@GroovyASTTransformationClass( [ 'info.shelfunit.properties.annotations.DoubleAnnotationTransform' ] )
 public @interface DoubleAnnotation {
     /**
     The lowest value you want this field to hold. The default is 0.0d. It could go as low as Double.MIN_VALUE.
@@ -42,6 +42,7 @@ public @interface DoubleAnnotation {
   A number that your variable can be divided by. If you want a number to be even, then would select 2.
   */
   // public double[] divisor() default [ 1.0d ]
+  public boolean throwEx() default true
 }
 
 
