@@ -1,7 +1,5 @@
 package info.shelfunit.properties.sample.other
 
-import validation.AnnotationProcessor
-
 import java.lang.reflect.Method
 import spock.lang.Specification
 import org.junit.Rule
@@ -10,9 +8,7 @@ import org.junit.rules.TestName
 class BuilderTest001 extends Specification {
     def setup() {}       // run before every feature method
     def cleanup() {}     // run after every feature method
-    def setupSpec() {
-        // AnnotationProcessor.process( Message ) 
-    }   // run before the first feature method
+    def setupSpec() {}   // run before the first feature method
     def cleanupSpec() {} // run after the last feature method
     
     @Rule 

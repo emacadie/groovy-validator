@@ -4,15 +4,11 @@ import spock.lang.Specification
 import org.junit.Rule
 import org.junit.rules.TestName
 
-// import validation.AnnotationProcessor
-
 class FirstImmutableExSampleTest extends Specification { 
     
     def setup() {}       // run before every feature method
     def cleanup() {}     // run after every feature method
-    def setupSpec() {
-        // AnnotationProcessor.process( FirstImmutableExSample ) 
-    }   // run before the first feature method
+    def setupSpec() {}   // run before the first feature method
     def cleanupSpec() {} // run after the last feature method
     
     @Rule 

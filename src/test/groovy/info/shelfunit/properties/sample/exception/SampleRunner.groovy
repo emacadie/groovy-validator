@@ -1,7 +1,6 @@
 package info.shelfunit.properties.sample.exception
 
 import validation.StringAnnotation
-import validation.AnnotationProcessor
 
 class SampleRunner {
    /*
@@ -155,7 +154,7 @@ class SampleRunner {
     
     def tryFirstSubject() {
         println "\n\n Starting tryFirstSubject"
-        // AnnotationProcessor.process( FirstSubject.class ) 
+
         def fs001 = new FirstSubject()
         println "1. Just called constructor for fs001"
         def fs002 = new FirstSubject()

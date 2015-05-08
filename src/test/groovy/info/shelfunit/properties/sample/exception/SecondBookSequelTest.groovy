@@ -2,17 +2,13 @@ package info.shelfunit.properties.sample.exception
 
 import spock.lang.Specification
 
-import validation.AnnotationProcessor
-
 import org.junit.Rule
 import org.junit.rules.TestName
 
 class SecondBookSequelTest extends Specification { 
     def setup() {}          // run before every feature method
     def cleanup() {}        // run after every feature method
-    def setupSpec() {
-        // AnnotationProcessor.process( SecondBookSequel, true )
-    }     // run before the first feature method
+    def setupSpec() {}     // run before the first feature method
     def cleanupSpec() {}   // run after the last feature method
     
     @Rule 

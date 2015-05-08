@@ -1,15 +1,10 @@
 package info.shelfunit.properties.nonmutable
 
-import validation.AnnotationProcessor
 import validation.IntAnnotation
 import validation.StringAnnotation
 
 class SecondImmutableSample {
-    /*
-    static { 
-        AnnotationProcessor.process( FirstImmutableSample.class ) 
-    }
-    */
+
     @StringAnnotation( minLength = 5, maxLength = 200, throwEx = false )
     String firstString
     @StringAnnotation( minLength = 5, maxLength = 20, throwEx = false )
