@@ -1,12 +1,12 @@
 package info.shelfunit.properties.sample
 
-import validation.AnnotationProcessor
+// import validation.AnnotationProcessor
 import validation.LongAnnotation
 
 class LongRunner {
     
     static { 
-        AnnotationProcessor.process( LongRunner.class ) 
+        // AnnotationProcessor.process( LongRunner.class ) 
     }
     
     @LongAnnotation( minValue = 0L, maxValue = 1000L )

@@ -28,7 +28,7 @@ import java.lang.annotation.Target
 */
 @Retention( RetentionPolicy.RUNTIME ) 
 @Target( ElementType.FIELD )
-@GroovyASTTransformationClass( [ 'info.shelfunit.properties.annotations.ValidationAnnotationTransform' ] )
+@GroovyASTTransformationClass( [ 'info.shelfunit.properties.annotations.LongAnnotationTransform' ] )
 public @interface LongAnnotation {
         /**
     The lowest value you want this field to hold. The default is 0. It could go as low as Long.MIN_VALUE.
@@ -43,6 +43,8 @@ public @interface LongAnnotation {
   A number that your variable can be divided by. If you want a number to be even, then would select [ 2L ]. If you wanted to do fizzbuzz, you would set it to [ 3L, 5L ]. The default is [1L]. This must be specified using the list notation. If you simply provide a number things will not work as expected. And, yes, you need the "L" at the end.
   */
   public long[] divisorSet() default [1L]
+  
+  public boolean throwEx() default true
 }
 
 
