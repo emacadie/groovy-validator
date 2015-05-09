@@ -12,7 +12,7 @@ import java.lang.annotation.RetentionPolicy
 <p>This is an annotation to validate/constrain String fields in Plain Old Groovy Objects.</p>
 <p>Here is an example on how to use it:</p>
 <pre>
-    @StringAnnotation( minLength = 5, maxLength = 10 )
+    @StringAnnotation( minLength = 5, maxLength = 10, throwEx = false )
     String firstString
     @StringAnnotation( maxLength = 400 )
     def secondString
@@ -21,7 +21,18 @@ import java.lang.annotation.RetentionPolicy
 </pre>
 <p>If the field is defined as "String" and it is given a value in the first call to setX that is outside your constraints, then it will be set to a String with length 0. If the field is defined as "def" and it is given a value that is outside your constraints, then it will be set to null. If the field already has a valid value and it is sent an invalid one in a call to setX, the new, invalid value will be ignored.</p>
 
-<p>An application, class or library that uses this annotation must also import {@link validation.AnnotationProcessor} (for a POGO) or {@link validation.ImmutableValidator} (for an immutable object).</p>
+<p>If you choose to throw exceptions for constraint violations and your regular expression ends with a dollar sign, the message will print DOLLAR_SIGN in the message. I know it's pretty lame, but it's the only way I could get it to work. So a string with a regular expression constraint like this:
+<pre>
+/^.*?[Gg]roovy.*$/
+</pre>
+will throw an exception like this:
+<pre>
+java.lang.Exception: 'I like PHP' is a String with a length outside the range of 10 to 2147483647 characters or does not match the regular expression /^.*?[Gg]roovy.*DOLLAR_SIGN/ 
+</pre>
+
+</p>
+
+<p>An application, class or library that uses this annotation must also import {@link validation.ImmutableValidator} to use this in an immutable object.</p>
 <p></p>
 */
 
@@ -49,6 +60,9 @@ public @interface StringAnnotation {
     */
     public String regEx() default ".*"
     
+    /**
+    A boolean declaring if an exception should be thrown if any of the contraints are violated. Defaults to true.
+    */
     public boolean throwEx() default true
 }
 
