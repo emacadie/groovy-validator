@@ -3,7 +3,7 @@ package validation
 import java.util.regex.Pattern
 import groovy.transform.Immutable
 
-/**
+/*
 <p>This is a class that will process the annotations {@link validation.DoubleAnnotation}, {@link validation.FloatAnnotation}, {@link validation.IntAnnotation}, {@link validation.LongAnnotation} and {@link validation.StringAnnotation}</p>
 
 <p>I never liked that fact that <a href="http://groovy-lang.org/objectorientation.html#properties">Groovy Beans</a> never had any validations for the properties (at least none that I could find). Grails has <a href="http://grails.org/doc/latest/ref/Constraints/Usage.html">constraints</a>. Why not Groovy?</p>
@@ -15,7 +15,7 @@ import groovy.transform.Immutable
 */
 class AnnotationProcessor {
     
-    /**
+    /*
     <p>This is the method that actually processes the annotations for mutable objects.</p>
     <p>Suppose you made a class called "Book" that used some of the annotations this class processes. Somewhere in your code, you
     will need to do this:</p>

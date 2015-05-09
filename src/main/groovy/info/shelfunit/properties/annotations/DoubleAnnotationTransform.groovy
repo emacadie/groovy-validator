@@ -21,27 +21,17 @@ class DoubleAnnotationTransform implements ASTTransformation {
         }
         def annotationNode = astNodes[ 0 ]
         def fieldNode = astNodes[ 1 ]
-        // theNode [0] is a org.codehaus.groovy.ast.AnnotationNode
-        // theNode [1] is a org.codehaus.groovy.ast.FieldNode
-        // println "annotation is for ${annotationNode.classNode.name}"
-        // println "field is for class ${fieldNode.getOwner().name} and field ${fieldNode.name}, so setter would be set${fieldNode.name.capitalize()}"
-        
         def theAnnotation = annotationNode.classNode
-        // println "methods of annotation  ${theAnnotation.name}:"
         theAnnotation.methods.each { methodNode ->
             // print " ${methodNode.name}, "
         }
         def annotatedClass = fieldNode.getOwner() // the class
-        // println "\nmethods of class ${annotatedClass.name}" // look for createValidatingConstructor from AstImmutableConstructorTransform
         def hasCreateValidatingConstructor = false
         def methodToRemove
         annotatedClass.methods.each { mNode ->
-            // print " ${mNode.name}, "
             if ( mNode.name == "createValidatingConstructor" ) { hasCreateValidatingConstructor = true }
             if ( mNode.name == "set${fieldNode.name.capitalize()}" ) { methodToRemove = mNode }
         }
-  
-        // println "\n--------------------------------------\n\n"
         
         def min = annotationNode.getMember( 'minValue' ) ? annotationNode.getMember( 'minValue' ).getValue() : 0 
         def max = annotationNode.getMember( 'maxValue' ) ? annotationNode.getMember( 'maxValue' ).getValue() :  Double.MAX_VALUE 
@@ -71,11 +61,9 @@ class DoubleAnnotationTransform implements ASTTransformation {
     }
     """
 
-        // println "here is the method string: ${methodString}"
         if ( !hasCreateValidatingConstructor ) {
             try {
                 def ast = new AstBuilder().buildFromString( CompilePhase.INSTRUCTION_SELECTION, false, methodString.toString() )
-                // println "ast[ 0 ] is a ${ast[ 0 ].class.name}, and ast[ 1 ] is a ${ast[ 1 ].class.name}"
                 def someClassNode = ast[ 1 ]
                 def methods = ast[ 1 ].methods
                 annotatedClass.addMethod( methods.find { it.name == "set${fieldNode.name.capitalize()}" } )
@@ -88,4 +76,5 @@ class DoubleAnnotationTransform implements ASTTransformation {
         
     } // end method visit
     
-} // end class  - line 208, 228, 211
+} // end class  - line 208, 228, 211, 91
+
