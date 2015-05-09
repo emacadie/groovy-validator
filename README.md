@@ -22,15 +22,12 @@ So I made some annotations that can do some validation for you.
 ```groovy
 package info.shelfunit.properties.sample
  
-import validation.AnnotationProcessor
 import validation.IntAnnotation
 import validation.StringAnnotation
  
 class Book {
-    static {
-        AnnotationProcessor.process( Book.class )
-    }
-    @IntAnnotation( minValue = 30, maxValue = 400 )
+
+    @IntAnnotation( minValue = 30, maxValue = 400, throwEx = false )
     def pages
     @StringAnnotation( minLength = 5, maxLength = 20, regEx = /^.*?[Gg]roovy.*$/  )
     String title
@@ -38,17 +35,9 @@ class Book {
 }
 ```
 
-The annotations for POGOs are processed by calling the static process method on validation.AnnotationProcessor, sending your POGO class as an argument:
-
-```groovy
-AnnotationProcessor.process( Book.class )
-```
-
-This can be done in a static block in your POGO (as in the Book.groovy example above) or separately outside your class. 
-
 For POGOs, if a numeric field is declared as "def", it will become null if the argument does not meet the validation constraints. If it is declared as a primitive, it will be set to 0 if the argument does not meet the validation constraints.
 
-This project can also validate fields in immutable objects. Instead of using AnnotationProcessor.process(), you annotate the class with  ImmutableValidator:
+This project can also validate fields in immutable objects. In addition to using the annotations for the fields, you annotate the class with ImmutableValidator:
 
 ```groovy
 package info.shelfunit.properties.sample.immutable
@@ -76,13 +65,7 @@ def validatingImObject = new ImmutableObject002(
     [ firstString: "Hi Again", firstInt: 11, firstLong: 22L ], true )
 ```
 
-You can add another boolean called "throwException" to throw an exception if the arguments do not meet the validation constraints. It is optional and is set to false by default. If an exception is thrown, it will print out the value and the constraints.   
-
-You can use it for POGOs with the AnnotationProcessor class like this:
-
-```groovy
-AnnotationProcessor.process( Book, true )
-```
+Adding the "throwEx" will throw an exception if the arguments do not meet the validation constraints. It is optional and is set to false by default. If an exception is thrown, it will print out the value and the constraints.   
 
 You might get a message like this:
 ```
@@ -106,11 +89,11 @@ Groovy validation exception:
 222 is a long outside the range 0 to 100 or it is not divisible by anything in the set [5, 7] 
 ```
 
-If "thowException" is true for a POGO, the field will either retain its pre-existing value (if it had one) or be set to null. If "throwException" is true for an immutable object and an exception is thrown, then the object will not be created.
+If "throwException" is true for an immutable object and an exception is thrown, then the object will not be created.
 
 Right now it only handles String, double, float, int and long. For String, it checks the string is checked against a minimum ("minLength") and maximum ("maxLength") length, and against a regular expression ("regEx"). For integers and longs, the field is checked against minimum ("minValue") and maximum ("maxValue") values, and a set of divisors ("divisorSet"). For double and float, the field is checked against minimum ("minValue") and maximum ("maxValue") values. There are defaults for all of these.  
 
-AnnotationProcessor can handle mutable fields in POGOs, and ImmutableValidator can handle fields in immutable objects. So far this project cannot handle final fields in POGOs. You can put a final field in a POGO, you just cannot use these annotations for that field. You also need to add a constructor for the final field.
+Using the annotations standalone can handle mutable fields in POGOs, and ImmutableValidator can handle fields in immutable objects. So far this project cannot handle final fields in POGOs. You can put a final field in a POGO, you just cannot use these annotations for that field. You also need to add a constructor for the final field.
 
 To use this project: 
 Run 
