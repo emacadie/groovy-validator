@@ -43,8 +43,9 @@ public @interface FloatAnnotation {
   */
   // public float[] divisor() default [ 1.0f  ]
   
-  /**
+    /**
     A boolean declaring if an exception should be thrown if any of the contraints are violated. Defaults to true.
+    This is not used by {@link validation.ImmutableValidator}.
     */
   public boolean throwEx() default true
 }

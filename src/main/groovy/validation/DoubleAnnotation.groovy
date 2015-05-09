@@ -44,6 +44,7 @@ public @interface DoubleAnnotation {
   // public double[] divisor() default [ 1.0d ]
   /**
     A boolean declaring if an exception should be thrown if any of the contraints are violated. Defaults to true.
+    This is not used by {@link validation.ImmutableValidator}.
     */
   public boolean throwEx() default true
 }
