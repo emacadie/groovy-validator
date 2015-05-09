@@ -30,7 +30,7 @@ class FloatAnnotationTransform implements ASTTransformation {
         def theAnnotation = annotationNode.classNode
         // println "methods of annotation  ${theAnnotation.name}:"
         theAnnotation.methods.each { methodNode ->
-            print " ${methodNode.name}, "
+            // print " ${methodNode.name}, "
         }
         def annotatedClass = fieldNode.getOwner() // the class
         // println "\nmethods of class ${annotatedClass.name}" // look for createValidatingConstructor from AstImmutableConstructorTransform

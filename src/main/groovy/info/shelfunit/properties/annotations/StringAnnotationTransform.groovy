@@ -55,11 +55,20 @@ class StringAnnotationTransform implements ASTTransformation {
         def max = annotationNode.getMember( 'maxLength' ) ? annotationNode.getMember( 'maxLength' ).getValue() :  Integer.MAX_VALUE 
         def throwEx = annotationNode.getMember( 'throwEx' ) ? annotationNode?.getMember( 'throwEx' ).getValue() : true
         def regex = annotationNode.getMember( 'regEx' ) ? "/" + annotationNode?.getMember( 'regEx' )?.getText() + "/" : "\".*\""
-        
+        java.util.regex.Pattern myPattern = java.util.regex.Pattern.compile( regex, java.util.regex.Pattern.COMMENTS )
+        def patternAsString = myPattern.toString()
+        println "Here is the reg ex as a string: ${patternAsString}"
         def catchAll = ( regex == '".*"' ) ?: false
+        if ( patternAsString.contains( "\$" ) ) {
+            println "regex has a dollar sign: ${patternAsString}, here it is with a dog: ${patternAsString.substring(0, ( patternAsString.length() - 2 ) ) }"
+        }
         // println "regex ${regex} is catchAll: ${catchAll}  Here is the test: ${( regex == '".*"' )}"
         def patternString1 = regex.replace(  "\\", "\\\\" ) 
-        
+        if ( patternString1.contains( "\$" ) ) {
+            println "patternString1 has a dollar sign: ${patternString1}, here it is with a dog: ${patternString1.substring(0, ( patternString1.length() - 2 ) ) }"
+            patternString1 = patternString1.substring(0, ( patternString1.length() - 2 ) )
+            patternString1 += "DOLLAR_SIGN/"
+        }
         def methodString = new StringBuffer()
         methodString << """
     public void set${fieldNode.name.capitalize()}( Object arg ) {
