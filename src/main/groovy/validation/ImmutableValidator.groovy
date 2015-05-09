@@ -7,7 +7,7 @@ import groovy.transform.ToString
 /**
 <p>This annotation does the same basic thing as  {@link validation.AstImmutableConstructor}: It can be used to validate fields in immutable objects. It is a meta-annotation using <a href="http://docs.groovy-lang.org/latest/html/gapi/index.html?groovy/transform/AnnotationCollector.html">AnnotationCollector</a> to combine {@link validation.AstImmutableConstructor}, <a href="http://docs.groovy-lang.org/latest/html/gapi/index.html?groovy/transform/Immutable.html">Immutable</a> and <a href="http://docs.groovy-lang.org/latest/html/gapi/index.html?groovy/transform/ToString.html">ToString</a> into one annotation. For <a href="http://docs.groovy-lang.org/latest/html/gapi/index.html?groovy/transform/ToString.html">ToString</a>, includeNames is set to true. </p>
 
-<p>The fields can be annotated with the following annotations: {@link import validation.DoubleAnnotation}, {@link import validation.FloatAnnotation}, {@link import validation.IntAnnotation}, {@link import validation.LongAnnotation} and {@link validation.StringAnnotation}. You do not need to run the {@link validation.AnnotationProcessor} for this to work.</p>
+<p>The fields can be annotated with the following annotations: {@link import validation.DoubleAnnotation}, {@link import validation.FloatAnnotation}, {@link import validation.IntAnnotation}, {@link import validation.LongAnnotation} and {@link validation.StringAnnotation}.</p>
 
 <p>Other than a few less lines of code, it should be the same as {@link validation.AstImmutableConstructor}:</p>
 

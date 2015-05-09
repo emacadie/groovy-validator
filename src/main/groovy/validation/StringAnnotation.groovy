@@ -21,7 +21,7 @@ import java.lang.annotation.RetentionPolicy
 </pre>
 <p>If the field is defined as "String" and it is given a value in the first call to setX that is outside your constraints, then it will be set to a String with length 0. If the field is defined as "def" and it is given a value that is outside your constraints, then it will be set to null. If the field already has a valid value and it is sent an invalid one in a call to setX, the new, invalid value will be ignored.</p>
 
-<p>If you choose to throw exceptions for constraint violations and your regular expression ends with a dollar sign, the message will print DOLLAR_SIGN in the message. I know it's pretty lame, but it's the only way I could get it to work. So a string with a regular expression constraint like this:
+<p>If you choose to throw exceptions for constraint violations for a mutable object and your regular expression ends with a dollar sign, the message will print DOLLAR_SIGN in the message. I know it's pretty lame, but it's the only way I could get it to work. So a string with a regular expression constraint like this:
 <pre>
 /^.*?[Gg]roovy.*$/
 </pre>
@@ -50,12 +50,12 @@ public @interface StringAnnotation {
     public int maxLength() default 2147483647
     /**
     <p>A regular expression the String must match. By default, it is the catch-all ".*"</p>
-    <p>You can delineate a string with slashes, like this (for use with {@link validation.ImmutableValidator} or {@link validation.AnnotationProcessor}):</p>
+    <p>You can delineate a string with slashes, like this (for use with {@link validation.ImmutableValidator} or standalone use):</p>
     <pre>/^.*?[Gg]roovy.*$/</pre>
-    <p>or as a Java string like this (for use with {@link validation.AnnotationProcessor} only):</p>
+    <p>or as a Java string like this (for standalone use only):</p>
     <pre>"^.*?[Gg]roovy.*\$"</pre>
     <p>See the javadoc for the <a href="http://docs.oracle.com/javase/7/docs/api/?java/util/regex/Pattern.html">Pattern</a> class for details.</p>
-    <p>If you are going to use this annotation with {@link validation.ImmutableValidator}, you MUST use slashes. If you are going to use it with {@link validation.AnnotationProcessor}, you can use either way.</p>
+    <p>If you are going to use this annotation with {@link validation.ImmutableValidator}, you MUST use slashes. If you are going to use the annotation by itself, you can use either way.</p>
     <p>You cannot use comments to document the regular expression. It must be unbroken on one line.</p>
     */
     public String regEx() default ".*"

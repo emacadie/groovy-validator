@@ -22,7 +22,7 @@ import java.lang.annotation.Target
 
 <p>An application, class or library that uses this annotation must also import {@link validation.ImmutableValidator} to use this in an immutable object.</p>
 
-<p>You must append the "L" at the end of the number. If you set "throwException" to true for {@link validation.AnnotationProcessor} or {@link validation.ImmutableValidator} and an exception is thrown, the "L" will not be printed as part of the number in the message.</p>
+<p>You must append the "L" at the end of the number. If you set "throwException" to true for {@link validation.ImmutableValidator} and an exception is thrown, the "L" will not be printed as part of the number in the message.</p>
 
 <p></p>
 */
