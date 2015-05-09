@@ -21,6 +21,7 @@ class IntAnnotationTransform implements ASTTransformation {
         }
         def annotationNode = astNodes[ 0 ]
         def fieldNode = astNodes[ 1 ]
+        if ( fieldNode.isFinal() ) { return }
         // theNode [0] is a org.codehaus.groovy.ast.AnnotationNode
         // theNode [1] is a org.codehaus.groovy.ast.FieldNode
         // println "annotation is for ${annotationNode.classNode.name}"

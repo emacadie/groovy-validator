@@ -11,7 +11,7 @@ import validation.AstImmutableConstructor
 class Car {
     @IntAnnotation( minValue = 10, throwEx = false )
     int miles
-    // @IntAnnotation( minValue = 1990 )
+    @IntAnnotation( minValue = 1990 )
     final int year
     
     Car( theYear ) { year = theYear }

@@ -40,7 +40,7 @@ class CarTest extends Specification {
     } // first Test
     
     /*
-    def "first Test"() {
+    def "test Exception"() {
         println "--- Starting test ${name.methodName}"
         def car = new Car( year: 2008, miles: 0 )
         boolean exceptionThrown = false
@@ -59,10 +59,10 @@ class CarTest extends Specification {
         
     } // first Test
     */
-    /*
-    def "second Test"() {
+    
+    def "test Exception"() {
         println "--- Starting test ${name.methodName}"
-        def car = new Car( year: 208 )
+        def car = new Car( 208 )
         boolean exceptionThrown = false
         println "Here is car: ${car.toString()}, exceptionThrown: ${exceptionThrown}"
         
@@ -73,11 +73,11 @@ class CarTest extends Specification {
         }
         expect:
         exceptionThrown == true
-        car.year == 0
+        car.year == 208
         car.miles == 0
         
     } // first Test
-    */
+    
     
   /*
     def "test with annotations"() {
