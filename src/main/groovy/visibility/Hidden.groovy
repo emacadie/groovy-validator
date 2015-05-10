@@ -24,11 +24,11 @@ class AgeHolder
     }
     
     def visitYogaRetreat() {
-        perceivedAge++
+        perceivedAge--
     }
     
     def visitInLaws() {
-        perceivedAge--
+        perceivedAge++
     }
 }
  
