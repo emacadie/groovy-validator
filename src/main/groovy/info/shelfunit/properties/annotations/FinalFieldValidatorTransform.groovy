@@ -39,15 +39,31 @@ class FinalFieldValidatorTransform implements ASTTransformation {
         def minimum
         def maximum
         def packageString = annotatedClass.getPackageName()? "package  ${annotatedClass.getPackageName()}" : " "
-        def theString = 
-        """
+        def theString = new StringBuffer()
+        theString << """
         ${packageString}
         
         class ${annotatedClass.getNameWithoutPackage()} {
             
             public ${annotatedClass.getNameWithoutPackage()} ( java.util.LinkedHashMap argMap, boolean validation, boolean throwException = false ) {
                 
-                this( createValidatingConstructor( argMap, validation, throwException ) )
+                // this( createValidatingConstructor( argMap, validation, throwException ).values() )
+                def validMap = createValidatingConstructor( argMap, validation, throwException )
+                def vmValues = []
+                """
+                fields2.each { fieldNode ->
+                    println "setting ${fieldNode.getName()}"
+                    theString << "println \"about to set ${fieldNode.getName()}\""
+                    theString << "\nthis.${fieldNode.getName()} = validMap['${fieldNode.getName()}']\n"
+                    theString << "\nprintln \"just set ${fieldNode.getName()}\""
+                    // theString << "vmValues << validMap[${fieldNode.getName()}]\n"
+                    theString << "\nprintln \"setting instance field ${fieldNode.getName()} with arg value \" + validMap['${fieldNode.getName()}']  \n"
+                }
+                
+                theString << """
+                // def valString = vmValues.join(', ')
+                // this( vmValues.join(', ') )
+
             } // end constructor
             
             // was java.util.HashMap argMap, Boolean validation
@@ -62,10 +78,10 @@ class FinalFieldValidatorTransform implements ASTTransformation {
                 }
             }
         } // end class 
-            """.toString()
+            """
         
         try {
-            def ast = new AstBuilder().buildFromString( CompilePhase.INSTRUCTION_SELECTION, false, theString )
+            def ast = new AstBuilder().buildFromString( CompilePhase.INSTRUCTION_SELECTION, false, theString.toString() )
             // look at block statement
             // look at the class Node
             def someClassNode = ast[ 1 ]
@@ -136,6 +152,7 @@ class FinalFieldValidatorTransform implements ASTTransformation {
                             sb1 << handleDoubleAndFloat( fieldNode.getName(), annotationNode, Float.MAX_VALUE, Float.class.name )
                         break
                         case [ 'int', 'java.lang.Integer' ]:
+                            println "About to call handleIntAndLong for ${fieldNode.getName()}"
                             sb1 << handleIntAndLong( fieldNode.getName(), annotationNode, new Integer( 0 ) )
                         break
                         case [ 'long', 'java.lang.Long' ]:
@@ -177,10 +194,11 @@ class FinalFieldValidatorTransform implements ASTTransformation {
                             } catch ( Exception e ) { }
                             holdSet.remove( zeroNum )
                             if ( holdSet.size() == zeroNum ) { holdSet.add( ++zeroNum ) }
+                            // (val == null ) ||
                             sb1 << """
-                            if ( (val == null ) || ( ( ${minimum} <= val ) && ( val <= ${maximum} ) && ( ${holdSet}.find{ val % it == 0 }  != null ) ) ) {
-                                println( 'setting ${nodeName} which is a ${zeroNum.class.name} to ' + val );
+                            if (  ( ( ${minimum} <= val ) && ( val <= ${maximum} ) && ( ${holdSet}.find{ val % it == 0 }  != null ) ) ) {
                                 newMap[ '${nodeName}' ] = val
+                                println( 'setting ${nodeName} which is a ${zeroNum.class.name} to ' + val );
                             } else { 
                                 if ( throwException ) {
                                 exceptionStringList.add( val + ' is a ${zeroNum.class.name} outside the range ${minimum} to ${maximum} or it is not divisible by anything in the set ${holdSet} ' )

@@ -23,26 +23,27 @@ class CarTest extends Specification {
         expect:
         
         car.year == 2008
-        car.miles == 0
+        car.miles == 5
         
     } // first Test
     
     def "second Test"() {
         println "--- Starting test ${name.methodName}"
-        def car = new Car( 1987 )
+        def car = new Car( [ miles: 50, year: 1987 ], true )
         car.miles = 50
         boolean exceptionThrown = false
         println "Here is car: ${car.toString()}, exceptionThrown: ${exceptionThrown}"
         
         expect:
         car.miles == 50
+        car.year == 1987
         
     } // first Test
     
-    /*
-    def "test Exception"() {
+    
+    def "test Exception 001"() {
         println "--- Starting test ${name.methodName}"
-        def car = new Car( year: 2008, miles: 0 )
+        def car = new Car( [year: 2008, miles: 10], true )
         boolean exceptionThrown = false
         println "Here is car: ${car.toString()}, exceptionThrown: ${exceptionThrown}"
         
@@ -58,8 +59,8 @@ class CarTest extends Specification {
         car.miles == 0
         
     } // first Test
-    */
     
+    /*
     def "test Exception"() {
         println "--- Starting test ${name.methodName}"
         def car = new Car( 208 )
