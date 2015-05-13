@@ -35,7 +35,6 @@ class FinalFieldValidatorTransform implements ASTTransformation {
             ( !it.getName().contains( '$hash$code' ) ) ) 
         } 
         className = annotatedClass.getNameWithoutPackage()
-        // println "Here is className: ${className} and it is a ${className.class.name}"
         def minimum
         def maximum
         def packageString = annotatedClass.getPackageName()? "package  ${annotatedClass.getPackageName()}" : " "
@@ -47,23 +46,13 @@ class FinalFieldValidatorTransform implements ASTTransformation {
             
             public ${annotatedClass.getNameWithoutPackage()} ( java.util.LinkedHashMap argMap, boolean validation, boolean throwException = false ) {
                 
-                // this( createValidatingConstructor( argMap, validation, throwException ).values() )
                 def validMap = createValidatingConstructor( argMap, validation, throwException )
-                def vmValues = []
                 """
                 fields2.each { fieldNode ->
-                    println "setting ${fieldNode.getName()}"
-                    theString << "println \"about to set ${fieldNode.getName()}\""
                     theString << "\nthis.${fieldNode.getName()} = validMap['${fieldNode.getName()}']\n"
-                    theString << "\nprintln \"just set ${fieldNode.getName()}\""
-                    // theString << "vmValues << validMap[${fieldNode.getName()}]\n"
-                    theString << "\nprintln \"setting instance field ${fieldNode.getName()} with arg value \" + validMap['${fieldNode.getName()}']  \n"
                 }
                 
                 theString << """
-                // def valString = vmValues.join(', ')
-                // this( vmValues.join(', ') )
-
             } // end constructor
             
             // was java.util.HashMap argMap, Boolean validation
@@ -113,15 +102,12 @@ class FinalFieldValidatorTransform implements ASTTransformation {
         try {
             fields2.each { fieldNode ->
                 fieldTypeName = fieldNode.getType().getName()
-                // println "Number of annotations for ${fieldNode.getName()}: ${fieldNode.getAnnotations().size()}"
                 def annotationNode = fieldNode.getAnnotations()[ 0 ]
                 if ( annotationNode == null ) {
-                    // sb1 << "println( 'annotationNode null for setting ${fieldNode.getName()} to ' + val );\n"
                     sb1 << " newMap[ '${fieldNode.getName()}' ] = argMap[ '${fieldNode.getName()}' ]\n"
                 } else {
-                    // println "fieldTypeName: ${fieldTypeName}"
+                    
                     switch ( fieldTypeName ) {
-                        
                         case 'java.lang.String':
                             sb1 << "val = argMap[ '${fieldNode.getName()}' ]"
                             def throwEx = annotationNode.getMember( 'throwEx' ) ? annotationNode?.getMember( 'throwEx' ).getValue() : true
@@ -132,13 +118,10 @@ class FinalFieldValidatorTransform implements ASTTransformation {
                             def patternString1 = regExp.replace(  "\\", "\\\\" ) 
 
                             sb1 << """
-                            // println( 'thinking about setting ${fieldNode.getName()} to ' + val );
                             theMatch = java.util.regex.Pattern.compile( ${regExp}, java.util.regex.Pattern.COMMENTS )
                             if ( ( ${minimum} <= val?.length() ) && ( val?.length() <= ${maximum} ) && ( theMatch.matcher( val ).matches() ) ) {
-                                // println( 'setting ${fieldNode.getName()} to ' + val );
                                 newMap[ '${fieldNode.getName()}' ] = val
                             } else { 
-                                // println( 'NOT setting ${fieldNode.getName()} to ' + val );
                                 if ( throwException ) {
                                     exceptionStringList.add( '"' + val + '" is a String with a length outside the range of ${minimum} to ${maximum} characters or does not match the regular expression ${patternString1} ' )
                                 }
@@ -152,7 +135,6 @@ class FinalFieldValidatorTransform implements ASTTransformation {
                             sb1 << handleDoubleAndFloat( fieldNode.getName(), annotationNode, Float.MAX_VALUE, Float.class.name )
                         break
                         case [ 'int', 'java.lang.Integer' ]:
-                            println "About to call handleIntAndLong for ${fieldNode.getName()}"
                             sb1 << handleIntAndLong( fieldNode.getName(), annotationNode, new Integer( 0 ) )
                         break
                         case [ 'long', 'java.lang.Long' ]:
@@ -198,7 +180,6 @@ class FinalFieldValidatorTransform implements ASTTransformation {
                             sb1 << """
                             if (  ( ( ${minimum} <= val ) && ( val <= ${maximum} ) && ( ${holdSet}.find{ val % it == 0 }  != null ) ) ) {
                                 newMap[ '${nodeName}' ] = val
-                                println( 'setting ${nodeName} which is a ${zeroNum.class.name} to ' + val );
                             } else { 
                                 if ( throwException ) {
                                 exceptionStringList.add( val + ' is a ${zeroNum.class.name} outside the range ${minimum} to ${maximum} or it is not divisible by anything in the set ${holdSet} ' )
@@ -228,5 +209,4 @@ class FinalFieldValidatorTransform implements ASTTransformation {
     } // handleDoubleAndFloat
 
 } // end class  - line 208, 228
-
 
