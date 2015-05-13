@@ -45,8 +45,8 @@ class FinalFieldValidatorTransform implements ASTTransformation {
         class ${annotatedClass.getNameWithoutPackage()} {
             
             public ${annotatedClass.getNameWithoutPackage()} ( java.util.LinkedHashMap argMap, boolean validation, boolean throwException = false ) {
-                
-                def validMap = createValidatingConstructor( argMap, validation, throwException )
+                /* Our immutable++ annotation has createValidatingConstructor, which short-circuits other validators */
+                def validMap = createValidatingFinalConstructor( argMap, validation, throwException )
                 """
                 fields2.each { fieldNode ->
                     theString << "\nthis.${fieldNode.getName()} = validMap['${fieldNode.getName()}']\n"
@@ -56,7 +56,7 @@ class FinalFieldValidatorTransform implements ASTTransformation {
             } // end constructor
             
             // was java.util.HashMap argMap, Boolean validation
-            def static createValidatingConstructor( java.util.HashMap argMap, boolean validation, boolean throwException ) {
+            def static createValidatingFinalConstructor( java.util.HashMap argMap, boolean validation, boolean throwException ) {
             
                 if ( !validation ) {
                     return argMap
@@ -79,7 +79,7 @@ class FinalFieldValidatorTransform implements ASTTransformation {
                 annotatedClass.addConstructor( theCon )
             }
             def methods = ast[ 1 ].methods
-            annotatedClass.addMethod( methods.find { it.name == 'createValidatingConstructor' } )
+            annotatedClass.addMethod( methods.find { it.name == 'createValidatingFinalConstructor' } )
 
         } catch ( Exception e ) {
             println "Some exception occured"

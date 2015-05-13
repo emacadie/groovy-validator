@@ -15,28 +15,34 @@ class CarTest extends Specification {
     
      def "first Test"() {
         println "--- Starting test ${name.methodName}"
-        def car = new Car( 2008 )
-        car.miles = 5
+        def car = new Car( [ miles: 50, year: 2008 ], true )
+        // car.miles = 5
         boolean exceptionThrown = false
         println "Here is car: ${car.toString()}, exceptionThrown: ${exceptionThrown}"
         
         expect:
         
         car.year == 2008
-        car.miles == 5
+        car.miles == 50
         
     } // first Test
     
     def "second Test"() {
         println "--- Starting test ${name.methodName}"
+        when:
         def car = new Car( [ miles: 50, year: 1987 ], true, true )
         car.miles = 50
         boolean exceptionThrown = false
         println "Here is car: ${car.toString()}, exceptionThrown: ${exceptionThrown}"
         
-        expect:
-        car.miles == 50
-        car.year == 1987
+        then:
+        def ex = thrown( Exception )
+        println "Here is ex.message:\n${ex.message}"
+        ex.message == "Groovy validation exception: \n" +
+        "1987 is a java.lang.Integer outside the range 1990 to 2147483647 or it is not divisible by anything in the set [1] "
+        car == null
+        // car.miles == 50
+        // car.year == 1987
         
     } // first Test
     
@@ -52,7 +58,7 @@ class CarTest extends Specification {
         } catch ( Exception e ) {
             exceptionThrown = true
         }
-        
+        println "Here is car: ${car.toString()}, exceptionThrown: ${exceptionThrown}"
         expect:
         exceptionThrown == true
         car.year == 2008
