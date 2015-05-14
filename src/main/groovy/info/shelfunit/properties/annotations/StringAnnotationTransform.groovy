@@ -21,6 +21,7 @@ class StringAnnotationTransform implements ASTTransformation {
         }
         def annotationNode = astNodes[ 0 ]
         def fieldNode = astNodes[ 1 ]
+        if ( fieldNode.isFinal() ) { return }
         def theAnnotation = annotationNode.classNode
         theAnnotation.methods.each { methodNode ->
              // print " ${methodNode.name}, "

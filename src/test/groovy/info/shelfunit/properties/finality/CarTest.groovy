@@ -1,4 +1,4 @@
-package info.shelfunit.properties.sample.other
+package info.shelfunit.properties.finality
 
 import spock.lang.Specification
 import org.junit.Rule
@@ -16,7 +16,6 @@ class CarTest extends Specification {
      def "first Test"() {
         println "--- Starting test ${name.methodName}"
         def car = new Car( [ miles: 50, year: 2008 ], true )
-        // car.miles = 5
         boolean exceptionThrown = false
         println "Here is car: ${car.toString()}, exceptionThrown: ${exceptionThrown}"
         
@@ -31,9 +30,6 @@ class CarTest extends Specification {
         println "--- Starting test ${name.methodName}"
         when:
         def car = new Car( [ miles: 50, year: 1987 ], true, true )
-        car.miles = 50
-        boolean exceptionThrown = false
-        println "Here is car: ${car.toString()}, exceptionThrown: ${exceptionThrown}"
         
         then:
         def ex = thrown( Exception )
@@ -41,11 +37,8 @@ class CarTest extends Specification {
         ex.message == "Groovy validation exception: \n" +
         "1987 is a java.lang.Integer outside the range 1990 to 2147483647 or it is not divisible by anything in the set [1] "
         car == null
-        // car.miles == 50
-        // car.year == 1987
         
     } // first Test
-    
     
     def "test Exception 001"() {
         println "\n--- Starting test ${name.methodName}"
@@ -64,46 +57,27 @@ class CarTest extends Specification {
         car.year == 2008
         car.miles == 10
         
-    } // first Test
+    } // 
     
-    /*
-    def "test Exception"() {
-        println "--- Starting test ${name.methodName}"
-        def car = new Car( 208 )
-        boolean exceptionThrown = false
-        println "Here is car: ${car.toString()}, exceptionThrown: ${exceptionThrown}"
-        
-        try { 
-            car.year = 2010
-        } catch ( Exception e ) {
-            exceptionThrown = true
-        }
-        expect:
-        exceptionThrown == true
-        car.year == 208
-        car.miles == 0
-        
-    } // first Test
-    
-    
-  /*
-    def "test with annotations"() {
-        println "--- Starting test ${name.methodName}"
-        def person = new Person().with {
-            firstName = "Robert"
-            lastName = "LewandowskiLewandowski"
-            age = 212
-            it // got to have "it" here to return object
-        }
-        println "person is a ${person.class.name}"
-        println "Here is person: ${person.toString()}"
-        expect:
-        person.firstName == "Robert"
-        person.lastName == null
-        person.age == null
-    } // first Test
- 
-    */
+    def "test different combinations"() {
+        println "\n--- Starting test ${name.methodName}"
+        when:
+            def carA = new Car( [ miles: 5, year: 2010 ], true)
+            println "carA: ${carA.toString()}"
+        then:
+            carA.miles == 0
+            carA.year == 2010
+            
+        when:
+            carA.miles = 20
+            carA.year = 1900
+        then:
+            def ex = thrown( Exception )
+            ex.message == "Cannot set readonly property: year for class: info.shelfunit.properties.finality.Car"
+            carA.miles == 20
+            carA.year == 2010
+    }
+
 } // end class
 
 

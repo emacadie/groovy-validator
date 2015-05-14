@@ -49,7 +49,11 @@ class FinalFieldValidatorTransform implements ASTTransformation {
                 def validMap = createValidatingFinalConstructor( argMap, validation, throwException )
                 """
                 fields2.each { fieldNode ->
-                    theString << "\nthis.${fieldNode.getName()} = validMap['${fieldNode.getName()}']\n"
+                    if ( fieldNode.isFinal() ) {
+                        theString << "\nthis.${fieldNode.getName()} = validMap['${fieldNode.getName()}']\n"
+                    } else {
+                        theString << "\nthis.set${fieldNode.getName().capitalize()}( validMap['${fieldNode.getName()}'] )\n"
+                    }
                 }
                 
                 theString << """
@@ -104,6 +108,8 @@ class FinalFieldValidatorTransform implements ASTTransformation {
                 fieldTypeName = fieldNode.getType().getName()
                 def annotationNode = fieldNode.getAnnotations()[ 0 ]
                 if ( annotationNode == null ) {
+                    sb1 << " newMap[ '${fieldNode.getName()}' ] = argMap[ '${fieldNode.getName()}' ]\n"
+                } else if ( !fieldNode.isFinal() ) {
                     sb1 << " newMap[ '${fieldNode.getName()}' ] = argMap[ '${fieldNode.getName()}' ]\n"
                 } else {
                     
@@ -196,7 +202,7 @@ class FinalFieldValidatorTransform implements ASTTransformation {
                     def maximum = annotationNode.getMember( 'maxValue' ) ? annotationNode.getMember( 'maxValue' ).getValue() :  maxValue
                     sb1 << """
                     if ( ( ${minimum} <= val ) && ( val <= ${maximum} ) ) {
-                        // println( 'setting ${nodeName} which is a ${numClassName} to ' + val );
+                        println( 'setting ${nodeName} which is a ${numClassName} to ' + val );
                         newMap[ '${nodeName}' ] = val
                     } else { 
                         if ( throwException ) {

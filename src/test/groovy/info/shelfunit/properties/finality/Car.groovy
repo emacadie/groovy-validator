@@ -1,4 +1,4 @@
-package info.shelfunit.properties.sample.other
+package info.shelfunit.properties.finality
 
 import groovy.transform.ToString
 import groovy.transform.TupleConstructor 
