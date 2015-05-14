@@ -52,7 +52,27 @@ class FinalFieldValidatorTransform implements ASTTransformation {
                     if ( fieldNode.isFinal() ) {
                         theString << "\nthis.${fieldNode.getName()} = validMap['${fieldNode.getName()}']\n"
                     } else {
-                        theString << "\nthis.set${fieldNode.getName().capitalize()}( validMap['${fieldNode.getName()}'] )\n"
+                        // theString << "\nprintln 'the field is a ${fieldNode.getType().getName()}'\n"
+                        def fieldTypeName = fieldNode.getType().getName()
+                        switch ( fieldTypeName ) {
+                        case 'java.lang.String':
+                             theString << "\nthis.set${fieldNode.getName().capitalize()}( validMap['${fieldNode.getName()}'] ?: new String() )\n"
+                        break
+                        case [ 'double', 'java.lang.Double' ]:
+                            theString << "\nthis.set${fieldNode.getName().capitalize()}( validMap['${fieldNode.getName()}'] ?: 0d )\n"
+                        break
+                        case [ 'float', 'java.lang.Float' ]:
+                            theString << "\nthis.set${fieldNode.getName().capitalize()}( validMap['${fieldNode.getName()}'] ?: 0f )\n"
+                        break
+                        case [ 'int', 'java.lang.Integer' ]:
+                            theString << "\nthis.set${fieldNode.getName().capitalize()}( validMap['${fieldNode.getName()}'] ?: 0 )\n"
+                        break
+                        case [ 'long', 'java.lang.Long' ]:
+                            theString << "\nthis.set${fieldNode.getName().capitalize()}( validMap['${fieldNode.getName()}'] ?: 0L )\n"
+                        break
+                        default:
+                            theString << "\nthis.set${fieldNode.getName().capitalize()}( validMap['${fieldNode.getName()}'] ?: ${fieldNode.getType().getTypeClass().newInstance()} )\n"
+                        }
                     }
                 }
                 

@@ -9,7 +9,7 @@ import java.lang.annotation.ElementType
 import java.lang.annotation.RetentionPolicy
 
 /**
-<p>This is an annotation to validate/constrain floating number fields in Plain Old Groovy Objects.</p>
+<p>This is an annotation to validate/constrain final fields in Plain Old Groovy Objects.</p>
 <p>Here is an example on how to use it:</p>
 <pre>
     @FloatAnnotation( minValue = 0f, maxValue = 1000f, throwEx = false )

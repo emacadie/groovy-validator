@@ -15,7 +15,7 @@ class Book {
 }
 ```
 
-It's clean, and has no getters and setters. But what I do not like is there is no validation for your data. What if you want your String to be between 10 and 20 characters? What if you want your int field to be more than 100? 
+It's clean, and has no getters and setters. But what I do not like is there is no validation for your data. What if you want your String to be between 10 and 20 characters? What if you want your int field to be more than 100? And what's to stop some dingo from trying to create a book object with less than 0 pages?
 
 So I made some annotations that can do some validation for you.   
 
@@ -91,9 +91,27 @@ Groovy validation exception:
 
 If "throwException" is true for an immutable object and an exception is thrown, then the object will not be created.
 
-Right now it only handles String, double, float, int and long. For String, it checks the string is checked against a minimum ("minLength") and maximum ("maxLength") length, and against a regular expression ("regEx"). For integers and longs, the field is checked against minimum ("minValue") and maximum ("maxValue") values, and a set of divisors ("divisorSet"). For double and float, the field is checked against minimum ("minValue") and maximum ("maxValue") values. There are defaults for all of these.  
+This library can also handle final fields in mutable objects.
+```groovy
+import groovy.transform.ToString
+import validation.IntAnnotation
+import validation.FinalFieldValidator
 
-Using the annotations standalone can handle mutable fields in POGOs, and ImmutableValidator can handle fields in immutable objects. So far this project cannot handle final fields in POGOs. You can put a final field in a POGO, you just cannot use these annotations for that field. You also need to add a constructor for the final field.
+@ToString( includeNames = true )
+@FinalFieldValidator
+class Car {
+    @IntAnnotation( minValue = 10, throwEx = false )
+    int miles
+    @IntAnnotation( minValue = 1990 )
+    final int year
+    
+    // Car( theYear ) { year = theYear }
+}
+```
+
+As with immutable validation, you need to use a map in the constructor to validate a final field.
+
+Right now it only handles String, double, float, int and long. For String, it checks the string is checked against a minimum ("minLength") and maximum ("maxLength") length, and against a regular expression ("regEx"). For integers and longs, the field is checked against minimum ("minValue") and maximum ("maxValue") values, and a set of divisors ("divisorSet"). For double and float, the field is checked against minimum ("minValue") and maximum ("maxValue") values. There are defaults for all of these.  
 
 To use this project: 
 Run 

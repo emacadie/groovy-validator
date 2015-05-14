@@ -77,6 +77,25 @@ class CarTest extends Specification {
             carA.miles == 20
             carA.year == 2010
     }
+    
+    def "test just year in map constructor"() {
+        println "\n--- Starting test ${name.methodName}"
+        when:
+            def carA = new Car( [ year: 2010 ], true)
+            println "carA: ${carA.toString()}"
+        then:
+            carA.miles == 0
+            carA.year == 2010
+            
+        when:
+            carA.miles = 20
+            carA.year = 1900
+        then:
+            def ex = thrown( Exception )
+            ex.message == "Cannot set readonly property: year for class: info.shelfunit.properties.finality.Car"
+            carA.miles == 20
+            carA.year == 2010
+    }
 
 } // end class
 
