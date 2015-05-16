@@ -95,6 +95,21 @@ class CarTest extends Specification {
             ex.message == "Cannot set readonly property: year for class: info.shelfunit.properties.finality.Car"
             carA.miles == 20
             carA.year == 2010
+            
+        when:
+            carA.miles = 2
+            carA.year = 2100
+        then:
+            def ex2 = thrown( Exception )
+            ex2.message == "Cannot set readonly property: year for class: info.shelfunit.properties.finality.Car"
+            carA.miles == 20
+            carA.year == 2010
+            
+        when:
+            carA.miles = 4
+        then:
+            carA.miles == 20
+            carA.year == 2010
     }
 
 } // end class
