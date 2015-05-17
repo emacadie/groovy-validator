@@ -16,7 +16,7 @@ class FinalStringHolderSpec extends Specification {
     def "first Test"() {
         println "--- Starting test ${name.methodName}"
         when:
-            def fshA = new FinalStringHolder( [ firstDefString: "qeeqq", finalDefString: "Groovy ist Wunderbar", firstRealString: "this is a real string", finalRealString: "Groovy ist Wunderbaar", someOtherString: "Yo adrian" ], true, true )
+            def fshA = new FinalStringHolder( [ firstDefString: "qeeqq", finalDefString: "Groovy ist Wunderbar", firstRealString: "this is a real string", finalRealString: "Groovy ist Wunderbaar", someOtherString: "Yo adrian", anotherObject: "jsjsjjsjsjs" ], true, true )
         then:
         def ex = thrown( Exception )
         println "Here is ex.message:\n${ex.message}"
@@ -32,7 +32,7 @@ class FinalStringHolderSpec extends Specification {
     def "second Test"() {
         println "--- Starting test ${name.methodName}"
         when:
-            def fshA = new FinalStringHolder( [ firstDefString: 'qeeqq', finalDefString: "Groovy ist Wunderbar", firstRealString: "realString", finalRealString: 'Groovy ist Wunderbaar', someOtherString: "Yo adrian" ], true, true )
+            def fshA = new FinalStringHolder( [ firstDefString: 'qeeqq', finalDefString: "Groovy ist Wunderbar", firstRealString: "realString", finalRealString: 'Groovy ist Wunderbaar', someOtherString: "Yo adrian", anotherObject: "jsjsjjsjsjs" ], true, true )
         then:
         // def ex = thrown( Exception )
         // println "Here is ex.message:\n${ex.message}"
