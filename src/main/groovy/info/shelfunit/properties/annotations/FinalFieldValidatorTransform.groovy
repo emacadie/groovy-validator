@@ -31,7 +31,7 @@ class FinalFieldValidatorTransform implements ASTTransformation {
         def constructors001 = annotatedClass.getDeclaredConstructors()        
         def fields = annotatedClass.getFields()
         def fields2 = annotatedClass.getFields().findAll{ 
-            ( ( knownTypes.contains( it.getType().getName() ) ) && 
+            ( // ( knownTypes.contains( it.getType().getName() ) ) && 
             ( !it.getName().contains( '$hash$code' ) ) ) 
         } 
         className = annotatedClass.getNameWithoutPackage()
@@ -39,6 +39,7 @@ class FinalFieldValidatorTransform implements ASTTransformation {
         def maximum
         def packageString = annotatedClass.getPackageName()? "package  ${annotatedClass.getPackageName()}" : " "
         def theString = new StringBuffer()
+        def theSwitch
         theString << """
         ${packageString}
         
@@ -53,24 +54,35 @@ class FinalFieldValidatorTransform implements ASTTransformation {
                         theString << "\nthis.${fieldNode.getName()} = validMap['${fieldNode.getName()}']\n"
                     } else {
                         // theString << "\nprintln 'the field is a ${fieldNode.getType().getName()}'\n"
+                        def annotationName = fieldNode.getAnnotations()[ 0 ]?.getClassNode()?.getName() ?: "nullx"
+                        println "looking at field ${fieldNode.getName()} which is a ${fieldNode.getType().getName()}, annotationNode: ${annotationName}"
                         def fieldTypeName = fieldNode.getType().getName()
-                        switch ( fieldTypeName ) {
-                        case 'java.lang.String':
+                        theSwitch = ( fieldTypeName != 'java.lang.Object') ? fieldTypeName : annotationName
+                        println "Here is theSwitch: ${theSwitch}"
+                        // switch ( fieldTypeName ) {
+                        switch ( theSwitch ) {
+                        // case 'java.lang.String':
+                        case [ 'java.lang.String', 'validation.StringAnnotation']:
                              theString << "\nthis.set${fieldNode.getName().capitalize()}( validMap['${fieldNode.getName()}'] ?: new String() )\n"
                         break
-                        case [ 'double', 'java.lang.Double' ]:
+                        // case [ 'double', 'java.lang.Double' ]:
+                        case [ 'double', 'java.lang.Double', 'validation.DoubleAnnotation']:
                             theString << "\nthis.set${fieldNode.getName().capitalize()}( validMap['${fieldNode.getName()}'] ?: 0d )\n"
                         break
-                        case [ 'float', 'java.lang.Float' ]:
+                        // case [ 'float', 'java.lang.Float' ]:
+                        case [ 'float', 'java.lang.Float', 'validation.FloatAnnotation']:
                             theString << "\nthis.set${fieldNode.getName().capitalize()}( validMap['${fieldNode.getName()}'] ?: 0f )\n"
                         break
-                        case [ 'int', 'java.lang.Integer' ]:
+                        // case [ 'int', 'java.lang.Integer' ]:
+                        case [ 'int', 'java.lang.Integer' , 'validation.IntAnnotation']:
                             theString << "\nthis.set${fieldNode.getName().capitalize()}( validMap['${fieldNode.getName()}'] ?: 0 )\n"
                         break
-                        case [ 'long', 'java.lang.Long' ]:
+                        // case [ 'long', 'java.lang.Long' ]:
+                        case [ 'long', 'java.lang.Long', 'validation.LongAnnotation']:
                             theString << "\nthis.set${fieldNode.getName().capitalize()}( validMap['${fieldNode.getName()}'] ?: 0L )\n"
                         break
                         default:
+                            println "${fieldNode.getName()} is a ${fieldNode.getType().getName()}"
                             theString << "\nthis.set${fieldNode.getName().capitalize()}( validMap['${fieldNode.getName()}'] ?: ${fieldNode.getType().getTypeClass().newInstance()} )\n"
                         }
                     }

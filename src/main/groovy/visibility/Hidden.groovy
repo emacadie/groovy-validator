@@ -19,7 +19,7 @@ class AgeHolder
     {@code @Hidden}
     int perceivedAge
     
-    AgeHolder( argArg ) {
+    AgeHolder( argAge ) {
         this.perceivedAge = argAge
     }
     

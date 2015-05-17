@@ -1,3 +1,4 @@
+gradle clean; gradle groovydoc; gradle test
 gradle -Dtest.single=FirstImmutableSampleTest test -info   
 gradle -Dtest.single=SecondImmutableSampleTest test -info  
    

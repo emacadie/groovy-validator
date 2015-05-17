@@ -22,6 +22,7 @@ class StringAnnotationTransform implements ASTTransformation {
         def annotationNode = astNodes[ 0 ]
         def fieldNode = astNodes[ 1 ]
         if ( fieldNode.isFinal() ) { return }
+        println "In String annotation for ${fieldNode.name}"
         def theAnnotation = annotationNode.classNode
         theAnnotation.methods.each { methodNode ->
              // print " ${methodNode.name}, "
@@ -51,10 +52,13 @@ class StringAnnotationTransform implements ASTTransformation {
             patternString1 += "DOLLAR_SIGN/"
         }
         def methodString = new StringBuffer()
+        println "About to make method string for ${fieldNode.name}"
         methodString << """
     public void set${fieldNode.name.capitalize()}( Object arg ) {
-        if ( arg.getClass().getName() == "java.lang.String" ) {
-            // System.out.println( "Method set${fieldNode.name.capitalize()} called with arg " + arg + ", ignoring the love" );
+        if ( arg.getClass().getName() != "java.lang.String" ) {
+            System.out.println( "Method set${fieldNode.name.capitalize()} called with arg " + arg + ", ignoring the love" );
+        } else {
+            System.out.println( "Method set${fieldNode.name.capitalize()} called with arg " + arg + ", get busy" );
         }
         """
          methodString << """
