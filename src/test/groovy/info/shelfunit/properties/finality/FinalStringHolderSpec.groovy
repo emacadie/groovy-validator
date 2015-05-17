@@ -112,6 +112,26 @@ class FinalStringHolderSpec extends Specification {
             "\"Groovy is wunderbaar from Maars to Haarlem\" is a String with a length outside the range of 5 to 30 characters or does not match the regular expression /^.*?aa.*\$/ "
             println "here is fshC: ${fshC.toString()}"
             fshC == null
+            
+        // test min length for firstRealString
+        when:
+            def fshD = new FinalStringHolder( [ firstDefString: 'qeeqq', finalDefString: "Groovy ist Wunderbar", firstRealString: "real", finalRealString: 'Groovy ist Wunderbaar', someOtherString: "Yo adrian", anotherObject: "jsjsjjsjsjs" ], true, true )
+        then:
+            def exD = thrown( Exception )
+            println "Here is exD.message:\n${exD.message}"
+            exD.message == "'real' is a String with a length outside the range of 5 to 10 characters or does not match the regular expression '.*' "
+            println "here is fshD: ${fshD.toString()}"
+            fshD == null
+            
+        // test max length for firstRealString
+        when:
+            def fshE = new FinalStringHolder( [ firstDefString: 'qeeqq', finalDefString: "Groovy ist Wunderbar", firstRealString: "really long string will not pass", finalRealString: 'Groovy ist Wunderbaar', someOtherString: "Yo adrian", anotherObject: "jsjsjjsjsjs" ], true, true )
+        then:
+            def exE = thrown( Exception )
+            println "Here is exE.message:\n${exE.message}"
+            exE.message == "'really long string will not pass' is a String with a length outside the range of 5 to 10 characters or does not match the regular expression '.*' "
+            println "here is fshE: ${fshE.toString()}"
+            fshE == null
     } // "test bad real inputs"
 
 } // end class
