@@ -110,5 +110,27 @@ yyyyMMdd = Pattern.compile( "~/\\d{4}?-\\d{2}?-\\d{2}/")
 yyyyMMdd = Pattern.compile( "\\d{4}?-\\d\\d-\\d\\d" )
 yyyyMMdd.matcher( "2014-02-01" ).matches()
 
+import groovy.transform.ToString
+import validation.StringAnnotation
+import validation.FinalFieldValidator
+
+@ToString( includeNames = true )
+@FinalFieldValidator
+class FinalStringHolder {
+    @StringAnnotation( minLength = 5, maxLength = 20, regEx = /^.*ee.*$/, throwEx = true )
+    def firstDefString
+    @StringAnnotation( minLength = 5, maxLength = 20, regEx = /^.*?oo.*$/ )
+    final def finalDefString
+    @StringAnnotation( minLength = 5, maxLength = 10, throwEx = true )
+    String firstRealString
+    @StringAnnotation( minLength = 5, maxLength = 30, regEx = /^.*?aa.*$/ )
+    final String finalRealString
+    
+    String someOtherString
+    
+}
+def fshA = new FinalStringHolder( [ firstDefString: 'qeeqq', finalDefString: "Groovy ist Wunderbar", firstRealString: "realString", finalRealString: 'Groovy ist Wunderbaar', someOtherString: "Yo adrian" ], true, true )
+
+
 
 

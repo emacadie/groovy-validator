@@ -32,6 +32,14 @@ class StringRunnerSpec extends Specification {
         sr.stringAsDef == "heello"
         sr.stringAsString == "This is groovy"
 
+        
+        when:
+        sr.setStringAsString( "this is something else" )
+        sr.setStringAsDef( "haallo" )
+        then:
+        println "sr: ${sr.toString()}"
+        sr.stringAsDef == "heello"
+        sr.stringAsString == "This is groovy"
     } // end "first test"
 
 }

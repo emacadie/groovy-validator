@@ -54,10 +54,10 @@ class FinalFieldValidatorTransform implements ASTTransformation {
                         theString << "\nthis.${fieldNode.getName()} = validMap['${fieldNode.getName()}']\n"
                     } else {
                         def annotationName = fieldNode.getAnnotations()[ 0 ]?.getClassNode()?.getName() ?: "nullx"
-                        println "looking at field ${fieldNode.getName()} which is a ${fieldNode.getType().getName()}, annotationNode: ${annotationName}"
+                        // println "looking at field ${fieldNode.getName()} which is a ${fieldNode.getType().getName()}, annotationNode: ${annotationName}"
                         def fieldTypeName = fieldNode.getType().getName()
                         theSwitch = ( fieldTypeName != 'java.lang.Object') ? fieldTypeName : annotationName
-                        println "Here is theSwitch: ${theSwitch}"
+                        // println "Here is theSwitch: ${theSwitch}"
                         switch ( theSwitch ) {
                         case [ 'java.lang.String', 'validation.StringAnnotation']:
                              theString << "\nthis.set${fieldNode.getName().capitalize()}( validMap['${fieldNode.getName()}'] ?: new String() )\n"
@@ -75,7 +75,7 @@ class FinalFieldValidatorTransform implements ASTTransformation {
                             theString << "\nthis.set${fieldNode.getName().capitalize()}( validMap['${fieldNode.getName()}'] ?: 0L )\n"
                         break
                         default:
-                            println "${fieldNode.getName()} is a ${fieldNode.getType().getName()}"
+                            // println "${fieldNode.getName()} is a ${fieldNode.getType().getName()}"
                             theString << "\nthis.set${fieldNode.getName().capitalize()}( validMap['${fieldNode.getName()}'] ?: new Object() )\n"
                         }
                     }
