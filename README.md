@@ -108,6 +108,9 @@ class Car {
 ```
 
 As with immutable validation, you need to use a map in the constructor to validate a final field.
+```groovy
+def car = new Car( [ miles: 50, year: 2007 ], true, true )
+```
 
 Right now it only handles String, double, float, int and long. For String, it checks the string is checked against a minimum ("minLength") and maximum ("maxLength") length, and against a regular expression ("regEx"). For integers and longs, the field is checked against minimum ("minValue") and maximum ("maxValue") values, and a set of divisors ("divisorSet"). For double and float, the field is checked against minimum ("minValue") and maximum ("maxValue") values. There are defaults for all of these.  
 

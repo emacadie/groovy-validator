@@ -87,94 +87,106 @@ class FinalIntHolderSpec extends Specification {
             println "here is fihC: ${fihC.toString()}"
             fihC == null
             
-        // final
-        // def int too small
-        /*
+        // final def int too small
         when:
-            def fihA = new FinalIntHolder( [ firstDefInt: 10, finalDefInt: 100, firstRealInt: 100, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true, true )
+            def fihD = new FinalIntHolder( [ firstDefInt: 100, finalDefInt: 10, firstRealInt: 100, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true, true )
         then:
-            def exA = thrown( Exception )
-            exA.message == "10 is an integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5] "
-            // println "Here is exC.message:\n${exC.message}"
-            println "here is fihA: ${fihA.toString()}"
-            fihA == null
+            def exD = thrown( Exception )
+            exD.message == "Groovy validation exception: \n" +
+            "10 is a java.lang.Integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5] "
+            println "Here is exD.message:\n${exD.message}"
+            println "here is fihD: ${fihD.toString()}"
+            fihD == null
+        
+        // final def int too big
+        when:
+            def fihE = new FinalIntHolder( [ firstDefInt: 100, finalDefInt: 10000, firstRealInt: 100, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true, true )
+        then:
+            def exE = thrown( Exception )
+            exE.message ==  "Groovy validation exception: \n" +
+            "10000 is a java.lang.Integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5] "
+            println "Here is exE.message:\n${exE.message}"
+            println "here is fihE: ${fihE.toString()}"
+            fihE == null
             
-        // def int too big
+        // final def int not in divisor set
         when:
-            def fihB = new FinalIntHolder( [ firstDefInt: 10000, finalDefInt: 100, firstRealInt: 100, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true, true )
+            def fihF = new FinalIntHolder( [ firstDefInt: 300, finalDefInt: 307, firstRealInt: 100, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true, true )
         then:
-            def exB = thrown( Exception )
-            exB.message == "10000 is an integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5] "
-            // println "Here is exC.message:\n${exC.message}"
-            println "here is fihB: ${fihB.toString()}"
-            fihB == null
-
-        // def int not in divisor set
-        when:
-            def fihC = new FinalIntHolder( [ firstDefInt: 301, finalDefInt: 100, firstRealInt: 100, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true, true )
-        then:
-            def exC = thrown( Exception )
-            exC.message == "301 is an integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5] "
-            // println "Here is exC.message:\n${exC.message}"
-            println "here is fihC: ${fihC.toString()}"
-            fihC == null
-            */
+            def exF = thrown( Exception )
+            exF.message == "Groovy validation exception: \n" +
+            "307 is a java.lang.Integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5] "
+            println "Here is exF.message:\n${exF.message}"
+            println "here is fihF: ${fihF.toString()}"
+            fihF == null
             
     } // "test bad def inputs"
 
     def "test bad real inputs"() {
         println "--- Starting test ${name.methodName}"
-        // test reg ex for finalRealString
+        // real int too small
         when:
-            def fshA = new FinalStringHolder( [ firstDefString: 'qeeqq', finalDefString: "Groovy ist Wunderbar", firstRealString: "realString", finalRealString: 'Groovy ist Wunderbiir', someOtherString: "Yo adrian", anotherObject: "jsjsjjsjsjs" ], true, true )
+            def fihA = new FinalIntHolder( [ firstDefInt: 100, finalDefInt: 100, firstRealInt: 11, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true, true )
         then:
             def exA = thrown( Exception )
-            println "Here is exA.message:\n${exA.message}"
-            exA.message == "Groovy validation exception: \n\"Groovy ist Wunderbiir\" is a String with a length outside the range of 5 to 30 characters or does not match the regular expression /^.*?aa.*\$/ "
-            println "here is fshA: ${fshA.toString()}"
-            fshA == null
-
-        // final real string too short            
+            exA.message == "11 is an integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5] "
+            // println "Here is exC.message:\n${exC.message}"
+            println "here is fihA: ${fihA.toString()}"
+            fihA == null
+            
+        // real int too big
         when:
-            def fshB = new FinalStringHolder( [ firstDefString: 'qeeqq', finalDefString: "Groovy", firstRealString: "realString", finalRealString: 'Grvy', someOtherString: "Yo adrian", anotherObject: "jsjsjjsjsjs" ], true, true )
+            def fihB = new FinalIntHolder( [ firstDefInt: 100, finalDefInt: 100, firstRealInt: 10002, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true, true )
         then:
             def exB = thrown( Exception )
-            println "Here is exB.message:\n${exB.message}"
-            exB.message == "Groovy validation exception: \n" +
-            "\"Grvy\" is a String with a length outside the range of 5 to 30 characters or does not match the regular expression /^.*?aa.*\$/ "
-            println "here is fshB: ${fshB.toString()}"
-            fshB == null
-            
-        // final real string too long            
+            exB.message == "10002 is an integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5] "
+            // println "Here is exC.message:\n${exC.message}"
+            println "here is fihB: ${fihB.toString()}"
+            fihB == null
+
+        // real int not in divisor set
         when:
-            def fshC = new FinalStringHolder( [ firstDefString: 'qeeqq', finalDefString: "Groovy", firstRealString: "realString", finalRealString: 'Groovy is wunderbaar from Maars to Haarlem', someOtherString: "Yo adrian", anotherObject: "jsjsjjsjsjs" ], true, true )
+            def fihC = new FinalIntHolder( [ firstDefInt: 300, finalDefInt: 100, firstRealInt: 304, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true, true )
         then:
             def exC = thrown( Exception )
-            println "Here is exC.message:\n${exC.message}"
-            exC.message == "Groovy validation exception: \n" +
-            "\"Groovy is wunderbaar from Maars to Haarlem\" is a String with a length outside the range of 5 to 30 characters or does not match the regular expression /^.*?aa.*\$/ "
-            println "here is fshC: ${fshC.toString()}"
-            fshC == null
-            
-        // test min length for firstRealString
+            exC.message == "304 is an integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5] "
+            // println "Here is exC.message:\n${exC.message}"
+            println "here is fihC: ${fihC.toString()}"
+            fihC == null
+
+        // final real int too small
         when:
-            def fshD = new FinalStringHolder( [ firstDefString: 'qeeqq', finalDefString: "Groovy ist Wunderbar", firstRealString: "real", finalRealString: 'Groovy ist Wunderbaar', someOtherString: "Yo adrian", anotherObject: "jsjsjjsjsjs" ], true, true )
+            def fihD = new FinalIntHolder( [ firstDefInt: 100, finalDefInt: 100, firstRealInt: 100, finalRealInt: 10, someOtherInt: 100, anotherObject: 'hello' ], true, true )
         then:
             def exD = thrown( Exception )
+            exD.message == "Groovy validation exception: \n" +
+            "10 is a java.lang.Integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5] "
             println "Here is exD.message:\n${exD.message}"
-            exD.message == "'real' is a String with a length outside the range of 5 to 10 characters or does not match the regular expression '.*' "
-            println "here is fshD: ${fshD.toString()}"
-            fshD == null
-            
-        // test max length for firstRealString
+            println "here is fihD: ${fihD.toString()}"
+            fihD == null
+        
+        // final real int too big
         when:
-            def fshE = new FinalStringHolder( [ firstDefString: 'qeeqq', finalDefString: "Groovy ist Wunderbar", firstRealString: "really long string will not pass", finalRealString: 'Groovy ist Wunderbaar', someOtherString: "Yo adrian", anotherObject: "jsjsjjsjsjs" ], true, true )
+            def fihE = new FinalIntHolder( [ firstDefInt: 100, finalDefInt: 100, firstRealInt: 100, finalRealInt: 2005, someOtherInt: 100, anotherObject: 'hello' ], true, true )
         then:
             def exE = thrown( Exception )
+            exE.message ==  "Groovy validation exception: \n" +
+            "2005 is a java.lang.Integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5] "
             println "Here is exE.message:\n${exE.message}"
-            exE.message == "'really long string will not pass' is a String with a length outside the range of 5 to 10 characters or does not match the regular expression '.*' "
-            println "here is fshE: ${fshE.toString()}"
-            fshE == null
+            println "here is fihE: ${fihE.toString()}"
+            fihE == null
+
+        // final real int not in divisor set
+        when:
+            def fihF = new FinalIntHolder( [ firstDefInt: 300, finalDefInt: 300, firstRealInt: 100, finalRealInt: 313, someOtherInt: 100, anotherObject: 'hello' ], true, true )
+        then:
+            def exF = thrown( Exception )
+            exF.message == "Groovy validation exception: \n" +
+            "313 is a java.lang.Integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5] "
+            println "Here is exF.message:\n${exF.message}"
+            println "here is fihF: ${fihF.toString()}"
+            fihF == null
+
     } // "test bad real inputs"
 
 } // end class
