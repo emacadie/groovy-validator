@@ -126,20 +126,25 @@ class FinalFieldValidatorTransform implements ASTTransformation {
         def maximum
         def regExp
         def fieldTypeName
+        def theSwitch
         sb1 << "def val \n def theMatch \n def divSet \n"
         sb1 << "def exceptionStringList = []\n"
         try {
             fields2.each { fieldNode ->
                 fieldTypeName = fieldNode.getType().getName()
                 def annotationNode = fieldNode.getAnnotations()[ 0 ]
+                
                 if ( annotationNode == null ) {
                     sb1 << " newMap[ '${fieldNode.getName()}' ] = argMap[ '${fieldNode.getName()}' ]\n"
                 } else if ( !fieldNode.isFinal() ) {
                     sb1 << " newMap[ '${fieldNode.getName()}' ] = argMap[ '${fieldNode.getName()}' ]\n"
                 } else {
-                    
-                    switch ( fieldTypeName ) {
-                        case 'java.lang.String':
+                    def annotationName = annotationNode?.getClassNode()?.getName() ?: "nullx"
+                    // println "in processFields, looking at field ${fieldNode.getName()} which is a ${fieldNode.getType().getName()}, annotationNode: ${annotationName}"
+                    theSwitch = ( fieldTypeName != 'java.lang.Object') ? fieldTypeName : annotationName
+                    // println "in processFields, Here is theSwitch: ${theSwitch}"
+                    switch ( theSwitch ) {
+                        case ['java.lang.String', 'validation.StringAnnotation']:
                             sb1 << "val = argMap[ '${fieldNode.getName()}' ]"
                             def throwEx = annotationNode.getMember( 'throwEx' ) ? annotationNode?.getMember( 'throwEx' ).getValue() : true
                             minimum = annotationNode.getMember( 'minLength' ) ? annotationNode.getMember( 'minLength' ).getValue() : 0
@@ -159,16 +164,16 @@ class FinalFieldValidatorTransform implements ASTTransformation {
                             }
                             """
                         break
-                        case [ 'double', 'java.lang.Double' ]:
+                        case [ 'double', 'java.lang.Double', 'validation.DoubleAnnotation' ]:
                             sb1 << handleDoubleAndFloat( fieldNode.getName(), annotationNode, Double.MAX_VALUE, Double.class.name )
                         break
-                        case [ 'float', 'java.lang.Float' ]:
+                        case [ 'float', 'java.lang.Float', 'validation.FloatAnnotation' ]:
                             sb1 << handleDoubleAndFloat( fieldNode.getName(), annotationNode, Float.MAX_VALUE, Float.class.name )
                         break
-                        case [ 'int', 'java.lang.Integer' ]:
+                        case [ 'int', 'java.lang.Integer', 'validation.IntAnnotation' ]:
                             sb1 << handleIntAndLong( fieldNode.getName(), annotationNode, new Integer( 0 ) )
                         break
-                        case [ 'long', 'java.lang.Long' ]:
+                        case [ 'long', 'java.lang.Long', 'validation.LongAnnotation' ]:
                             sb1 << handleIntAndLong( fieldNode.getName(), annotationNode, new Long( 0 ) )
                         break
                         default:

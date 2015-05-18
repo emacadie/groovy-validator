@@ -63,20 +63,66 @@ class FinalStringHolderSpec extends Specification {
     
     def "test bad def inputs"() {
         println "--- Starting test ${name.methodName}"
+        // def string too short
         when:
-            def fshA = new FinalStringHolder( [ firstDefString: 'qeeqq', finalDefString: "Gruuvy ist Wunderbar", firstRealString: "realString", finalRealString: 'Groovy ist Wunderbaar', someOtherString: "Yo adrian", anotherObject: "jsjsjjsjsjs" ], true, true )
+            def fshA = new FinalStringHolder( [ firstDefString: 'qqq', finalDefString: "Groovy ist Wunderbar", firstRealString: "realString", finalRealString: 'Groovy ist Wunderbaar', someOtherString: "Yo adrian", anotherObject: "jsjsjjsjsjs" ], true, true )
         then:
-            // def exA = thrown( Exception )
+            def exA = thrown( Exception )
+            exA.message == "'qqq' is a String with a length outside the range of 5 to 20 characters or does not match the regular expression /^.*ee.*DOLLAR_SIGN/ "
             // println "Here is exC.message:\n${exC.message}"
             println "here is fshA: ${fshA.toString()}"
-
+            fshA == null
+            
+        // def string too long
+        when:
+            def fshB = new FinalStringHolder( [ firstDefString: 'qeeqq blah blah blah blah blah blah blah blah blah', finalDefString: "Groovy ist Wunderbar", firstRealString: "realString", finalRealString: 'Groovy ist Wunderbaar', someOtherString: "Yo adrian", anotherObject: "jsjsjjsjsjs" ], true, true )
+        then:
+            def exB = thrown( Exception )
+            exB.message == "'qeeqq blah blah blah blah blah blah blah blah blah' is a String with a length outside the range of 5 to 20 characters or does not match the regular expression /^.*ee.*DOLLAR_SIGN/ "
+            // println "Here is exC.message:\n${exC.message}"
+            println "here is fshB: ${fshB.toString()}"
+            fshB == null
+            
+        // def string regEx
+        when:
+            def fshC = new FinalStringHolder( [ firstDefString: 'qaaqqq', finalDefString: "Groovy ist Wunderbar", firstRealString: "realString", finalRealString: 'Groovy ist Wunderbaar', someOtherString: "Yo adrian", anotherObject: "jsjsjjsjsjs" ], true, true )
+        then:
+            def exC = thrown( Exception )
+            exC.message == "'qaaqqq' is a String with a length outside the range of 5 to 20 characters or does not match the regular expression /^.*ee.*DOLLAR_SIGN/ "
+            // println "Here is exC.message:\n${exC.message}"
+            println "here is fshC: ${fshC.toString()}"
+            fshC == null
+            
         // def final string too short            
         when:
-            def fshB = new FinalStringHolder( [ firstDefString: 'qeeqq', finalDefString: "Grvy", firstRealString: "realString", finalRealString: 'Groovy ist Wunderbaar', someOtherString: "Yo adrian", anotherObject: "jsjsjjsjsjs" ], true, true )
+            def fshD = new FinalStringHolder( [ firstDefString: 'qeeqq', finalDefString: "Grvy", firstRealString: "realString", finalRealString: 'Groovy ist Wunderbaar', someOtherString: "Yo adrian", anotherObject: "jsjsjjsjsjs" ], true, true )
         then:
-            // def exB = thrown( Exception )
-            // println "Here is exB.message:\n${exB.message}"
-            println "here is fshB: ${fshB.toString()}"
+            def exD = thrown( Exception )
+            exD.message == "Groovy validation exception: \n" +
+            "\"Grvy\" is a String with a length outside the range of 5 to 20 characters or does not match the regular expression /^.*?oo.*\$/ "
+            println "here is fshD: ${fshD.toString()}"
+            fshD == null
+            
+        // def final string too long
+        when:
+            def fshE = new FinalStringHolder( [ firstDefString: 'qeeqq', finalDefString: "Groovy gets me mooving in the moorning", firstRealString: "realString", finalRealString: 'Groovy ist Wunderbaar', someOtherString: "Yo adrian", anotherObject: "jsjsjjsjsjs" ], true, true )
+        then:
+            def exE = thrown( Exception )
+            exE.message == "Groovy validation exception: \n" +
+            "\"Groovy gets me mooving in the moorning\" is a String with a length outside the range of 5 to 20 characters or does not match the regular expression /^.*?oo.*\$/ "
+            println "here is fshE: ${fshE.toString()}"
+            fshE == null
+            
+        // def final string bad reg ex
+        when:
+            def fshF = new FinalStringHolder( [ firstDefString: 'qeeqq', finalDefString: "Gruuvy ist Wunderbar", firstRealString: "realString", finalRealString: 'Groovy ist Wunderbaar', someOtherString: "Yo adrian", anotherObject: "jsjsjjsjsjs" ], true, true )
+        then:
+            def exF = thrown( Exception )
+            exF.message == "Groovy validation exception: \n" +
+            "\"Gruuvy ist Wunderbar\" is a String with a length outside the range of 5 to 20 characters or does not match the regular expression /^.*?oo.*\$/ "
+            println "here is fshF: ${fshF.toString()}"
+            fshF == null
+            
     } // "test bad def inputs"
 
     def "test bad real inputs"() {
