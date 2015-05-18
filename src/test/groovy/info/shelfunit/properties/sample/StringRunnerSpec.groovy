@@ -11,35 +11,34 @@ class StringRunnerSpec extends Specification {
     def "first test"() {
         def sr = new StringRunner()
         when:
-        sr.stringAsDef = "heello"
-        sr.stringAsString = "This is groovy"
+            sr.stringAsDef = "heello"
+            sr.stringAsString = "This is groovy"
         then:
-        println "sr: ${sr.toString()}"
-        sr.stringAsDef == "heello"
-        sr.stringAsString == "This is groovy"
+            println "sr: ${sr.toString()}"
+            sr.stringAsDef == "heello"
+            sr.stringAsString == "This is groovy"
         
         when:
-        sr.stringAsDef = "haallo"
+            sr.stringAsDef = "haallo"
         then:
-        println "sr: ${sr.toString()}"
-        sr.stringAsDef == "heello"
-        sr.stringAsString == "This is groovy"
+            println "sr: ${sr.toString()}"
+            sr.stringAsDef == "heello"
+            sr.stringAsString == "This is groovy"
         
         when:
-        sr.stringAsString = "this is something else"
+            sr.stringAsString = "this is something else"
         then:
-        println "sr: ${sr.toString()}"
-        sr.stringAsDef == "heello"
-        sr.stringAsString == "This is groovy"
-
+            println "sr: ${sr.toString()}"
+            sr.stringAsDef == "heello"
+            sr.stringAsString == "This is groovy"
         
         when:
-        sr.setStringAsString( "this is something else" )
-        sr.setStringAsDef( "haallo" )
+            sr.setStringAsString( "this is something else" )
+            sr.setStringAsDef( "haallo" )
         then:
-        println "sr: ${sr.toString()}"
-        sr.stringAsDef == "heello"
-        sr.stringAsString == "This is groovy"
+            println "sr: ${sr.toString()}"
+            sr.stringAsDef == "heello"
+            sr.stringAsString == "This is groovy"
     } // end "first test"
 
 }

@@ -4,8 +4,8 @@ import spock.lang.Specification
 import org.junit.Rule
 import org.junit.rules.TestName
 
-class FinalStringHolderSpec extends Specification {
-    def setup() { println " " }       // run before every feature method
+class FinalIntHolderSpec extends Specification {
+    def setup() { println " " } // run before every feature method
     def cleanup() {}     // run after every feature method
     def setupSpec() { }  // run before the first feature method
     def cleanupSpec() { println " " } // run after the last feature method
@@ -63,65 +63,35 @@ class FinalStringHolderSpec extends Specification {
     
     def "test bad def inputs"() {
         println "--- Starting test ${name.methodName}"
-        // def string too short
+        // def int too small
         when:
-            def fshA = new FinalStringHolder( [ firstDefString: 'qqq', finalDefString: "Groovy ist Wunderbar", firstRealString: "realString", finalRealString: 'Groovy ist Wunderbaar', someOtherString: "Yo adrian", anotherObject: "jsjsjjsjsjs" ], true, true )
+            def fihA = new FinalIntHolder( [ firstDefInt: 10, finalDefInt: 100, firstRealInt: 100, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true, true )
         then:
             def exA = thrown( Exception )
-            exA.message == "'qqq' is a String with a length outside the range of 5 to 20 characters or does not match the regular expression /^.*ee.*DOLLAR_SIGN/ "
+            exA.message == "10 is an integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5] "
             // println "Here is exC.message:\n${exC.message}"
-            println "here is fshA: ${fshA.toString()}"
-            fshA == null
+            println "here is fihA: ${fihA.toString()}"
+            fihA == null
             
-        // def string too long
+        // def int too big
         when:
-            def fshB = new FinalStringHolder( [ firstDefString: 'qeeqq blah blah blah blah blah blah blah blah blah', finalDefString: "Groovy ist Wunderbar", firstRealString: "realString", finalRealString: 'Groovy ist Wunderbaar', someOtherString: "Yo adrian", anotherObject: "jsjsjjsjsjs" ], true, true )
+            def fihB = new FinalIntHolder( [ firstDefInt: 10000, finalDefInt: 100, firstRealInt: 100, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true, true )
         then:
             def exB = thrown( Exception )
-            exB.message == "'qeeqq blah blah blah blah blah blah blah blah blah' is a String with a length outside the range of 5 to 20 characters or does not match the regular expression /^.*ee.*DOLLAR_SIGN/ "
+            exB.message == "10000 is an integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5] "
             // println "Here is exC.message:\n${exC.message}"
-            println "here is fshB: ${fshB.toString()}"
-            fshB == null
-            
-        // def string regEx
+            println "here is fihB: ${fihB.toString()}"
+            fihB == null
+
+        // def int not in divisor set
         when:
-            def fshC = new FinalStringHolder( [ firstDefString: 'qaaqqq', finalDefString: "Groovy ist Wunderbar", firstRealString: "realString", finalRealString: 'Groovy ist Wunderbaar', someOtherString: "Yo adrian", anotherObject: "jsjsjjsjsjs" ], true, true )
+            def fihC = new FinalIntHolder( [ firstDefInt: 301, finalDefInt: 100, firstRealInt: 100, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true, true )
         then:
             def exC = thrown( Exception )
-            exC.message == "'qaaqqq' is a String with a length outside the range of 5 to 20 characters or does not match the regular expression /^.*ee.*DOLLAR_SIGN/ "
+            exC.message == "301 is an integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5] "
             // println "Here is exC.message:\n${exC.message}"
-            println "here is fshC: ${fshC.toString()}"
-            fshC == null
-            
-        // def final string too short            
-        when:
-            def fshD = new FinalStringHolder( [ firstDefString: 'qeeqq', finalDefString: "Grvy", firstRealString: "realString", finalRealString: 'Groovy ist Wunderbaar', someOtherString: "Yo adrian", anotherObject: "jsjsjjsjsjs" ], true, true )
-        then:
-            def exD = thrown( Exception )
-            exD.message == "Groovy validation exception: \n" +
-            "\"Grvy\" is a String with a length outside the range of 5 to 20 characters or does not match the regular expression /^.*?oo.*\$/ "
-            println "here is fshD: ${fshD.toString()}"
-            fshD == null
-            
-        // def final string too long
-        when:
-            def fshE = new FinalStringHolder( [ firstDefString: 'qeeqq', finalDefString: "Groovy gets me mooving in the moorning", firstRealString: "realString", finalRealString: 'Groovy ist Wunderbaar', someOtherString: "Yo adrian", anotherObject: "jsjsjjsjsjs" ], true, true )
-        then:
-            def exE = thrown( Exception )
-            exE.message == "Groovy validation exception: \n" +
-            "\"Groovy gets me mooving in the moorning\" is a String with a length outside the range of 5 to 20 characters or does not match the regular expression /^.*?oo.*\$/ "
-            println "here is fshE: ${fshE.toString()}"
-            fshE == null
-            
-        // def final string bad reg ex
-        when:
-            def fshF = new FinalStringHolder( [ firstDefString: 'qeeqq', finalDefString: "Gruuvy ist Wunderbar", firstRealString: "realString", finalRealString: 'Groovy ist Wunderbaar', someOtherString: "Yo adrian", anotherObject: "jsjsjjsjsjs" ], true, true )
-        then:
-            def exF = thrown( Exception )
-            exF.message == "Groovy validation exception: \n" +
-            "\"Gruuvy ist Wunderbar\" is a String with a length outside the range of 5 to 20 characters or does not match the regular expression /^.*?oo.*\$/ "
-            println "here is fshF: ${fshF.toString()}"
-            fshF == null
+            println "here is fihC: ${fihC.toString()}"
+            fihC == null
             
     } // "test bad def inputs"
 
@@ -179,33 +149,6 @@ class FinalStringHolderSpec extends Specification {
             println "here is fshE: ${fshE.toString()}"
             fshE == null
     } // "test bad real inputs"
-    
-    def "test multiple bad inputs"() {
-        println "--- Starting test ${name.methodName}"
-        // the exception only catches the final fields, because those are processed first
-        when:
-            def fshA = new FinalStringHolder( [ firstDefString: 'qwwqq', finalDefString: "Gruuvy ist Wunderbar", firstRealString: "realStringwqerypweioyrpweurou", finalRealString: 'Groovy ist Wunderbiir', someOtherString: "Yo adrian", anotherObject: "jsjsjjsjsjs" ], true, true )
-        then:
-            def exA = thrown( Exception )
-            println "Here is exA.message:\n${exA.message}"
-            exA.message == "Groovy validation exception: \n" +
-            "\"Gruuvy ist Wunderbar\" is a String with a length outside the range of 5 to 20 characters or does not match the regular expression /^.*?oo.*\$/ \n" +
-            "\"Groovy ist Wunderbiir\" is a String with a length outside the range of 5 to 30 characters or does not match the regular expression /^.*?aa.*\$/ "
-            println "here is fshA: ${fshA.toString()}"
-            fshA == null
-        
-        // with non-final fields, only the first invalid one will throw an exception 
-        when:
-            def fshB = new FinalStringHolder( [ firstDefString: 'qwwqq', finalDefString: "Groovy ist Wunderbar", firstRealString: "realStringwqerypweioyrpweurou", finalRealString: 'Groovy ist Wunderbaar', someOtherString: "Yo adrian", anotherObject: "jsjsjjsjsjs" ], true, true )
-        then:
-            def exB = thrown( Exception )
-            println "Here is exB.message:\n${exB.message}"
-            exB.message == "'qwwqq' is a String with a length outside the range of 5 to 20 characters or does not match the regular expression /^.*ee.*DOLLAR_SIGN/ "
-            println "here is fshA: ${fshB.toString()}"
-            fshB == null
-
-    } // "test multiple bad inputs"()
 
 } // end class
-
 
