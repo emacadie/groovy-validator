@@ -16,50 +16,44 @@ class FinalIntHolderSpec extends Specification {
     def "first Test"() {
         println "--- Starting test ${name.methodName}"
         when:
-            def fshA = new FinalStringHolder( [ firstDefString: "qeeqq", finalDefString: "Groovy ist Wunderbar", firstRealString: "this is a real string", finalRealString: "Groovy ist Wunderbaar", someOtherString: "Yo adrian", anotherObject: "jsjsjjsjsjs" ], true, true )
+            def fihA = new FinalIntHolder( [ firstDefInt: 102, finalDefInt: 100, firstRealInt: 100, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true, true )
         then:
-            def ex = thrown( Exception )
-            println "Here is ex.message:\n${ex.message}"
-            ex.message == "'this is a real string' is a String with a length outside the range of 5 to 10 characters or does not match the regular expression '.*' "
-                // fshA.firstDefString == "qeeqq"
-                // fshA.finalDefString == "Groovy ist Wunderbar"
-                // fshA.firstRealString == "this is a real string"
-                // fshA.finalRealString == "Groovy ist Wunderbaar"
-                // fshA.someOtherString == "Yo adrian"
-        
-    } // first Test
-    
-    def "second Test"() {
-        println "--- Starting test ${name.methodName}"
-        when:
-            def fshA = new FinalStringHolder( [ firstDefString: 'qeeqq', finalDefString: "Groovy ist Wunderbar", firstRealString: "realString", finalRealString: 'Groovy ist Wunderbaar', someOtherString: "Yo adrian", anotherObject: "jsjsjjsjsjs" ], true, true )
-        then:
-            // def ex = thrown( Exception )
-            // println "Here is ex.message:\n${ex.message}"
-            println "here is fshA: ${fshA.toString()}"
-            // ex.message == "'this is a real string' is a String with a length outside the range of 5 to 10 characters or does not match the regular expression '.*' "
-            fshA.firstDefString == "qeeqq"
-            fshA.finalDefString == "Groovy ist Wunderbar"
-            fshA.firstRealString == "realString"
-            fshA.finalRealString == "Groovy ist Wunderbaar"
-            fshA.someOtherString == "Yo adrian"
-            fshA.anotherObject == "jsjsjjsjsjs"
+            println "here is fihA: ${fihA.toString()}"
+            fihA.toString() == "info.shelfunit.properties.finality.FinalIntHolder(firstDefInt:102, finalDefInt:100, firstRealInt:100, finalRealInt:100, someOtherInt:100, anotherObject:hello)"
             
+        // try to set def final
         when:
-            fshA.finalDefString = "Loosy goosey"
+            fihA.firstDefInt = 105
+            fihA.finalDefInt = 200
+        then:
+            def exA = thrown( Exception )
+            println "exA.message: ${exA.message}"
+            println "here is fihA: ${fihA.toString()}"
+            exA.message == "Cannot set readonly property: finalDefInt for class: info.shelfunit.properties.finality.FinalIntHolder"
+            fihA.toString() == "info.shelfunit.properties.finality.FinalIntHolder(firstDefInt:105, finalDefInt:100, firstRealInt:100, finalRealInt:100, someOtherInt:100, anotherObject:hello)"
+
+        // try to set real mutable to something not divisible by divisor set
+        when:
+            fihA.firstRealInt = 206
+            fihA.finalRealInt = 200
         then:
             def exB = thrown( Exception )
-            println "Here is exB.message:\n${exB.message}"
-            fshA.toString() == "info.shelfunit.properties.finality.FinalStringHolder(firstDefString:qeeqq, finalDefString:Groovy ist Wunderbar, firstRealString:realString, finalRealString:Groovy ist Wunderbaar, someOtherString:Yo adrian, anotherObject:jsjsjjsjsjs)"
-        
+            println "exB.message: ${exB.message}"
+            println "here is fihA: ${fihA.toString()}"
+            exB.message == "206 is an integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5] "
+            fihA.toString() == "info.shelfunit.properties.finality.FinalIntHolder(firstDefInt:105, finalDefInt:100, firstRealInt:100, finalRealInt:100, someOtherInt:100, anotherObject:hello)"
+            
+        // try to set real final
         when:
-            fshA.finalRealString = "Paak your car"
+            fihA.firstRealInt = 207
+            fihA.finalRealInt = 200
         then:
             def exC = thrown( Exception )
-            println "Here is exC.message:\n${exC.message}"
-            fshA.toString() == "info.shelfunit.properties.finality.FinalStringHolder(firstDefString:qeeqq, finalDefString:Groovy ist Wunderbar, firstRealString:realString, finalRealString:Groovy ist Wunderbaar, someOtherString:Yo adrian, anotherObject:jsjsjjsjsjs)"
-            
-    } // second Test
+            println "exC.message: ${exC.message}"
+            println "here is fihA: ${fihA.toString()}"
+            exC.message == "Cannot set readonly property: finalRealInt for class: info.shelfunit.properties.finality.FinalIntHolder"
+            fihA.toString() == "info.shelfunit.properties.finality.FinalIntHolder(firstDefInt:105, finalDefInt:100, firstRealInt:207, finalRealInt:100, someOtherInt:100, anotherObject:hello)"
+    } // first Test
     
     def "test bad def inputs"() {
         println "--- Starting test ${name.methodName}"
@@ -92,6 +86,39 @@ class FinalIntHolderSpec extends Specification {
             // println "Here is exC.message:\n${exC.message}"
             println "here is fihC: ${fihC.toString()}"
             fihC == null
+            
+        // final
+        // def int too small
+        /*
+        when:
+            def fihA = new FinalIntHolder( [ firstDefInt: 10, finalDefInt: 100, firstRealInt: 100, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true, true )
+        then:
+            def exA = thrown( Exception )
+            exA.message == "10 is an integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5] "
+            // println "Here is exC.message:\n${exC.message}"
+            println "here is fihA: ${fihA.toString()}"
+            fihA == null
+            
+        // def int too big
+        when:
+            def fihB = new FinalIntHolder( [ firstDefInt: 10000, finalDefInt: 100, firstRealInt: 100, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true, true )
+        then:
+            def exB = thrown( Exception )
+            exB.message == "10000 is an integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5] "
+            // println "Here is exC.message:\n${exC.message}"
+            println "here is fihB: ${fihB.toString()}"
+            fihB == null
+
+        // def int not in divisor set
+        when:
+            def fihC = new FinalIntHolder( [ firstDefInt: 301, finalDefInt: 100, firstRealInt: 100, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true, true )
+        then:
+            def exC = thrown( Exception )
+            exC.message == "301 is an integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5] "
+            // println "Here is exC.message:\n${exC.message}"
+            println "here is fihC: ${fihC.toString()}"
+            fihC == null
+            */
             
     } // "test bad def inputs"
 

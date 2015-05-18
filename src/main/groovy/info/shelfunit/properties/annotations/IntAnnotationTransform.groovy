@@ -65,7 +65,7 @@ class IntAnnotationTransform implements ASTTransformation {
         methodString << """
     public void set${fieldNode.name.capitalize()}( Object arg ) {
         if ( arg.getClass().getName() == "java.lang.Integer" ) {
-            System.out.println( "Method set${fieldNode.name.capitalize()} called with arg " + arg + ", ignoring the love" );
+            // System.out.println( "Method set${fieldNode.name.capitalize()} called with arg " + arg + ", ignoring the love" );
         }
         """
          methodString << """

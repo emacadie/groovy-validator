@@ -104,8 +104,6 @@ class Car {
     int miles
     @IntAnnotation( minValue = 1990 )
     final int year
-    
-    // Car( theYear ) { year = theYear }
 }
 ```
 
