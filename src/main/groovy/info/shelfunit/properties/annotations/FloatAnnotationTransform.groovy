@@ -53,7 +53,7 @@ class FloatAnnotationTransform implements ASTTransformation {
                     methodString << """
              } else {
                 throw new Exception(
-                     arg + " is a Float outside the range ${min} to ${max}" )
+                     arg + " is a java.lang.Float outside the range ${min} to ${max}" )
                      """
                 }
             methodString << """

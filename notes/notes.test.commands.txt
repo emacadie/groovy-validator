@@ -48,6 +48,8 @@ gradle -Dtest.single=SecondUSStateTest test -info
 gradle -Dtest.single=USStateTest test -info
 
 gradle clean; gradle groovydoc; gradle -Dtest.single=FinalStringHolderSpec test -info
+gradle test --tests info.shelfunit.properties.finality.FinalStringHolderSpec -info
+gradle test --tests info.shelfunit.properties.finality.FinalLongHolderSpec -info
 
 In the console:
 package 
