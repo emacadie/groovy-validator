@@ -53,7 +53,7 @@ class DoubleAnnotationTransform implements ASTTransformation {
                     methodString << """
              } else {
                 throw new Exception(
-                     arg + " is a Double outside the range ${min} to ${max}" )
+                     arg + " is a java.lang.Double outside the range ${min} to ${max}" )
                      """
                 }
             methodString << """
