@@ -108,68 +108,47 @@ class FinalFloatHolderSpec extends Specification {
 
     def "test bad real inputs"() {
         println "--- Starting test ${name.methodName}"
-        // real long too small
+        // real float too small
         when:
-            def ffhA = new FinalFloatHolder( [ firstDefFloat: 73.44f, finalDefFloat: 1000.1234, firstRealFloat: 725.63f, finalRealFloat: 2025.21f, someOtherFloat: 230f, anotherObject: "DogeFloat: Big numbers, much value" ], true, true )
+            def ffhA = new FinalFloatHolder( [ firstDefFloat: 73.47f, finalDefFloat: 1000.1234, firstRealFloat: 72.63f, finalRealFloat: 2025.21f, someOtherFloat: 230f, anotherObject: "DogeFloat: Big numbers, much value" ], true, true )
         then:
             def exA = thrown( Exception )
-            exA.message == "70 is a java.lang.Float outside the range 1000 to 1000000000 "
+            exA.message == "72.63 is a java.lang.Float outside the range 73.456 to 5027.012"
             // println "Here is exC.message:\n${exC.message}"
             println "here is ffhA: ${ffhA.toString()}"
             ffhA == null
             
-        // real long too big
+        // real float too big
         when:
-            def fLhB = new FinalFloatHolder( [ firstDefFloat: 73.44f, finalDefFloat: 1000.1234, firstRealFloat: 725.63f, finalRealFloat: 2025.21f, someOtherFloat: 230f, anotherObject: "DogeFloat: Big numbers, much value" ], true, true )
+            def fLhB = new FinalFloatHolder( [ firstDefFloat: 73.47f, finalDefFloat: 1000.1234, firstRealFloat: 7025.63f, finalRealFloat: 2025.21f, someOtherFloat: 230f, anotherObject: "DogeFloat: Big numbers, much value" ], true, true )
         then:
             def exB = thrown( Exception )
-            exB.message == "1000000600 is a java.lang.Float outside the range 1000 to 1000000000 "
+            exB.message == "7025.63 is a java.lang.Float outside the range 73.456 to 5027.012"
             // println "Here is exC.message:\n${exC.message}"
             println "here is fLhB: ${fLhB.toString()}"
             fLhB == null
 
-        // real long not in divisor set
+        // final real float too small
         when:
-            def fLhC = new FinalFloatHolder( [ firstDefFloat: 73.44f, finalDefFloat: 1000.1234, firstRealFloat: 725.63f, finalRealFloat: 2025.21f, someOtherFloat: 230f, anotherObject: "DogeFloat: Big numbers, much value" ], true, true )
-        then:
-            def exC = thrown( Exception )
-            exC.message == "10000007 is a java.lang.Float outside the range 1000 to 1000000000 "
-            // println "Here is exC.message:\n${exC.message}"
-            println "here is fLhC: ${fLhC.toString()}"
-            fLhC == null
-
-        // final real long too small
-        when:
-            def fLhD = new FinalFloatHolder( [ firstDefFloat: 73.44f, finalDefFloat: 1000.1234, firstRealFloat: 725.63f, finalRealFloat: 2025.21f, someOtherFloat: 230f, anotherObject: "DogeFloat: Big numbers, much value" ], true, true )
+            def fLhD = new FinalFloatHolder( [ firstDefFloat: 73.47f, finalDefFloat: 1000.1234, firstRealFloat: 725.63f, finalRealFloat: 25.21f, someOtherFloat: 230f, anotherObject: "DogeFloat: Big numbers, much value" ], true, true )
         then:
             def exD = thrown( Exception )
             exD.message == "Groovy validation exception: \n" +
-            "703 is a java.lang.Float outside the range 1000 to 1000000000 "
+            "25.21 is a java.lang.Float outside the range 73.456 to 5027.012 "
             println "Here is exD.message:\n${exD.message}"
             println "here is fLhD: ${fLhD.toString()}"
             fLhD == null
         
-        // final real long too big
+        // final real float too big
         when:
-            def fLhE = new FinalFloatHolder( [ firstDefFloat: 73.44f, finalDefFloat: 1000.1234, firstRealFloat: 725.63f, finalRealFloat: 2025.21f, someOtherFloat: 230f, anotherObject: "DogeFloat: Big numbers, much value" ], true, true )
+            def fLhE = new FinalFloatHolder( [ firstDefFloat: 73.47f, finalDefFloat: 1000.1234, firstRealFloat: 725.63f, finalRealFloat: 8025.21f, someOtherFloat: 230f, anotherObject: "DogeFloat: Big numbers, much value" ], true, true )
         then:
             def exE = thrown( Exception )
             exE.message ==  "Groovy validation exception: \n" +
-            "1000000004 is a java.lang.Float outside the range 1000 to 1000000000 "
+            "8025.21 is a java.lang.Float outside the range 73.456 to 5027.012 "
             println "Here is exE.message:\n${exE.message}"
             println "here is fLhE: ${fLhE.toString()}"
             fLhE == null
-
-        // final real long not in divisor set
-        when:
-            def fLhF = new FinalFloatHolder( [ firstDefFloat: 73.44f, finalDefFloat: 1000.1234, firstRealFloat: 725.63f, finalRealFloat: 2025.21f, someOtherFloat: 230f, anotherObject: "DogeFloat: Big numbers, much value" ], true, true )
-        then:
-            def exF = thrown( Exception )
-            exF.message == "Groovy validation exception: \n" +
-            "700004 is a java.lang.Float outside the range 1000 to 1000000000 "
-            println "Here is exF.message:\n${exF.message}"
-            println "here is fLhF: ${fLhF.toString()}"
-            fLhF == null
 
     } // "test bad real inputs"
 
