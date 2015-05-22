@@ -30,9 +30,9 @@ class ImmutableLongDivisorSpec extends Specification {
         println "rid2.toString(): ${rid2.toString()}"
         then:
         def ex = thrown( Exception )
-        ex.message == "Groovy validation exception: \n" +
-        "2147483640 is a java.lang.Long outside the range 2147483647 to 9223372036854775807 or it is not divisible by anything in the set [5] \n" +
-        "13 is a java.lang.Long outside the range 0 to 9223372036854775807 or it is not divisible by anything in the set [7] "
+        ex.message == "Groovy validation exception:\n" +
+        "2147483640 is a java.lang.Long outside the range 2147483647 to 9223372036854775807 or it is not divisible by anything in the set [5]\n" +
+        "13 is a java.lang.Long outside the range 0 to 9223372036854775807 or it is not divisible by anything in the set [7]"
         
     } // end "test both long fields"
 
@@ -53,8 +53,8 @@ class ImmutableLongDivisorSpec extends Specification {
         def rid2 = new ImmutableLongDivisor( [ longWithDivArray: 13L ], true, true )
         then:
         def ex2 = thrown( Exception )
-        ex2.message == "Groovy validation exception: \n" +
-        "13 is a java.lang.Long outside the range 0 to 40 or it is not divisible by anything in the set [3, 4] "
+        ex2.message == "Groovy validation exception:\n" +
+        "13 is a java.lang.Long outside the range 0 to 40 or it is not divisible by anything in the set [3, 4]"
         
         when:
         def rid3 = new ImmutableLongDivisor( [ longWithDivArray: 9L ], true, true )
@@ -70,8 +70,8 @@ class ImmutableLongDivisorSpec extends Specification {
         def rid5 = new ImmutableLongDivisor( [ longWithDivArray: 55L ], true, true )
         then:
         def ex5 = thrown( Exception )
-        ex5.message == "Groovy validation exception: \n" +
-        "55 is a java.lang.Long outside the range 0 to 40 or it is not divisible by anything in the set [3, 4] "
+        ex5.message == "Groovy validation exception:\n" +
+        "55 is a java.lang.Long outside the range 0 to 40 or it is not divisible by anything in the set [3, 4]"
         
     } // end test with divisor array
     
@@ -88,8 +88,8 @@ class ImmutableLongDivisorSpec extends Specification {
         def rid2 = new ImmutableLongDivisor( [ longWithDivArray: 9L, longWithZeroDiv: 55L ], true, true )
         then:
         def ex = thrown( Exception )
-        ex.message == "Groovy validation exception: \n" +
-        "55 is a java.lang.Long outside the range 0 to 40 or it is not divisible by anything in the set [1] "
+        ex.message == "Groovy validation exception:\n" +
+        "55 is a java.lang.Long outside the range 0 to 40 or it is not divisible by anything in the set [1]"
 
     } // end test with zero divisor
     

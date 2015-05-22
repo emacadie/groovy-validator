@@ -30,9 +30,9 @@ class ImmutableIntDivisorSpec extends Specification {
         println "rid2.toString(): ${rid2.toString()}"
         then:
         def ex = thrown( Exception )
-        ex.message == "Groovy validation exception: \n" +
-        "5 is a java.lang.Integer outside the range 10 to 2147483647 or it is not divisible by anything in the set [5] \n" +
-        "13 is a java.lang.Integer outside the range 0 to 2147483647 or it is not divisible by anything in the set [7] "
+        ex.message == "Groovy validation exception:\n" +
+        "5 is a java.lang.Integer outside the range 10 to 2147483647 or it is not divisible by anything in the set [5]\n" +
+        "13 is a java.lang.Integer outside the range 0 to 2147483647 or it is not divisible by anything in the set [7]"
         
     } // end "test both int fields"
     
@@ -54,8 +54,8 @@ class ImmutableIntDivisorSpec extends Specification {
         def rid2 = new ImmutableIntDivisor( [ intWithDivArray: 13 ], true, true )
         then:
         def ex2 = thrown( Exception )
-        ex2.message == "Groovy validation exception: \n" +
-        "13 is a java.lang.Integer outside the range 0 to 40 or it is not divisible by anything in the set [3, 4] "
+        ex2.message == "Groovy validation exception:\n" +
+        "13 is a java.lang.Integer outside the range 0 to 40 or it is not divisible by anything in the set [3, 4]"
         
         when:
         def rid3 = new ImmutableIntDivisor( [ intWithDivArray: 9 ], true, true )
@@ -71,8 +71,8 @@ class ImmutableIntDivisorSpec extends Specification {
         def rid5 = new ImmutableIntDivisor( [ intWithDivArray: 55 ], true, true )
         then:
         def ex5 = thrown( Exception )
-        ex5.message == "Groovy validation exception: \n" +
-        "55 is a java.lang.Integer outside the range 0 to 40 or it is not divisible by anything in the set [3, 4] "
+        ex5.message == "Groovy validation exception:\n" +
+        "55 is a java.lang.Integer outside the range 0 to 40 or it is not divisible by anything in the set [3, 4]"
         
     } // end test with divisor array
     
@@ -90,8 +90,8 @@ class ImmutableIntDivisorSpec extends Specification {
         def rid2 = new ImmutableIntDivisor( [ intWithDivArray: 9, intWithZeroDiv: 55 ], true, true )
         then:
         def ex = thrown( Exception )
-        ex.message == "Groovy validation exception: \n" +
-        "55 is a java.lang.Integer outside the range 0 to 40 or it is not divisible by anything in the set [1] "
+        ex.message == "Groovy validation exception:\n" +
+        "55 is a java.lang.Integer outside the range 0 to 40 or it is not divisible by anything in the set [1]"
 
     } // end test with zero divisor
    

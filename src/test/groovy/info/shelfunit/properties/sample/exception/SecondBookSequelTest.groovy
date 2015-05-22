@@ -22,22 +22,22 @@ class SecondBookSequelTest extends Specification {
 
         println "bTest1: ${bTest1.toString()}"
         when:
-        bTest1.title = "abcdefg"
+            bTest1.title = "abcdefg"
         then:
-        bTest1.title == "abcdefg"
+            bTest1.title == "abcdefg"
        
         when:
-        bTest1.title = "qw" 
+            bTest1.title = "qw" 
         then:
-        thrown( Exception )
-        bTest1.title == "abcdefg"
+            thrown( Exception )
+            bTest1.title == "abcdefg"
         
         when:
-        bTest1.title = "qwertyuiopasdfghjklzxcvbnm"
+            bTest1.title = "qwertyuiopasdfghjklzxcvbnm"
         then:
-        bTest1.title == "abcdefg"
-        bTest1.pages == 100
-        thrown( Exception )
+            bTest1.title == "abcdefg"
+            bTest1.pages == 100
+            thrown( Exception )
     }
     
     // having problems getting this one to work - come back to it later

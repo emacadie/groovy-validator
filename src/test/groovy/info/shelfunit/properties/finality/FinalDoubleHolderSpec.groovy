@@ -87,8 +87,8 @@ class FinalDoubleHolderSpec extends Specification {
             def fLhD = new FinalDoubleHolder( [ firstDefDouble: 100d, finalDefDouble: 23.99d, firstRealDouble: 725.63d, finalRealDouble: 2025.21d, someOtherDouble: 230d, anotherObject: "DogeDouble: Big numbers, much value" ], true, true )
         then:
             def exD = thrown( Exception )
-            exD.message == "Groovy validation exception: \n" +
-            "23.99 is a java.lang.Double outside the range 73.456 to 5027.012 "
+            exD.message == "Groovy validation exception:\n" +
+            "23.99 is a java.lang.Double outside the range 73.456 to 5027.012"
             println "Here is exD.message:\n${exD.message}"
             println "here is fLhD: ${fLhD.toString()}"
             fLhD == null
@@ -98,8 +98,8 @@ class FinalDoubleHolderSpec extends Specification {
             def fLhE = new FinalDoubleHolder( [ firstDefDouble: 73.44d, finalDefDouble: 6000.1234, firstRealDouble: 725.63d, finalRealDouble: 2025.21d, someOtherDouble: 230d, anotherObject: "DogeDouble: Big numbers, much value" ], true, true )
         then:
             def exE = thrown( Exception )
-            exE.message ==  "Groovy validation exception: \n" +
-            "6000.1234 is a java.lang.Double outside the range 73.456 to 5027.012 "
+            exE.message ==  "Groovy validation exception:\n" +
+            "6000.1234 is a java.lang.Double outside the range 73.456 to 5027.012"
             println "Here is exE.message:\n${exE.message}"
             println "here is fLhE: ${fLhE.toString()}"
             fLhE == null
@@ -133,8 +133,8 @@ class FinalDoubleHolderSpec extends Specification {
             def fLhD = new FinalDoubleHolder( [ firstDefDouble: 73.47d, finalDefDouble: 1000.1234, firstRealDouble: 725.63d, finalRealDouble: 25.21d, someOtherDouble: 230d, anotherObject: "DogeDouble: Big numbers, much value" ], true, true )
         then:
             def exD = thrown( Exception )
-            exD.message == "Groovy validation exception: \n" +
-            "25.21 is a java.lang.Double outside the range 73.456 to 5027.012 "
+            exD.message == "Groovy validation exception:\n" +
+            "25.21 is a java.lang.Double outside the range 73.456 to 5027.012"
             println "Here is exD.message:\n${exD.message}"
             println "here is fLhD: ${fLhD.toString()}"
             fLhD == null
@@ -144,8 +144,8 @@ class FinalDoubleHolderSpec extends Specification {
             def fLhE = new FinalDoubleHolder( [ firstDefDouble: 73.47d, finalDefDouble: 1000.1234, firstRealDouble: 725.63d, finalRealDouble: 8025.21d, someOtherDouble: 230d, anotherObject: "DogeDouble: Big numbers, much value" ], true, true )
         then:
             def exE = thrown( Exception )
-            exE.message ==  "Groovy validation exception: \n" +
-            "8025.21 is a java.lang.Double outside the range 73.456 to 5027.012 "
+            exE.message ==  "Groovy validation exception:\n" +
+            "8025.21 is a java.lang.Double outside the range 73.456 to 5027.012"
             println "Here is exE.message:\n${exE.message}"
             println "here is fLhE: ${fLhE.toString()}"
             fLhE == null

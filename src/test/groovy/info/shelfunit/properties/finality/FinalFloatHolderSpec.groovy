@@ -87,8 +87,8 @@ class FinalFloatHolderSpec extends Specification {
             def fLhD = new FinalFloatHolder( [ firstDefFloat: 100f, finalDefFloat: 23.99f, firstRealFloat: 725.63f, finalRealFloat: 2025.21f, someOtherFloat: 230f, anotherObject: "DogeFloat: Big numbers, much value" ], true, true )
         then:
             def exD = thrown( Exception )
-            exD.message == "Groovy validation exception: \n" +
-            "23.99 is a java.lang.Float outside the range 73.456 to 5027.012 "
+            exD.message == "Groovy validation exception:\n" +
+            "23.99 is a java.lang.Float outside the range 73.456 to 5027.012"
             println "Here is exD.message:\n${exD.message}"
             println "here is fLhD: ${fLhD.toString()}"
             fLhD == null
@@ -98,8 +98,8 @@ class FinalFloatHolderSpec extends Specification {
             def fLhE = new FinalFloatHolder( [ firstDefFloat: 73.44f, finalDefFloat: 6000.1234, firstRealFloat: 725.63f, finalRealFloat: 2025.21f, someOtherFloat: 230f, anotherObject: "DogeFloat: Big numbers, much value" ], true, true )
         then:
             def exE = thrown( Exception )
-            exE.message ==  "Groovy validation exception: \n" +
-            "6000.1234 is a java.lang.Float outside the range 73.456 to 5027.012 "
+            exE.message ==  "Groovy validation exception:\n" +
+            "6000.1234 is a java.lang.Float outside the range 73.456 to 5027.012"
             println "Here is exE.message:\n${exE.message}"
             println "here is fLhE: ${fLhE.toString()}"
             fLhE == null
@@ -133,8 +133,8 @@ class FinalFloatHolderSpec extends Specification {
             def fLhD = new FinalFloatHolder( [ firstDefFloat: 73.47f, finalDefFloat: 1000.1234, firstRealFloat: 725.63f, finalRealFloat: 25.21f, someOtherFloat: 230f, anotherObject: "DogeFloat: Big numbers, much value" ], true, true )
         then:
             def exD = thrown( Exception )
-            exD.message == "Groovy validation exception: \n" +
-            "25.21 is a java.lang.Float outside the range 73.456 to 5027.012 "
+            exD.message == "Groovy validation exception:\n" +
+            "25.21 is a java.lang.Float outside the range 73.456 to 5027.012"
             println "Here is exD.message:\n${exD.message}"
             println "here is fLhD: ${fLhD.toString()}"
             fLhD == null
@@ -144,8 +144,8 @@ class FinalFloatHolderSpec extends Specification {
             def fLhE = new FinalFloatHolder( [ firstDefFloat: 73.47f, finalDefFloat: 1000.1234, firstRealFloat: 725.63f, finalRealFloat: 8025.21f, someOtherFloat: 230f, anotherObject: "DogeFloat: Big numbers, much value" ], true, true )
         then:
             def exE = thrown( Exception )
-            exE.message ==  "Groovy validation exception: \n" +
-            "8025.21 is a java.lang.Float outside the range 73.456 to 5027.012 "
+            exE.message ==  "Groovy validation exception:\n" +
+            "8025.21 is a java.lang.Float outside the range 73.456 to 5027.012"
             println "Here is exE.message:\n${exE.message}"
             println "here is fLhE: ${fLhE.toString()}"
             fLhE == null

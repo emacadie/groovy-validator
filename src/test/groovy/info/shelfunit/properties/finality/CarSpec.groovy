@@ -34,8 +34,8 @@ class CarTest extends Specification {
         then:
         def ex = thrown( Exception )
         println "Here is ex.message:\n${ex.message}"
-        ex.message == "Groovy validation exception: \n" +
-        "1987 is a java.lang.Integer outside the range 1990 to 2147483647 or it is not divisible by anything in the set [1] "
+        ex.message == "Groovy validation exception:\n" +
+        "1987 is a java.lang.Integer outside the range 1990 to 2147483647 or it is not divisible by anything in the set [1]"
         car == null
         
     } // first Test

@@ -76,7 +76,7 @@ class IntAnnotationTransform implements ASTTransformation {
                 methodString << """
          } else {
             throw new Exception(
-                 arg + " is an integer outside the range ${minimum} to ${maximum} or it is not divisible by anything in the set ${holdSet} " )
+                 arg + " is an integer outside the range ${minimum} to ${maximum} or it is not divisible by anything in the set ${holdSet}" )
                  """
             }
         methodString << """

@@ -27,9 +27,9 @@ class TrulyImmutableCollectorEx001Test extends Specification {
         }
         then:
         def ex1 = thrown( Exception )
-        ex1.message == "Groovy validation exception: \n" +
-        "21 is a java.lang.Integer outside the range 30 to 400 or it is not divisible by anything in the set [1] \n" +
-        "20 is a java.lang.Integer outside the range 30 to 400 or it is not divisible by anything in the set [1] "
+        ex1.message == "Groovy validation exception:\n" +
+        "21 is a java.lang.Integer outside the range 30 to 400 or it is not divisible by anything in the set [1]\n" +
+        "20 is a java.lang.Integer outside the range 30 to 400 or it is not divisible by anything in the set [1]"
         exceptionThrown == false
         println "Just made throwaway, about to make bTest1"
         
@@ -38,8 +38,8 @@ class TrulyImmutableCollectorEx001Test extends Specification {
         println "In test ${name.methodName}, bTest1: ${bTest1.toString()}"
         then:
         def ex2 = thrown ( Exception )
-        ex2.message == "Groovy validation exception: \n" +
-        "21 is a java.lang.Integer outside the range 30 to 400 or it is not divisible by anything in the set [1] "
+        ex2.message == "Groovy validation exception:\n" +
+        "21 is a java.lang.Integer outside the range 30 to 400 or it is not divisible by anything in the set [1]"
         
     } // end "two immutable objects with validation, trying to change the first"
     
@@ -55,10 +55,10 @@ class TrulyImmutableCollectorEx001Test extends Specification {
         String exceptionAsString = sw.toString();
         // println "Here is the stack trace: ${exceptionAsString}"
         println "here is the message: ${exTest2.message}"
-        exTest2.message == "Groovy validation exception: \n" +
-        "\"Goodbye, this is more than 20 characters\" is a String with a length outside the range of 5 to 20 characters or does not match the regular expression \".*\" \n" +
-        "22 is a java.lang.Integer outside the range 30 to 400 or it is not divisible by anything in the set [1] \n" +
-        "20 is a java.lang.Integer outside the range 30 to 400 or it is not divisible by anything in the set [1] "
+        exTest2.message == "Groovy validation exception:\n" +
+        "\"Goodbye, this is more than 20 characters\" is a String with a length outside the range of 5 to 20 characters or does not match the regular expression \".*\"\n" +
+        "22 is a java.lang.Integer outside the range 30 to 400 or it is not divisible by anything in the set [1]\n" +
+        "20 is a java.lang.Integer outside the range 30 to 400 or it is not divisible by anything in the set [1]"
     } // end "test bTest2"
     
     def "third test"() {
@@ -76,9 +76,9 @@ class TrulyImmutableCollectorEx001Test extends Specification {
         println "Still in test ${name.methodName}, bTest1: ${bTest1.toString()}"
         then:
         def exThirdTest = thrown( Exception )
-        exThirdTest.message == "Groovy validation exception: \n" +
-        "21 is a java.lang.Integer outside the range 30 to 400 or it is not divisible by anything in the set [1] \n" +
-        "401 is a java.lang.Integer outside the range 30 to 400 or it is not divisible by anything in the set [1] "
+        exThirdTest.message == "Groovy validation exception:\n" +
+        "21 is a java.lang.Integer outside the range 30 to 400 or it is not divisible by anything in the set [1]\n" +
+        "401 is a java.lang.Integer outside the range 30 to 400 or it is not divisible by anything in the set [1]"
         exceptionThrown == false
     } // end "third test
     
@@ -94,11 +94,11 @@ class TrulyImmutableCollectorEx001Test extends Specification {
         String exceptionAsString = sw.toString();
         println "Here is the stack trace: ${exceptionAsString}"
         println "here is the message: ${exTest2.message}"
-        exTest2.message == "Groovy validation exception: \n" +
-        "\"Hel\" is a String with a length outside the range of 5 to 200 characters or does not match the regular expression \".*\" \n" +
-        "\"Goodbye, this is more than 20 characters\" is a String with a length outside the range of 5 to 20 characters or does not match the regular expression \".*\" \n" +
-        "22 is a java.lang.Integer outside the range 30 to 400 or it is not divisible by anything in the set [1] \n" +
-        "20 is a java.lang.Integer outside the range 30 to 400 or it is not divisible by anything in the set [1] "
+        exTest2.message == "Groovy validation exception:\n" +
+        "\"Hel\" is a String with a length outside the range of 5 to 200 characters or does not match the regular expression \".*\"\n" +
+        "\"Goodbye, this is more than 20 characters\" is a String with a length outside the range of 5 to 20 characters or does not match the regular expression \".*\"\n" +
+        "22 is a java.lang.Integer outside the range 30 to 400 or it is not divisible by anything in the set [1]\n" +
+        "20 is a java.lang.Integer outside the range 30 to 400 or it is not divisible by anything in the set [1]"
     } // end "test bTest3"
    
 } // TrulyImmutableCollectorEx001Test 

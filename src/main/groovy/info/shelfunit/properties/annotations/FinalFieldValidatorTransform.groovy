@@ -159,7 +159,7 @@ class FinalFieldValidatorTransform implements ASTTransformation {
                                 newMap[ '${fieldNode.getName()}' ] = val
                             } else { 
                                 if ( throwException ) {
-                                    exceptionStringList.add( '"' + val + '" is a String with a length outside the range of ${minimum} to ${maximum} characters or does not match the regular expression ${patternString1} ' )
+                                    exceptionStringList.add( '"' + val + '" is a String with a length outside the range of ${minimum} to ${maximum} characters or does not match the regular expression ${patternString1}' )
                                 }
                             }
                             """
@@ -188,7 +188,7 @@ class FinalFieldValidatorTransform implements ASTTransformation {
         sb1 << """
         if ( throwException && ( exceptionStringList.size() > 0 ) ) {
             def exMessage = exceptionStringList.join( System.lineSeparator() )
-            throw new Exception( 'Groovy validation exception: ' + System.lineSeparator() + exMessage  )
+            throw new Exception( 'Groovy validation exception:' + System.lineSeparator() + exMessage  )
         }
         """
         if ( className.contains( "ImmutableRegExSpec" ) ) {
@@ -218,7 +218,7 @@ class FinalFieldValidatorTransform implements ASTTransformation {
                                 newMap[ '${nodeName}' ] = val
                             } else { 
                                 if ( throwException ) {
-                                exceptionStringList.add( val + ' is a ${zeroNum.class.name} outside the range ${minimum} to ${maximum} or it is not divisible by anything in the set ${holdSet} ' )
+                                exceptionStringList.add( val + ' is a ${zeroNum.class.name} outside the range ${minimum} to ${maximum} or it is not divisible by anything in the set ${holdSet}' )
                                 }
                             }
                             """
@@ -236,7 +236,7 @@ class FinalFieldValidatorTransform implements ASTTransformation {
                         newMap[ '${nodeName}' ] = val
                     } else { 
                         if ( throwException ) {
-                        exceptionStringList.add( val + ' is a ${numClassName} outside the range ${minimum} to ${maximum} ' )
+                        exceptionStringList.add( val + ' is a ${numClassName} outside the range ${minimum} to ${maximum}' )
                         }
                     }
                     """

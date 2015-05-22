@@ -40,7 +40,7 @@ class FinalIntHolderSpec extends Specification {
             def exB = thrown( Exception )
             println "exB.message: ${exB.message}"
             println "here is fihA: ${fihA.toString()}"
-            exB.message == "206 is an integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5] "
+            exB.message == "206 is an integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5]"
             fihA.toString() == "info.shelfunit.properties.finality.FinalIntHolder(firstDefInt:105, finalDefInt:100, firstRealInt:100, finalRealInt:100, someOtherInt:100, anotherObject:hello)"
             
         // try to set real final
@@ -62,7 +62,7 @@ class FinalIntHolderSpec extends Specification {
             def fihA = new FinalIntHolder( [ firstDefInt: 10, finalDefInt: 100, firstRealInt: 100, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true, true )
         then:
             def exA = thrown( Exception )
-            exA.message == "10 is an integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5] "
+            exA.message == "10 is an integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5]"
             // println "Here is exC.message:\n${exC.message}"
             println "here is fihA: ${fihA.toString()}"
             fihA == null
@@ -72,7 +72,7 @@ class FinalIntHolderSpec extends Specification {
             def fihB = new FinalIntHolder( [ firstDefInt: 10000, finalDefInt: 100, firstRealInt: 100, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true, true )
         then:
             def exB = thrown( Exception )
-            exB.message == "10000 is an integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5] "
+            exB.message == "10000 is an integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5]"
             // println "Here is exC.message:\n${exC.message}"
             println "here is fihB: ${fihB.toString()}"
             fihB == null
@@ -82,7 +82,7 @@ class FinalIntHolderSpec extends Specification {
             def fihC = new FinalIntHolder( [ firstDefInt: 301, finalDefInt: 100, firstRealInt: 100, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true, true )
         then:
             def exC = thrown( Exception )
-            exC.message == "301 is an integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5] "
+            exC.message == "301 is an integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5]"
             // println "Here is exC.message:\n${exC.message}"
             println "here is fihC: ${fihC.toString()}"
             fihC == null
@@ -92,8 +92,8 @@ class FinalIntHolderSpec extends Specification {
             def fihD = new FinalIntHolder( [ firstDefInt: 100, finalDefInt: 10, firstRealInt: 100, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true, true )
         then:
             def exD = thrown( Exception )
-            exD.message == "Groovy validation exception: \n" +
-            "10 is a java.lang.Integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5] "
+            exD.message == "Groovy validation exception:\n" +
+            "10 is a java.lang.Integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5]"
             println "Here is exD.message:\n${exD.message}"
             println "here is fihD: ${fihD.toString()}"
             fihD == null
@@ -103,8 +103,8 @@ class FinalIntHolderSpec extends Specification {
             def fihE = new FinalIntHolder( [ firstDefInt: 100, finalDefInt: 10000, firstRealInt: 100, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true, true )
         then:
             def exE = thrown( Exception )
-            exE.message ==  "Groovy validation exception: \n" +
-            "10000 is a java.lang.Integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5] "
+            exE.message ==  "Groovy validation exception:\n" +
+            "10000 is a java.lang.Integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5]"
             println "Here is exE.message:\n${exE.message}"
             println "here is fihE: ${fihE.toString()}"
             fihE == null
@@ -114,8 +114,8 @@ class FinalIntHolderSpec extends Specification {
             def fihF = new FinalIntHolder( [ firstDefInt: 300, finalDefInt: 307, firstRealInt: 100, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true, true )
         then:
             def exF = thrown( Exception )
-            exF.message == "Groovy validation exception: \n" +
-            "307 is a java.lang.Integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5] "
+            exF.message == "Groovy validation exception:\n" +
+            "307 is a java.lang.Integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5]"
             println "Here is exF.message:\n${exF.message}"
             println "here is fihF: ${fihF.toString()}"
             fihF == null
@@ -129,7 +129,7 @@ class FinalIntHolderSpec extends Specification {
             def fihA = new FinalIntHolder( [ firstDefInt: 100, finalDefInt: 100, firstRealInt: 11, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true, true )
         then:
             def exA = thrown( Exception )
-            exA.message == "11 is an integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5] "
+            exA.message == "11 is an integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5]"
             // println "Here is exC.message:\n${exC.message}"
             println "here is fihA: ${fihA.toString()}"
             fihA == null
@@ -139,7 +139,7 @@ class FinalIntHolderSpec extends Specification {
             def fihB = new FinalIntHolder( [ firstDefInt: 100, finalDefInt: 100, firstRealInt: 10002, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true, true )
         then:
             def exB = thrown( Exception )
-            exB.message == "10002 is an integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5] "
+            exB.message == "10002 is an integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5]"
             // println "Here is exC.message:\n${exC.message}"
             println "here is fihB: ${fihB.toString()}"
             fihB == null
@@ -149,7 +149,7 @@ class FinalIntHolderSpec extends Specification {
             def fihC = new FinalIntHolder( [ firstDefInt: 300, finalDefInt: 100, firstRealInt: 304, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true, true )
         then:
             def exC = thrown( Exception )
-            exC.message == "304 is an integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5] "
+            exC.message == "304 is an integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5]"
             // println "Here is exC.message:\n${exC.message}"
             println "here is fihC: ${fihC.toString()}"
             fihC == null
@@ -159,8 +159,8 @@ class FinalIntHolderSpec extends Specification {
             def fihD = new FinalIntHolder( [ firstDefInt: 100, finalDefInt: 100, firstRealInt: 100, finalRealInt: 10, someOtherInt: 100, anotherObject: 'hello' ], true, true )
         then:
             def exD = thrown( Exception )
-            exD.message == "Groovy validation exception: \n" +
-            "10 is a java.lang.Integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5] "
+            exD.message == "Groovy validation exception:\n" +
+            "10 is a java.lang.Integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5]"
             println "Here is exD.message:\n${exD.message}"
             println "here is fihD: ${fihD.toString()}"
             fihD == null
@@ -170,8 +170,8 @@ class FinalIntHolderSpec extends Specification {
             def fihE = new FinalIntHolder( [ firstDefInt: 100, finalDefInt: 100, firstRealInt: 100, finalRealInt: 2005, someOtherInt: 100, anotherObject: 'hello' ], true, true )
         then:
             def exE = thrown( Exception )
-            exE.message ==  "Groovy validation exception: \n" +
-            "2005 is a java.lang.Integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5] "
+            exE.message ==  "Groovy validation exception:\n" +
+            "2005 is a java.lang.Integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5]"
             println "Here is exE.message:\n${exE.message}"
             println "here is fihE: ${fihE.toString()}"
             fihE == null
@@ -181,8 +181,8 @@ class FinalIntHolderSpec extends Specification {
             def fihF = new FinalIntHolder( [ firstDefInt: 300, finalDefInt: 300, firstRealInt: 100, finalRealInt: 313, someOtherInt: 100, anotherObject: 'hello' ], true, true )
         then:
             def exF = thrown( Exception )
-            exF.message == "Groovy validation exception: \n" +
-            "313 is a java.lang.Integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5] "
+            exF.message == "Groovy validation exception:\n" +
+            "313 is a java.lang.Integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5]"
             println "Here is exF.message:\n${exF.message}"
             println "here is fihF: ${fihF.toString()}"
             fihF == null

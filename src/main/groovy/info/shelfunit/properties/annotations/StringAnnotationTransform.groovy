@@ -72,7 +72,7 @@ class StringAnnotationTransform implements ASTTransformation {
                 methodString << """
          } else {
             throw new Exception(
-                 "'" + arg + "' is a String with a length outside the range of ${min} to ${max} characters or does not match the regular expression ${patternString1.replaceAll( "\"", "'" )} " )
+                 "'" + arg + "' is a String with a length outside the range of ${min} to ${max} characters or does not match the regular expression ${patternString1.replaceAll( "\"", "'" )}" )
                  """
             }
         methodString << """

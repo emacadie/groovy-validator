@@ -11,21 +11,21 @@ class FirstSubjectTest extends Specification {
     def "test the no arg constructor"() {
         def fs001 = new FirstSubject()
         when:
-        fs001.firstNum = 100
+            fs001.firstNum = 100
         then:
-        fs001.firstNum == 100
+            fs001.firstNum == 100
         
         when:
-        fs001.firstNum = 10
+            fs001.firstNum = 10
         then:
-        thrown( Exception )
-        fs001.firstNum == 100
+            thrown( Exception )
+            fs001.firstNum == 100
         
         when:
-        fs001.firstNum = 10000
+            fs001.firstNum = 10000
         then:
-        thrown( Exception )
-        fs001.firstNum == 100
+            thrown( Exception )
+            fs001.firstNum == 100
     }
     
     def "testing with map constructor"() {
