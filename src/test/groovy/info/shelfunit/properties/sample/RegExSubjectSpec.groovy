@@ -18,18 +18,18 @@ class RegExSubjectSpec extends Specification {
         println "--- Starting test ${name.methodName}"
         def res = new RegExSubject()
         when:
-        res.yearWithDay = "2012-04-12"
+            res.yearWithDay = "2012-04-12"
         then:
-        res.yearWithDay == "2012-04-12"
+            res.yearWithDay == "2012-04-12"
         when:
-        res.yearWithDay = "2012-04-1"
+            res.yearWithDay = "2012-04-1"
         then:
-        res.yearWithDay == "2012-04-12"
+            res.yearWithDay == "2012-04-12"
         when:
-        res.yearWithDay = "hello"
+            res.yearWithDay = "hello"
         then:
-        res.yearWithDay == "2012-04-12"
-        println "res: ${res.toString()}"
+            res.yearWithDay == "2012-04-12"
+            println "res: ${res.toString()}"
         
     } // end "test date regex"
     
@@ -37,22 +37,22 @@ class RegExSubjectSpec extends Specification {
         println "--- Starting test ${name.methodName}"
         def res = new RegExSubject()
         when:
-        res.groovyString = "I like groovy"
+            res.groovyString = "I like groovy"
         then:
-        res.groovyString == "I like groovy"
+            res.groovyString == "I like groovy"
         when:
-        res.groovyString = "I like Scala"
+            res.groovyString = "I like Scala"
         then:
-        res.groovyString == "I like groovy" // I think Scala is an abomination
+            res.groovyString == "I like groovy" // I think Scala is an abomination
         when:
-        res.groovyString = "groovy"
+            res.groovyString = "groovy"
         then:
-        res.groovyString == "I like groovy"
+            res.groovyString == "I like groovy"
         when:
-        res.groovyString = "I like Groovy"
+            res.groovyString = "I like Groovy"
         then:
-        res.groovyString == "I like Groovy"
-        println "res: ${res.toString()}"
+            res.groovyString == "I like Groovy"
+            println "res: ${res.toString()}"
         
     } // end "test groovy regex"
     
@@ -60,31 +60,31 @@ class RegExSubjectSpec extends Specification {
         println "--- Starting test ${name.methodName}"
         def res = new RegExSubject()
         when:
-        res.password = "p4ssw0rd"
+            res.password = "p4ssw0rd"
         then:
-        res.password == "p4ssw0rd"
+            res.password == "p4ssw0rd"
         when:
-        res.password = "p45sword"
+            res.password = "p45sword"
         then:
-        res.password == "p45sword" 
+            res.password == "p45sword" 
         when:
-        res.password = "password"
+            res.password = "password"
         then:
-        res.password == "p45sword"
+            res.password == "p45sword"
         when:
-        res.password = "p4ssword"
+            res.password = "p4ssword"
         then:
-        res.password == "p45sword"
+            res.password == "p45sword"
         
         when:
-        res.password = "p45s"
+            res.password = "p45s"
         then:
-        res.password == "p45sword"
+            res.password == "p45sword"
         when:
-        res.password = "p45swordp45sword"
+            res.password = "p45swordp45sword"
         then:
-        res.password == "p45sword"
-        println "res: ${res.toString()}"
+            res.password == "p45sword"
+            println "res: ${res.toString()}"
         
     } // end "test password regex"
     

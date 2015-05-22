@@ -5,7 +5,7 @@ import spock.lang.Specification
 import org.junit.Rule
 import org.junit.rules.TestName
 
-class USStateTest extends Specification {
+class USStateSpec extends Specification {
     
     def setup() {}          // run before every feature method
     def cleanup() {}        // run after every feature method

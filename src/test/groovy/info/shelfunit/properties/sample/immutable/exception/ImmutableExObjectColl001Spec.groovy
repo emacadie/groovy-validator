@@ -5,7 +5,7 @@ import spock.lang.Specification
 import org.junit.Rule
 import org.junit.rules.TestName
 
-class ImmutableExObjectColl001Test extends Specification { 
+class ImmutableExObjectColl001Spec extends Specification { 
     
     def setup() {}       // run before every feature method
     def cleanup() {}     // run after every feature method
@@ -27,8 +27,8 @@ class ImmutableExObjectColl001Test extends Specification {
         def bTest1 = new ImmutableExObjectColl001( firstString: "Hello1", firstInt: 200 )
         println "In test ${name.methodName}, bTest1: ${bTest1.toString()}"
         expect:
-        bTest1.firstString == "Hello1"
-        bTest1.firstInt == 200
+            bTest1.firstString == "Hello1"
+            bTest1.firstInt == 200
         
     } // end "test without validation"
     
@@ -65,11 +65,11 @@ new UVW(firstString: "hello", firstInt: 222)
 '''
 
         when:
-        def instance = new GroovyShell().evaluate( classString )
-        Method added = instance.class.declaredMethods.find { it.name == 'added' }
+            def instance = new GroovyShell().evaluate( classString )
+            Method added = instance.class.declaredMethods.find { it.name == 'added' }
 
         then:
-        !added
+            !added
     }
     
 }

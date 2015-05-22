@@ -5,7 +5,7 @@ import spock.lang.Specification
 import org.junit.Rule
 import org.junit.rules.TestName
 
-class ImmutableExObject001Test extends Specification { 
+class ImmutableExObject001Spec extends Specification { 
     
     def setup() {}       // run before every feature method
     def cleanup() {}     // run after every feature method
@@ -16,7 +16,6 @@ class ImmutableExObject001Test extends Specification {
     
     @Rule 
     TestName name = new TestName()
-    
    
     // for some reason the first time you call a class it does not actually process the annotations
     // comment out the lines for the "junk" object and compare

@@ -5,7 +5,7 @@ import spock.lang.Specification
 import org.junit.Rule
 import org.junit.rules.TestName
 
-class BookSequelTest extends Specification { 
+class BookSequelSpec extends Specification { 
     def setup() {}          // run before every feature method
     def cleanup() {}        // run after every feature method
     def setupSpec() { }     // run before the first feature method
@@ -20,20 +20,20 @@ class BookSequelTest extends Specification {
         def bTest1 = new BookSequel( pages: 100, title: "Some Book", year: 1990 )
         println "bTest1: ${bTest1.toString()}"
         when:
-        bTest1.title = "abcdefg"
+            bTest1.title = "abcdefg"
         then:
-        bTest1.title == "abcdefg"
+            bTest1.title == "abcdefg"
        
         when:
-        bTest1.title = "qw"
+            bTest1.title = "qw"
         then:
-        bTest1.title == "abcdefg"
+            bTest1.title == "abcdefg"
         
         when:
-        bTest1.title = "qwertyuiopasdfghjklzxcvbnm"
+            bTest1.title = "qwertyuiopasdfghjklzxcvbnm"
         then:
-        bTest1.title == "abcdefg"
-        bTest1.pages == 100
+            bTest1.title == "abcdefg"
+            bTest1.pages == 100
     }
     
     def "test the map constructor"() {
@@ -44,19 +44,19 @@ class BookSequelTest extends Specification {
         println "bTest1: ${bTest1.toString()}"
         
         expect:
-        bTest1.title == null
+            bTest1.title == null
        
         when:
-        bTest1.title = "qwertyuiopasdfghjklzxcvbnm"
+            bTest1.title = "qwertyuiopasdfghjklzxcvbnm"
         then:
-        bTest1.title == null
+            bTest1.title == null
         
         when:
-        bTest1.title = "abcdefg"
+            bTest1.title = "abcdefg"
         then:
-        bTest1.title == "abcdefg"
-        bTest1.pages == 100
-        bTest1.year == 1990
+            bTest1.title == "abcdefg"
+            bTest1.pages == 100
+            bTest1.year == 1990
         
         println "bTest1: ${bTest1.toString()}"
     }
