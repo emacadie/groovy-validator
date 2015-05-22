@@ -22,17 +22,17 @@ class SecondUSStateTest extends Specification {
         def il = new SecondUSState( 'Illinois', 'Kaskaskia' ) 
         println "il: ${il.toString()}"
         when:
-        il.name = "Indiana"
+            il.name = "Indiana"
         then:
-        il.name == "Illinois"
+            il.name == "Illinois"
         
         when:
-        il.capitalCity = "Vandalia"
-        il.name = "LincolnLand"
+            il.capitalCity = "Vandalia"
+            il.name = "LincolnLand"
         then:
-        il.capitalCity == "Vandalia"
-        il.name == "Illinois"
-        println "il at the end: ${il.toString()}"
+            il.capitalCity == "Vandalia"
+            il.name == "Illinois"
+            println "il at the end: ${il.toString()}"
     }
     
     def "test with setters"() {
@@ -41,18 +41,18 @@ class SecondUSStateTest extends Specification {
         def il = new SecondUSState( 'Illinois', 'Kaskaskia' ) 
         println "il: ${il.toString()}"
         when:
-        il.setName( "Indiana" )
+            il.setName( "Indiana" )
         then:
-        il.name == "Illinois"
-        il.getName( ) == "Illinois"
+            il.name == "Illinois"
+            il.getName( ) == "Illinois"
         
         when:
-        il.setCapitalCity( "Vandalia" )
-        il.setName( "LincolnLand" )
+            il.setCapitalCity( "Vandalia" )
+            il.setName( "LincolnLand" )
         then:
-        il.capitalCity == "Vandalia"
-        il.name == "Illinois"
-        println "il at the end: ${il.toString()}"
+            il.capitalCity == "Vandalia"
+            il.name == "Illinois"
+            println "il at the end: ${il.toString()}"
     }
     
 }
