@@ -4,10 +4,10 @@ import spock.lang.Specification
 import org.junit.Rule
 import org.junit.rules.TestName
 
-class CarTest extends Specification {
+class CarSpec extends Specification {
     def setup() {}       // run before every feature method
     def cleanup() {}     // run after every feature method
-    def setupSpec() { }   // run before the first feature method
+    def setupSpec() {}   // run before the first feature method
     def cleanupSpec() {} // run after the last feature method
     
     @Rule 
@@ -20,23 +20,21 @@ class CarTest extends Specification {
         println "Here is car: ${car.toString()}, exceptionThrown: ${exceptionThrown}"
         
         expect:
-        
-        car.year == 2008
-        car.miles == 50
+            car.year == 2008
+            car.miles == 50
         
     } // first Test
     
     def "second Test"() {
         println "--- Starting test ${name.methodName}"
         when:
-        def car = new Car( [ miles: 50, year: 1987 ], true, true )
-        
+            def car = new Car( [ miles: 50, year: 1987 ], true, true )
         then:
-        def ex = thrown( Exception )
-        println "Here is ex.message:\n${ex.message}"
-        ex.message == "Groovy validation exception:\n" +
-        "1987 is a java.lang.Integer outside the range 1990 to 2147483647 or it is not divisible by anything in the set [1]"
-        car == null
+            def ex = thrown( Exception )
+            println "Here is ex.message:\n${ex.message}"
+            ex.message == "Groovy validation exception:\n" +
+            "1987 is a java.lang.Integer outside the range 1990 to 2147483647 or it is not divisible by anything in the set [1]"
+            car == null
         
     } // first Test
     
@@ -53,9 +51,9 @@ class CarTest extends Specification {
         }
         println "Here is car: ${car.toString()}, exceptionThrown: ${exceptionThrown}"
         expect:
-        exceptionThrown == true
-        car.year == 2008
-        car.miles == 10
+            exceptionThrown == true
+            car.year == 2008
+            car.miles == 10
         
     } // 
     

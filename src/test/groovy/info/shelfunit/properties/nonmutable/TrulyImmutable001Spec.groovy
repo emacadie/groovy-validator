@@ -4,7 +4,7 @@ import spock.lang.Specification
 import org.junit.Rule
 import org.junit.rules.TestName
 
-class TrulyImmutable001Test extends Specification {
+class TrulyImmutable001Spec extends Specification {
     def setup() {}       // run before every feature method
     def cleanup() {}     // run after every feature method
     def setupSpec() {

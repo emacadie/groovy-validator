@@ -4,7 +4,7 @@ import spock.lang.Specification
 import org.junit.Rule
 import org.junit.rules.TestName
 
-class SecondImmutableExSampleTest extends Specification { 
+class SecondImmutableExSampleSpec extends Specification { 
     
     def setup() {}       // run before every feature method
     def cleanup() {}     // run after every feature method
@@ -29,8 +29,8 @@ class SecondImmutableExSampleTest extends Specification {
         def bTest1 = new SecondImmutableExSample( firstString: "Hello1", secondString: "Goodbye", firstInt: 21, secondInt: 2000 )
         println "In test ${name.methodName}, bTest1: ${bTest1.toString()}"
         expect:
-        bTest1.firstString == "Hello1"
-        bTest1.secondInt == 0
+            bTest1.firstString == "Hello1"
+            bTest1.secondInt == 0
          
     } // end "test the no arg constructor"
     
@@ -39,7 +39,7 @@ class SecondImmutableExSampleTest extends Specification {
         def bTest2 = new SecondImmutableExSample( firstString: "Hello2", secondString: "Goodbye, this is more than 20 characters", firstInt: 22, secondInt: 20 )
         println "In test ${name.methodName}, bTest2: ${bTest2.toString()}"
         expect:
-        bTest2.firstString == "Hello2"
+            bTest2.firstString == "Hello2"
     } // end "test bTest2"
     
     def "test the no arg constructor again"() {
@@ -61,8 +61,8 @@ class SecondImmutableExSampleTest extends Specification {
         def bTest1 = new SecondImmutableExSample( firstString: "Hello3", secondString: "Goodbye", firstInt: 21, secondInt: 200 )
         println "In test ${name.methodName}, bTest1: ${bTest1.toString()}"
         expect:
-        bTest1.firstString == "Hello3"
-        bTest1.secondInt == 200
+            bTest1.firstString == "Hello3"
+            bTest1.secondInt == 200
         
         // println "About to try a different way"
         // def bTest2 = new SecondImmutableSample( 'Hello', 'Second', 21, 21 )

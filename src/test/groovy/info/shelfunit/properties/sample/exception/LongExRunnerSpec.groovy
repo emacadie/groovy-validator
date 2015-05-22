@@ -2,7 +2,7 @@ package info.shelfunit.properties.sample.exception
 
 import spock.lang.Specification
 
-class LongExRunnerTest extends Specification { 
+class LongExRunnerSpec extends Specification { 
     def setup() {}          // run before every feature method
     def cleanup() {}        // run after every feature method
     def setupSpec() {}     // run before the first feature method

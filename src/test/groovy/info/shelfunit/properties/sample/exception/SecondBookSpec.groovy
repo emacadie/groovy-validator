@@ -2,9 +2,9 @@ package info.shelfunit.properties.sample.exception
 
 import spock.lang.Specification
 
-class SecondBookTest extends Specification { 
-    def setup() {}          // run before every feature method
-    def cleanup() {}        // run after every feature method
+class SecondBookSpec extends Specification { 
+    def setup() {}         // run before every feature method
+    def cleanup() {}       // run after every feature method
     def setupSpec() {}     // run before the first feature method
     def cleanupSpec() {}   // run after the last feature method
     
@@ -13,22 +13,22 @@ class SecondBookTest extends Specification {
         bTest1.pages = 100
        
         when:
-        bTest1.title = "abcdefg"
+            bTest1.title = "abcdefg"
         then:
-        bTest1.title == "abcdefg"
+            bTest1.title == "abcdefg"
        
         when:
-        bTest1.title = "qw"
+            bTest1.title = "qw"
         then:
         thrown( Exception )
-        bTest1.title == "abcdefg"
+            bTest1.title == "abcdefg"
         
         when:
-        bTest1.title = "qwertyuiopasdfghjklzxcvbnm"
+            bTest1.title = "qwertyuiopasdfghjklzxcvbnm"
         then:
-        thrown( Exception )
-        bTest1.title == "abcdefg"
-        bTest1.pages == 100
+            thrown( Exception )
+            bTest1.title == "abcdefg"
+            bTest1.pages == 100
     }
     
     def "test the map constructor"() {
@@ -36,21 +36,22 @@ class SecondBookTest extends Specification {
         bTest1.pages = 100
        
         expect:
-        bTest1.title == "abcdefg"
+            bTest1.title == "abcdefg"
        
         when:
-        bTest1.title = "qw"
+            bTest1.title = "qw"
         then:
-        thrown( Exception )
-        bTest1.title == "abcdefg"
+            thrown( Exception )
+            bTest1.title == "abcdefg"
         
         when:
-        bTest1.title = "qwertyuiopasdfghjklzxcvbnm"
+            bTest1.title = "qwertyuiopasdfghjklzxcvbnm"
         then:
-        bTest1.title == "abcdefg"
-        bTest1.pages == 100
-        thrown( Exception )
+            bTest1.title == "abcdefg"
+            bTest1.pages == 100
+            thrown( Exception )
     }
 
 }
+
 

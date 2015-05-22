@@ -4,7 +4,7 @@ import spock.lang.Specification
 import org.junit.Rule
 import org.junit.rules.TestName
 
-class TrulyImmutableCollector001Test extends Specification {
+class TrulyImmutableCollector001Spec extends Specification {
     def setup() {}       // run before every feature method
     def cleanup() {}     // run after every feature method
     def setupSpec() {
@@ -23,28 +23,28 @@ class TrulyImmutableCollector001Test extends Specification {
         // def junk = new TrulyImmutable001()
         println "About to make throwaway"
         when:
-        def throwaway = new TrulyImmutableCollector001( [ firstString: "Not Junk", secondString: "Goodbye Junk", firstInt: 21, secondInt: 20 ], true )
-        boolean exceptionThrown = false
-        try {
-            throwaway.firstString = "Throwaway"
-        } catch ( Exception e ) {
-            exceptionThrown = true
-        }
+            def throwaway = new TrulyImmutableCollector001( [ firstString: "Not Junk", secondString: "Goodbye Junk", firstInt: 21, secondInt: 20 ], true )
+            boolean exceptionThrown = false
+            try {
+                throwaway.firstString = "Throwaway"
+            } catch ( Exception e ) {
+                exceptionThrown = true
+            }
         then:
-        throwaway.firstString == "Not Junk"
-        throwaway.firstInt == 0
-        throwaway.secondInt == 0
-        exceptionThrown == true
-        println "Just made throwaway, about to make bTest1"
+            throwaway.firstString == "Not Junk"
+            throwaway.firstInt == 0
+            throwaway.secondInt == 0
+            exceptionThrown == true
+            println "Just made throwaway, about to make bTest1"
         
         when:
-        def bTest1 = new TrulyImmutableCollector001( [ firstString: "Hello1", secondString: "Goodbye", firstInt: 21, secondInt: 200 ], true )
-        println "In test ${name.methodName}, bTest1: ${bTest1.toString()}"
+            def bTest1 = new TrulyImmutableCollector001( [ firstString: "Hello1", secondString: "Goodbye", firstInt: 21, secondInt: 200 ], true )
+            println "In test ${name.methodName}, bTest1: ${bTest1.toString()}"
         then:
-        bTest1.firstString == "Hello1"
-        bTest1.secondInt == 200
-        bTest1.firstInt == 0
-        bTest1.toString() == "info.shelfunit.properties.nonmutable.collector.TrulyImmutableCollector001(firstString:Hello1, secondString:Goodbye, firstInt:0, secondInt:200)"
+            bTest1.firstString == "Hello1"
+            bTest1.secondInt == 200
+            bTest1.firstInt == 0
+            bTest1.toString() == "info.shelfunit.properties.nonmutable.collector.TrulyImmutableCollector001(firstString:Hello1, secondString:Goodbye, firstInt:0, secondInt:200)"
         
     } // end "test the no arg constructor"
     
@@ -53,11 +53,11 @@ class TrulyImmutableCollector001Test extends Specification {
         def bTest2 = new TrulyImmutableCollector001( [ firstString: "Hello2", secondString: "Goodbye, this is more than 20 characters", firstInt: 22, secondInt: 20 ], true )
         println "In test ${name.methodName}, bTest2: ${bTest2.toString()}"
         expect:
-        bTest2.firstString == "Hello2"
-        bTest2.secondString == null
-        bTest2.firstInt == 0
-        bTest2.secondInt == 0
-        bTest2.toString() == "info.shelfunit.properties.nonmutable.collector.TrulyImmutableCollector001(firstString:Hello2, secondString:null, firstInt:0, secondInt:0)"
+            bTest2.firstString == "Hello2"
+            bTest2.secondString == null
+            bTest2.firstInt == 0
+            bTest2.secondInt == 0
+            bTest2.toString() == "info.shelfunit.properties.nonmutable.collector.TrulyImmutableCollector001(firstString:Hello2, secondString:null, firstInt:0, secondInt:0)"
     } // end "test bTest2"
     
     def "third test"() {
@@ -74,12 +74,12 @@ class TrulyImmutableCollector001Test extends Specification {
         }
         println "Still in test ${name.methodName}, bTest1: ${bTest1.toString()}"
         expect:
-        bTest1.firstString == "Hello3"
-        bTest1.secondString == "Goodbye"
-        bTest1.firstInt == 0
-        bTest1.secondInt == 0
-        bTest1.toString() == "info.shelfunit.properties.nonmutable.collector.TrulyImmutableCollector001(firstString:Hello3, secondString:Goodbye, firstInt:0, secondInt:0)"
-        exceptionThrown == true
+            bTest1.firstString == "Hello3"
+            bTest1.secondString == "Goodbye"
+            bTest1.firstInt == 0
+            bTest1.secondInt == 0
+            bTest1.toString() == "info.shelfunit.properties.nonmutable.collector.TrulyImmutableCollector001(firstString:Hello3, secondString:Goodbye, firstInt:0, secondInt:0)"
+            exceptionThrown == true
     } // end "test the no arg constructor again"
    
 } // TrulyImmutable001Test 

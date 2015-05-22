@@ -4,7 +4,7 @@ import spock.lang.Specification
 import org.junit.Rule
 import org.junit.rules.TestName
 
-class FirstImmutableSampleTest extends Specification { 
+class FirstImmutableSampleSpec extends Specification { 
     
     def setup() {}       // run before every feature method
     def cleanup() {}     // run after every feature method
@@ -29,8 +29,8 @@ class FirstImmutableSampleTest extends Specification {
         firstInt: 21, secondInt: 2000 )
         println "In test ${name.methodName}, bTest1: ${bTest1.toString()}"
         expect:
-        bTest1.firstString == "Hello1"
-        bTest1.secondInt == null
+            bTest1.firstString == "Hello1"
+            bTest1.secondInt == null
         
     } // end "test the no arg constructor"
     
@@ -41,7 +41,7 @@ class FirstImmutableSampleTest extends Specification {
         firstInt: 22, secondInt: 20 )
         println "In test ${name.methodName}, bTest2: ${bTest2.toString()}"
         expect:
-        bTest2.firstString == "Hello2"
+            bTest2.firstString == "Hello2"
     } // end "test bTest2"
     
     def "test the no arg constructor again"() {
@@ -61,8 +61,8 @@ class FirstImmutableSampleTest extends Specification {
         firstInt: 21, secondInt: 401 )
         println "In test ${name.methodName}, bTest1: ${bTest1.toString()}"
         expect:
-        bTest1.firstString == "Hello3"
-        bTest1.secondInt == null
+            bTest1.firstString == "Hello3"
+            bTest1.secondInt == null
         
     } // end "test the no arg constructor again"
 
