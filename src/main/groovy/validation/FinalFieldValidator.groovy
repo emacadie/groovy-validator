@@ -9,19 +9,41 @@ import java.lang.annotation.ElementType
 import java.lang.annotation.RetentionPolicy
 
 /**
-<p>This is an annotation to validate/constrain final fields in Plain Old Groovy Objects.</p>
-<p>Here is an example on how to use it:</p>
+<p>This is an annotation to validate/constrain final fields in Plain Old Groovy Objects. The fields you wish to validate must be annotated with the following annotations: {@link validation.DoubleAnnotation}, {@link validation.FloatAnnotation}, {@link validation.IntAnnotation}, {@link validation.LongAnnotation} and {@link validation.StringAnnotation}. This annotation must be applied at the class level.</p>
+
+<p>A class can mix final and mutable fields with the field validation annotations. If the field is not final, the field will be processed by the transformation class for that field type. Likewise, those field annotation processors will skip those fields and let the processor for this validation handle them.</p>
+
+<p>To get the annotation to actually process, you should send two parameters to the constructor: a Map for the fields, and a boolean for whether or not you want the fields to be validated. This boolean is called "validation" in the AST Transformer code. If validation is set to false, the effect is the same as if you simply sent the fields as a Map. Here is an example on how to use it:</p>
 <pre>
-    @FloatAnnotation( minValue = 0f, maxValue = 1000f, throwEx = false )
-    def firstNum
-    @FloatAnnotation( maxValue = 1000f )
-    float secondNum
+import groovy.transform.ToString
+import validation.IntAnnotation
+import validation.FinalFieldValidator
+
+@ToString( includeNames = true )
+{@code @FinalFieldValidator}
+class Car {
+    @IntAnnotation( minValue = 10, throwEx = false )
+    int miles
+    @IntAnnotation( minValue = 1990 )
+    final int year
+}
+
 </pre>
-<p>If the field is defined as "float" and it is given a value in the first call to setX that is outside your constraints, then it will be set to 0. If the field is defined as "def" and it is given a value that is outside your constraints, then it will be set to null. If the field already has a valid value and it is sent an invalid one in a call to setX, the new, invalid value will be ignored.</p>
 
-<p>An application, class or library that uses this annotation must also import {@link validation.ImmutableValidator} to use this in an immutable object.</p>
+<p>Here is an example of how to instantiate the object:</p>
 
-<p>You must append the "f" at the end of the number. If you set "throwException" to true for {@link validation.ImmutableValidator} and an exception is thrown, the "f" will not be printed as part of the number in the message.</p>
+<pre>
+def carA = new Car( [ miles: 5, year: 2010 ], true)
+</pre>
+
+<p>You can also use a constructor with a second boolean to control if the final fields will throw an exception if the validation fails. If the validation fails, the object will not be created.</p>
+
+<pre>
+def carA = new Car( [ miles: 5, year: 2010 ], true, true)
+</pre>
+
+<p>The "throwEx" argument for an annotation on a final field is ignored.</p>
+
 
 <p></p>
 */
