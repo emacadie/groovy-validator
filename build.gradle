@@ -3,9 +3,19 @@ apply plugin: 'groovy'
 apply plugin: 'java-library-distribution'
 apply plugin: 'codenarc'
 // apply plugin: 'application'
+apply plugin: 'com.github.tkruse.groovysh'
 
 repositories {
   mavenCentral()
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.tkruse.gradle:gradle-groovysh-plugin:1.0.5'
+    }
 }
 
 dependencies {

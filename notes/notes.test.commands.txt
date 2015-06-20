@@ -1,53 +1,53 @@
 gradle clean; gradle groovydoc; gradle test
-gradle -Dtest.single=FirstImmutableSampleTest test -info   
-gradle -Dtest.single=SecondImmutableSampleTest test -info  
+gradle test --tests FirstImmutableSampleTest test -info   
+gradle test --tests SecondImmutableSampleTest test -info  
    
-gradle -Dtest.single=ImmutableObject001Test test -info    
-gradle -Dtest.single=ImmutableObject002Test test -info    
-gradle -Dtest.single=BuilderTest001 test -info    
-gradle -Dtest.single=WithTest001 test -info    
-gradle -Dtest.single=CarTest test -info    
-gradle -Dtest.single=BookTest test -info 
-gradle -Dtest.single=BookSequelTest test -info    
-gradle -Dtest.single=SecondBookTest test -info 
-gradle -Dtest.single=SecondBookSequelTest test -info  
-gradle -Dtest.single=TrulyImmutable001Test test -info   
+gradle test --tests ImmutableObject001Test test -info    
+gradle test --tests ImmutableObject002Test test -info    
+gradle test --tests BuilderTest001 test -info    
+gradle test --tests WithTest001 test -info    
+gradle test --tests CarTest test -info    
+gradle test --tests BookTest test -info 
+gradle test --tests BookSequelTest test -info    
+gradle test --tests SecondBookTest test -info 
+gradle test --tests SecondBookSequelTest test -info  
+gradle test --tests TrulyImmutable001Test test -info   
 
-gradle -Dtest.single=FloatRunnerTest test -info   
-gradle -Dtest.single=DoubleRunnerTest test -info   
+gradle test --tests FloatRunnerTest test -info   
+gradle test --tests DoubleRunnerTest test -info   
 
-gradle -Dtest.single=USStateTest test -info
-gradle -Dtest.single=SecondUSStateTest test -info
+gradle test --tests USStateTest test -info
+gradle test --tests SecondUSStateTest test -info
 
 Tests with exceptions:
 Package info.shelfunit.properties.sample.exception
-gradle -Dtest.single=DoubleExRunnerTest  test -info  
-gradle -Dtest.single=FloatExRunnerTest test -info 
-gradle -Dtest.single=LongExRunnerTest test -info 
-gradle -Dtest.single=ImmutableExObject002Test test -info   
-gradle -Dtest.single=TrulyImmutableEx001Test test -info    
+gradle test --tests DoubleExRunnerTest  test -info  
+gradle test --tests FloatExRunnerTest test -info 
+gradle test --tests LongExRunnerTest test -info 
+gradle test --tests ImmutableExObject002Test test -info   
+gradle test --tests TrulyImmutableEx001Test test -info    
 
-gradle -Dtest.single=TrulyImmutableCollector001Test test -info   
-gradle -Dtest.single=TrulyImmutableCollectorEx001Test test -info   
-gradle -Dtest.single=ImmutableObjectColl001Test test -info  
-gradle -Dtest.single=ImmutableObjectColl002Test test -info  
+gradle test --tests TrulyImmutableCollector001Test test -info   
+gradle test --tests TrulyImmutableCollectorEx001Test test -info   
+gradle test --tests ImmutableObjectColl001Test test -info  
+gradle test --tests ImmutableObjectColl002Test test -info  
 
-gradle -Dtest.single=RegExSubjectSpec test -info 
-gradle -Dtest.single=ImmutableRegExSpec test -info  
+gradle test --tests RegExSubjectSpec test -info 
+gradle test --tests ImmutableRegExSpec test -info  
 
-gradle -Dtest.single=ImmutablePartialSpec test -info  
+gradle test --tests ImmutablePartialSpec test -info  
 
-gradle -Dtest.single=IntDivisorSpec test -info  
-gradle -Dtest.single=LongDivisorSpec test -info   
-gradle -Dtest.single=ImmutableIntDivisorSpec test -info  
-gradle -Dtest.single=ImmutableLongDivisorSpec test -info  
+gradle test --tests IntDivisorSpec test -info  
+gradle test --tests LongDivisorSpec test -info   
+gradle test --tests ImmutableIntDivisorSpec test -info  
+gradle test --tests ImmutableLongDivisorSpec test -info  
 
-gradle -Dtest.single=BoxSpec test -info  
+gradle test --tests BoxSpec test -info  
 
-gradle -Dtest.single=SecondUSStateTest test -info
-gradle -Dtest.single=USStateTest test -info
+gradle test --tests SecondUSStateTest test -info
+gradle test --tests USStateTest test -info
 
-gradle clean; gradle groovydoc; gradle -Dtest.single=FinalStringHolderSpec test -info
+gradle clean; gradle groovydoc; gradle test --tests FinalStringHolderSpec test -info
 gradle test --tests info.shelfunit.properties.finality.FinalDoubleHolderSpec -info
 gradle test --tests info.shelfunit.properties.finality.FinalFloatHolderSpec -info
 gradle test --tests info.shelfunit.properties.finality.FinalLongHolderSpec -info
@@ -90,12 +90,12 @@ Can gradle exclude some files from compiliation?
 
 For proper annotations:
 
-gradle -Dtest.single=SecondBookTest test -info 
-gradle -Dtest.single=SecondBookSequelTest test -info  
-gradle -Dtest.single=BookTest test -info 
-gradle -Dtest.single=BookSequelTest test -info
-gradle -Dtest.single=ImmutableExObject001Test test -info
-gradle -Dtest.single=ImmutableObject001Test test -info 
+gradle test --tests SecondBookTest test -info 
+gradle test --tests SecondBookSequelTest test -info  
+gradle test --tests BookTest test -info 
+gradle test --tests BookSequelTest test -info
+gradle test --tests ImmutableExObject001Test test -info
+gradle test --tests ImmutableObject001Test test -info 
 
 cd src/test/groovy/info/shelfunit/properties
 grep -rn StringAnnotation * | grep -v import | grep -v '//' | grep StringAnnotation
