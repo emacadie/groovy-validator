@@ -45,7 +45,7 @@ dependencies {
     tasks.withType( JavaCompile ) { JavaCompile compile ->
         compile.options.debug = true
         compile.options.compilerArgs = [
-            '-noverify',
+            // '-noverify',
             '-Xlint:deprecation',
             '-Xlint:unchecked'
             // '-implicit:class',
@@ -64,7 +64,7 @@ test {
   forkEvery = 50
   // this will make it run tests every time you run 'gradle test'
   outputs.upToDateWhen { false }
-  jvmArgs '-client', '-noverify'
+  // jvmArgs '-client', '-noverify'
 }
 
 task runGroovy( type: JavaExec ) {
