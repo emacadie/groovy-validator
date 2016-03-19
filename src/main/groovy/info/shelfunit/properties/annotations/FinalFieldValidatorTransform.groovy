@@ -59,19 +59,19 @@ class FinalFieldValidatorTransform implements ASTTransformation {
                         theSwitch = ( fieldTypeName != 'java.lang.Object') ? fieldTypeName : annotationName
                         // println "Here is theSwitch: ${theSwitch}"
                         switch ( theSwitch ) {
-                        case [ 'java.lang.String', 'validation.StringAnnotation']:
+                        case [ 'java.lang.String', 'validation.ValidString']:
                              theString << "\nthis.set${fieldNode.getName().capitalize()}( validMap['${fieldNode.getName()}'] ?: new String() )\n"
                         break
-                        case [ 'double', 'java.lang.Double', 'validation.DoubleAnnotation']:
+                        case [ 'double', 'java.lang.Double', 'validation.ValidDouble']:
                             theString << "\nthis.set${fieldNode.getName().capitalize()}( validMap['${fieldNode.getName()}'] ?: 0d )\n"
                         break
-                        case [ 'float', 'java.lang.Float', 'validation.FloatAnnotation']:
+                        case [ 'float', 'java.lang.Float', 'validation.ValidFloat']:
                             theString << "\nthis.set${fieldNode.getName().capitalize()}( validMap['${fieldNode.getName()}'] ?: 0f )\n"
                         break
-                        case [ 'int', 'java.lang.Integer' , 'validation.IntAnnotation']:
+                        case [ 'int', 'java.lang.Integer' , 'validation.ValidInt']:
                             theString << "\nthis.set${fieldNode.getName().capitalize()}( validMap['${fieldNode.getName()}'] ?: 0 )\n"
                         break
-                        case [ 'long', 'java.lang.Long', 'validation.LongAnnotation']:
+                        case [ 'long', 'java.lang.Long', 'validation.ValidLong']:
                             theString << "\nthis.set${fieldNode.getName().capitalize()}( validMap['${fieldNode.getName()}'] ?: 0L )\n"
                         break
                         default:
@@ -144,7 +144,7 @@ class FinalFieldValidatorTransform implements ASTTransformation {
                     theSwitch = ( fieldTypeName != 'java.lang.Object') ? fieldTypeName : annotationName
                     // println "in processFields, Here is theSwitch: ${theSwitch}"
                     switch ( theSwitch ) {
-                        case ['java.lang.String', 'validation.StringAnnotation']:
+                        case ['java.lang.String', 'validation.ValidString']:
                             sb1 << "val = argMap[ '${fieldNode.getName()}' ]"
                             def throwEx = annotationNode.getMember( 'throwEx' ) ? annotationNode?.getMember( 'throwEx' ).getValue() : true
                             minimum = annotationNode.getMember( 'minLength' ) ? annotationNode.getMember( 'minLength' ).getValue() : 0
@@ -164,16 +164,16 @@ class FinalFieldValidatorTransform implements ASTTransformation {
                             }
                             """
                         break
-                        case [ 'double', 'java.lang.Double', 'validation.DoubleAnnotation' ]:
+                        case [ 'double', 'java.lang.Double', 'validation.ValidDouble' ]:
                             sb1 << handleDoubleAndFloat( fieldNode.getName(), annotationNode, Double.MAX_VALUE, Double.class.name )
                         break
-                        case [ 'float', 'java.lang.Float', 'validation.FloatAnnotation' ]:
+                        case [ 'float', 'java.lang.Float', 'validation.ValidFloat' ]:
                             sb1 << handleDoubleAndFloat( fieldNode.getName(), annotationNode, Float.MAX_VALUE, Float.class.name )
                         break
-                        case [ 'int', 'java.lang.Integer', 'validation.IntAnnotation' ]:
+                        case [ 'int', 'java.lang.Integer', 'validation.ValidInt' ]:
                             sb1 << handleIntAndLong( fieldNode.getName(), annotationNode, new Integer( 0 ) )
                         break
-                        case [ 'long', 'java.lang.Long', 'validation.LongAnnotation' ]:
+                        case [ 'long', 'java.lang.Long', 'validation.ValidLong' ]:
                             sb1 << handleIntAndLong( fieldNode.getName(), annotationNode, new Long( 0 ) )
                         break
                         default:

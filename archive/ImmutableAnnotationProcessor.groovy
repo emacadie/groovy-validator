@@ -9,7 +9,7 @@ import java.lang.annotation.Annotation
 import org.codehaus.groovy.runtime.NullObject
 
 /**
-<p>This is a class that will process the annotations {@link info.shelfunit.properties.annotations.DoubleAnnotation}, {@link info.shelfunit.properties.annotations.FloatAnnotation}, {@link info.shelfunit.properties.annotations.IntAnnotation}, {@link info.shelfunit.properties.annotations.LongAnnotation} and {@link info.shelfunit.properties.annotations.StringAnnotation}</p>
+<p>This is a class that will process the annotations {@link info.shelfunit.properties.annotations.ValidDouble}, {@link info.shelfunit.properties.annotations.ValidFloat}, {@link info.shelfunit.properties.annotations.ValidInt}, {@link info.shelfunit.properties.annotations.ValidLong} and {@link info.shelfunit.properties.annotations.ValidString}</p>
 
 <p>I never liked that fact that <a href="http://groovy.codehaus.org/Groovy+Beans">Groovy Beans</a> never had any validations for the properties (at least none that I could find). Grails has <a href="http://grails.org/doc/latest/ref/Constraints/Usage.html">constraints</a>. Why not Groovy?</p>
 
@@ -65,11 +65,11 @@ class ImmutableAnnotationProcessor {
             theMap.each { entry ->
                 
                 def field = theClass.getDeclaredField( entry.key )
-                def intAnnotation    = field?.getAnnotation( IntAnnotation.class )
-                def stringAnnotation = field?.getAnnotation( StringAnnotation.class )
-                def doubleAnnotation = field?.getAnnotation( DoubleAnnotation.class )
-                def floatAnnotation  = field?.getAnnotation( FloatAnnotation.class )
-                def longAnnotation   = field?.getAnnotation( LongAnnotation.class )
+                def intAnnotation    = field?.getAnnotation( ValidInt.class )
+                def stringAnnotation = field?.getAnnotation( ValidString.class )
+                def doubleAnnotation = field?.getAnnotation( ValidDouble.class )
+                def floatAnnotation  = field?.getAnnotation( ValidFloat.class )
+                def longAnnotation   = field?.getAnnotation( ValidLong.class )
                     
                 if ( ( entry.value instanceof Integer ) && ( intAnnotation ) ) {
                     println "Here is arg for int in constructor: ${entry.value} and it is a ${entry.value.class.name}"
@@ -141,11 +141,11 @@ class ImmutableAnnotationProcessor {
     static processGetProp( Class theClass ) {
         theClass.metaClass.getProperty = { String name ->
             def field = theClass.getDeclaredField( name )
-            def intAnnotation    = field?.getAnnotation( IntAnnotation.class )
-            def stringAnnotation = field?.getAnnotation( StringAnnotation.class )
-            def doubleAnnotation = field?.getAnnotation( DoubleAnnotation.class )
-            def floatAnnotation  = field?.getAnnotation( FloatAnnotation.class )
-            def longAnnotation   = field?.getAnnotation( LongAnnotation.class )
+            def intAnnotation    = field?.getAnnotation( ValidInt.class )
+            def stringAnnotation = field?.getAnnotation( ValidString.class )
+            def doubleAnnotation = field?.getAnnotation( ValidDouble.class )
+            def floatAnnotation  = field?.getAnnotation( ValidFloat.class )
+            def longAnnotation   = field?.getAnnotation( ValidLong.class )
             
             def metaProperty = theClass.metaClass.getMetaProperty( name )
             def result = metaProperty.getProperty( delegate )

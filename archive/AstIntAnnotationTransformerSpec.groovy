@@ -6,7 +6,7 @@ import spock.lang.Specification
 import org.junit.Rule
 import org.junit.rules.TestName
 
-class AstIntAnnotationTransformerSpec extends Specification {
+class AstValidIntTransformerSpec extends Specification {
     def setup() {}          // run before every feature method
     def cleanup() {}        // run after every feature method
     def setupSpec() {}     // run before the first feature method
@@ -29,7 +29,7 @@ class AstIntAnnotationTransformerSpec extends Specification {
 import info.shelfunit.properties.annotations.*
 
 class XYZ { 
-    @AstIntAnnotation( minValue = 14 )
+    @AstValidInt( minValue = 14 )
     int firstNum
 }
 
@@ -51,9 +51,9 @@ new XYZ()
 import info.shelfunit.properties.annotations.*
 
 class UVW { 
-    @AstIntAnnotation( minValue = 14 )
+    @AstValidInt( minValue = 14 )
     int firstNum
-    @AstIntAnnotation( minValue = 2, maxValue = 12 )
+    @AstValidInt( minValue = 2, maxValue = 12 )
     int secondNum
 }
 
@@ -68,5 +68,5 @@ new UVW()
         !added
     }
     
-} // AstIntAnnotationTransformerSpec 
+} // AstValidIntTransformerSpec 
 

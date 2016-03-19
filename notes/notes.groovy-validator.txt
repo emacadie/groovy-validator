@@ -131,6 +131,8 @@ class FinalStringHolder {
 }
 def fshA = new FinalStringHolder( [ firstDefString: 'qeeqq', finalDefString: "Groovy ist Wunderbar", firstRealString: "realString", finalRealString: 'Groovy ist Wunderbaar', someOtherString: "Yo adrian" ], true, true )
 
+To replace string in multiple files:
+find . -name "./td/*.c" -exec sed -i "s/:::/::/g" '{}' \;
 
 
 

@@ -9,22 +9,22 @@ import java.lang.annotation.ElementType
 import java.lang.annotation.RetentionPolicy
 
 /**
-<p>This is an annotation to validate/constrain final fields in Plain Old Groovy Objects. The fields you wish to validate must be annotated with the following annotations: {@link validation.DoubleAnnotation}, {@link validation.FloatAnnotation}, {@link validation.IntAnnotation}, {@link validation.LongAnnotation} and {@link validation.StringAnnotation}. This annotation must be applied at the class level.</p>
+<p>This is an annotation to validate/constrain final fields in Plain Old Groovy Objects. The fields you wish to validate must be annotated with the following annotations: {@link validation.ValidDouble}, {@link validation.ValidFloat}, {@link validation.ValidInt}, {@link validation.ValidLong} and {@link validation.ValidString}. This annotation must be applied at the class level.</p>
 
 <p>A class can mix final and mutable fields with the field validation annotations. If the field is not final, the field will be processed by the transformation class for that field type. Likewise, those field annotation processors will skip those fields and let the processor for this validation handle them.</p>
 
 <p>To get the annotation to actually process, you should send two parameters to the constructor: a Map for the fields, and a boolean for whether or not you want the fields to be validated. This boolean is called "validation" in the AST Transformer code. If validation is set to false, the effect is the same as if you simply sent the fields as a Map. Here is an example on how to use it:</p>
 <pre>
 import groovy.transform.ToString
-import validation.IntAnnotation
+import validation.ValidInt
 import validation.FinalFieldValidator
 
 @ToString( includeNames = true )
 {@code @FinalFieldValidator}
 class Car {
-    @IntAnnotation( minValue = 10, throwEx = false )
+    @ValidInt( minValue = 10, throwEx = false )
     int miles
-    @IntAnnotation( minValue = 1990 )
+    @ValidInt( minValue = 1990 )
     final int year
 }
 

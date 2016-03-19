@@ -12,9 +12,9 @@ import java.lang.annotation.RetentionPolicy
 <p>This is an annotation to validate/constrain double fields in Plain Old Groovy Objects.</p>
 <p>Here is an example on how to use it:</p>
 <pre>
-    @DoubleAnnotation( minValue = 0d, maxValue = 1000d, throwEx = false )
+    @ValidDouble( minValue = 0d, maxValue = 1000d, throwEx = false )
     def firstNum
-    @DoubleAnnotation( maxValue = 1000d )
+    @ValidDouble( maxValue = 1000d )
     double secondNum
 </pre>
 <p>If the field is defined as "double" and it is given a value in the first call to setX that is outside your constraints, then it will be set to 0. If the field is defined as "def" and it is given a value that is outside your constraints, then it will be set to null. If the field already has a valid value and it is sent an invalid one in a call to setX, the new, invalid value will be ignored.</p>
@@ -27,8 +27,8 @@ import java.lang.annotation.RetentionPolicy
 */
 @Retention( RetentionPolicy.RUNTIME ) 
 @Target( ElementType.FIELD )
-@GroovyASTTransformationClass( [ 'info.shelfunit.properties.annotations.DoubleAnnotationTransform' ] )
-public @interface DoubleAnnotation {
+@GroovyASTTransformationClass( [ 'info.shelfunit.properties.annotations.ValidDoubleTransform' ] )
+public @interface ValidDouble {
     /**
     The lowest value you want this field to hold. The default is 0.0d. It could go as low as Double.MIN_VALUE.
     */

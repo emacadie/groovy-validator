@@ -11,11 +11,11 @@ import java.lang.annotation.Target
 <p>This is an annotation to validate/constrain long fields in Plain Old Groovy Objects.</p>
 <p>Here is an example on how to use it:</p>
 <pre>
-    @LongAnnotation( minValue = 0L, maxValue = 1000L, throwEx = false )
+    @ValidLong( minValue = 0L, maxValue = 1000L, throwEx = false )
     long firstLong
-    @LongAnnotation( minValue = 2147483648L )
+    @ValidLong( minValue = 2147483648L )
     def secondLong
-    @LongAnnotation( minValue = 10L, divisorSet = [ 3L, 5L ] )
+    @ValidLong( minValue = 10L, divisorSet = [ 3L, 5L ] )
     long dasFizzbuzz
 </pre>
 <p>If the field is defined as "long" and it is given a value in the first call to setX that is outside your constraints, then it will be set to 0. If the field is defined as "def" and it is given a value that is outside your constraints, then it will be set to null. If the field already has a valid value and it is sent an invalid one in a call to setX, the new, invalid value will be ignored.</p>
@@ -28,8 +28,8 @@ import java.lang.annotation.Target
 */
 @Retention( RetentionPolicy.RUNTIME ) 
 @Target( ElementType.FIELD )
-@GroovyASTTransformationClass( [ 'info.shelfunit.properties.annotations.LongAnnotationTransform' ] )
-public @interface LongAnnotation {
+@GroovyASTTransformationClass( [ 'info.shelfunit.properties.annotations.ValidLongTransform' ] )
+public @interface ValidLong {
         /**
     The lowest value you want this field to hold. The default is 0. It could go as low as Long.MIN_VALUE.
     */

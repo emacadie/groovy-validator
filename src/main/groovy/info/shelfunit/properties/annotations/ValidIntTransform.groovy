@@ -9,7 +9,7 @@ import org.codehaus.groovy.transform.ASTTransformation
 import org.codehaus.groovy.transform.GroovyASTTransformation 
 
 @GroovyASTTransformation( phase = CompilePhase.INSTRUCTION_SELECTION )
-class IntAnnotationTransform implements ASTTransformation {
+class ValidIntTransform implements ASTTransformation {
     
     void visit( ASTNode[] astNodes, SourceUnit sourceUnit ) {
         

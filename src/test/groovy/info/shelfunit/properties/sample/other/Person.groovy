@@ -1,16 +1,16 @@
 package info.shelfunit.properties.sample.other
 
 import groovy.transform.ToString
-import validation.IntAnnotation
-import validation.StringAnnotation
+import validation.ValidInt
+import validation.ValidString
 
 @ToString( includeNames = true )
 class Person {
-    @StringAnnotation( minLength = 5, maxLength = 20 , throwEx = false )
+    @ValidString( minLength = 5, maxLength = 20 , throwEx = false )
     String firstName
-    @StringAnnotation( minLength = 5, maxLength = 20, throwEx = false )
+    @ValidString( minLength = 5, maxLength = 20, throwEx = false )
     String lastName
-    @IntAnnotation( minValue = 0, maxValue = 100, throwEx = false )
+    @ValidInt( minValue = 0, maxValue = 100, throwEx = false )
     def age
 
 }

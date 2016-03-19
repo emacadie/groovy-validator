@@ -1,10 +1,10 @@
 package info.shelfunit.properties.sample.exception
 
-import validation.IntAnnotation
+import validation.ValidInt
 
 class FirstSubject {
     
-    @IntAnnotation( minValue = 30, maxValue = 400 )
+    @ValidInt( minValue = 30, maxValue = 400 )
     def firstNum // this will let it be null
     int secondNum
 }

@@ -1,14 +1,14 @@
 package info.shelfunit.properties.sample.exception
 
-import validation.DoubleAnnotation
+import validation.ValidDouble
 
 class DoubleExRunner {
     
-    @DoubleAnnotation( minValue = 0d, maxValue = 1000d )
+    @ValidDouble( minValue = 0d, maxValue = 1000d )
     def firstNum
-    @DoubleAnnotation( maxValue = 1000d )
+    @ValidDouble( maxValue = 1000d )
     def secondNum
-    @DoubleAnnotation( minValue = 10d )
+    @ValidDouble( minValue = 10d )
     def thirdNum
     
 }

@@ -1,16 +1,16 @@
 package info.shelfunit.properties.sample.exception
 
-import validation.FloatAnnotation
+import validation.ValidFloat
 import groovy.transform.ToString
 
 @ToString( includeNames = true )
 class FloatExRunner {
 
-    @FloatAnnotation( minValue = 0f, maxValue = 1000f )
+    @ValidFloat( minValue = 0f, maxValue = 1000f )
     def firstNum
-    @FloatAnnotation( maxValue = 1000f )
+    @ValidFloat( maxValue = 1000f )
     def secondNum
-    @FloatAnnotation( minValue = 10f )
+    @ValidFloat( minValue = 10f )
     def thirdNum
 }
 

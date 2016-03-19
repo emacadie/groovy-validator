@@ -1,6 +1,6 @@
 package info.shelfunit.properties.sample
 
-import validation.StringAnnotation
+import validation.ValidString
 
 class SampleRunner {
    /*
@@ -68,9 +68,9 @@ class SampleRunner {
             print "${it.getName()} "
             if ( bFieldNames.contains( it.getName() ) ) {
                 def field = Book.class.getDeclaredField( it.getName() )
-                def stringAnnotation = field?.getAnnotation( StringAnnotation.class )
+                def stringAnnotation = field?.getAnnotation( ValidString.class )
                 if ( stringAnnotation ) {
-                    print "${it.getName()} has StringAnnotation"
+                    print "${it.getName()} has ValidString"
                     // intercept the setter
                     print " stringAnnotation.min(): ${stringAnnotation.min()} "
                     print " stringAnnotation.max(): ${stringAnnotation.max()} "
@@ -116,7 +116,7 @@ class SampleRunner {
         Book.metaClass.setProperty = { String name, arg ->
             println "name in setProperty is ${name}"
             def field = Book.class.getDeclaredField( name )
-            def stringAnnotation = field?.getAnnotation( StringAnnotation.class )
+            def stringAnnotation = field?.getAnnotation( ValidString.class )
             println "-- Here is stringAnnotation: ${stringAnnotation}"
             if ( stringAnnotation ) {
                 println "Looking at Book.set${name.capitalize()}"
@@ -157,7 +157,7 @@ class SampleRunner {
         def fs001 = new FirstSubject()
         println "1. Just called constructor for fs001"
         def fs002 = new FirstSubject()
-        // @IntAnnotation(minValue=30, maxValue=400)
+        // @ValidInt(minValue=30, maxValue=400)
         // int firstNum
         println "1. fs001.secondNum is ${fs001.secondNum}, fs001.firstNum is ${fs001.firstNum}"
         fs001.firstNum = 100

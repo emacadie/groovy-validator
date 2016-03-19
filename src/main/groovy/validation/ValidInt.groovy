@@ -12,11 +12,11 @@ import java.lang.annotation.RetentionPolicy
 <p>This is an annotation to validate/constrain integer fields in Plain Old Groovy Objects.</p>
 <p>Here is an example on how to use it:</p>
 <pre>
-    @IntAnnotation( minValue = 30, maxValue = 400, throwEx = false )
+    @ValidInt( minValue = 30, maxValue = 400, throwEx = false )
     int firstInt
-    @IntAnnotation( maxValue = 400 )
+    @ValidInt( maxValue = 400 )
     def secondInt
-    @IntAnnotation( minValue = 10, divisorSet = [ 3, 5 ] )
+    @ValidInt( minValue = 10, divisorSet = [ 3, 5 ] )
     int dasFizzbuzz
 </pre>
 <p>If the field is defined as "int" and it is given a value in the first call to setX that is outside your constraints, then it will be set to 0. If the field is defined as "def" and it is given a value that is outside your constraints, then it will be set to null. If the field already has a valid value and it is sent an invalid one in a call to setX, the new, invalid value will be ignored.</p>
@@ -27,8 +27,8 @@ import java.lang.annotation.RetentionPolicy
 
 @Retention( RetentionPolicy.RUNTIME ) 
 @Target( ElementType.FIELD )
-@GroovyASTTransformationClass( [ 'info.shelfunit.properties.annotations.IntAnnotationTransform' ] )
-public @interface IntAnnotation {
+@GroovyASTTransformationClass( [ 'info.shelfunit.properties.annotations.ValidIntTransform' ] )
+public @interface ValidInt {
     /**
     The lowest value you want this field to hold. The default is 0. It could go as low as Integer.MIN_VALUE.
     */

@@ -7,7 +7,7 @@ import groovy.transform.ToString
 /**
 <p>This annotation does the same basic thing as  {@link validation.AstImmutableConstructor}: It can be used to validate fields in immutable objects. It is a meta-annotation using <a href="http://docs.groovy-lang.org/latest/html/gapi/index.html?groovy/transform/AnnotationCollector.html">AnnotationCollector</a> to combine {@link validation.AstImmutableConstructor}, <a href="http://docs.groovy-lang.org/latest/html/gapi/index.html?groovy/transform/Immutable.html">Immutable</a> and <a href="http://docs.groovy-lang.org/latest/html/gapi/index.html?groovy/transform/ToString.html">ToString</a> into one annotation. For <a href="http://docs.groovy-lang.org/latest/html/gapi/index.html?groovy/transform/ToString.html">ToString</a>, includeNames is set to true. </p>
 
-<p>The fields can be annotated with the following annotations: {@link validation.DoubleAnnotation}, {@link validation.FloatAnnotation}, {@link validation.IntAnnotation}, {@link validation.LongAnnotation} and {@link validation.StringAnnotation}.</p>
+<p>The fields can be annotated with the following annotations: {@link validation.ValidDouble}, {@link validation.ValidFloat}, {@link validation.ValidInt}, {@link validation.ValidLong} and {@link validation.ValidString}.</p>
 
 <p>Other than a few less lines of code, it should be the same as {@link validation.AstImmutableConstructor}:</p>
 
@@ -19,18 +19,18 @@ Here is an example class:
 package info.shelfunit.properties.sample.immutable
 
 import validation.ImmutableValidator
-import validation.IntAnnotation
-import validation.LongAnnotation
-import validation.StringAnnotation
+import validation.ValidInt
+import validation.ValidLong
+import validation.ValidString
 
 {@code @ImmutableValidator}
 class ImmutableObject002 {
 
-    @StringAnnotation( minLength = 5, maxLength = 10, regex = /\d{4}?-\d\d-\d\d/ )
+    @ValidString( minLength = 5, maxLength = 10, regex = /\d{4}?-\d\d-\d\d/ )
     String firstString
-    @IntAnnotation( minValue = 10, maxValue = 100, divisorSet = [ 2, 3 ] )
+    @ValidInt( minValue = 10, maxValue = 100, divisorSet = [ 2, 3 ] )
     int firstInt
-    @LongAnnotation( maxValue = 100L )
+    @ValidLong( maxValue = 100L )
     long firstLong
 }
 

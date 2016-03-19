@@ -11,10 +11,10 @@ import org.codehaus.groovy.transform.ASTTransformation
 import org.codehaus.groovy.transform.GroovyASTTransformation
 
 @GroovyASTTransformation( phase = CompilePhase.INSTRUCTION_SELECTION )
-class AstIntAnnotationTransformer implements ASTTransformation {
+class AstValidIntTransformer implements ASTTransformation {
 
     void visit( ASTNode[] astNodes, SourceUnit sourceUnit ) {
-        println "In AstIntAnnotationTransformer.visit"
+        println "In AstValidIntTransformer.visit"
         println "Size of astNodes: ${astNodes.size()}"
         println "what is astNodes[ 0 ]?: ${astNodes[ 0 ].class.name}"
         println "what is astNodes[ 1 ]?: ${astNodes[ 1 ].class.name}"

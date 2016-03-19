@@ -1,12 +1,12 @@
 package info.shelfunit.properties.sample
 
-import validation.IntAnnotation
+import validation.ValidInt
 
 class IntegerRunner {
     
-    @IntAnnotation( minValue = 0, maxValue = 1000, throwEx = false )
+    @ValidInt( minValue = 0, maxValue = 1000, throwEx = false )
     def numAsDef
-    @IntAnnotation( minValue = 100, maxValue = 1000, throwEx = false )
+    @ValidInt( minValue = 100, maxValue = 1000, throwEx = false )
     int numAsInt
 
 }

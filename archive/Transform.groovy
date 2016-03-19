@@ -39,7 +39,7 @@ class Transform implements ASTTransformation {
         classToTransform.metaClass.setProperty = { String name, arg ->
             println "name in setProperty is ${name}"
             def field = classToTransform.getDeclaredField( name )
-            def intAnnotation = field?.getAnnotation( IntAnnotation.class )
+            def intAnnotation = field?.getAnnotation( ValidInt.class )
             println "-- Here is stringAnnotation: ${stringAnnotation}"
             if ( intAnnotation ) {
                 println "Looking at Book.set${name.capitalize()}"

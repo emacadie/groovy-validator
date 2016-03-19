@@ -12,11 +12,11 @@ import java.lang.annotation.RetentionPolicy
 <p>This is an annotation to validate/constrain String fields in Plain Old Groovy Objects.</p>
 <p>Here is an example on how to use it:</p>
 <pre>
-    @StringAnnotation( minLength = 5, maxLength = 10, throwEx = false )
+    @ValidString( minLength = 5, maxLength = 10, throwEx = false )
     String firstString
-    @StringAnnotation( maxLength = 400 )
+    @ValidString( maxLength = 400 )
     def secondString
-    @StringAnnotation( minLength = 10, regEx = /^.*?[Gg]roovy.*$/ ) 
+    @ValidString( minLength = 10, regEx = /^.*?[Gg]roovy.*$/ ) 
     String groovyString
 </pre>
 <p>If the field is defined as "String" and it is given a value in the first call to setX that is outside your constraints, then it will be set to a String with length 0. If the field is defined as "def" and it is given a value that is outside your constraints, then it will be set to null. If the field already has a valid value and it is sent an invalid one in a call to setX, the new, invalid value will be ignored.</p>
@@ -38,8 +38,8 @@ java.lang.Exception: 'I like PHP' is a String with a length outside the range of
 
 @Retention( RetentionPolicy.RUNTIME ) 
 @Target( ElementType.FIELD )
-@GroovyASTTransformationClass( [ 'info.shelfunit.properties.annotations.StringAnnotationTransform' ] )
-public @interface StringAnnotation {
+@GroovyASTTransformationClass( [ 'info.shelfunit.properties.annotations.ValidStringTransform' ] )
+public @interface ValidString {
     /**
     The minimum length of the String field. The default is 0.
     */

@@ -12,9 +12,9 @@ import java.lang.annotation.RetentionPolicy
 <p>This is an annotation to validate/constrain floating number fields in Plain Old Groovy Objects.</p>
 <p>Here is an example on how to use it:</p>
 <pre>
-    @FloatAnnotation( minValue = 0f, maxValue = 1000f, throwEx = false )
+    @ValidFloat( minValue = 0f, maxValue = 1000f, throwEx = false )
     def firstNum
-    @FloatAnnotation( maxValue = 1000f )
+    @ValidFloat( maxValue = 1000f )
     float secondNum
 </pre>
 <p>If the field is defined as "float" and it is given a value in the first call to setX that is outside your constraints, then it will be set to 0. If the field is defined as "def" and it is given a value that is outside your constraints, then it will be set to null. If the field already has a valid value and it is sent an invalid one in a call to setX, the new, invalid value will be ignored.</p>
@@ -28,8 +28,8 @@ import java.lang.annotation.RetentionPolicy
 
 @Retention( RetentionPolicy.RUNTIME ) 
 @Target( ElementType.FIELD )
-@GroovyASTTransformationClass( [ 'info.shelfunit.properties.annotations.FloatAnnotationTransform' ] )
-public @interface FloatAnnotation {
+@GroovyASTTransformationClass( [ 'info.shelfunit.properties.annotations.ValidFloatTransform' ] )
+public @interface ValidFloat {
     /**
     The lowest value you want this field to hold. The default is 0.0f. It could go as low as Float.MIN_VALUE.
     */
