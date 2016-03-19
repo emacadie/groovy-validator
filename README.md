@@ -22,14 +22,14 @@ So I made some annotations that can do some validation for you.
 ```groovy
 package info.shelfunit.properties.sample
  
-import validation.IntAnnotation
-import validation.StringAnnotation
+import validation.ValidInt
+import validation.ValidString
  
 class Book {
 
-    @IntAnnotation( minValue = 30, maxValue = 400, throwEx = false )
+    @ValidInt( minValue = 30, maxValue = 400, throwEx = false )
     def pages
-    @StringAnnotation( minLength = 5, maxLength = 20, regEx = /^.*?[Gg]roovy.*$/  )
+    @ValidString( minLength = 5, maxLength = 20, regEx = /^.*?[Gg]roovy.*$/  )
     String title
     int year
 }
@@ -43,17 +43,17 @@ This project can also validate fields in immutable objects. In addition to using
 package info.shelfunit.properties.sample.immutable
  
 import validation.ImmutableValidator
-import validation.IntAnnotation
-import validation.LongAnnotation
-import validation.StringAnnotation
+import validation.ValidInt
+import validation.ValidLong
+import validation.ValidString
  
 @ImmutableValidator
 class ImmutableObject002 {
-    @StringAnnotation( minLength = 5, maxLength = 10 )
+    @ValidString( minLength = 5, maxLength = 10 )
     String firstString
-    @IntAnnotation( minValue = 10, maxValue = 100 )
+    @ValidInt( minValue = 10, maxValue = 100 )
     int firstInt
-    @LongAnnotation( maxValue = 100L, divisorSet = [ 5L, 7L ] )
+    @ValidLong( maxValue = 100L, divisorSet = [ 5L, 7L ] )
     long firstLong
 }
 ```
@@ -94,15 +94,15 @@ If "throwException" is true for an immutable object and an exception is thrown, 
 This library can also handle final fields in mutable objects.
 ```groovy
 import groovy.transform.ToString
-import validation.IntAnnotation
+import validation.ValidInt
 import validation.FinalFieldValidator
 
 @ToString( includeNames = true )
 @FinalFieldValidator
 class Car {
-    @IntAnnotation( minValue = 10, throwEx = false )
+    @ValidInt( minValue = 10, throwEx = false )
     int miles
-    @IntAnnotation( minValue = 1990 )
+    @ValidInt( minValue = 1990 )
     final int year
 }
 ```
