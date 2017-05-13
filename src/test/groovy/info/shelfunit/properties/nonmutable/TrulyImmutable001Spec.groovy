@@ -22,7 +22,7 @@ class TrulyImmutable001Spec extends Specification {
 
         println "About to make throwaway"
         when: "We make an immutable object with the numbers under their ranges and try to change the string"
-            def throwaway = new TrulyImmutable001( [ firstString: "Not Junk", secondString: "Goodbye Junk", firstInt: 21, secondInt: 20 ], true )
+            def throwaway = TrulyImmutable001.createValidatedObject( [ firstString: "Not Junk", secondString: "Goodbye Junk", firstInt: 21, secondInt: 20 ] )
             boolean exceptionThrown = false
             try {
                 throwaway.firstString = "Throwaway"
@@ -37,7 +37,7 @@ class TrulyImmutable001Spec extends Specification {
         println "Just made throwaway, about to make bTest1"
         
         when: "we make an immutable object with one number outside the range"
-            def bTest1 = new TrulyImmutable001( [ firstString: "Hello1", secondString: "Goodbye", firstInt: 21, secondInt: 200 ], true )
+            def bTest1 = TrulyImmutable001.createValidatedObject( [ firstString: "Hello1", secondString: "Goodbye", firstInt: 21, secondInt: 200 ] )
             println "In test ${name.methodName}, bTest1: ${bTest1.toString()}"
         then: "the firstInt should be 0"
             bTest1.firstString == "Hello1"
@@ -48,7 +48,7 @@ class TrulyImmutable001Spec extends Specification {
     
     def "test bTest2"() {
         println "\n\n--- Starting test ${name.methodName}"
-        def bTest2 = new TrulyImmutable001( [ firstString: "Hello2", secondString: "Goodbye, this is more than 20 characters", firstInt: 22, secondInt: 20 ], true )
+        def bTest2 = TrulyImmutable001.createValidatedObject( [ firstString: "Hello2", secondString: "Goodbye, this is more than 20 characters", firstInt: 22, secondInt: 20 ] )
         println "In test ${name.methodName}, bTest2: ${bTest2.toString()}"
         expect:
             bTest2.firstString == "Hello2"
@@ -61,7 +61,7 @@ class TrulyImmutable001Spec extends Specification {
         println "\n\n--- Starting test ${name.methodName}"
 
         boolean exceptionThrown = false
-        def bTest1 = new TrulyImmutable001( [ firstString: "Hello3", secondString: "Goodbye", secondInt: 401, firstInt: 21 ], true )
+        def bTest1 = TrulyImmutable001.createValidatedObject( [ firstString: "Hello3", secondString: "Goodbye", secondInt: 401, firstInt: 21 ] )
         println "In test ${name.methodName}, bTest1: ${bTest1.toString()}"
         // println "bTest1.firstString: ${bTest1.firstString}, bTest1.secondString: ${bTest1.secondString}"
         try {

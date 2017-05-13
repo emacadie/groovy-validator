@@ -23,7 +23,7 @@ class TrulyImmutableCollector001Spec extends Specification {
         // def junk = new TrulyImmutable001()
         println "About to make throwaway"
         when:
-            def throwaway = new TrulyImmutableCollector001( [ firstString: "Not Junk", secondString: "Goodbye Junk", firstInt: 21, secondInt: 20 ], true )
+            def throwaway = TrulyImmutableCollector001.createValidatedObject( [ firstString: "Not Junk", secondString: "Goodbye Junk", firstInt: 21, secondInt: 20 ] )
             boolean exceptionThrown = false
             try {
                 throwaway.firstString = "Throwaway"
@@ -38,7 +38,7 @@ class TrulyImmutableCollector001Spec extends Specification {
             println "Just made throwaway, about to make bTest1"
         
         when:
-            def bTest1 = new TrulyImmutableCollector001( [ firstString: "Hello1", secondString: "Goodbye", firstInt: 21, secondInt: 200 ], true )
+            def bTest1 =TrulyImmutableCollector001.createValidatedObject( [ firstString: "Hello1", secondString: "Goodbye", firstInt: 21, secondInt: 200 ] )
             println "In test ${name.methodName}, bTest1: ${bTest1.toString()}"
         then:
             bTest1.firstString == "Hello1"
@@ -50,7 +50,7 @@ class TrulyImmutableCollector001Spec extends Specification {
     
     def "test bTest2"() {
         println "\n\n--- Starting test ${name.methodName}"
-        def bTest2 = new TrulyImmutableCollector001( [ firstString: "Hello2", secondString: "Goodbye, this is more than 20 characters", firstInt: 22, secondInt: 20 ], true )
+        def bTest2 = TrulyImmutableCollector001.createValidatedObject( [ firstString: "Hello2", secondString: "Goodbye, this is more than 20 characters", firstInt: 22, secondInt: 20 ] )
         println "In test ${name.methodName}, bTest2: ${bTest2.toString()}"
         expect:
             bTest2.firstString == "Hello2"
@@ -64,7 +64,7 @@ class TrulyImmutableCollector001Spec extends Specification {
         println "\n\n--- Starting test ${name.methodName}"
 
         boolean exceptionThrown = false
-        def bTest1 = new TrulyImmutableCollector001( [ firstString: "Hello3", secondString: "Goodbye", secondInt: 401, firstInt: 21 ], true )
+        def bTest1 = TrulyImmutableCollector001.createValidatedObject( [ firstString: "Hello3", secondString: "Goodbye", secondInt: 401, firstInt: 21 ] )
         println "In test ${name.methodName}, bTest1: ${bTest1.toString()}"
         // println "bTest1.firstString: ${bTest1.firstString}, bTest1.secondString: ${bTest1.secondString}"
         try {

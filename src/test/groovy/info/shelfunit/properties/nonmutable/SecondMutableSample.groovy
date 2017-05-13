@@ -1,9 +1,9 @@
-package info.shelfunit.properties.nonmutable.exception
+package info.shelfunit.properties.nonmutable
 
 import validation.ValidInt
 import validation.ValidString
 
-class FirstImmutableExSample {
+class SecondMutableSample {
 
     @ValidString( minLength = 5, maxLength = 200, throwEx = false )
     String firstString
@@ -12,12 +12,11 @@ class FirstImmutableExSample {
     @ValidInt( minValue = 30, maxValue = 400, throwEx = false )
     int firstInt
     @ValidInt( minValue = 30, maxValue = 400, throwEx = false )
-    def secondInt
+    int secondInt
     
     def String toString() {
         "firstString : ${firstString}, secondString: ${secondString}, firstInt: ${firstInt}, secondInt: ${secondInt}"
     }
    
-} // FirstImmutableSample 
-
+} // SecondMutableSample 
 

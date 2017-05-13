@@ -45,21 +45,12 @@ class AstImmutableConstructorTransform implements ASTTransformation {
         ${packageString}
         
         class ${annotatedClass.getNameWithoutPackage()} {
-            
-            public ${annotatedClass.getNameWithoutPackage()} ( java.util.LinkedHashMap argMap, boolean validation, boolean throwException = false ) {
-                
-                this( createValidatingConstructor( argMap, validation, throwException ) )
-            } // end constructor
-            
-            def static createValidatingConstructor( java.util.HashMap argMap, boolean validation, boolean throwException ) {
-            
-                if ( !validation ) {
-                    return argMap
-                } else {
-                    java.util.HashMap newMap = [:]
+            def static createValidatedObject( java.util.HashMap argMap, boolean throwException = false ) {
+                java.util.HashMap newMap = [:]
+
                     ${processFields( fields2 )}
-                    return newMap
-                }
+                // }
+                return new ${annotatedClass.getPackageName()}.${annotatedClass.getNameWithoutPackage()}( newMap )
             }
         } // end class 
             """.toString()
@@ -68,13 +59,11 @@ class AstImmutableConstructorTransform implements ASTTransformation {
             def ast = new AstBuilder().buildFromString( CompilePhase.INSTRUCTION_SELECTION, false, theString )
             // look at block statement
             // look at the class Node
+
             def someClassNode = ast[ 1 ]
-            def constructors = someClassNode.getDeclaredConstructors()
-            constructors.each { theCon ->
-                annotatedClass.addConstructor( theCon )
-            }
+
             def methods = ast[ 1 ].methods
-            annotatedClass.addMethod( methods.find { it.name == 'createValidatingConstructor' } )
+            annotatedClass.addMethod( methods.find { it.name == 'createValidatedObject' } )
 
         } catch ( Exception e ) {
             println "Some exception occured"

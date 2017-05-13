@@ -18,7 +18,7 @@ class TrulyImmutableEx001Spec extends Specification {
         println "\n\n--- Starting test ${name.methodName}"
         println "About to make throwaway"
         when:
-            def throwaway = new TrulyImmutableEx001( [ firstString: "Not Junk", secondString: "Goodbye Junk", firstInt: 21, secondInt: 20 ], true, true )
+            def throwaway = TrulyImmutableEx001.createValidatedObject( [ firstString: "Not Junk", secondString: "Goodbye Junk", firstInt: 21, secondInt: 20 ], true )
             boolean exceptionThrown = false
         then:
             def ex = thrown( Exception )
@@ -28,7 +28,7 @@ class TrulyImmutableEx001Spec extends Specification {
             println "Just made throwaway, about to make bTest1"
         
         when:
-            def bTest1 = new TrulyImmutableEx001( [ firstString: "Hello1", secondString: "Goodbye", firstInt: 21, secondInt: 200 ], true, true )
+            def bTest1 = TrulyImmutableEx001.createValidatedObject( [ firstString: "Hello1", secondString: "Goodbye", firstInt: 21, secondInt: 200 ], true )
             println "In test ${name.methodName}, bTest1: ${bTest1.toString()}"
         then:
             def ex2 = thrown( Exception )
@@ -40,7 +40,7 @@ class TrulyImmutableEx001Spec extends Specification {
     def "test bTest2"() {
         println "\n\n--- Starting test ${name.methodName}"
         when:
-            def bTest2 = new TrulyImmutableEx001( [ firstString: "Hello2", secondString: "Goodbye, this is more than 20 characters", firstInt: 22, secondInt: 20 ], true, true )
+            def bTest2 = TrulyImmutableEx001.createValidatedObject( [ firstString: "Hello2", secondString: "Goodbye, this is more than 20 characters", firstInt: 22, secondInt: 20 ], true )
             println "In test ${name.methodName}, bTest2: ${bTest2.toString()}"
         then:
             def ex = thrown( Exception )
@@ -54,7 +54,7 @@ class TrulyImmutableEx001Spec extends Specification {
         println "\n\n--- Starting test ${name.methodName}"
         when:
             def testString = "hello, this is a test"
-            def bTest1 = new TrulyImmutableEx001( [ firstString: "Hello3", secondString: "Goodbye", secondInt: 401, firstInt: 21 ], true, true )
+            def bTest1 = TrulyImmutableEx001.createValidatedObject( [ firstString: "Hello3", secondString: "Goodbye", secondInt: 401, firstInt: 21 ], true )
             println "In test ${name.methodName}, bTest1: ${bTest1.toString()}"
             println "Still in test ${name.methodName}, bTest1: ${bTest1.toString()}"
         then:

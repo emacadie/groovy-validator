@@ -1,13 +1,11 @@
-package info.shelfunit.properties.nonmutable
+package info.shelfunit.properties.nonmutable.exception
 
 import validation.ValidInt
 import validation.ValidString
-import groovy.transform.ToString 
 
-@ToString( includeNames = true, includeFields = true )
-class FirstImmutableSample {
+class FirstMutableExSample {
 
-    @ValidString( minLength = 5, maxLength = 200 , throwEx = false )
+    @ValidString( minLength = 5, maxLength = 200, throwEx = false )
     String firstString
     @ValidString( minLength = 5, maxLength = 20, throwEx = false )
     String secondString
@@ -17,9 +15,9 @@ class FirstImmutableSample {
     def secondInt
     
     def String toString() {
-        // "firstString : ${first}, secondString: ${secondString}, firstInt: ${firstInt}, secondInt: ${secondInt}"
+        "firstString : ${firstString}, secondString: ${secondString}, firstInt: ${firstInt}, secondInt: ${secondInt}"
     }
    
-} // FirstImmutableSample 
+} // FirstMutableSample 
 
 
