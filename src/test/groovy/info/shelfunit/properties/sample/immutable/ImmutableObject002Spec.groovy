@@ -68,7 +68,7 @@ class ImmutableObject002Spec extends Specification {
         println "\n--- Starting test ${name.methodName}"
         boolean valid = true
         
-        def bTest1 = new ImmutableObject002( [ firstString: "HH", secondString: "No min length", firstDouble: 5d, firstFloat: 5f, firstInt: 5, firstLong: 5L ], true )
+        def bTest1 = ImmutableObject002.createValidatedObject( [ firstString: "HH", secondString: "No min length", firstDouble: 5d, firstFloat: 5f, firstInt: 5, firstLong: 5L ] )
         println "In test ${name.methodName}, bTest1: ${bTest1.toString()}"
         
         expect:
@@ -85,7 +85,7 @@ class ImmutableObject002Spec extends Specification {
         println "\n--- Starting test ${name.methodName}"
         boolean valid = true
         
-        def bTest1 = new ImmutableObject002( [ firstString: "Hello You", secondString: "No min length", firstDouble: 50d, firstFloat: 50f, firstInt: 50, firstLong: 50L ], true )
+        def bTest1 = ImmutableObject002.createValidatedObject( [ firstString: "Hello You", secondString: "No min length", firstDouble: 50d, firstFloat: 50f, firstInt: 50, firstLong: 50L ] )
         println "In test ${name.methodName}, bTest1: ${bTest1.toString()}"
         
         expect:
@@ -102,7 +102,7 @@ class ImmutableObject002Spec extends Specification {
         println "\n--- Starting test ${name.methodName}"
         boolean valid = true
         
-        def bTest1 = new ImmutableObject002( [ firstString: "Hello You", firstFloat: 50f, firstInt: 50, firstLong: 50L ], true )
+        def bTest1 = ImmutableObject002.createValidatedObject( [ firstString: "Hello You", firstFloat: 50f, firstInt: 50, firstLong: 50L ] )
         println "In test ${name.methodName}, bTest1: ${bTest1.toString()}"
         
         expect:
@@ -119,7 +119,7 @@ class ImmutableObject002Spec extends Specification {
         println "\n--- Starting test ${name.methodName}"
         boolean valid = true
         
-        def bTest1 = new ImmutableObject002( [ firstString: "e" * 11, secondString: "N" * 16, firstDouble: 101d, firstFloat: 101f, firstInt: 101, firstLong: 101L ], true )
+        def bTest1 = ImmutableObject002.createValidatedObject( [ firstString: "e" * 11, secondString: "N" * 16, firstDouble: 101d, firstFloat: 101f, firstInt: 101, firstLong: 101L ] )
         println "In test ${name.methodName}, bTest1: ${bTest1.toString()}"
         
         expect:

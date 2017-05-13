@@ -19,7 +19,7 @@ class ImmutableRegExSpec extends Specification {
         println "--- Starting test ${name.methodName}"
         
         when:
-            def res = new ImmutableRegEx( [ yearWithDay: "2012-04-12", groovyString: "I like groovy", password: "p4ssw0rd" ], true )
+            def res = ImmutableRegEx.createValidatedObject( [ yearWithDay: "2012-04-12", groovyString: "I like groovy", password: "p4ssw0rd" ] )
         then:
             res.yearWithDay == "2012-04-12"
       
@@ -31,7 +31,7 @@ class ImmutableRegExSpec extends Specification {
         println "--- Starting test ${name.methodName}"
        
         when:
-            def res = new ImmutableRegEx( [ groovyString: "I like groovy" ] , true )
+            def res = ImmutableRegEx.createValidatedObject( [ groovyString: "I like groovy" ] )
         then:
             res.groovyString == "I like groovy"
             println "res: ${res.toString()}"
@@ -42,7 +42,7 @@ class ImmutableRegExSpec extends Specification {
         println "--- Starting test ${name.methodName}"
         
         when:
-            def res = new ImmutableRegEx( [ password: "p4ssw0rd" ] , true )
+            def res = ImmutableRegEx.createValidatedObject( [ password: "p4ssw0rd" ] )
             // res.password = "p4ssw0rd"
         then:
             res.password == "p4ssw0rd"
@@ -55,7 +55,7 @@ class ImmutableRegExSpec extends Specification {
         println "--- Starting test ${name.methodName}"
        
         when:
-            def res = new ImmutableRegEx( [ groovyString: "I like grooooovy" ] , true, true )
+            def res = ImmutableRegEx.createValidatedObject( [ groovyString: "I like grooooovy" ], true )
         then:
             def ex1 = thrown( Exception )
             ex1.message == "Groovy validation exception:\n" +
@@ -64,7 +64,7 @@ class ImmutableRegExSpec extends Specification {
             "\"null\" is a String with a length outside the range of 6 to 10 characters or does not match the regular expression /^(?=.*[0-9].*[0-9])[0-9a-zA-Z]{8,12}\$/"
         
         when:
-            def res2 = new ImmutableRegEx( [ yearWithDay: "2012-04-12_12.11.05", groovyString: "I like groovy", password: "p4ssw0rd" ] , true, true )
+            def res2 = ImmutableRegEx.createValidatedObject( [ yearWithDay: "2012-04-12_12.11.05", groovyString: "I like groovy", password: "p4ssw0rd" ], true )
         then:
             def ex2 = thrown( Exception )
             ex2.message == "Groovy validation exception:\n" +
@@ -108,5 +108,4 @@ class ImmutableRegExSpec extends Specification {
     */
     
 } // ImmutableRegExSpec
-
 

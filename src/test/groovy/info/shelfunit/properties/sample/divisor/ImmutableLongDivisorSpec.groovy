@@ -19,14 +19,14 @@ class ImmutableLongDivisorSpec extends Specification {
         println "--- Starting test ${name.methodName}"
         
         when:
-            def rid = new ImmutableLongDivisor( [ longWithDiv: 2147483655L, longWithDiv002: 14L ], true, true )
+            def rid = ImmutableLongDivisor.createValidatedObject( [ longWithDiv: 2147483655L, longWithDiv002: 14L ], true )
         then:
             rid.longWithDiv == 2147483655L
             rid.longWithDiv002 == 14L
             println "rid.toString(): ${rid.toString()}"
         
         when:
-            def rid2 = new ImmutableLongDivisor( [ longWithDiv: 2147483640L, longWithDiv002: 13L ], true, true )
+            def rid2 = ImmutableLongDivisor.createValidatedObject( [ longWithDiv: 2147483640L, longWithDiv002: 13L ], true )
             println "rid2.toString(): ${rid2.toString()}"
         then:
             def ex = thrown( Exception )
@@ -39,7 +39,7 @@ class ImmutableLongDivisorSpec extends Specification {
     def "test with divisor array"() {
         println "--- Starting test ${name.methodName}"
         when:
-            def rid = new ImmutableLongDivisor( [ longWithDivArray: 12L ], true, true )
+            def rid = ImmutableLongDivisor.createValidatedObject( [ longWithDivArray: 12L ], true )
         then:
             rid.longWithDivArray == 12L
         
@@ -50,24 +50,24 @@ class ImmutableLongDivisorSpec extends Specification {
             ex.message == "Cannot set readonly property: longWithDiv for class: info.shelfunit.properties.sample.divisor.ImmutableLongDivisor"
         
         when:
-            def rid2 = new ImmutableLongDivisor( [ longWithDivArray: 13L ], true, true )
+            def rid2 = ImmutableLongDivisor.createValidatedObject( [ longWithDivArray: 13L ], true )
         then:
             def ex2 = thrown( Exception )
             ex2.message == "Groovy validation exception:\n" +
             "13 is a java.lang.Long outside the range 0 to 40 or it is not divisible by anything in the set [3, 4]"
         
         when:
-            def rid3 = new ImmutableLongDivisor( [ longWithDivArray: 9L ], true, true )
+            def rid3 = ImmutableLongDivisor.createValidatedObject( [ longWithDivArray: 9L ], true )
         then:
             rid3.longWithDivArray == 9L
        
         when:
-            def rid4 = new ImmutableLongDivisor( [ longWithDivArray: 16L ], true, true )
+            def rid4 = ImmutableLongDivisor.createValidatedObject( [ longWithDivArray: 16L ], true )
         then:
             rid4.longWithDivArray == 16L
         
         when:
-            def rid5 = new ImmutableLongDivisor( [ longWithDivArray: 55L ], true, true )
+            def rid5 = ImmutableLongDivisor.createValidatedObject( [ longWithDivArray: 55L ], true )
         then:
             def ex5 = thrown( Exception )
             ex5.message == "Groovy validation exception:\n" +
@@ -78,14 +78,14 @@ class ImmutableLongDivisorSpec extends Specification {
     def "test with zero divisor"() {
         println "--- Starting test ${name.methodName}"
         when:
-            def rid = new ImmutableLongDivisor( [ longWithDivArray: 12L, longWithZeroDiv: 35L ], true, true )
+            def rid = ImmutableLongDivisor.createValidatedObject( [ longWithDivArray: 12L, longWithZeroDiv: 35L ], true )
             // println "rid: ${rid.toString()}"
         then:
             rid.longWithDivArray == 12L
             rid.longWithZeroDiv == 35L
         
         when:
-            def rid2 = new ImmutableLongDivisor( [ longWithDivArray: 9L, longWithZeroDiv: 55L ], true, true )
+            def rid2 = ImmutableLongDivisor.createValidatedObject( [ longWithDivArray: 9L, longWithZeroDiv: 55L ], true )
         then:
             def ex = thrown( Exception )
             ex.message == "Groovy validation exception:\n" +

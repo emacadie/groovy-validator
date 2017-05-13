@@ -19,7 +19,7 @@ class ImmutablePartialSpec extends Specification {
         println "--- Starting test ${name.methodName}"
         
         when:
-            def res = new ImmutablePartial( [ stringWithAnn: "this is the string with ann", stringWithoutAnn: "Hello" ], true )
+            def res = ImmutablePartial.createValidatedObject( [ stringWithAnn: "this is the string with ann", stringWithoutAnn: "Hello" ] )
         then:
             res.stringWithAnn == "this is the string with ann"
             res.stringWithoutAnn == "Hello"
@@ -27,14 +27,14 @@ class ImmutablePartialSpec extends Specification {
             println "res: ${res.toString()}"
         
         when:
-            def res2 = new ImmutablePartial( [ stringWithAnn: "this is the string with ann again" ], true )
+            def res2 = ImmutablePartial.createValidatedObject( [ stringWithAnn: "this is the string with ann again" ] )
         then:
             res2.stringWithAnn == "this is the string with ann again"
             res2.toString() == "ImmutablePartial(stringWithAnn:this is the string with ann again, stringWithoutAnn:null, intWithAnn:0, intWithoutAnn:0)"
             println "res2: ${res2.toString()}"
         
         when:
-            def res3 = new ImmutablePartial( [ stringWithoutAnn: "this is the string with ann again" ], true )
+            def res3 = ImmutablePartial.createValidatedObject( [ stringWithoutAnn: "this is the string with ann again" ] )
         then:
             res3.stringWithAnn == null
             res3.toString() == "ImmutablePartial(stringWithAnn:null, stringWithoutAnn:this is the string with ann again, intWithAnn:0, intWithoutAnn:0)"
@@ -42,7 +42,7 @@ class ImmutablePartialSpec extends Specification {
         
         // now, make stringWithoutAnn shorter than minumum length
         when:
-            def res4 = new ImmutablePartial( [ stringWithoutAnn: "Hello", stringWithoutAnn: "this is the string with ann again" ], true )
+            def res4 = ImmutablePartial.createValidatedObject( [ stringWithoutAnn: "Hello", stringWithoutAnn: "this is the string with ann again" ] )
         then:
             res4.stringWithAnn == null
             res4.toString() == "ImmutablePartial(stringWithAnn:null, stringWithoutAnn:this is the string with ann again, intWithAnn:0, intWithoutAnn:0)"
@@ -53,7 +53,7 @@ class ImmutablePartialSpec extends Specification {
         println "--- Starting test ${name.methodName}"
         
         when:
-            def res = new ImmutablePartial( [ intWithAnn: 55, intWithoutAnn: 22 ], true )
+            def res = ImmutablePartial.createValidatedObject( [ intWithAnn: 55, intWithoutAnn: 22 ] )
         then:
             res.intWithAnn == 55
             res.intWithoutAnn == 22
@@ -61,14 +61,14 @@ class ImmutablePartialSpec extends Specification {
             println "res: ${res.toString()}"
         
         when:
-            def res2 = new ImmutablePartial( [ intWithAnn: 55 ], true )
+            def res2 = ImmutablePartial.createValidatedObject( [ intWithAnn: 55 ] )
         then:
             res2.stringWithAnn == null
             res2.toString() == "ImmutablePartial(stringWithAnn:null, stringWithoutAnn:null, intWithAnn:55, intWithoutAnn:0)"
             println "res2: ${res2.toString()}"
         
         when:
-            def res3 = new ImmutablePartial( [ intWithoutAnn: 22 ], true )
+            def res3 = ImmutablePartial.createValidatedObject( [ intWithoutAnn: 22 ] )
         then:
             res3.stringWithAnn == null
             res3.toString() == "ImmutablePartial(stringWithAnn:null, stringWithoutAnn:null, intWithAnn:0, intWithoutAnn:22)"
@@ -76,7 +76,7 @@ class ImmutablePartialSpec extends Specification {
         
         // make intWithAnn larger than max value of 100
         when:
-            def res4 = new ImmutablePartial( [  intWithoutAnn: 222, intWithoutAnn: 22 ], true )
+            def res4 = ImmutablePartial.createValidatedObject( [  intWithoutAnn: 222, intWithoutAnn: 22 ] )
         then:
             res4.stringWithAnn == null
             res4.toString() == "ImmutablePartial(stringWithAnn:null, stringWithoutAnn:null, intWithAnn:0, intWithoutAnn:22)"
@@ -84,5 +84,3 @@ class ImmutablePartialSpec extends Specification {
     } // end "test both int fields"
     
 } // ImmutablePartialSpec
-
-

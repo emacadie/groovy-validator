@@ -66,16 +66,12 @@ class ImmutableExObjectColl003Spec extends Specification {
         boolean valid = true
         
         when:
-            def bTest1 = new ImmutableExObjectColl003( [ firstString: "HH", secondString: "No min length", firstDouble: 5d, firstFloat: 5f, firstInt: 5, firstLong: 5L ], false, true )
+            def bTest1 = ImmutableExObjectColl003.createValidatedObject( [ firstString: "HH", secondString: "No min length", firstDouble: 5d, firstFloat: 5f, firstInt: 5, firstLong: 5L ], true )
             println "In test ${name.methodName}, bTest1: ${bTest1.toString()}"
         
         then:
-            bTest1.firstString == "HH"
-            bTest1.secondString == "No min length"
-            bTest1.firstDouble == 5d
-            bTest1.firstFloat == 5f
-            bTest1.firstInt == 5
-            bTest1.firstLong == 5L
+            thrown( Exception )
+            bTest1 == null
         
     } // end "test below the ranges with boolean"
     
@@ -83,7 +79,7 @@ class ImmutableExObjectColl003Spec extends Specification {
         println "\n--- Starting test ${name.methodName}"
         boolean valid = true
         
-        def bTest1 = new ImmutableExObjectColl003( [ firstString: "Hello You", secondString: "No min length", firstDouble: 50d, firstFloat: 50f, firstInt: 50, firstLong: 50L ], false, true )
+        def bTest1 = ImmutableExObjectColl003.createValidatedObject( [ firstString: "Hello You", secondString: "No min length", firstDouble: 50d, firstFloat: 50f, firstInt: 50, firstLong: 50L ], true )
         println "In test ${name.methodName}, bTest1: ${bTest1.toString()}"
         
         expect:
@@ -101,16 +97,13 @@ class ImmutableExObjectColl003Spec extends Specification {
         boolean valid = true
         
         when:
-            def bTest1 = new ImmutableExObjectColl003( [ firstString: "e" * 11, secondString: "N" * 16, firstDouble: 101d, firstFloat: 101f, firstInt: 101, firstLong: 101L ], false, true )
+            def bTest1 = ImmutableExObjectColl003.createValidatedObject( [ firstString: "e" * 11, secondString: "N" * 16, firstDouble: 101d, firstFloat: 101f, firstInt: 101, firstLong: 101L ], true )
+            // def bTest1 = new ImmutableExObjectColl003( [ firstString: "e" * 11, secondString: "N" * 16, firstDouble: 101d, firstFloat: 101f, firstInt: 101, firstLong: 101L ], false, true )
             println "In test ${name.methodName}, bTest1: ${bTest1.toString()}"
         
         then:
-            bTest1.firstString == "eeeeeeeeeee"
-            bTest1.secondString == "NNNNNNNNNNNNNNNN"
-            bTest1.firstInt == 101
-            bTest1.firstDouble == 101d
-            bTest1.firstFloat == 101f
-            bTest1.firstLong == 101L
+            thrown( Exception )
+            bTest1 == null
         
     } // end "test beyond the ranges with boolean"
     

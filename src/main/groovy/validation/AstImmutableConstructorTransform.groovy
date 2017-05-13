@@ -47,9 +47,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
         class ${annotatedClass.getNameWithoutPackage()} {
             def static createValidatedObject( java.util.HashMap argMap, boolean throwException = false ) {
                 java.util.HashMap newMap = [:]
-
-                    ${processFields( fields2 )}
-                // }
+                ${processFields( fields2 )}
                 return new ${annotatedClass.getPackageName()}.${annotatedClass.getNameWithoutPackage()}( newMap )
             }
         } // end class 

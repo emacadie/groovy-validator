@@ -66,7 +66,7 @@ class ImmutableExObjectColl002Spec extends Specification {
         boolean valid = true
         
         when:
-            def bTest1 = new ImmutableExObjectColl002( [ firstString: "HH", secondString: "No min length", firstDouble: 5d, firstFloat: 5f, firstInt: 5, firstLong: 5L ], true, true )
+            def bTest1 = ImmutableExObjectColl002.createValidatedObject( [ firstString: "HH", secondString: "No min length", firstDouble: 5d, firstFloat: 5f, firstInt: 5, firstLong: 5L ], true )
             println "In test ${name.methodName}, bTest1: ${bTest1.toString()}"
         
         then:
@@ -83,7 +83,7 @@ class ImmutableExObjectColl002Spec extends Specification {
         println "\n--- Starting test ${name.methodName}"
         boolean valid = true
         
-        def bTest1 = new ImmutableExObjectColl002( [ firstString: "Hello You", secondString: "No min length", firstDouble: 50d, firstFloat: 50f, firstInt: 50, firstLong: 50L ], true, true )
+        def bTest1 = ImmutableExObjectColl002.createValidatedObject( [ firstString: "Hello You", secondString: "No min length", firstDouble: 50d, firstFloat: 50f, firstInt: 50, firstLong: 50L ], true )
         println "In test ${name.methodName}, bTest1: ${bTest1.toString()}"
         
         expect:
@@ -101,7 +101,7 @@ class ImmutableExObjectColl002Spec extends Specification {
         boolean valid = true
         
         when:
-            def bTest1 = new ImmutableExObjectColl002( [ firstString: "e" * 11, secondString: "N" * 16, firstDouble: 101d, firstFloat: 101f, firstInt: 101, firstLong: 101L ], true, true )
+            def bTest1 = ImmutableExObjectColl002.createValidatedObject( [ firstString: "e" * 11, secondString: "N" * 16, firstDouble: 101d, firstFloat: 101f, firstInt: 101, firstLong: 101L ], true )
             println "In test ${name.methodName}, bTest1: ${bTest1.toString()}"
         
         then:

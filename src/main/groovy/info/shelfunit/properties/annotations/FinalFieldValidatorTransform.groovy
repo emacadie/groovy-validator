@@ -85,15 +85,11 @@ class FinalFieldValidatorTransform implements ASTTransformation {
             } // end constructor
             
             // was java.util.HashMap argMap, Boolean validation
-            def static createValidatingFinalConstructor( java.util.HashMap argMap, boolean validation, boolean throwException ) {
-            
-                if ( !validation ) {
-                    return argMap
-                } else {
-                    java.util.HashMap newMap = [:]
-                    ${processFields( fields2 )}
-                    return newMap
-                }
+            def static createValidatedObject( java.util.HashMap argMap, boolean throwException = false ) {
+                java.util.HashMap newMap = [:]
+                 ${processFields( fields2 )}
+                
+                return new ${annotatedClass.getPackageName()}.${annotatedClass.getNameWithoutPackage()}( newMap )
             }
         } // end class 
             """
