@@ -1,11 +1,9 @@
 package info.shelfunit.properties.finality
 
-import groovy.transform.ToString
 import validation.ValidString
-import validation.FinalFieldValidator
+import validation.ConvenientFinalFieldValidator
 
-@ToString( includeNames = true )
-@FinalFieldValidator
+@ConvenientFinalFieldValidator
 class FinalStringHolder {
     @ValidString( minLength = 5, maxLength = 20, regEx = /^.*ee.*$/, throwEx = true )
     def firstDefString

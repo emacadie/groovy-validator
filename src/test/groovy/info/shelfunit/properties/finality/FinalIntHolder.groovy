@@ -1,11 +1,9 @@
 package info.shelfunit.properties.finality
 
-import groovy.transform.ToString
 import validation.ValidInt
-import validation.FinalFieldValidator
+import validation.ConvenientFinalFieldValidator
 
-@ToString( includeNames = true )
-@FinalFieldValidator
+@ConvenientFinalFieldValidator
 class FinalIntHolder {
     @ValidInt( minValue = 50, maxValue = 2000, divisorSet= [ 3, 5 ], throwEx = true )
     def firstDefInt

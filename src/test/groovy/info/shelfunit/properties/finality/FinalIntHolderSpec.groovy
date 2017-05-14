@@ -16,7 +16,7 @@ class FinalIntHolderSpec extends Specification {
     def "first Test"() {
         println "--- Starting test ${name.methodName}"
         when:
-            def fihA = new FinalIntHolder( [ firstDefInt: 102, finalDefInt: 100, firstRealInt: 100, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true, true )
+            def fihA = FinalIntHolder.createValidatedObject( [ firstDefInt: 102, finalDefInt: 100, firstRealInt: 100, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true )
         then:
             println "here is fihA: ${fihA.toString()}"
             fihA.toString() == "info.shelfunit.properties.finality.FinalIntHolder(firstDefInt:102, finalDefInt:100, firstRealInt:100, finalRealInt:100, someOtherInt:100, anotherObject:hello)"
@@ -59,37 +59,40 @@ class FinalIntHolderSpec extends Specification {
         println "--- Starting test ${name.methodName}"
         // def int too small
         when:
-            def fihA = new FinalIntHolder( [ firstDefInt: 10, finalDefInt: 100, firstRealInt: 100, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true, true )
+            def fihA = FinalIntHolder.createValidatedObject( [ firstDefInt: 10, finalDefInt: 100, firstRealInt: 100, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true )
         then:
             def exA = thrown( Exception )
-            exA.message == "10 is an integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5]"
+            exA.message == "Groovy validation exception:\n" +
+            "10 is a java.lang.Integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5]"
             // println "Here is exC.message:\n${exC.message}"
             println "here is fihA: ${fihA.toString()}"
             fihA == null
             
         // def int too big
         when:
-            def fihB = new FinalIntHolder( [ firstDefInt: 10000, finalDefInt: 100, firstRealInt: 100, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true, true )
+            def fihB = FinalIntHolder.createValidatedObject( [ firstDefInt: 10000, finalDefInt: 100, firstRealInt: 100, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true )
         then:
             def exB = thrown( Exception )
-            exB.message == "10000 is an integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5]"
+            exB.message == "Groovy validation exception:\n" +
+            "10000 is a java.lang.Integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5]"
             // println "Here is exC.message:\n${exC.message}"
             println "here is fihB: ${fihB.toString()}"
             fihB == null
 
         // def int not in divisor set
         when:
-            def fihC = new FinalIntHolder( [ firstDefInt: 301, finalDefInt: 100, firstRealInt: 100, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true, true )
+            def fihC = FinalIntHolder.createValidatedObject( [ firstDefInt: 301, finalDefInt: 100, firstRealInt: 100, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true )
         then:
             def exC = thrown( Exception )
-            exC.message == "301 is an integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5]"
+            exC.message == "Groovy validation exception:\n" +
+            "301 is a java.lang.Integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5]"
             // println "Here is exC.message:\n${exC.message}"
             println "here is fihC: ${fihC.toString()}"
             fihC == null
             
         // final def int too small
         when:
-            def fihD = new FinalIntHolder( [ firstDefInt: 100, finalDefInt: 10, firstRealInt: 100, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true, true )
+            def fihD = FinalIntHolder.createValidatedObject( [ firstDefInt: 100, finalDefInt: 10, firstRealInt: 100, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true )
         then:
             def exD = thrown( Exception )
             exD.message == "Groovy validation exception:\n" +
@@ -100,7 +103,7 @@ class FinalIntHolderSpec extends Specification {
         
         // final def int too big
         when:
-            def fihE = new FinalIntHolder( [ firstDefInt: 100, finalDefInt: 10000, firstRealInt: 100, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true, true )
+            def fihE = FinalIntHolder.createValidatedObject( [ firstDefInt: 100, finalDefInt: 10000, firstRealInt: 100, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true )
         then:
             def exE = thrown( Exception )
             exE.message ==  "Groovy validation exception:\n" +
@@ -111,7 +114,7 @@ class FinalIntHolderSpec extends Specification {
             
         // final def int not in divisor set
         when:
-            def fihF = new FinalIntHolder( [ firstDefInt: 300, finalDefInt: 307, firstRealInt: 100, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true, true )
+            def fihF = FinalIntHolder.createValidatedObject( [ firstDefInt: 300, finalDefInt: 307, firstRealInt: 100, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true )
         then:
             def exF = thrown( Exception )
             exF.message == "Groovy validation exception:\n" +
@@ -126,37 +129,40 @@ class FinalIntHolderSpec extends Specification {
         println "--- Starting test ${name.methodName}"
         // real int too small
         when:
-            def fihA = new FinalIntHolder( [ firstDefInt: 100, finalDefInt: 100, firstRealInt: 11, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true, true )
+            def fihA = FinalIntHolder.createValidatedObject( [ firstDefInt: 100, finalDefInt: 100, firstRealInt: 11, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true )
         then:
             def exA = thrown( Exception )
-            exA.message == "11 is an integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5]"
+            exA.message == "Groovy validation exception:\n" +
+            "11 is a java.lang.Integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5]"
             // println "Here is exC.message:\n${exC.message}"
             println "here is fihA: ${fihA.toString()}"
             fihA == null
             
         // real int too big
         when:
-            def fihB = new FinalIntHolder( [ firstDefInt: 100, finalDefInt: 100, firstRealInt: 10002, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true, true )
+            def fihB = FinalIntHolder.createValidatedObject( [ firstDefInt: 100, finalDefInt: 100, firstRealInt: 10002, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true )
         then:
             def exB = thrown( Exception )
-            exB.message == "10002 is an integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5]"
+            exB.message == "Groovy validation exception:\n" +
+            "10002 is a java.lang.Integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5]"
             // println "Here is exC.message:\n${exC.message}"
             println "here is fihB: ${fihB.toString()}"
             fihB == null
 
         // real int not in divisor set
         when:
-            def fihC = new FinalIntHolder( [ firstDefInt: 300, finalDefInt: 100, firstRealInt: 304, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true, true )
+            def fihC = FinalIntHolder.createValidatedObject( [ firstDefInt: 300, finalDefInt: 100, firstRealInt: 304, finalRealInt: 100, someOtherInt: 100, anotherObject: 'hello' ], true )
         then:
             def exC = thrown( Exception )
-            exC.message == "304 is an integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5]"
+            exC.message == "Groovy validation exception:\n" +
+            "304 is a java.lang.Integer outside the range 50 to 2000 or it is not divisible by anything in the set [3, 5]"
             // println "Here is exC.message:\n${exC.message}"
             println "here is fihC: ${fihC.toString()}"
             fihC == null
 
         // final real int too small
         when:
-            def fihD = new FinalIntHolder( [ firstDefInt: 100, finalDefInt: 100, firstRealInt: 100, finalRealInt: 10, someOtherInt: 100, anotherObject: 'hello' ], true, true )
+            def fihD = FinalIntHolder.createValidatedObject( [ firstDefInt: 100, finalDefInt: 100, firstRealInt: 100, finalRealInt: 10, someOtherInt: 100, anotherObject: 'hello' ], true )
         then:
             def exD = thrown( Exception )
             exD.message == "Groovy validation exception:\n" +
@@ -167,7 +173,7 @@ class FinalIntHolderSpec extends Specification {
         
         // final real int too big
         when:
-            def fihE = new FinalIntHolder( [ firstDefInt: 100, finalDefInt: 100, firstRealInt: 100, finalRealInt: 2005, someOtherInt: 100, anotherObject: 'hello' ], true, true )
+            def fihE = FinalIntHolder.createValidatedObject( [ firstDefInt: 100, finalDefInt: 100, firstRealInt: 100, finalRealInt: 2005, someOtherInt: 100, anotherObject: 'hello' ], true )
         then:
             def exE = thrown( Exception )
             exE.message ==  "Groovy validation exception:\n" +
@@ -178,7 +184,7 @@ class FinalIntHolderSpec extends Specification {
 
         // final real int not in divisor set
         when:
-            def fihF = new FinalIntHolder( [ firstDefInt: 300, finalDefInt: 300, firstRealInt: 100, finalRealInt: 313, someOtherInt: 100, anotherObject: 'hello' ], true, true )
+            def fihF = FinalIntHolder.createValidatedObject( [ firstDefInt: 300, finalDefInt: 300, firstRealInt: 100, finalRealInt: 313, someOtherInt: 100, anotherObject: 'hello' ], true )
         then:
             def exF = thrown( Exception )
             exF.message == "Groovy validation exception:\n" +

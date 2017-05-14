@@ -15,7 +15,7 @@ class CarSpec extends Specification {
     
      def "first Test"() {
         println "--- Starting test ${name.methodName}"
-        def car = new Car( [ miles: 50, year: 2008 ], true )
+        def car = Car.createValidatedObject( [ miles: 50, year: 2008 ] )
         boolean exceptionThrown = false
         println "Here is car: ${car.toString()}, exceptionThrown: ${exceptionThrown}"
         
@@ -28,7 +28,7 @@ class CarSpec extends Specification {
     def "second Test"() {
         println "--- Starting test ${name.methodName}"
         when:
-            def car = new Car( [ miles: 50, year: 1987 ], true, true )
+            def car = Car.createValidatedObject( [ miles: 50, year: 1987 ], true )
         then:
             def ex = thrown( Exception )
             println "Here is ex.message:\n${ex.message}"
@@ -40,7 +40,7 @@ class CarSpec extends Specification {
     
     def "test Exception 001"() {
         println "\n--- Starting test ${name.methodName}"
-        def car = new Car( [year: 2008, miles: 10], true )
+        def car = Car.createValidatedObject( [ year: 2008, miles: 10 ], true )
         boolean exceptionThrown = false
         println "Here is car: ${car.toString()}, exceptionThrown: ${exceptionThrown}"
         
@@ -60,7 +60,7 @@ class CarSpec extends Specification {
     def "test different combinations"() {
         println "\n--- Starting test ${name.methodName}"
         when:
-            def carA = new Car( [ miles: 5, year: 2010 ], true)
+            def carA = Car.createValidatedObject( [ miles: 5, year: 2010 ] )
             println "carA: ${carA.toString()}"
         then:
             carA.miles == 0
@@ -79,7 +79,7 @@ class CarSpec extends Specification {
     def "test just year in map constructor"() {
         println "\n--- Starting test ${name.methodName}"
         when:
-            def carA = new Car( [ year: 2010 ], true)
+            def carA = Car.createValidatedObject( [ year: 2010 ] )
             println "carA: ${carA.toString()}"
         then:
             carA.miles == 0

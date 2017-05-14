@@ -1,11 +1,9 @@
 package info.shelfunit.properties.finality
 
-import groovy.transform.ToString
 import validation.ValidLong
-import validation.FinalFieldValidator
+import validation.ConvenientFinalFieldValidator
 
-@ToString( includeNames = true )
-@FinalFieldValidator
+@ConvenientFinalFieldValidator
 class FinalLongHolder {
     @ValidLong( minValue = 1000L, maxValue = 1000000000L, divisorSet= [ 3L, 5L ], throwEx = true )
     def firstDefLong

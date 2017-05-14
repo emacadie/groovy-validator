@@ -16,7 +16,7 @@ class FinalFloatHolderSpec extends Specification {
     def "first Test"() {
         println "--- Starting test ${name.methodName}"
         when:
-            def ffhA = new FinalFloatHolder( [ firstDefFloat: 100.02f, finalDefFloat: 1000.1234, firstRealFloat: 725.63f, finalRealFloat: 2025.21f, someOtherFloat: 230f, anotherObject: "DogeFloat: Big numbers, much value" ], true, true )
+            def ffhA = FinalFloatHolder.createValidatedObject( [ firstDefFloat: 100.02f, finalDefFloat: 1000.1234, firstRealFloat: 725.63f, finalRealFloat: 2025.21f, someOtherFloat: 230f, anotherObject: "DogeFloat: Big numbers, much value" ], true )
         then:
             println "here is ffhA: ${ffhA.toString()}"
             ffhA.toString() == "info.shelfunit.properties.finality.FinalFloatHolder(firstDefFloat:100.02, finalDefFloat:1000.1234, firstRealFloat:725.63, finalRealFloat:2025.21, someOtherFloat:230.0, anotherObject:DogeFloat: Big numbers, much value)"
@@ -64,27 +64,29 @@ class FinalFloatHolderSpec extends Specification {
         println "--- Starting test ${name.methodName}"
         // def float too small
         when:
-            def ffhA = new FinalFloatHolder( [ firstDefFloat: 73.44f, finalDefFloat: 1000.1234, firstRealFloat: 725.63f, finalRealFloat: 2025.21f, someOtherFloat: 230f, anotherObject: "DogeFloat: Big numbers, much value" ], true, true )
+            def ffhA = FinalFloatHolder.createValidatedObject( [ firstDefFloat: 73.44f, finalDefFloat: 1000.1234, firstRealFloat: 725.63f, finalRealFloat: 2025.21f, someOtherFloat: 230f, anotherObject: "DogeFloat: Big numbers, much value" ], true )
         then:
             def exA = thrown( Exception )
-            exA.message == "73.44 is a java.lang.Float outside the range 73.456 to 5027.012"
+            exA.message == "Groovy validation exception:\n" +
+            "73.44 is a java.lang.Float outside the range 73.456 to 5027.012"
             // println "Here is exC.message:\n${exC.message}"
             println "here is ffhA: ${ffhA.toString()}"
             ffhA == null
             
         // def float too big
         when:
-            def fLhB = new FinalFloatHolder( [ firstDefFloat: 5027.112f, finalDefFloat: 1000.1234, firstRealFloat: 725.63f, finalRealFloat: 2025.21f, someOtherFloat: 230f, anotherObject: "DogeFloat: Big numbers, much value" ], true, true )
+            def fLhB = FinalFloatHolder.createValidatedObject( [ firstDefFloat: 5027.112f, finalDefFloat: 1000.1234, firstRealFloat: 725.63f, finalRealFloat: 2025.21f, someOtherFloat: 230f, anotherObject: "DogeFloat: Big numbers, much value" ], true )
         then:
             def exB = thrown( Exception )
-            exB.message == "5027.112 is a java.lang.Float outside the range 73.456 to 5027.012"
+            exB.message == "Groovy validation exception:\n" +
+            "5027.112 is a java.lang.Float outside the range 73.456 to 5027.012"
             // println "Here is exC.message:\n${exC.message}"
             println "here is fLhB: ${fLhB.toString()}"
             fLhB == null
             
         // final def float too small
         when:
-            def fLhD = new FinalFloatHolder( [ firstDefFloat: 100f, finalDefFloat: 23.99f, firstRealFloat: 725.63f, finalRealFloat: 2025.21f, someOtherFloat: 230f, anotherObject: "DogeFloat: Big numbers, much value" ], true, true )
+            def fLhD = FinalFloatHolder.createValidatedObject( [ firstDefFloat: 100f, finalDefFloat: 23.99f, firstRealFloat: 725.63f, finalRealFloat: 2025.21f, someOtherFloat: 230f, anotherObject: "DogeFloat: Big numbers, much value" ], true )
         then:
             def exD = thrown( Exception )
             exD.message == "Groovy validation exception:\n" +
@@ -95,10 +97,11 @@ class FinalFloatHolderSpec extends Specification {
         
         // final def float too big
         when:
-            def fLhE = new FinalFloatHolder( [ firstDefFloat: 73.44f, finalDefFloat: 6000.1234, firstRealFloat: 725.63f, finalRealFloat: 2025.21f, someOtherFloat: 230f, anotherObject: "DogeFloat: Big numbers, much value" ], true, true )
+            def fLhE = FinalFloatHolder.createValidatedObject( [ firstDefFloat: 73.44f, finalDefFloat: 6000.1234, firstRealFloat: 725.63f, finalRealFloat: 2025.21f, someOtherFloat: 230f, anotherObject: "DogeFloat: Big numbers, much value" ], true )
         then:
             def exE = thrown( Exception )
             exE.message ==  "Groovy validation exception:\n" +
+            "73.44 is a java.lang.Float outside the range 73.456 to 5027.012\n" +
             "6000.1234 is a java.lang.Float outside the range 73.456 to 5027.012"
             println "Here is exE.message:\n${exE.message}"
             println "here is fLhE: ${fLhE.toString()}"
@@ -110,27 +113,29 @@ class FinalFloatHolderSpec extends Specification {
         println "--- Starting test ${name.methodName}"
         // real float too small
         when:
-            def ffhA = new FinalFloatHolder( [ firstDefFloat: 73.47f, finalDefFloat: 1000.1234, firstRealFloat: 72.63f, finalRealFloat: 2025.21f, someOtherFloat: 230f, anotherObject: "DogeFloat: Big numbers, much value" ], true, true )
+            def ffhA = FinalFloatHolder.createValidatedObject( [ firstDefFloat: 73.47f, finalDefFloat: 1000.1234, firstRealFloat: 72.63f, finalRealFloat: 2025.21f, someOtherFloat: 230f, anotherObject: "DogeFloat: Big numbers, much value" ], true )
         then:
             def exA = thrown( Exception )
-            exA.message == "72.63 is a java.lang.Float outside the range 73.456 to 5027.012"
+            exA.message == "Groovy validation exception:\n" +
+            "72.63 is a java.lang.Float outside the range 73.456 to 5027.012"
             // println "Here is exC.message:\n${exC.message}"
             println "here is ffhA: ${ffhA.toString()}"
             ffhA == null
             
         // real float too big
         when:
-            def fLhB = new FinalFloatHolder( [ firstDefFloat: 73.47f, finalDefFloat: 1000.1234, firstRealFloat: 7025.63f, finalRealFloat: 2025.21f, someOtherFloat: 230f, anotherObject: "DogeFloat: Big numbers, much value" ], true, true )
+            def fLhB = FinalFloatHolder.createValidatedObject( [ firstDefFloat: 73.47f, finalDefFloat: 1000.1234, firstRealFloat: 7025.63f, finalRealFloat: 2025.21f, someOtherFloat: 230f, anotherObject: "DogeFloat: Big numbers, much value" ], true )
         then:
             def exB = thrown( Exception )
-            exB.message == "7025.63 is a java.lang.Float outside the range 73.456 to 5027.012"
+            exB.message == "Groovy validation exception:\n" +
+            "7025.63 is a java.lang.Float outside the range 73.456 to 5027.012"
             // println "Here is exC.message:\n${exC.message}"
             println "here is fLhB: ${fLhB.toString()}"
             fLhB == null
 
         // final real float too small
         when:
-            def fLhD = new FinalFloatHolder( [ firstDefFloat: 73.47f, finalDefFloat: 1000.1234, firstRealFloat: 725.63f, finalRealFloat: 25.21f, someOtherFloat: 230f, anotherObject: "DogeFloat: Big numbers, much value" ], true, true )
+            def fLhD = FinalFloatHolder.createValidatedObject( [ firstDefFloat: 73.47f, finalDefFloat: 1000.1234, firstRealFloat: 725.63f, finalRealFloat: 25.21f, someOtherFloat: 230f, anotherObject: "DogeFloat: Big numbers, much value" ], true )
         then:
             def exD = thrown( Exception )
             exD.message == "Groovy validation exception:\n" +
@@ -141,7 +146,7 @@ class FinalFloatHolderSpec extends Specification {
         
         // final real float too big
         when:
-            def fLhE = new FinalFloatHolder( [ firstDefFloat: 73.47f, finalDefFloat: 1000.1234, firstRealFloat: 725.63f, finalRealFloat: 8025.21f, someOtherFloat: 230f, anotherObject: "DogeFloat: Big numbers, much value" ], true, true )
+            def fLhE = FinalFloatHolder.createValidatedObject( [ firstDefFloat: 73.47f, finalDefFloat: 1000.1234, firstRealFloat: 725.63f, finalRealFloat: 8025.21f, someOtherFloat: 230f, anotherObject: "DogeFloat: Big numbers, much value" ], true )
         then:
             def exE = thrown( Exception )
             exE.message ==  "Groovy validation exception:\n" +

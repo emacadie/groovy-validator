@@ -1,15 +1,14 @@
 package info.shelfunit.properties.finality
 
-import groovy.transform.ToString
+import validation.ConvenientFinalFieldValidator 
 import validation.ValidInt
-import validation.FinalFieldValidator
 
-@ToString( includeNames = true )
-@FinalFieldValidator
+@ConvenientFinalFieldValidator 
 class Car {
+    
+    @ValidInt( minValue = 1990 )
+    final def year
     @ValidInt( minValue = 10, throwEx = false )
     int miles
-    @ValidInt( minValue = 1990 )
-    final int year
 }
 

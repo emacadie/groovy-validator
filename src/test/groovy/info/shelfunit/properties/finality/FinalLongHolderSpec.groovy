@@ -16,7 +16,7 @@ class FinalLongHolderSpec extends Specification {
     def "first Test"() {
         println "--- Starting test ${name.methodName}"
         when:
-            def fLhA = new FinalLongHolder( [ firstDefLong: 10000L, finalDefLong: 100000000, firstRealLong: 700000L, finalRealLong: 700002L, someOtherLong: 230L, anotherObject: "DogeLong: Big numbers, much value" ], true, true )
+            def fLhA = FinalLongHolder.createValidatedObject( [ firstDefLong: 10000L, finalDefLong: 100000000, firstRealLong: 700000L, finalRealLong: 700002L, someOtherLong: 230L, anotherObject: "DogeLong: Big numbers, much value" ], true )
         then:
             println "here is fLhA: ${fLhA.toString()}"
             fLhA.toString() == "info.shelfunit.properties.finality.FinalLongHolder(firstDefLong:10000, finalDefLong:100000000, firstRealLong:700000, finalRealLong:700002, someOtherLong:230, anotherObject:DogeLong: Big numbers, much value)"
@@ -59,37 +59,40 @@ class FinalLongHolderSpec extends Specification {
         println "--- Starting test ${name.methodName}"
         // def long too small
         when:
-            def fLhA = new FinalLongHolder( [ firstDefLong: 999L, finalDefLong: 100000000L, firstRealLong: 700000L, finalRealLong: 700002L, someOtherLong: 230L, anotherObject: "DogeLong: Big numbers, much value" ], true, true )
+            def fLhA = FinalLongHolder.createValidatedObject( [ firstDefLong: 999L, finalDefLong: 100000000L, firstRealLong: 700000L, finalRealLong: 700002L, someOtherLong: 230L, anotherObject: "DogeLong: Big numbers, much value" ], true )
         then:
             def exA = thrown( Exception )
-            exA.message == "999 is a java.lang.Long outside the range 1000 to 1000000000 or it is not divisible by anything in the set [3, 5]"
+            exA.message == "Groovy validation exception:\n" +
+            "999 is a java.lang.Long outside the range 1000 to 1000000000 or it is not divisible by anything in the set [3, 5]"
             // println "Here is exC.message:\n${exC.message}"
             println "here is fLhA: ${fLhA.toString()}"
             fLhA == null
             
         // def long too big
         when:
-            def fLhB = new FinalLongHolder( [ firstDefLong: 1000000005, finalDefLong: 100000000L, firstRealLong: 700000L, finalRealLong: 700002L, someOtherLong: 230L, anotherObject: "DogeLong: Big numbers, much value" ], true, true )
+            def fLhB = FinalLongHolder.createValidatedObject( [ firstDefLong: 1000000005, finalDefLong: 100000000L, firstRealLong: 700000L, finalRealLong: 700002L, someOtherLong: 230L, anotherObject: "DogeLong: Big numbers, much value" ], true )
         then:
             def exB = thrown( Exception )
-            exB.message == "1000000005 is a java.lang.Long outside the range 1000 to 1000000000 or it is not divisible by anything in the set [3, 5]"
+            exB.message == "Groovy validation exception:\n" +
+            "1000000005 is a java.lang.Long outside the range 1000 to 1000000000 or it is not divisible by anything in the set [3, 5]"
             // println "Here is exC.message:\n${exC.message}"
             println "here is fLhB: ${fLhB.toString()}"
             fLhB == null
 
         // def long not in divisor set
         when:
-            def fLhC = new FinalLongHolder( [ firstDefLong: 1001, finalDefLong: 100000000L, firstRealLong: 700000L, finalRealLong: 700002L, someOtherLong: 230L, anotherObject: "DogeLong: Big numbers, much value" ], true, true )
+            def fLhC = FinalLongHolder.createValidatedObject( [ firstDefLong: 1001, finalDefLong: 100000000L, firstRealLong: 700000L, finalRealLong: 700002L, someOtherLong: 230L, anotherObject: "DogeLong: Big numbers, much value" ], true )
         then:
             def exC = thrown( Exception )
-            exC.message == "1001 is a java.lang.Long outside the range 1000 to 1000000000 or it is not divisible by anything in the set [3, 5]"
+            exC.message == "Groovy validation exception:\n" +
+            "1001 is a java.lang.Long outside the range 1000 to 1000000000 or it is not divisible by anything in the set [3, 5]"
             // println "Here is exC.message:\n${exC.message}"
             println "here is fLhC: ${fLhC.toString()}"
             fLhC == null
             
         // final def long too small
         when:
-            def fLhD = new FinalLongHolder( [ firstDefLong: 10000, finalDefLong: 100L, firstRealLong: 700000L, finalRealLong: 700002L, someOtherLong: 230L, anotherObject: "DogeLong: Big numbers, much value" ], true, true )
+            def fLhD = FinalLongHolder.createValidatedObject( [ firstDefLong: 10000, finalDefLong: 100L, firstRealLong: 700000L, finalRealLong: 700002L, someOtherLong: 230L, anotherObject: "DogeLong: Big numbers, much value" ], true )
         then:
             def exD = thrown( Exception )
             exD.message == "Groovy validation exception:\n" +
@@ -100,7 +103,7 @@ class FinalLongHolderSpec extends Specification {
         
         // final def long too big
         when:
-            def fLhE = new FinalLongHolder( [ firstDefLong: 10000, finalDefLong: 1000000006, firstRealLong: 700000L, finalRealLong: 700002L, someOtherLong: 230L, anotherObject: "DogeLong: Big numbers, much value" ], true, true )
+            def fLhE = FinalLongHolder.createValidatedObject( [ firstDefLong: 10000, finalDefLong: 1000000006, firstRealLong: 700000L, finalRealLong: 700002L, someOtherLong: 230L, anotherObject: "DogeLong: Big numbers, much value" ], true )
         then:
             def exE = thrown( Exception )
             exE.message ==  "Groovy validation exception:\n" +
@@ -111,7 +114,7 @@ class FinalLongHolderSpec extends Specification {
             
         // final def long not in divisor set
         when:
-            def fLhF = new FinalLongHolder( [ firstDefLong: 10000, finalDefLong: 10000001, firstRealLong: 700000L, finalRealLong: 700002L, someOtherLong: 230L, anotherObject: "DogeLong: Big numbers, much value" ], true, true )
+            def fLhF = FinalLongHolder.createValidatedObject( [ firstDefLong: 10000, finalDefLong: 10000001, firstRealLong: 700000L, finalRealLong: 700002L, someOtherLong: 230L, anotherObject: "DogeLong: Big numbers, much value" ], true )
         then:
             def exF = thrown( Exception )
             exF.message == "Groovy validation exception:\n" +
@@ -126,37 +129,40 @@ class FinalLongHolderSpec extends Specification {
         println "--- Starting test ${name.methodName}"
         // real long too small
         when:
-            def fLhA = new FinalLongHolder( [ firstDefLong: 700000L, finalDefLong: 100000000, firstRealLong: 70L, finalRealLong: 700002L, someOtherLong: 230L, anotherObject: "DogeLong: Big numbers, much value" ], true, true )
+            def fLhA = FinalLongHolder.createValidatedObject( [ firstDefLong: 700000L, finalDefLong: 100000000, firstRealLong: 70L, finalRealLong: 700002L, someOtherLong: 230L, anotherObject: "DogeLong: Big numbers, much value" ], true )
         then:
             def exA = thrown( Exception )
-            exA.message == "70 is a java.lang.Long outside the range 1000 to 1000000000 or it is not divisible by anything in the set [3, 5]"
+            exA.message == "Groovy validation exception:\n" +
+            "70 is a java.lang.Long outside the range 1000 to 1000000000 or it is not divisible by anything in the set [3, 5]"
             // println "Here is exC.message:\n${exC.message}"
             println "here is fLhA: ${fLhA.toString()}"
             fLhA == null
             
         // real long too big
         when:
-            def fLhB = new FinalLongHolder( [ firstDefLong: 700000L, finalDefLong: 100000000, firstRealLong: 1000000600L, finalRealLong: 700002L, someOtherLong: 230L, anotherObject: "DogeLong: Big numbers, much value" ], true, true )
+            def fLhB = FinalLongHolder.createValidatedObject( [ firstDefLong: 700000L, finalDefLong: 100000000, firstRealLong: 1000000600L, finalRealLong: 700002L, someOtherLong: 230L, anotherObject: "DogeLong: Big numbers, much value" ], true )
         then:
             def exB = thrown( Exception )
-            exB.message == "1000000600 is a java.lang.Long outside the range 1000 to 1000000000 or it is not divisible by anything in the set [3, 5]"
+            exB.message == "Groovy validation exception:\n" +
+            "1000000600 is a java.lang.Long outside the range 1000 to 1000000000 or it is not divisible by anything in the set [3, 5]"
             // println "Here is exC.message:\n${exC.message}"
             println "here is fLhB: ${fLhB.toString()}"
             fLhB == null
 
         // real long not in divisor set
         when:
-            def fLhC = new FinalLongHolder( [ firstDefLong: 700000L, finalDefLong: 100000000, firstRealLong: 10000007L, finalRealLong: 700002L, someOtherLong: 230L, anotherObject: "DogeLong: Big numbers, much value" ], true, true )
+            def fLhC = FinalLongHolder.createValidatedObject( [ firstDefLong: 700000L, finalDefLong: 100000000, firstRealLong: 10000007L, finalRealLong: 700002L, someOtherLong: 230L, anotherObject: "DogeLong: Big numbers, much value" ], true )
         then:
             def exC = thrown( Exception )
-            exC.message == "10000007 is a java.lang.Long outside the range 1000 to 1000000000 or it is not divisible by anything in the set [3, 5]"
+            exC.message == "Groovy validation exception:\n" +
+            "10000007 is a java.lang.Long outside the range 1000 to 1000000000 or it is not divisible by anything in the set [3, 5]"
             // println "Here is exC.message:\n${exC.message}"
             println "here is fLhC: ${fLhC.toString()}"
             fLhC == null
 
         // final real long too small
         when:
-            def fLhD = new FinalLongHolder( [ firstDefLong: 700000L, finalDefLong: 100000000, firstRealLong: 700002L, finalRealLong: 703L, someOtherLong: 230L, anotherObject: "DogeLong: Big numbers, much value" ], true, true )
+            def fLhD = FinalLongHolder.createValidatedObject( [ firstDefLong: 700000L, finalDefLong: 100000000, firstRealLong: 700002L, finalRealLong: 703L, someOtherLong: 230L, anotherObject: "DogeLong: Big numbers, much value" ], true )
         then:
             def exD = thrown( Exception )
             exD.message == "Groovy validation exception:\n" +
@@ -167,7 +173,7 @@ class FinalLongHolderSpec extends Specification {
         
         // final real long too big
         when:
-            def fLhE = new FinalLongHolder( [ firstDefLong: 700000L, finalDefLong: 100000000, firstRealLong: 700002L, finalRealLong: 1000000004L, someOtherLong: 230L, anotherObject: "DogeLong: Big numbers, much value" ], true, true )
+            def fLhE = FinalLongHolder.createValidatedObject( [ firstDefLong: 700000L, finalDefLong: 100000000, firstRealLong: 700002L, finalRealLong: 1000000004L, someOtherLong: 230L, anotherObject: "DogeLong: Big numbers, much value" ], true )
         then:
             def exE = thrown( Exception )
             exE.message ==  "Groovy validation exception:\n" +
@@ -178,7 +184,7 @@ class FinalLongHolderSpec extends Specification {
 
         // final real long not in divisor set
         when:
-            def fLhF = new FinalLongHolder( [ firstDefLong: 700000L, finalDefLong: 100000000, firstRealLong: 700002L, finalRealLong: 700004L, someOtherLong: 230L, anotherObject: "DogeLong: Big numbers, much value" ], true, true )
+            def fLhF = FinalLongHolder.createValidatedObject( [ firstDefLong: 700000L, finalDefLong: 100000000, firstRealLong: 700002L, finalRealLong: 700004L, someOtherLong: 230L, anotherObject: "DogeLong: Big numbers, much value" ], true )
         then:
             def exF = thrown( Exception )
             exF.message == "Groovy validation exception:\n" +

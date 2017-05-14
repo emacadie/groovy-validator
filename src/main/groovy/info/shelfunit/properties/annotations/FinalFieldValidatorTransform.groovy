@@ -44,11 +44,8 @@ class FinalFieldValidatorTransform implements ASTTransformation {
         ${packageString}
         
         class ${annotatedClass.getNameWithoutPackage()} {
-            
-            public ${annotatedClass.getNameWithoutPackage()} ( java.util.LinkedHashMap argMap, boolean validation, boolean throwException = false ) {
-                /* Our immutable++ annotation has createValidatingConstructor, which short-circuits other validators */
-                def validMap = createValidatingFinalConstructor( argMap, validation, throwException )
                 """
+                /*
                 fields2.each { fieldNode ->
                     if ( fieldNode.isFinal() ) {
                         theString << "\nthis.${fieldNode.getName()} = validMap['${fieldNode.getName()}']\n"
@@ -80,10 +77,8 @@ class FinalFieldValidatorTransform implements ASTTransformation {
                         }
                     }
                 }
-                
-                theString << """
-            } // end constructor
-            
+                */
+                theString << """            
             // was java.util.HashMap argMap, Boolean validation
             def static createValidatedObject( java.util.HashMap argMap, boolean throwException = false ) {
                 java.util.HashMap newMap = [:]
@@ -93,7 +88,7 @@ class FinalFieldValidatorTransform implements ASTTransformation {
             }
         } // end class 
             """
-        
+        println "Here is the string: ${theString.toString()}"
         try {
             def ast = new AstBuilder().buildFromString( CompilePhase.INSTRUCTION_SELECTION, false, theString.toString() )
             // look at block statement
@@ -104,7 +99,7 @@ class FinalFieldValidatorTransform implements ASTTransformation {
                 annotatedClass.addConstructor( theCon )
             }
             def methods = ast[ 1 ].methods
-            annotatedClass.addMethod( methods.find { it.name == 'createValidatingFinalConstructor' } )
+            annotatedClass.addMethod( methods.find { it.name == 'createValidatedObject' } )
 
         } catch ( Exception e ) {
             println "Some exception occured"
@@ -129,16 +124,16 @@ class FinalFieldValidatorTransform implements ASTTransformation {
             fields2.each { fieldNode ->
                 fieldTypeName = fieldNode.getType().getName()
                 def annotationNode = fieldNode.getAnnotations()[ 0 ]
-                
+                println "starting processFields, Here is ${fieldNode.getName()}"
                 if ( annotationNode == null ) {
                     sb1 << " newMap[ '${fieldNode.getName()}' ] = argMap[ '${fieldNode.getName()}' ]\n"
-                } else if ( !fieldNode.isFinal() ) {
-                    sb1 << " newMap[ '${fieldNode.getName()}' ] = argMap[ '${fieldNode.getName()}' ]\n"
+                // } else if ( !fieldNode.isFinal() ) {
+                    // sb1 << " newMap[ '${fieldNode.getName()}' ] = argMap[ '${fieldNode.getName()}' ]\n"
                 } else {
                     def annotationName = annotationNode?.getClassNode()?.getName() ?: "nullx"
                     // println "in processFields, looking at field ${fieldNode.getName()} which is a ${fieldNode.getType().getName()}, annotationNode: ${annotationName}"
                     theSwitch = ( fieldTypeName != 'java.lang.Object') ? fieldTypeName : annotationName
-                    // println "in processFields, Here is theSwitch: ${theSwitch}"
+                    println "in processFields, Here is theSwitch: ${theSwitch} for ${fieldNode.getName()}"
                     switch ( theSwitch ) {
                         case ['java.lang.String', 'validation.ValidString']:
                             sb1 << "val = argMap[ '${fieldNode.getName()}' ]"

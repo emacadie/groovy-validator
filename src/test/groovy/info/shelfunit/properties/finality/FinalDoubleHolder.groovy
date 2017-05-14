@@ -1,10 +1,12 @@
 package info.shelfunit.properties.finality
 
+import groovy.transform.Canonical 
 import groovy.transform.ToString
 import validation.ValidDouble
 import validation.FinalFieldValidator
 
 @ToString( includeNames = true )
+@Canonical
 @FinalFieldValidator
 class FinalDoubleHolder {
     @ValidDouble( minValue = 73.456d, maxValue = 5027.012d, throwEx = true )

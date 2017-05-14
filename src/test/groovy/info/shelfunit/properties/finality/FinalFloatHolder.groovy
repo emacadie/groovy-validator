@@ -1,11 +1,9 @@
 package info.shelfunit.properties.finality
 
-import groovy.transform.ToString
 import validation.ValidFloat
-import validation.FinalFieldValidator
+import validation.ConvenientFinalFieldValidator
 
-@ToString( includeNames = true )
-@FinalFieldValidator
+@ConvenientFinalFieldValidator
 class FinalFloatHolder {
     @ValidFloat( minValue = 73.456f, maxValue = 5027.012f, throwEx = true )
     def firstDefFloat
