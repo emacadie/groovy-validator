@@ -22,7 +22,8 @@ dependencies {
 
     testCompile 'junit:junit:4.10'
     // From Maven, it's GroupId:ArtifactId:Version 
-    testCompile 'org.spockframework:spock-core:1.1-groovy-2.4'
+    testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
+
     compile 'org.slf4j:slf4j-api:1.7.+'
     // compile 'log4j:log4j:1.2.17'
 
@@ -34,7 +35,7 @@ dependencies {
     testRuntime 'ch.qos.logback:logback-core:1.0.+'
     testRuntime 'ch.qos.logback:logback-classic:1.0.+'
     // compile 'org.codehaus.groovy:groovy-all:2.3.3'
-    compile 'org.codehaus.groovy:groovy-all:2.4.1'
+    compile 'org.codehaus.groovy:groovy-all:2.5.2'
     
     testCompile "org.spockframework:spock-core:0.5-groovy-1.7"
 

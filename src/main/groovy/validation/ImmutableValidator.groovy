@@ -1,8 +1,13 @@
 package validation
 
 import groovy.transform.AnnotationCollector
-import groovy.transform.Immutable
+import groovy.transform.EqualsAndHashCode
+import groovy.transform.ImmutableBase
+import groovy.transform.KnownImmutable
+import groovy.transform.MapConstructor
+import groovy.transform.TupleConstructor
 import groovy.transform.ToString
+// import groovy.transform.Immutable
 
 /**
 <p>This annotation does the same basic thing as  {@link validation.AstImmutableConstructor}: It can be used to validate fields in immutable objects. It is a meta-annotation using <a href="http://docs.groovy-lang.org/latest/html/gapi/index.html?groovy/transform/AnnotationCollector.html">AnnotationCollector</a> to combine {@link validation.AstImmutableConstructor}, <a href="http://docs.groovy-lang.org/latest/html/gapi/index.html?groovy/transform/Immutable.html">Immutable</a> and <a href="http://docs.groovy-lang.org/latest/html/gapi/index.html?groovy/transform/ToString.html">ToString</a> into one annotation. For <a href="http://docs.groovy-lang.org/latest/html/gapi/index.html?groovy/transform/ToString.html">ToString</a>, includeNames is set to true. </p>
@@ -79,8 +84,13 @@ Groovy validation exception:
 
 */
 
+@EqualsAndHashCode
+@ImmutableBase
+@KnownImmutable
+@MapConstructor
+@TupleConstructor
 @ToString( includeNames = true )
-@Immutable
+// @Immutable
 @AstImmutableConstructor
 @AnnotationCollector
 public @interface ImmutableValidator {}

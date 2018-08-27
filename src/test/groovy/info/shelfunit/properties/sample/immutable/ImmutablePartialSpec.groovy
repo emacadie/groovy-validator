@@ -1,8 +1,11 @@
 package info.shelfunit.properties.sample.immutable
 
-import spock.lang.Specification
+
 import org.junit.Rule
 import org.junit.rules.TestName
+
+import spock.lang.Specification
+import spock.lang.Ignore
 
 class ImmutablePartialSpec extends Specification { 
     def setup() {}          // run before every feature method
@@ -15,6 +18,7 @@ class ImmutablePartialSpec extends Specification {
     @Rule 
     TestName name = new TestName()
     
+    @Ignore
     def "test both string fields"() {
         println "--- Starting test ${name.methodName}"
         
@@ -48,7 +52,8 @@ class ImmutablePartialSpec extends Specification {
             res4.toString() == "ImmutablePartial(stringWithAnn:null, stringWithoutAnn:this is the string with ann again, intWithAnn:0, intWithoutAnn:0)"
             println "res4: ${res4.toString()}"
     } // end "test both string fields"
-    
+
+    @Ignore
     def "test both int fields"() {
         println "--- Starting test ${name.methodName}"
         

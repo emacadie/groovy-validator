@@ -88,7 +88,7 @@ class FinalFieldValidatorTransform implements ASTTransformation {
             }
         } // end class 
             """
-        println "Here is the string: ${theString.toString()}"
+        // println "Here is the string: ${theString.toString()}"
         try {
             def ast = new AstBuilder().buildFromString( CompilePhase.INSTRUCTION_SELECTION, false, theString.toString() )
             // look at block statement
@@ -124,7 +124,7 @@ class FinalFieldValidatorTransform implements ASTTransformation {
             fields2.each { fieldNode ->
                 fieldTypeName = fieldNode.getType().getName()
                 def annotationNode = fieldNode.getAnnotations()[ 0 ]
-                println "starting processFields, Here is ${fieldNode.getName()}"
+                // println "starting processFields, Here is ${fieldNode.getName()}"
                 if ( annotationNode == null ) {
                     sb1 << " newMap[ '${fieldNode.getName()}' ] = argMap[ '${fieldNode.getName()}' ]\n"
                 // } else if ( !fieldNode.isFinal() ) {
@@ -133,7 +133,7 @@ class FinalFieldValidatorTransform implements ASTTransformation {
                     def annotationName = annotationNode?.getClassNode()?.getName() ?: "nullx"
                     // println "in processFields, looking at field ${fieldNode.getName()} which is a ${fieldNode.getType().getName()}, annotationNode: ${annotationName}"
                     theSwitch = ( fieldTypeName != 'java.lang.Object') ? fieldTypeName : annotationName
-                    println "in processFields, Here is theSwitch: ${theSwitch} for ${fieldNode.getName()}"
+                    // println "in processFields, Here is theSwitch: ${theSwitch} for ${fieldNode.getName()}"
                     switch ( theSwitch ) {
                         case ['java.lang.String', 'validation.ValidString']:
                             sb1 << "val = argMap[ '${fieldNode.getName()}' ]"

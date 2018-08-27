@@ -52,7 +52,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
             }
         } // end class 
             """.toString()
-        
+        // println "Here is theString: ${theString}"
         try {
             def ast = new AstBuilder().buildFromString( CompilePhase.INSTRUCTION_SELECTION, false, theString )
             // look at block statement

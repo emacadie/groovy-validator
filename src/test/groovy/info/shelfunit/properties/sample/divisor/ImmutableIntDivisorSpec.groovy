@@ -1,8 +1,10 @@
 package info.shelfunit.properties.sample.divisor
 
-import spock.lang.Specification
 import org.junit.Rule
 import org.junit.rules.TestName
+
+import spock.lang.Ignore
+import spock.lang.Specification
 
 class ImmutableIntDivisorSpec extends Specification { 
     def setup() {}          // run before every feature method
@@ -15,6 +17,7 @@ class ImmutableIntDivisorSpec extends Specification {
     @Rule 
     TestName name = new TestName()
     
+    @Ignore
     def "test both int fields"() {
         println "--- Starting test ${name.methodName}"
         
@@ -36,7 +39,7 @@ class ImmutableIntDivisorSpec extends Specification {
         
     } // end "test both int fields"
     
-    
+    @Ignore
     def "test with divisor array"() {
         println "--- Starting test ${name.methodName}"
         when:
@@ -76,7 +79,7 @@ class ImmutableIntDivisorSpec extends Specification {
         
     } // end test with divisor array
     
-    
+    @Ignore
     def "test with zero divisor"() {
         println "--- Starting test ${name.methodName}"
         when:
