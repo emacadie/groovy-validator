@@ -8,6 +8,10 @@ class IntegerRunner {
     def numAsDef
     @ValidInt( minValue = 100, maxValue = 1000 )
     int numAsInt
+    
+    static { 
+        info.shelfunit.properties.annotations.StaticAnnotationProcessor.process( IntegerRunner.class, true ) 
+    }
 
 }
 

@@ -11,5 +11,8 @@ class LongExRunner {
     @ValidLong( minValue = 2147483647L ) // was 10
                                 
     def thirdNum
+    
+    static { 
+        info.shelfunit.properties.annotations.StaticAnnotationProcessor.process( LongExRunner.class, true ) 
+    }
 }
-

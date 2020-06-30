@@ -15,11 +15,15 @@ buildscript {
     }
     dependencies {
         classpath 'com.tkruse.gradle:gradle-groovysh-plugin:1.0.5'
+        // classpath 'javax.xml.bind:jaxb-api:2.3.0'
+        // JAX-B dependencies for JDK 9+
+    classpath  "jakarta.xml.bind:jakarta.xml.bind-api:2.3.2"
+    classpath "org.glassfish.jaxb:jaxb-runtime:2.3.2"
     }
 }
 
 dependencies {
-
+    
     testCompile 'junit:junit:4.10'
     // From Maven, it's GroupId:ArtifactId:Version 
     testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
@@ -35,7 +39,8 @@ dependencies {
     testRuntime 'ch.qos.logback:logback-core:1.0.+'
     testRuntime 'ch.qos.logback:logback-classic:1.0.+'
     // compile 'org.codehaus.groovy:groovy-all:2.3.3'
-    compile 'org.codehaus.groovy:groovy-all:2.5.2'
+    // compile 'org.codehaus.groovy:groovy-all:2.5.2'
+    compile 'org.codehaus.groovy:groovy-all:3.0.4'
     
     testCompile "org.spockframework:spock-core:0.5-groovy-1.7"
 

@@ -19,6 +19,10 @@ class FirstMutableSample {
     def String toString() {
         // "firstString : ${first}, secondString: ${secondString}, firstInt: ${firstInt}, secondInt: ${secondInt}"
     }
+    
+    static { 
+        info.shelfunit.properties.annotations.StaticAnnotationProcessor.process( FirstMutableSample.class ) 
+    }
    
 } // FirstMutableSample 
 

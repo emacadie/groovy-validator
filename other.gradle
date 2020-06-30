@@ -1,0 +1,73 @@
+buildscript {
+  ext.kotlin_version = '1.3.20'
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+  }
+}
+
+// apply plugin: 'kotlin'
+apply plugin: 'groovy'
+apply plugin: 'application'
+
+// big K, small t
+// mainClassName = 'com.programming.kotlin.chapter01.ProgramKt'
+// mainClassName = 'com.programming.kotlin.chapter02.SecondKt'
+// mainClassName = 'demo.HelloWorldKt'
+
+// try in an if:
+if ( rootProject.hasProperty( "mainClass" ) ) {
+        mainClassName = mainClass
+    } else {
+        mainClassName = 'com.programming.kotlin.chapter02.SecondKt'
+}
+
+defaultTasks 'run'
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
+
+    compile 'org.slf4j:slf4j-api:1.7.+'
+    // compile 'log4j:log4j:1.2.17'
+
+    testRuntime 'org.slf4j:slf4j-ext:1.7.+'
+    testRuntime 'org.slf4j:jcl-over-slf4j:1.7.+'
+    testRuntime 'org.slf4j:jul-to-slf4j:1.7.+'
+    testRuntime 'org.slf4j:log4j-over-slf4j:1.7.+'
+    
+    testRuntime 'ch.qos.logback:logback-core:1.0.+'
+    testRuntime 'ch.qos.logback:logback-classic:1.0.+'
+    // compile 'org.codehaus.groovy:groovy-all:2.3.3'
+    compile 'org.codehaus.groovy:groovy-all:2.5.2'
+    
+    testCompile "org.spockframework:spock-core:0.5-groovy-1.7"
+/*
+
+  compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+  compile 'io.github.microutils:kotlin-logging:1.5.9'
+  compile "ch.qos.logback:logback-classic:1.2.3"
+  testCompile 'junit:junit:4.11'
+  testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+*/
+}
+/*
+jar {
+  manifest { attributes 'Main-Class': 'demo.HelloWorldKt' }
+  from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+}
+*/
+wrapper {
+  gradleVersion = "4.10.2"
+}
+// gradle --build-file other.gradle 
+// gradle --build-file other.gradle  -PmainClass=com.programming.kotlin.chapter02.SecondKt
+// gradle --build-file other.gradle  -PmainClass=com.programming.kotlin.chapter02.SecondKt
+// gradle --build-file other.gradle  -PmainClass=com.programming.kotlin.chapter01.Program
+// gradle run --build-file other.gradle  -PmainClass=com.programming.kotlin.chapter03.ThirdKt
+

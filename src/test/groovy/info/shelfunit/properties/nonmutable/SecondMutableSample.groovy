@@ -4,7 +4,7 @@ import validation.ValidInt
 import validation.ValidString
 
 class SecondMutableSample {
-
+    
     @ValidString( minLength = 5, maxLength = 200, throwEx = false )
     String firstString
     @ValidString( minLength = 5, maxLength = 20, throwEx = false )
@@ -17,6 +17,10 @@ class SecondMutableSample {
     def String toString() {
         "firstString : ${firstString}, secondString: ${secondString}, firstInt: ${firstInt}, secondInt: ${secondInt}"
     }
-   
+    
+    static { 
+        info.shelfunit.properties.annotations.StaticAnnotationProcessor.process( SecondMutableSample.class ) 
+    }
+    
 } // SecondMutableSample 
 
