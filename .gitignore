@@ -1,5 +1,7 @@
 .gradle
 build/
+.idea/
+gradle/
 # Emacs backup files
 *~
 *.class

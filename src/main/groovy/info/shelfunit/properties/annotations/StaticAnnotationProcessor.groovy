@@ -12,7 +12,7 @@ import validation.ValidString
 
 <p>I never liked that fact that <a href="http://groovy.codehaus.org/Groovy+Beans">Groovy Beans</a> never had any validations for the properties (at least none that I could find). Grails has <a href="http://grails.org/doc/latest/ref/Constraints/Usage.html">constraints</a>. Why not Groovy?</p>
 
-<p>This is pretty simple and a bit limited, but that is the intent. I want to add some easy validation to Groovy Beans. As far as I know, nobody has really done this for Groovy. There is project on Sourceforge called <a href="http://oval.sourceforge.net/">OVal</a>. That does a LOT of stuff, far beyond this project. It has <a href="http://oval.sourceforge.net/dependencies.html">22 dependencies</a>, 3 of them for logging alone. There is also <a href="http://hibernate.org/validator/">Hibernate Validator</a>. It implements some JSR, but when I read the documentation, it said I had to add two or three other JSRs. Honestly I could not get it to work. It also lets you put constraints on method and constructor parameters. If that is what you need, go for it. Those are Java projects, and can be used with Groovy. This is for Groovy only. The goal is to keep this as clean and simple as possible.</p>
+<p>This is pretty simple and a bit limited, but that is the intent. I want to add some easy validation to Groovy Beans. As far as I know, nobody has really done this for Groovy. There is project on github called <a href="https://github.com/sebthom/oval">OVal</a> (you can find the user guide at <a href="https://sebthom.github.io/oval/USERGUIDE.html">this link</a>). That does a LOT of stuff, far beyond this project. It has 22 dependencies, 3 of them for logging alone. And JRuby. Hard pass. There is also <a href="http://hibernate.org/validator/">Hibernate Validator</a>. It implements some JSR, but when I read the documentation, it said I had to add two or three other JSRs. Honestly I could not get it to work. It also lets you put constraints on method and constructor parameters. If that is what you need, go for it. Those are Java projects, and can be used with Groovy. This is for Groovy only. The goal is to keep this as clean and simple as possible.</p>
 
 <p>So far, this cannot handle fields that are marked as final. If you wish to use the field annotations on an object that is using Groovy's <a href="http://beta.groovy-lang.org/docs/groovy-2.3.0/html/gapi/index.html?groovy/transform/Immutable.html">Immutable</a> annotation, use the field annotations with the {@link info.shelfunit.properties.annotations.AstImmutableConstructor} annotation.</p>
 
@@ -66,8 +66,18 @@ class StaticAnnotationProcessor {
         theClass.metaClass.setProperty = { String name, arg ->
             
             def field = theClass.getDeclaredField( name )
+            println( "In StaticAnnotationProcessor.process, name: " + name + ", field: " + field + ", arg: " + arg )
+
+            def annotations = field?.getDeclaredAnnotations()
+            annotations.every {
+                println( "Here is annotation for ${name}: " + it.toString()  )
+                println( "here is class of annotation: " + it.getClass().getName().toString() )
+                // println( "type: " + it.asType().getClass().toString() )
+            }
             def intAnnotation    = field?.getAnnotation( ValidInt.class )
+            println( "intAnnotation: " + intAnnotation )
             def stringAnnotation = field?.getAnnotation( ValidString.class )
+            println( "stringAnnotation: " + stringAnnotation  )
             def doubleAnnotation = field?.getAnnotation( ValidDouble.class )
             def floatAnnotation  = field?.getAnnotation( ValidFloat.class )
             def longAnnotation   = field?.getAnnotation( ValidLong.class )
@@ -83,7 +93,7 @@ class StaticAnnotationProcessor {
                 handleIntAndLong( arg, longAnnotation.divisorSet() as Set, new Long( 0 ), longAnnotation.minValue(), longAnnotation.maxValue(), theClass, name, delegate, throwException )                
             
             } else if ( stringAnnotation ) {
-                
+                println "stringAnnotation is not null,  throwException: " +  stringAnnotation.throwEx()
                 def theMatch = Pattern.compile( stringAnnotation.regEx(), Pattern.COMMENTS )
                 def minimum = stringAnnotation.minLength()
                 if ( minimum < 0 ) { minimum = 0 }
@@ -92,7 +102,7 @@ class StaticAnnotationProcessor {
                      ( theMatch.matcher( arg ).matches() ) ) {
                     theClass.metaClass.getMetaProperty( name ).setProperty( delegate, arg.toString() )
                 } else { 
-                    if ( throwException ) {
+                    if ( stringAnnotation.throwEx() ) {
                         throw new Exception( "Groovy validation exception: \n" +
                         "\"${arg}\" is a String with a length outside the range of ${stringAnnotation.minLength()} to ${stringAnnotation.maxLength()} characters or does not match the regular expresstion ${stringAnnotation.regEx()}" )
                     }
@@ -144,6 +154,74 @@ class StaticAnnotationProcessor {
             }
         }
     } // handleDoubleAndFloat
-    
+
+    static processFirstTime( Class theClass, List myFields, boolean throwException = false  ) {
+        println "\n\nin processFirstTime"
+        println "class name: " + theClass.getName().toString()
+
+        def dFields = theClass.getDeclaredFields()
+        println "dFields.length: ${dFields.length} and it's a ${dFields.getClass().name}"
+        dFields.every {
+            try {
+                println "name of dFields: " + it.getName()
+                /*
+                if (it.getAnnotations().length > 0) {
+                    println it.getName() + " has annotations"
+                }
+                */
+            } catch ( Exception e ) {
+                println "exception in dFields.every for ${it.name}"
+                e.printStackTrace()
+            }
+        }
+        for ( def i = 0; i < dFields.length; i++  ) {
+            println "name dFields[${i}]: ${dFields[ i ].name}"
+            if ( dFields[ i ].getAnnotations().length > 0 ) {
+                println dFields[ i ].getName() + " has annotations"
+            }
+            def stringAnnotation = dFields[ i ].getAnnotation( ValidString.class )
+            println "does ${dFields[ i ]} have string annotation: " + stringAnnotation
+            if ( stringAnnotation ) {
+                println "dFields[i] has a string annotation"
+                try {
+                    theClass.metaClass.set${ dFields[i].name.capitalize() } { String arg ->
+                        println "In new method set${dFields[i].name}"
+                        theClass.metaClass.getMetaProperty(name).setProperty(delegate, arg.reverse())
+
+                    }
+                } catch ( Exception e ) {
+                    e.printStackTrace()
+                }
+            }
+        }
+
+        def fields = theClass.getFields()
+        println "fields.length" + fields.length
+        fields.every {
+            println "name of field: " + it.getName()
+            if ( it.getAnnotations().length > 0 ) {
+                println it.getName() + " has annotations"
+            }
+
+        }
+        myFields.every{ my ->
+            try {
+                println "field name is: ${my}"
+                // theField = theClass.getDeclaredField( my.toString() )
+                // println "Here is theField: " + theField.getName()
+
+                /*
+                theClass.metaClass."set${my.toString().capitalize()}" = {
+
+                }
+                */
+
+            } catch ( Exception e ) {
+                e.printStackTrace()
+            }
+        }
+        println "ending processFirstTime\n\n"
+    } // processFirstTime
+
 } // end class AnnotationProcessor - line 128 - line 157, 150
 
