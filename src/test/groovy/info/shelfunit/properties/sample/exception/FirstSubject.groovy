@@ -9,6 +9,6 @@ class FirstSubject {
     int secondNum
     
     static { 
-        info.shelfunit.properties.annotations.StaticAnnotationProcessor.process( FirstSubject.class, true ) 
+        // info.shelfunit.properties.annotations.StaticAnnotationProcessor.process( FirstSubject.class, true )
     }
 }

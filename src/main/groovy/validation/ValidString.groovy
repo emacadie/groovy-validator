@@ -38,7 +38,7 @@ java.lang.Exception: 'I like PHP' is a String with a length outside the range of
 
 @Retention( RetentionPolicy.RUNTIME ) 
 @Target( ElementType.FIELD )
-// @GroovyASTTransformationClass( [ 'info.shelfunit.properties.annotations.ValidStringTransform' ] )
+@GroovyASTTransformationClass( [ 'info.shelfunit.properties.annotations.ValidStringTransform' ] )
 public @interface ValidString {
     /**
     The minimum length of the String field. The default is 0.

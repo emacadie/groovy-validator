@@ -52,7 +52,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
             }
         } // end class 
             """.toString()
-        // println "Here is theString: ${theString}"
+        println "Here is theString for ${className}: ${theString}"
         try {
             def ast = new AstBuilder().buildFromString( CompilePhase.INSTRUCTION_SELECTION, false, theString )
             // look at block statement
@@ -156,11 +156,14 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                             } catch ( Exception e ) { }
                             holdSet.remove( zeroNum )
                             if ( holdSet.size() == zeroNum ) { holdSet.add( ++zeroNum ) }
+                            // change (val == null ) to (val != null )
                             sb1 << """
-                            if ( (val == null ) || ( ( ${minimum} <= val ) && ( val <= ${maximum} ) && ( ${holdSet}.find{ val % it == 0 }  != null ) ) ) {
-                                newMap[ '${nodeName}' ] = val
+                            if ( ( val == null ) || ( ( ${minimum} <= val ) && ( val <= ${maximum} ) && ( ${holdSet}.find{ val % it == 0 }  != null ) ) ) {
+                                newMap[ '${nodeName}' ] = val ?: 0 // Elvis for the win
+                            } else if ( val == null ) {
+                                newMap[ '${nodeName}' ] = 0
                             } else { 
-                                if ( throwException ) {
+                                if ( ( throwException ) && ( val != null ) ) {
                                 exceptionStringList.add( val + ' is a ${zeroNum.class.name} outside the range ${minimum} to ${maximum} or it is not divisible by anything in the set ${holdSet}' )
                                 }
                             }

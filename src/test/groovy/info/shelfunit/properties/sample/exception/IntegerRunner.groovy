@@ -10,7 +10,7 @@ class IntegerRunner {
     int numAsInt
     
     static { 
-        info.shelfunit.properties.annotations.StaticAnnotationProcessor.process( IntegerRunner.class, true ) 
+        // info.shelfunit.properties.annotations.StaticAnnotationProcessor.process( IntegerRunner.class, true )
     }
 
 }

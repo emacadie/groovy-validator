@@ -24,10 +24,8 @@ buildscript {
 */
 dependencies {
     testImplementation( 'org.junit.jupiter:junit-jupiter:5.6.2' )
-    // testCompile platform("org.spockframework:spock-bom:2.0-M1-groovy-2.5")
-    // testCompile "org.spockframework:spock-core"
-    // testImplementation( 'org.junit.jupiter:junit-jupiter:5.6.2' )
-    implementation 'org.spockframework:spock-core:2.0-M3-groovy-3.0'
+
+    testImplementation 'org.spockframework:spock-core:2.0-M3-groovy-3.0'
     /*
     // testCompile 'junit:junit:4.10'
     // From Maven, it's GroupId:ArtifactId:Version 

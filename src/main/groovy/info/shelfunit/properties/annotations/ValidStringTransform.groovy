@@ -82,7 +82,7 @@ class ValidStringTransform implements ASTTransformation {
         
             try {
                 def ast = new AstBuilder().buildFromString( CompilePhase.INSTRUCTION_SELECTION, false, methodString.toString() )
-                println "ast[ 0 ] is a ${ast[ 0 ].class.name}, and ast[ 1 ] is a ${ast[ 1 ].class.name}"
+                // println "ast[ 0 ] is a ${ast[ 0 ].class.name}, and ast[ 1 ] is a ${ast[ 1 ].class.name}"
                 def someClassNode = ast[ 1 ]
                 def methods = ast[ 1 ].methods
                 annotatedClass.addMethod( methods.find { it.name == "set${fieldNode.name.capitalize()}" } )

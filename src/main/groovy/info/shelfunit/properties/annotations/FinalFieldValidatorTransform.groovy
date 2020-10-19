@@ -126,6 +126,7 @@ class FinalFieldValidatorTransform implements ASTTransformation {
                 def annotationNode = fieldNode.getAnnotations()[ 0 ]
                 // println "starting processFields, Here is ${fieldNode.getName()}"
                 if ( annotationNode == null ) {
+                    sb1 << "println \"working with ${fieldNode.getName()} \" \n" //
                     sb1 << " newMap[ '${fieldNode.getName()}' ] = argMap[ '${fieldNode.getName()}' ]\n"
                 // } else if ( !fieldNode.isFinal() ) {
                     // sb1 << " newMap[ '${fieldNode.getName()}' ] = argMap[ '${fieldNode.getName()}' ]\n"
@@ -205,7 +206,8 @@ class FinalFieldValidatorTransform implements ASTTransformation {
                             if ( holdSet.size() == zeroNum ) { holdSet.add( ++zeroNum ) }
                             // (val == null ) ||
                             sb1 << """
-                            if (  ( ( ${minimum} <= val ) && ( val <= ${maximum} ) && ( ${holdSet}.find{ val % it == 0 }  != null ) ) ) {
+                            if ( ( ( ${minimum} <= val ) && ( val <= ${maximum} ) && ( ${holdSet}.find{ val % it == 0 }  != null ) ) ) {
+                                println "xx working with ${nodeName}"
                                 newMap[ '${nodeName}' ] = val
                             } else { 
                                 if ( throwException ) {

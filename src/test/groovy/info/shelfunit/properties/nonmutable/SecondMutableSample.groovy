@@ -19,7 +19,7 @@ class SecondMutableSample {
     }
     
     static { 
-        info.shelfunit.properties.annotations.StaticAnnotationProcessor.process( SecondMutableSample.class ) 
+        // info.shelfunit.properties.annotations.StaticAnnotationProcessor.process( SecondMutableSample.class )
     }
     
 } // SecondMutableSample 

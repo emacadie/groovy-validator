@@ -28,7 +28,7 @@ import java.lang.annotation.RetentionPolicy
 
 @Retention( RetentionPolicy.RUNTIME ) 
 @Target( ElementType.FIELD )
-// @GroovyASTTransformationClass( [ 'info.shelfunit.properties.annotations.ValidFloatTransform' ] )
+@GroovyASTTransformationClass( [ 'info.shelfunit.properties.annotations.ValidFloatTransform' ] )
 public @interface ValidFloat {
     /**
     The lowest value you want this field to hold. The default is 0.0f. It could go as low as Float.MIN_VALUE.

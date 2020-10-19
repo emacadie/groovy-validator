@@ -26,7 +26,7 @@ class LongExRunnerSpec extends Specification {
         then:
             final Exception exception = thrown()
             println "Here is the exception message: ${exception.message}" 
-            exception.message == "Groovy validation exception: -2 is a java.lang.Long outside the range 0 to 1000 or it is not divisible by anything in the set [1]"
+            exception.message == "-2 is a java.lang.Long outside the range 0 to 1000 or it is not divisible by anything in the set [1]"
             lr.firstNum  == 50L
             lr.secondNum == 50L
             lr.thirdNum  == 2147483688L
@@ -38,7 +38,7 @@ class LongExRunnerSpec extends Specification {
         then:
             final Exception exception2 = thrown()
             println "Here is the exception2 message: ${exception2.message}" 
-            exception2.message == "Groovy validation exception: 5 is a java.lang.Long outside the range 2147483647 to 9223372036854775807 or it is not divisible by anything in the set [1]"
+            exception2.message == "5 is a java.lang.Long outside the range 2147483647 to 9223372036854775807 or it is not divisible by anything in the set [1]"
             println "lr.firstNum: ${lr.firstNum}, lr.secondNum: ${lr.secondNum}, lr.thirdNum: ${lr.thirdNum}"
             lr.firstNum  == 50L
             lr.secondNum == 50L
@@ -51,7 +51,7 @@ class LongExRunnerSpec extends Specification {
         then:
             final Exception exception3 = thrown()
             println "Here is the exception3 message: ${exception3.message}" 
-            exception3.message == "Groovy validation exception: 1001 is a java.lang.Long outside the range 0 to 1000 or it is not divisible by anything in the set [1]"
+            exception3.message == "1001 is a java.lang.Long outside the range 0 to 1000 or it is not divisible by anything in the set [1]"
             println "lr.firstNum: ${lr.firstNum}, lr.secondNum: ${lr.secondNum}, lr.thirdNum: ${lr.thirdNum}"
             lr.firstNum  == 50L
             lr.secondNum == 50L

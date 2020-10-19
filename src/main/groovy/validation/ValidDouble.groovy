@@ -27,7 +27,7 @@ import java.lang.annotation.RetentionPolicy
 */
 @Retention( RetentionPolicy.RUNTIME ) 
 @Target( ElementType.FIELD )
-// @GroovyASTTransformationClass( [ 'info.shelfunit.properties.annotations.ValidDoubleTransform' ] )
+@GroovyASTTransformationClass( [ 'info.shelfunit.properties.annotations.ValidDoubleTransform' ] )
 public @interface ValidDouble {
     /**
     The lowest value you want this field to hold. The default is 0.0d. It could go as low as Double.MIN_VALUE.

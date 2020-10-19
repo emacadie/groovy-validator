@@ -17,9 +17,9 @@ class ImmutableIntDivisorSpec extends Specification {
     @Rule 
     TestName name = new TestName()
     
-    @Ignore
+    // @Ignore
     def "test both int fields"() {
-        println "--- Starting test ${name.methodName}"
+        println "--- Starting test 'test both int fields' ${name.methodName}"
         
         when:
             def rid = ImmutableIntDivisor.createValidatedObject( [ intWithDiv: 15, intWithDiv002: 14 ], true )

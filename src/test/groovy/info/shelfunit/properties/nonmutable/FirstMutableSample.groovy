@@ -21,7 +21,7 @@ class FirstMutableSample {
     }
     
     static { 
-        info.shelfunit.properties.annotations.StaticAnnotationProcessor.process( FirstMutableSample.class ) 
+        // info.shelfunit.properties.annotations.StaticAnnotationProcessor.process( FirstMutableSample.class )
     }
    
 } // FirstMutableSample 

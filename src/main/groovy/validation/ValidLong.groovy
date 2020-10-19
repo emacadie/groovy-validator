@@ -28,7 +28,7 @@ import java.lang.annotation.Target
 */
 @Retention( RetentionPolicy.RUNTIME ) 
 @Target( ElementType.FIELD )
-// @GroovyASTTransformationClass( [ 'info.shelfunit.properties.annotations.ValidLongTransform' ] )
+@GroovyASTTransformationClass( [ 'info.shelfunit.properties.annotations.ValidLongTransform' ] )
 public @interface ValidLong {
         /**
     The lowest value you want this field to hold. The default is 0. It could go as low as Long.MIN_VALUE.

@@ -13,6 +13,6 @@ class LongExRunner {
     def thirdNum
     
     static { 
-        info.shelfunit.properties.annotations.StaticAnnotationProcessor.process( LongExRunner.class, true ) 
+        // info.shelfunit.properties.annotations.StaticAnnotationProcessor.process( LongExRunner.class, true )
     }
 }
