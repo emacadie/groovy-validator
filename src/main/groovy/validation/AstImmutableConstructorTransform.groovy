@@ -73,7 +73,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
     /** This method uses string interpolation to create a new HashMap constructor. Go through the fields. If it has a validation annotation, examine it. If it meets the validation requirements, pass it to a new 
     constructor that will be passed on. Otherwise leave it out. If the field does not have a validation annotation, just pass it thought.
     */
-    def processFields( fields2 ) {
+    static def processFields(fields2 ) {
         def sb1= new StringBuffer()
         def minimum
         def maximum
@@ -141,7 +141,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
         return sb1
     } // end processFields, 226
     
-    def private handleIntAndLong( nodeName, annotationNode, zeroNum ) {
+    def private static handleIntAndLong(nodeName, annotationNode, zeroNum ) {
         
         def sb1 = new StringBuffer()
         def holdSet = [] as Set
@@ -150,18 +150,19 @@ class AstImmutableConstructorTransform implements ASTTransformation {
                             def maximum = annotationNode.getMember( 'maxValue' ) ? annotationNode.getMember( 'maxValue' ).getValue() :  zeroNum.MAX_VALUE
                             try {
                                 annotationNode.getMember( 'divisorSet' ).getExpressions().each { member ->
-                                    if ( zeroNum instanceof java.lang.Integer ) { holdSet.add( new Integer( member.getValue() ) ) }
-                                    else if ( zeroNum instanceof java.lang.Long ) { holdSet.add( new Long( member.getValue() ) ) }
+                                    if ( zeroNum instanceof Integer ) { holdSet.add( new Integer( member.getValue() ) ) }
+                                    else if ( zeroNum instanceof Long ) { holdSet.add( new Long( member.getValue() ) ) }
                                 }
-                            } catch ( Exception e ) { }
+                            } catch ( Exception ignored) { }
                             holdSet.remove( zeroNum )
                             if ( holdSet.size() == zeroNum ) { holdSet.add( ++zeroNum ) }
                             // change (val == null ) to (val != null )
                             sb1 << """
-                            if ( ( val == null ) || ( ( ${minimum} <= val ) && ( val <= ${maximum} ) && ( ${holdSet}.find{ val % it == 0 }  != null ) ) ) {
-                                newMap[ '${nodeName}' ] = val ?: 0 // Elvis for the win
-                            } else if ( val == null ) {
-                                newMap[ '${nodeName}' ] = 0
+                            // keep for historical reference
+                            // if ( ( val == null ) || ( ( ${minimum} <= val ) && ( val <= ${maximum} ) && ( ${holdSet}.find{ val % it == 0 }  != null ) ) ) {
+                            //     newMap[ '${nodeName}' ] = val ?: 0 // Elvis for the win
+                            if ( ( ( ${minimum} <= val ) && ( val <= ${maximum} ) && ( ${holdSet}.find{ val % it == 0 }  != null ) ) ) {
+                                newMap[ '${nodeName}' ] = val
                             } else { 
                                 if ( ( throwException ) && ( val != null ) ) {
                                 exceptionStringList.add( val + ' is a ${zeroNum.class.name} outside the range ${minimum} to ${maximum} or it is not divisible by anything in the set ${holdSet}' )
@@ -171,7 +172,7 @@ class AstImmutableConstructorTransform implements ASTTransformation {
         return sb1
     } // handleIntAndLong
     
-    def private handleDoubleAndFloat( nodeName, annotationNode, maxValue, numClassName ) {
+    def private static handleDoubleAndFloat(nodeName, annotationNode, maxValue, numClassName ) {
         def sb1 = new StringBuffer()
         sb1 << "val = argMap[ '${nodeName}' ]"
                     def minimum = annotationNode.getMember( 'minValue' ) ? annotationNode.getMember( 'minValue' ).getValue() : 0

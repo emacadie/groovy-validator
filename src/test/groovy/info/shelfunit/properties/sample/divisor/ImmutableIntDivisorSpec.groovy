@@ -39,9 +39,9 @@ class ImmutableIntDivisorSpec extends Specification {
         
     } // end "test both int fields"
     
-    @Ignore
+    // @Ignore
     def "test with divisor array"() {
-        println "--- Starting test ${name.methodName}"
+        println "--- Starting test 'test with divisor array' ${name.methodName}"
         when:
             def rid = ImmutableIntDivisor.createValidatedObject( [ intWithDivArray: 12 ], true )
         then:
@@ -79,9 +79,9 @@ class ImmutableIntDivisorSpec extends Specification {
         
     } // end test with divisor array
     
-    @Ignore
+    // @Ignore
     def "test with zero divisor"() {
-        println "--- Starting test ${name.methodName}"
+        println "--- Starting test 'test with zero divisor' ${name.methodName}"
         when:
             def rid = ImmutableIntDivisor.createValidatedObject( [ intWithDivArray: 12, intWithZeroDiv: 35 ], true )
             // println "rid: ${rid.toString()}"
